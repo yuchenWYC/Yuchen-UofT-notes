@@ -21,7 +21,7 @@
 \newcommand{\tb}[1]{\textbf{#1}}
 \newcommand{\mb}[1]{\mathbb{#1}}
 \newcommand{\under}[1]{\underline{#1}}
-
+\newcommand{\proof}[0]{\textit{\underline{proof: }}}
 % Attr.
 \title{MAT224 Linear Algebra II \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -39,20 +39,55 @@
 		\item the standard basis S = \{\tb{$e_1$},...,\tb{$e_n$}\} in $\mb{R}^n$, since every vector $(a_1, ..., a_n) \in \mb{R}^n$ may be written as the linear combination $(a_1,..., a_n) = a_1e_1+ ... + a_ne_n$
 		\item The vector space $\mb{R}^n$ has many other bases as well. e.g., in $\mb{R}^2$, consider the set $S = \{(1,2),(1,-1)\}$, which is l.i.
 		\item Let $V = P_n(\mb{R})$ and consider $ S = \{1, x, x^2, ..., x^n\}$, which is a basis of V.
+		\newline
+		\proof It is clear that S spans V. For independence, consider
+		$$a_0 + a_1x+a_2x^2+...+a_{n-1}x^{n-1}+a_nx^n = \tb{0}$$
+		Take the derivative of both sides,
+		$$\frac{d^n}{dx^n}(a_0 + a_1x+a_2x^2+...+a_{n-1}x^{n-1}+a_nx^n) = \frac{d^n}{dx^n}(0)$$
+		$$n!a_n = 0 \implies a_n = 0$$
+		Similarly, we have $a_i = 0$ for all $i$, as wanted.
+		
 		\item The empty subset, $\emptyset$, is a basis of the vector space consisting only of a zero vector, $\{\tb{0}\}$.
 	\end{enumerate}
 	\paragraph{Theorem 1.6.3} Let V be a vector space, and let S be a nonempty subset of V. Then S is a basis of V iff every vector $\tb{x} \in V$ may be written uniquely as a linear combination of the vectors in S. \newline
 	\under{\ti{Proof:}}
-	\paragraph{Theorem 1.6.6} Let V be a vector space that has a finite spanning set, and let S be a linearly independent subset of V. Then there exists a basis S' of V, with $S \subset S'$
+	$\rightarrow:$ Assume  S is a basis of V, then given $\tb{x} \in V$, there are scalars $a_i \in \mb{R}$ and vectors $x_i \in S$ s.t. $\tb{x} = a_1x_1 + ... + a_nx_n$. To show this linear combination is unique, consider a possible second linear combination of vectors in S which also adds up to \tb{x}: $x= b_1x_1 + ...+b_nx_n$. Subtracting these two expressions for $\tb{x}$, we find that
+	$$\tb{0} = a_1x_1 + ... + a_nx_n - (b_1x_1 + ...+b_nx_n)$$ 
+	$$=(a_1 - b_1)x_1 + ...+(a_n-b_n)x_n$$
+	\under{Since S is linearly independent}, the equation implies that $a_i = b_i$ for all $i$.\newline\newline
+	$\leftarrow$: Assume every vector $\tb{x} \in V$ may be written uniquely as a linear combination of the vectors in S. This implies $Span(S) = V$. We must show that S is l.i. Consider an equation
+	$$a_1x_1 +...+a_nx_n = \tb{0}$$
+	Note that it is also the case that
+	$$0\tb{x} = 0(x_1 + ...+x_n) = \tb{0}$$
+	Since we assumed that every \tb{x} has a unique representation in S, then it must be true that $a_i = 0$ for all $i$. Hence S is l.i.
+ 	\paragraph{Theorem 1.6.6} Let V be a vector space that has a finite spanning set, and let S be a linearly independent subset of V. Then there exists a basis S' of V, with $S \subset S'$
 	\paragraph{Lemma 1.6.8} Let S be a linearly independent subset of V and let $x \in V$, but $x \notin S$. Then $S \cup \{\tb{x}\}$ is l.i. iff $\tb{x} \notin Span(S)$.
 	\paragraph{Insight} the number of vectors in a basis is, in a rough sense, a measure of "how big" the space is.
-	\paragraph{Theorem 1.6.10} Let V be a vector space and let S be a spanning set for V, which has m elements. Then no linearly independent set in V can have more than m elements.
-	\paragraph{Corollary 1.6.11} Let V be a vector space and let S and S' be two bases of V, with m and m' elements, respectively. Then m = m'.
+	\paragraph{Theorem 1.6.10 (Basis Theorem)} Let V be a vector space and let S be a spanning set for V, which has m elements. Then no linearly independent set in V can have more than m elements.\newline
+	\ti{\under{proof:}} It suffices to show that every set in V with more than m elements is linearly dependent. Write $S = {y_1, ..., y_m}$ and suppose $S' = {x_1, ..., x_n}$ is a subset of V with $n >m$ vectors. Consider an equation
+	$$(1)a_1x_1 + ... + a_nx_n = \tb{0}$$
+	Our goal is to show that $a_i$ not all 0.
+	Since S spans V, there are scalars $b_{ij}$ s.t. for each $i$,
+	$$x_i = b_{i1}y_1 + ... +b_{im}y_m$$
+	Substituting these equations into (1), we get $$a_1(b_{11}y_1+...+b_{1m}y_m)+...+a_n(b_{n1}y_1+...+b_{nm}y_m)=\tb{0}$$
+	Collecting terms and rearranging,
+	$$(a_1b_{11}+...+a_nb_{n1})y_1+...+(a_1b_{1m}+...+a_nb_{nm})y_m = \tb{0}$$
+	Since S is l.i., this is equivalent to solving the system
+	$$b_{11}a_1+...+b_{n1}a_n = 0$$
+	$$.$$
+	$$.$$
+	$$.$$
+	$$b_{1m}a_1+...+b_{nm}a_n=0$$
+	But this is a system with n unknowns and m equations and $n>m$, so there must exist a non-trivial solution $\{a_1,...,a_n\}$, which is what we wanted to show. QED
+	\paragraph{Corollary 1.6.11} Let V be a vector space and let S and S' be two bases of V, with m and m' elements, respectively. Then m = m'.\newline
+	\proof\newline
+	Since S is a spanning set of V and S' is l.i., we have $m'\leq m$. Since S' is a spanning set of V and S is l.i.m we have $m \leq m'$. Hence $m = m'$. QED
 	\paragraph{Definitions 1.6.12}
 	\begin{enumerate}
 		\item If V is a vector space with some finite basis(possibly empty), we say V is \under{\it{finite-dimentional}}.
 		\item Let V be a finite-dimensional vector space. The dimension of V, denoted dim(V), is the number of vectors in a (hence any) basis of V.
 		\item If $V = \{\tb{0}\}$, we define dim(V) = 0.
+		\item dim$(span\{(1,2,3),(4,5,6),(7,8,9)\}) = 2$
 	\end{enumerate}
 	\paragraph{Examples}
 	\begin{enumerate}
@@ -61,6 +96,7 @@
 		\item The vector spaces $P(\mb{R}), C^1(\mb{R})$ and $C(\mb{R})$ are not finite-dimensional. We say that such spaces are \under{\it{infinite-dimentional}}.
 	\end{enumerate}
 	\paragraph{Corollary 1.6.14} Let W be a subspace of a finite-dimensional vector space V. Then $dim(W) \leq dim(V).$ Furthermore, $	dim(W) = dim(V)$ iff $W = V$.
+	
 	\paragraph{Corollary 1.6.15} Let W be a subspace of $\mb{R}^n$ defined by a system of homogeneous linear equations. Then dim(W) is equal to the number of free variables in the corresponding echelon form system.
 	\paragraph{Theorem 1.6.18} Let $W_1$ and $W_2$ be finite-dimensional subspaces of a vector space V. Then $$dim(W_1 + W_2) = dim(W_1) + dim(W_2) - dim(W_1 \cap W_2)$$
 	\newpage
