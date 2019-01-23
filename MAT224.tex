@@ -22,6 +22,7 @@
 \newcommand{\mb}[1]{\mathbb{#1}}
 \newcommand{\under}[1]{\underline{#1}}
 \newcommand{\proof}[0]{\textit{\underline{proof: }}}
+\newcommand{\litran}[0]{$T: V \rightarrow W$ }
 % Attr.
 \title{MAT224 Linear Algebra II \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -99,9 +100,48 @@
 	
 	\paragraph{Corollary 1.6.15} Let W be a subspace of $\mb{R}^n$ defined by a system of homogeneous linear equations. Then dim(W) is equal to the number of free variables in the corresponding echelon form system.
 	\paragraph{Theorem 1.6.18} Let $W_1$ and $W_2$ be finite-dimensional subspaces of a vector space V. Then $$dim(W_1 + W_2) = dim(W_1) + dim(W_2) - dim(W_1 \cap W_2)$$
+	\paragraph{Remark} Analogous to the Principle of Inclusion-Exclusion \newline
+	\proof Result obvious if either $W_1$ or $W_2$ is \{\tb{0}\}. \newline
+	Therefore, we assume that neither $W_1$ nor $W_2$ is  \{\tb{0}\}. Starting from a basis S of $W_1 \cap W_2$. We can always find sets $T_1$ and $T_2$ (disjoint from S) such that $S \cup T_1$ is a basis for $W_1$ and $S \cup T_2$ is a basis for $W_2$. We claim that $U = S \cup T_1 \cup T_2$ is a basis for $W_1 + W_2$, since 
+	$$ U = S \cup T_1 \cup T_2 = (S \cup T_1) \cup (S\cup T_2)$$
+	$$Span(U) = Span((S \cup T_1) \cup (S\cup T_2)) = W_1 + W_2$$
+	It remains to prove that U is linearly independent. Any potential linear dependence among the vectors in U must have the form 
+	$$\tb{v} + \tb{w}_1 + \tb{w}_2 = \tb{0}$$
+	where $\tb{v} \in Span(S) = W_1 \cap W_2, \tb{w}_1 \in Span(T_1) \subset W_1, \tb{w}_2 \in Span(T_2) \subset W_2$. (slice the linear combination into the sum of the vectors from 3 vector spaces). It suffices to prove that in any such potential linear dependence, we must have $\tb{v} = \tb{w}_1 = \tb{w}_2 = \tb{0}$ (each vector is a lin comb, and equals \tb{0}).  \newline
+	Consider $\tb{w}_2 = -\tb{v} - \tb{w}_1$. Since $-\tb{v} - \tb{w}_1 \in W_1, \tb{w}_2 \in W_2,$ we must have $\tb{w}_2 \in W_1 \cap W_2$. By definition, $\tb{w}_2 \in Span(T_2)$ But $S \cap T_2 = \emptyset$, hence $Span(S) \cap Span(T_2) = \{\tb{0}\}.$ Therefore we must have $\tb{w}_2 = \tb{0}$. So then $-\tb{v} = \tb{w}_1 \in W_1 \cap W_2$. Since $S \cap T_1 = \emptyset$, $Span(S) \cap Span(T_1) = \{\tb{0}\}$ and we have $\tb{w}_1 = \tb{0}$, so $\tb{v} = \tb{0}$ as well. QED
+	\paragraph{Excercises for 1.4}
+	1.(k), 7
+	\paragraph{Exercises for 1.6}
+	3
 	\newpage
 	\section{Linear Transformations}
 	\subsection{Linear Tranformations}
-	
+	A function T from V to W is denoted by $T: V \rightarrow W$. The vector $\tb{w} = T(\tb{v})$ in W is called the image of \tb{v} under the function T. Loosely speaking, we want our functions to turn the algebraic operations of addition and scalar multiplication in V into addition and scalar multiplication in W.
+	\paragraph{Definition 2.1.1} A function $T: V \rightarrow W$ is called a \ti{linear mapping} or a \ti{linear transformation} if it satisfies
+	\begin{enumerate}
+		\item $T(\tb{u} + \tb{v}) = T(\tb{u}) + T(\tb{v})$ for all \tb{u} and \tb{v} $\in$ V
+		\item $T(a\tb{v}) = aT(\tb{v})$ for all $a \in \mb{R}$ and $\tb{v} \in V$
+	\end{enumerate}
+	V is called the \ti{domain} of T and W is called the \ti{target} of T. \newline
+	We say that a linear transformation preserves the operations of addition and scalar multiplication.
+	\paragraph{Property} A linear mapping always takes the zero vector in the domain vector space to the zero vector in the target vector space.
+	\paragraph{Proposition 2.1.2} A function \litran is a linear transformation if and only if for all $a$ and $b \in \mb{R}$ and all $\tb{u}$ and $\tb{v} \in V$
+	$$T(a\tb{u} + b\tb{v}) = aT(\tb{u}) + bT(\tb{v})$$
+	\paragraph{Corollary 2.1.3} A function \litran is a linear transformation if and only if for all $a_1, .., a_k \in \mb{R}$ and for all $\tb{v}_1, ..., \tb{v}_k \in V$:
+	$$T(\sum^k_{i = 1} a_i \tb{v}_i) = \sum^k_{i = 1}a_iT(\tb{v}_i)$$
+	\paragraph{Examples}
+	\begin{enumerate}
+		\item Let V be any vector space, and let W = V. The \ti{under{identity transformation}} $I: V \rightarrow V$ is defined by I(\tb{v}) = \tb{v} for all \tb{v} $\in$ V.
+		\item Let V and W be any vector spaces, and let \litran be the mapping that takes every vector in V to the zero vector in W:
+		$$ T(\tb{v}) = \tb{0}_W$$
+		for all \tb{v} $\in$ V. T is called \it{\under{zero transformation}}.
+		\item $T(\tb{x}) = a_1x_1 + ... + a_nx_n$
+		\item Differentiation, definite integration
+	\end{enumerate} 
+	\paragraph{Remark} The inner product plays a crucial role in linear algebra in that it provides a bridge between algebra and geometry, which is the heart of the more advanced material that appears later in the text.
+	\paragraph{Proposition 2.1.14} If \litran is a linear transformation and V is finite-dimensional, then T is uniquely determined by its values on the members of a basis of V. \newline
+	\proof
+	\subsection{Linear Transformations Between Finite-Dimensional Vector Spaces}
+	\paragraph{Proposition 2.2.1} Let \litran be a linear transformation between the finite-dimensional vector spaces V and W. If $\{\tb{v}_1,...,\tb{v}_k\}$ is a basis for V and $\{\tb{w}_1,...,\tb{w}_l\}$ is a basis for W, then \litran is uniquely determined by the $l\cdot k$ scalars used to express $T(\tb{v}_j), j = 1,...,k$, in terms of $\tb{w}_1, ..., \tb{w}_l$.
 	
 \end{document}
