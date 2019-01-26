@@ -1,0 +1,98 @@
+\documentclass[11pt]{article}
+
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{fancy}
+\lhead{Notes by Yuchen Wang}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof: }}}
+\newcommand{\stdn}[0]{N(0, 1)}
+
+% Attr.
+\title{STA261 Probability and Statistics II \\ Lecture Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+\section{Normal Distribution Theory}
+\paragraph{Theorem: Sum of independent normal random variables}
+Suppose $X_i \sim N(\mu_i, \sigma^2_i)$ for $i = 1, 2,...,n$ and that they are independent random variables. Let $Y = (\Sigma_ia_iX_i) + b$ for some constants $\{a_i\}$ and $b$. Then
+$$Y \sim N((\Sigma_ia_i\mu_i)+b, \Sigma_ia^2_i\sigma^2_i)$$
+\paragraph{Corollary: The distribution of the sample mean of normal random variables} Suppose $X_i \sim N(\mu, \sigma^2)$ for $i=1,2,...,n$ and that they are independent random variables, If $\bar X = (X_1 + ... +X_n)/n$, then $\bar X \sim N(\mu,\sigma^2/n)$
+\paragraph{Theorem: The covariance of sums of normal random variables}Suppose $X_i \sim N(\mu_i, \sigma_i^2)$ for $i=1,2,...,n$ and also that the $\{X_i\} $are independent. Let $U=\Sigma^n_{i=1}a_iX_i$ and $V=\Sigma^n_{i=1}b_iX_i$ for some constants $\{a_1\}$ and $\{b_i\}$. Then $Cov(U,V) = \Sigma_ia_ib_i\sigma^2$. Furthermore, $Cov(U,V) = 0$ if and only if U and V are independent.
+
+\section{Expectation and Covariance}
+\subsection{Expectation -Discrete case}
+\paragraph{Definition of expectation} Let X be a discrete random variable, taking on distince values $x_1,x_2,...$, with $p_i = P(X = x_i)$. Then the \ti{expected value} (or \ti{mean} or \ti{mean value}) of X, written E(X) (or $\mu_x$), is defined by $$E(X) = \Sigma_i x_ip_i$$
+\paragraph{Theorem: expectation involving nested functions} 
+\begin{enumerate}
+\item Let X be a discrete random variable, and let $g: \mb{R} \rightarrow \mb{R}$ be some function such that the expectation of the random variable $g(X)$ exists. Then $$E(g(X)) = \Sigma_x g(x)P(X=x)$$
+\item Let X and Y be discrete random variables, and let $h: \mb{R}^2 \rightarrow \mb{R}$ be some function such that the expectation of the random variable $h(X,Y)$ exists. Then
+$$E(h(X,Y)) = \Sigma_{x,y}h(x,y)P(X=x,Y=y)$$
+\end{enumerate}
+\paragraph{Theorem: Linearity of expected values} Let X and Y be discrete random variables, let $a$ and $b$ be real numbers, and put $Z = aX + bY$. Then $$E(Z) = aE(X) + bE(Y)$$
+\paragraph{Theorem: Expectation of product of independent r.v}Let X and Y be discrete random variables that are independent. Then $$E(XY) = E(X)E(Y)$$
+\paragraph{Monotonicity} Let X and Y be discrete random variables, and suppose that $X \leq Y$ (Remember that this means $X(s) \leq Y(s)$ for all $s\in S)$ Then $E(X) \leq E(Y)$.
+\subsection{Expectation - Continuous case}
+\paragraph{Definition of expectation} Let X be an absolutely continuous random variable, with density function $f_X$. Then the \ti{expected value} of X is given by
+$$ E(x) = \int_{-\infty}^{\infty}xf_X(x)dx$$
+\paragraph{Theorem: expectation involving nested functions} 
+\begin{enumerate}
+\item Let X be a an absolutely continuous random variable with density function $f_X$, and let $g: \mb{R} \rightarrow \mb{R}$ be some function such that the expectation of the random variable $g(X)$ exists. Then $$\int_{-\infty}^{\infty} =  g(x)f_X(x)dx$$
+\item Let X and Y be discrete random variables, and let $h: \mb{R}^2 \rightarrow \mb{R}$ be some function such that the expectation of the random variable $h(X,Y)$ exists. Then
+ $$E(h(X,Y)) = \int_{-\infty}^{\infty}h(x,y)f_{X,Y}(x,y)dxdy$$
+ \end{enumerate}
+ \paragraph{Theorem: Linearity of expected values} Let X and Y be jointly absolutely continuous random variables, let $a$ and $b$ be real numbers. Then $$E(aX + bY) = aE(X) + bE(Y)$$
+\paragraph{Monotonicity} Let X and Y be jointly continuous random variables, and suppose that $X \leq Y$ (Remember that this means $X(s) \leq Y(s)$ for all $s\in S)$ Then $E(X) \leq E(Y)$.
+\subsection{Variance, Covariance and Correlation}
+\paragraph{Definition of variance} The \ti{variance} of a random variable X is the quantity
+$$\sigma^2_x = Var(X) = E((X - \mu_X)^2)$$
+where $\sigma_X$ is the \ti{standard deviation} of X.
+\paragraph{Theorem} Let X be any r.v. with $\mu_X = E(X)$ and variance Var(X). Then the following hold true:
+\begin{enumerate}
+	\item $Var(X) \geq 0$
+	\item If $a$ and $b$ are real numbers, $Var(aX+b) = a^2Var(X)$
+	\item $Var(X) = E(X^2) - (\mu_X)^2 = E(X^2) - E(X)^2$
+	\item $Var(X) \leq E(X^2)$
+\end{enumerate}
+\paragraph{Definition of covariance} $$Cov(X,Y) = E((X - \mu_X)(Y - \mu_Y))$$
+\paragraph{Theorem: Linearity of covariance} Let X, Y and z be three r.v.s. Let $a$ and $b$ be real numbers. Then
+$$Cov(aX + bY. Z) = aCov(X,Z) + bCov(Y,Z)$$
+\paragraph{Theorem} Let X and Y be r.v.s. Then
+$$Cov(X,Y) = E(XY) - E(X)E(Y)$$
+\paragraph{Theorem} If X and Y are independent, then $$Cov(X,Y) = 0$$.
+\paragraph{Theorem} 
+\begin{enumerate}
+\item For any r.v.s X and Y,
+$$Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$$
+\item More generally, for any r.v.s $X_1,...,X_n$,$$Var(\Sigma_i X_i) = \Sigma_i Var(X_i) + 2\Sigma_{i < j}Cov(X_i,X_j)$$
+\end{enumerate}
+\paragraph{Corollary}
+\begin{enumerate}
+	\item If X and Y are independent, then $Var(X+Y) = Var(X) + Var(Y)$
+	\item If $X_1,...X_n$ are independent, then $Var(\Sigma_{i=1}^n X_i = \Sigma_{i=1}^nVar(X_i)$
+\end{enumerate}
+\paragraph{Definition} The \ti{correlation} of two r.v.s X and Y is given by
+$$Corr(X,Y) = \frac{Cov(X,Y)}{Sd(X)Sd(Y)}$$ 
+provided $Var(X) < \infty$ and $Var(Y) < \infty$
+
+\end{document}

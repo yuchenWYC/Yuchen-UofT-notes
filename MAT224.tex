@@ -21,8 +21,10 @@
 \newcommand{\tb}[1]{\textbf{#1}}
 \newcommand{\mb}[1]{\mathbb{#1}}
 \newcommand{\under}[1]{\underline{#1}}
-\newcommand{\proof}[0]{\textit{\underline{proof: }}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
 \newcommand{\litran}[0]{$T: V \rightarrow W$ }
+\newcommand{\slitran}[0]{Let $ T: V \rightarrow W$ be a linear transformation }
+\newcommand{\mt}[0]{$[T]_\alpha^\beta$ }
 % Attr.
 \title{MAT224 Linear Algebra II \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -112,7 +114,7 @@
 	\paragraph{Excercises for 1.4}
 	1.(k), 7
 	\paragraph{Exercises for 1.6}
-	3
+	1.(d)(e)(f), 3, 4, 16
 	\newpage
 	\section{Linear Transformations}
 	\subsection{Linear Tranformations}
@@ -140,8 +142,74 @@
 	\end{enumerate} 
 	\paragraph{Remark} The inner product plays a crucial role in linear algebra in that it provides a bridge between algebra and geometry, which is the heart of the more advanced material that appears later in the text.
 	\paragraph{Proposition 2.1.14} If \litran is a linear transformation and V is finite-dimensional, then T is uniquely determined by its values on the members of a basis of V. \newline
-	\proof
+	\proof Show that if S and T are linear transformations that take the same values on each member of a basis for V, then in fact S = T. \newline
+	\begin{align*}
+		T(v) &= T(a_1v_1 + ... + a_kv_k)\\
+		&= a_1T(v_1) + ... + a_kT(v_k)\\
+		&= a_1S(v_1) + ... + a_kS(v_k)\\
+		&= S(a_1v_1 + ... + a_kv_k)\\
+		&= S(v)
+	\end{align*}
+	Therefore, S and T are equal as mappings from V to W. $\blacksquare$
 	\subsection{Linear Transformations Between Finite-Dimensional Vector Spaces}
 	\paragraph{Proposition 2.2.1} Let \litran be a linear transformation between the finite-dimensional vector spaces V and W. If $\{\tb{v}_1,...,\tb{v}_k\}$ is a basis for V and $\{\tb{w}_1,...,\tb{w}_l\}$ is a basis for W, then \litran is uniquely determined by the $l\cdot k$ scalars used to express $T(\tb{v}_j), j = 1,...,k$, in terms of $\tb{w}_1, ..., \tb{w}_l$.
+	\paragraph{Definition 2.2.6} Let \litran be a linear transformation between the finite-dimensional vector spaces V and W, and let $\alpha = \{\tb{v}_1,...,\tb{v}_k\}$ and $\beta = \{\tb{w}_1,...,\tb{w}_l\}$, respectively, be any bases for V and W. Let $a_ij, 1 \leq i \leq l$ and $1 \leq j\leq k$ be the $l \cdot k$ scalars that determine T with respect to the bases $\alpha$ and $\beta$. The matrix whose entries are the scalars $a_ij$, $1 \leq i \leq l$ and $1 \leq j\leq k$, is called the {\ti{matrix of the linear transformation T with respect to the bases $\alpha$ for V and $\beta$ for W}. This matrix is denoted by $[T]^\beta_\alpha$.
+	\paragraph{Remark} The basis vectors in the domain and target spaces are written in some particular order.
+	\paragraph{Definition of coordinate vectors} If $\tb{v} = a_1\tb{v}_1+...+a_k\tb{v}_k$ and $\tb{w} = b_1\tb{w}_1+...+b_l\tb{w}_l$, we can express \tb{v} and \tb{w} in coordinates, respectively, as a $k \times 1$ matrix and as an $l \times 1$ matrix, with respect to the chosen bases. These coordinate vectors will be denoted by $[\tb{v}]_\alpha$ and $[\tb{w}]_\beta$, respectively. Thus
+	$[\tb{v}]_\alpha = \begin{bmatrix} 
+a_1 \\
+\vdots\\
+a_k
+\end{bmatrix}$
+and
+	$[\tb{w}]_\beta = \begin{bmatrix} 
+b_1 \\
+\vdots\\
+b_l
+\end{bmatrix}$
+\paragraph{Proposition 2.2.15} Let \litran be a linear transformation between vector spaces V of dimension k and W of dimension $l$. Let $\alpha = \{\tb{v}_1,...,\tb{v}_k\}$ be a basis for V and $\beta = \{\tb{w}_1,...,\tb{w}_l\}$ be a basis for W. Then for each $\tb{v} \in V$, $$[T(\tb{v})]_\beta = [T]^\beta_\alpha[\tb{v}]_\alpha$$
+\proof Let $\tb{v} = x_1\tb{v}_1 + ...+x_k\tb{v}_k \in V$. Then if $T(\tb{v}_j) = a_{1j}\tb{w}_1 + ...+ a_{lj}\tb{w}_l$
+\begin{align*}
+	T(\tb{v}) &= \sum_{j=1}^kx_jT(\tb{v}_j)\\
+	&=\sum_{j=1}^kx_j(\sum_{i=1}^la_{ij}\tb{w}_i)\\
+	&=\sum_{i=1}^l(\sum_{j=1}^kx_ja_{ij})\tb{w}_i
+\end{align*}
+Thus, the $i$th coefficient of T(\tb{v}) in terms of $\beta$ is $\sum_{j=1}^kx_ja_{ij}$ and 
+$[T(\tb{v})]_\beta = \begin{bmatrix}
+	\sum_{j=1}^kx_ja_{1j}\\
+	\vdots\\
+	\sum_{j=1}^kx_ja_{lj}
+\end{bmatrix}$ which is precisely $[T(\tb{v})]_\beta = [T]^\beta_\alpha[\tb{v}]_\alpha$. $\blacksquare$
+
+\paragraph{Proposition 2.2.19} 
+ Let $\alpha = \{\tb{v}_1,...,\tb{v}_k\}$ be a basis for V and $\beta = \{\tb{w}_1,...,\tb{w}_l\}$ be a basis for W, and let $\tb{v} = x_1\tb{v}_1 +...+x_k\tb{v}_k \in V$
+ \begin{enumerate}
+ 	\item If A is an $l \times k$ matrix, then the function $$T(\tb{v}) = \tb{w}$$
+ 	where $[\tb{w}]_\beta = A[\tb{v}]_\alpha$ is a linear transformation.
+ 	\item If $A = [S]_\alpha^\beta$ is the matrix of a transformation $S: V \rightarrow W$, then the transformation T constructed from $[S]_\alpha^\beta$ is equal to S.
+ 	\item If T is the transformation of (1) constructed from A, then $[T]_\alpha^\beta = A$
+ \end{enumerate}
+ 
+ \paragraph{Proposition 2.2.20} Let V and W be finite-dimensional vector spaces. Let $\alpha$ be a basis for V and $\beta$ a basis for W. Then the assignment of a matrix to a linear transformation from V to W given by T goes to $[T]_\alpha^\beta$ is injective and surjective.
+ \paragraph{Notes}
+ \begin{enumerate}
+ 	\item When proving a function T is not a linear transformation, can consider $T(\tb{0}) \neq \tb{0}$.
+ \end{enumerate}
+ \subsection{Kernel and Image}
+ \paragraph{Definition 2.3.1} The $kernel$ of T, denoted $Ker(T)$, is the subset of V consisting of all vectors $\tb{v} \in V$ such that $T(\tb{v}) = 0$.
+ \paragraph{Proposition 2.3.2} Let \litran be a linear transformation. Ker(T) is a subspace of V.
+ \paragraph{Examples}
+ \begin{enumerate}
+ 	\item Let $V = P_3(\mb{R})$. Define $T: V \rightarrow V$ by $T(p(x)) = \frac{d}{dx}p(x)$. Ker(T) only consists constant polynomials.
+ 	\item Let $V = W = \mb{R}^2$. Let T be a rotation $R_\theta$. Then $Ker(T) = \{\tb{0}\}$.
+ \end{enumerate}
+ \paragraph{Proposition 2.3.7} \slitran of finite-dimensional vector spaces, and let $\alpha$ and $\beta$ be bases for V and W, respectively. Then $\tb{x} \in Ker(T)$ ife lf the coordinate vector of \tb{x}, $[\tb{x}]_\alpha$, satisfies the system of equations
+ $$ a_{11}x_1+...+a_{1k}x_k = 0$$
+ $$\vdots$$
+ $$ a_{l1}x_1+...+a_{lk}x_k = 0$$
+ where the coefficients $a_{ij}$ are the entries of the matrix \mt.
+\paragraph{Proposition 2.3.8} Let V be a finite-dimensional vector space, and let $\alpha = \{\tb{v}_1, ..., \tb{v}_k \}$ be a basis for V. Then the vectors $\tb{x}_1,...,\tb{x}_m \in V$ are linearly independent iff there corresponding coordinate vectors $[\tb{x}_1]_\alpha, ..., [\tb{x}_m]_\alpha$ are linearly independent.
+
+ 
 	
 \end{document}
