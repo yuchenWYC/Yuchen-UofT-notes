@@ -3,3 +3,5 @@
 - Since there are tons of theorems and corollaries, I need to sort them clean and construct a net in my mind.
 ## Existing courses:
 1. MAT224 Winter 2019
+2. MAT237
+3. STA261
