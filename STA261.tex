@@ -175,7 +175,7 @@ $$MSE_\theta(T) = Var_\theta(T) + (E_\theta(T) - \psi(\theta))^2$$
 	&= E[(T - E(T) + E(T) - \psi({\theta}))^2] \\
 	&= E[(T - E(T))^2 + (E(T) - \psi({\theta}))^2 + 2(T-E(T))(E(T)-\psi({\theta}))] \\
 	&= E[(T - E(T))^2] + (E(T) - \psi({\theta}))^2 +  2E[T-E(T)](E(T)-\psi({\theta}))\\
-	&= E[(T - E(T))^2] + (E(T) - \psi({\theta}))^2 \\
+	&= E[(T - E(T))^2] + (E(T) - \psi({\theta}))^2 \tag{Since $E[T-E(T)] =  E(T)-E(T) = 0$}\\
 	&= Var(T) + (E(T) - \psi({\theta}))^2\\
 	&= Var(T) + Bias^2(T)
 \end{align*}\qed
