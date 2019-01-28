@@ -23,6 +23,8 @@
 \newcommand{\under}[1]{\underline{#1}}
 \newcommand{\proof}[0]{\textit{\underline{proof: }}}
 \newcommand{\stdn}[0]{N(0, 1)}
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+
 
 % Attr.
 \title{STA261 Probability and Statistics II \\ Lecture Notes}
@@ -94,5 +96,97 @@ $$Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$$
 \paragraph{Definition} The \ti{correlation} of two r.v.s X and Y is given by
 $$Corr(X,Y) = \frac{Cov(X,Y)}{Sd(X)Sd(Y)}$$ 
 provided $Var(X) < \infty$ and $Var(Y) < \infty$
+\section{Types of Inferences}
+\paragraph{Estimation:}
+\begin{enumerate}
+	\item Point estimation: Based on the sample observations, calculating a particular value as an estimate of the parameter $\theta$
+	\item Interval estimation: Calculating a range of values that is likely to contain the parameter $\theta$
+\end{enumerate}
+\paragraph{Hypothesis testing} Based on the sample, assess whether a hypothetical value $\theta_0$ is a plausible value of the parameter $\theta$ or not.
+\section{Different Types of Estimation}
+\subsection{Method of Moments Estimation}
+Let $X_1, X_2, ..., X_n$ are independently and identically distributed (i.i.d.) random variables. \newline
+Let the $k^{th}$ population moment be
+$$\mu_k = E[X^k]$$
+$k^{th}$ sample moment based on sample
+$$\hat{\mu} = \frac{1}{n}\sum_{i=1}^{n}X^k_i$$
+We use $\hat{\mu}_k$ as an estimator of $\mu_k$ \newline
+In other words, we use the sample moments as estimators of the population moments.
+\subsection{Maximum Likelihood Estimation}
+\paragraph{Definition of Likelihood Function}
+Suppose $X_1, X_2,...,X_n$ has a joint density or mass function $f(x_1, x_2,...,x_n|\theta)$ \newline
+We observe sample, $X_1 = x_1, X_2 = x_2, ..., X_n = x_n$ \newline
+Given the sample, the likelihood function of $\theta$, noted as $L(\theta|x_1, x_2,...,x_n)$, is defined as
+$$L(\theta|x_1, x_2,...,x_n) = f(x_1, x_2,...,x_n|\theta)$$
+Often written as $L(\theta)$, is a function of $\theta$. \newline
+If X follows a discrete distribution, it gives the probability of observing the sample as a function of the parameter $\theta$ \newline
+If $X_1, X_2,...,X_n$ are i.i.d. then their joint density is the product of marginal densities, $f_\theta(x)$\newline
+Hence, in i.i.d. case we write
+$$L(\theta) = \Pi_{i=1}^n f_\theta(x_i)$$
+\paragraph{Comments}
+\begin{enumerate}
+	\item $L(\theta)$ is NOT a pdf or pmf of $\theta$
+	\item Likelihood introduces a belief ordering on parameter space, $\Omega$
+	\item For $\theta_1, \theta_2 \in \Omega$, we believe in $\theta_1$ as the true value of $\theta$ over $\theta_2$ whenever $L(\theta_1) > L(\theta_2)$
+	\item Which means, the data is more likely to come from $f_{\theta_1}$ than $f_{\theta_2}$
+	\item The value $L(\theta)$ is very small for every value of $\theta$
+	\item So often, we are interested in the likelihood ratios:
+	$$\frac{L(\theta_1)}{L(\theta_2)}$$
+\end{enumerate}
+\paragraph{Maximum Likelihood Estimation}
+\begin{enumerate}
+	\item Let's say we are interested in a point estimate of $\theta$
+	\item A sensible choice will be to pick $\hat{\theta}$ that maximizes $L(\theta)$
+	\item So $\hat{\theta} satisfies L(\hat{\theta} \geq L(\theta)$ for all $\theta \in \Omega$
+	\item $\hat{\theta}$ is called the \under{maximum likelihood estimate} (MLE) of $\theta$
+\end{enumerate}
+\paragraph{Computation of the MLE}
+\begin{enumerate}
+	\item Define, log-likelihood function, $l(\theta) = \ln{L(\theta)}$
+	\item $\ln(x)$ is a 1-1 increasing function of $x > 0 \implies L(\hat{\theta}) \geq L(\theta)$ for $\theta \in \Omega$ iff $l(\hat{\theta}) \geq l(\theta)$
+	\item In other words, if $L(\theta)$ is maximized at $\hat{\theta}$ then $l(\theta)$ will also be maximized at $\hat{\theta}$
+	\item Therefore, $$l(\theta) = \ln{(\Pi_{i=1}^nf_\theta(x_i))} = \sum_{i=1}^n\ln{f_\theta(x_i)}$$
+	\item The obvious benefit: It's much easier to differentiate a sum than a product
+	\item Solve the equation, $\frac{\partial l(\theta)}{\partial \theta} = 0$ for $\theta$
+	\item Say, $\hat{\theta}$ is the solution. But it's still not the MLE
+	\item Need to check whether or not $$\frac{\partial^2 l(\theta)}{\partial \theta^2}\vert_{\theta = \hat{\theta}} < 0$$
+\end{enumerate}
+\paragraph{Properties of MLE}
+\begin{enumerate}
+	\item MLE is not unique
+	\item MLE may not exists
+	\item The likelihood may not always be differentiable.
+\end{enumerate}
+\section{Sampling Distribution of an Estimator}
+\begin{enumerate}
+	\item Recall: An Estimator (T) is a random variable (infinite number of sample means)
+	\item If we repeat the sampling procedure and keep calculating T for each set of sample and finally draw a density histogram based on the T values we get the sampling distribution of T
+	\item \tb{Standard error:} Standard deviation of an estimator is called the standard error (SE)
+\end{enumerate}
+
+\paragraph{Definition of Mean Squared Error}
+Let $\psi(\theta)$ be any real valued function of $\theta$, suppose T is an estimator of $\psi(\theta)$
+$$MSE_\theta(T) = E_\theta[(T - \psi(\theta))^2]$$
+\paragraph{Corollary}
+$$MSE_\theta(T) = Var_\theta(T) + (E_\theta(T) - \psi(\theta))^2$$
+\proof
+\begin{align*}
+	MST(T) &= E[(T - \psi({\theta}))^2] \\
+	&= E[(T - E(T) + E(T) - \psi({\theta}))^2] \\
+	&= E[(T - E(T))^2 + (E(T) - \psi({\theta}))^2 + 2(T-E(T))(E(T)-\psi({\theta}))] \\
+	&= E[(T - E(T))^2] + (E(T) - \psi({\theta}))^2 +  2E[T-E(T)](E(T)-\psi({\theta}))\\
+	&= E[(T - E(T))^2] + (E(T) - \psi({\theta}))^2 \\
+	&= Var(T) + (E(T) - \psi({\theta}))^2\\
+	&= Var(T) + Bias^2(T)
+\end{align*}\qed
+
+\paragraph{Bias} The bias of an estimator T of $\psi(\theta)$ is given by $$E_\theta(T) - \psi(\theta)$$
+\paragraph{Unbiased estimator:} When the bias of an estimator is zero, it's called unbiased
+\paragraph{Remark}
+\begin{enumerate}
+	\item For unbiased estimators, $$MSE_\theta(T) = Var_\theta(T)$$
+	\item If all the other properties are similar, then an unbiased estimator is preferred over a biased estimator.
+	\item In practice, often an biased estimator with lower variance is preferred over an unbiased estimator with really high variance. \tb{We minimize MSE}.
+\end{enumerate}
 
 \end{document}
