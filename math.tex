@@ -35,8 +35,12 @@
 $$sinh(x) = \frac{e^x - e^{-x}}{2}$$
 $$cosh(x) = \frac{e^x + e^{-x}}{2}$$
 \section{Trigonometric Formulas}
-$$cos(a+b) = cos(a)cos(b)-sin(a)sin(b)$$
-$$sin(a+b) = cos(a)sin(b)+sin(a)cos(b)$$
+$$\tan^2{\theta} + 1 = \sec^2{\theta}$$
+$$1 + \cot^2{\theta} = \csc^2{\theta}$$
+$$\cos{(a+b)} = \cos{a}\cos{b}-\sin{a}\sin{b}$$
+$$\sin{(a+b)} = \sin{a}\cos{b}+\cos{a}\sin{b}$$
+$$\cos^2{a} = \frac{1+\cos{2a}}{2} $$
+$$\sin^2{a} = \frac{1-\cos{2a}}{2} $$
 \section{Arc functions}
 \section{Cross Product}
 \paragraph{Definition} In 3-dimensional Euclidean space only, the cross product of vectors \tb{a} and \tb{b} is 
@@ -53,5 +57,15 @@ $$\tb{a} \times \tb{b} = \begin{pmatrix}a_2b_3 - a_3b_2\\ a_3b_1-a_1b_3\\a_1b_2-
 \end{enumerate} 
 \section{Derivative of Logarithmic Functions}
 $$\frac{d}{dx}\log_a{x} = \frac{1}{x \cdot ln(a)}$$
+
+\section{Common Taylor Series}
+\begin{align}
+	e^x &= \sum_{n=0}^{\infty}\frac{x^n}{n!}\\
+	\sin{x} &= \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{(2n+1)!}\\
+	\cos{x} &= \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!}\\
+	\frac{1}{1-x} &= \sum_{n=0}^{\infty}x^n
+\end{align}
+\paragraph{Remark}
+Take the primitive of (4) to get the Taylor polinomial of $\ln(1-x)$.
 
 \end{document}
