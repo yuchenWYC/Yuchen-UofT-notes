@@ -25,7 +25,10 @@
 \newcommand{\stdn}[0]{N(0, 1)}
 \newcommand{\qed}[0]{$\hfill\blacksquare$}
 
-
+\newcommand{\expect}[1]{\mathbb{E}({#1})}
+\begin{proof}
+	
+\end{proof}
 % Attr.
 \title{STA261 Probability and Statistics II \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -35,6 +38,7 @@
 	\maketitle
 	\tableofcontents
 	\newpage
+\section{Converge in distribution}
 \section{Normal Distribution Theory}
 \paragraph{Theorem: Sum of independent normal random variables}
 Suppose $X_i \sim N(\mu_i, \sigma^2_i)$ for $i = 1, 2,...,n$ and that they are independent random variables. Let $Y = (\Sigma_ia_iX_i) + b$ for some constants $\{a_i\}$ and $b$. Then
@@ -188,5 +192,17 @@ $$MSE_\theta(T) = Var_\theta(T) + (E_\theta(T) - \psi(\theta))^2$$
 	\item If all the other properties are similar, then an unbiased estimator is preferred over a biased estimator.
 	\item In practice, often an biased estimator with lower variance is preferred over an unbiased estimator with really high variance. \tb{We minimize MSE}.
 \end{enumerate}
+\section{Population Variance $(\sigma^2)$}
+\paragraph{Definition} $\sigma^2 = E[(X - \mu)^2]$ where $\mu = E[X]$. \newline
+If we have equally likely N data points in our population, this is equivalent of $$\sigma^2 = \frac{1}{N}\sum_{i = 1}^N(X_i - \mu)^2$$
+\paragraph{Estimate $\sigma^2$ based on a sample of size $n$}
+When we are estimating based on the sample of size $n$, we replace $\mu$ by $\bar X$, so the numerator is $\sum_{i=1}^n(X_i-\bar X)^2$. We can divide it by \under{both $n$ or $n-1$}. The latter one is unbiased! \newline
+The fraction, $\frac{n-1}{n} \rightarrow 1$ as $n \rightarrow \infty$. So for large $n$, both estimator will produce similar estimate. In statistical literature, whenever we say $sample variance$ we refer to the $unbiased$ one. Hence, from now on,
+\paragraph{Definition of sample variance}
+$$S^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2$$
+\section{Sampling distribution of $S^2$(under Normal Distribution}
+\paragraph{Theorem} Suppose $X_1, X_2,...,X_n \sim N(\mu,\sigma^2)$ iid,
+$\bar X = \frac{1}{n}\sum_{i=1}^nX_i$ and $S^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2$. \newline
+Then $\bar X$ and $S^2$ are independent, and $\frac{(n-1)S^2}{\sigma^2} \sim \chi_{(df=n-1)}^2$
 
 \end{document}

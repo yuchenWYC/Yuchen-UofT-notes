@@ -25,6 +25,9 @@
 \newcommand{\litran}[0]{$T: V \rightarrow W$ }
 \newcommand{\slitran}[0]{Let $ T: V \rightarrow W$ be a linear transformation }
 \newcommand{\mt}[0]{$[T]_\alpha^\beta$ }
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\real}[0]{\mathbb{R}}
+
 % Attr.
 \title{MAT224 Linear Algebra II \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -101,17 +104,22 @@
 	\paragraph{Corollary 1.6.14} Let W be a subspace of a finite-dimensional vector space V. Then $dim(W) \leq dim(V).$ Furthermore, $	dim(W) = dim(V)$ iff $W = V$.
 	
 	\paragraph{Corollary 1.6.15} Let W be a subspace of $\mb{R}^n$ defined by a system of homogeneous linear equations. Then dim(W) is equal to the number of free variables in the corresponding echelon form system.
-	\paragraph{Theorem 1.6.18} Let $W_1$ and $W_2$ be finite-dimensional subspaces of a vector space V. Then $$dim(W_1 + W_2) = dim(W_1) + dim(W_2) - dim(W_1 \cap W_2)$$
+	\paragraph{Theorem 1.6.18} Let $W_1$ and $W_2$ be finite-dimensional subspaces of a vector space V. Then $$\dim(W_1 + W_2) = \dim(W_1) + \dim(W_2) - \dim(W_1 \cap W_2)$$
 	\paragraph{Remark} Analogous to the Principle of Inclusion-Exclusion \newline
 	\proof Result obvious if either $W_1$ or $W_2$ is \{\tb{0}\}. \newline
 	Therefore, we assume that neither $W_1$ nor $W_2$ is  \{\tb{0}\}. Starting from a basis S of $W_1 \cap W_2$. We can always find sets $T_1$ and $T_2$ (disjoint from S) such that $S \cup T_1$ is a basis for $W_1$ and $S \cup T_2$ is a basis for $W_2$. We claim that $U = S \cup T_1 \cup T_2$ is a basis for $W_1 + W_2$, since 
 	$$ U = S \cup T_1 \cup T_2 = (S \cup T_1) \cup (S\cup T_2)$$
 	$$Span(U) = Span((S \cup T_1) \cup (S\cup T_2)) = W_1 + W_2$$
-	It remains to prove that U is linearly independent. Any potential linear dependence among the vectors in U must have the form 
+	Next, prove that U is linearly independent. Any potential linear dependence among the vectors in U must have the form 
 	$$\tb{v} + \tb{w}_1 + \tb{w}_2 = \tb{0}$$
 	where $\tb{v} \in Span(S) = W_1 \cap W_2, \tb{w}_1 \in Span(T_1) \subset W_1, \tb{w}_2 \in Span(T_2) \subset W_2$. (slice the linear combination into the sum of the vectors from 3 vector spaces). It suffices to prove that in any such potential linear dependence, we must have $\tb{v} = \tb{w}_1 = \tb{w}_2 = \tb{0}$ (each vector is a lin comb, and equals \tb{0}).  \newline
-	Consider $\tb{w}_2 = -\tb{v} - \tb{w}_1$. Since $-\tb{v} - \tb{w}_1 \in W_1, \tb{w}_2 \in W_2,$ we must have $\tb{w}_2 \in W_1 \cap W_2$. By definition, $\tb{w}_2 \in Span(T_2)$ But $S \cap T_2 = \emptyset$, hence $Span(S) \cap Span(T_2) = \{\tb{0}\}.$ Therefore we must have $\tb{w}_2 = \tb{0}$. So then $-\tb{v} = \tb{w}_1 \in W_1 \cap W_2$. Since $S \cap T_1 = \emptyset$, $Span(S) \cap Span(T_1) = \{\tb{0}\}$ and we have $\tb{w}_1 = \tb{0}$, so $\tb{v} = \tb{0}$ as well. QED
-	\paragraph{Excercises for 1.4}
+	Consider $\tb{w}_2 = -\tb{v} - \tb{w}_1$. Since $-\tb{v} - \tb{w}_1 \in W_1, \tb{w}_2 \in W_2,$ we must have $\tb{w}_2 \in W_1 \cap W_2$. By definition, $\tb{w}_2 \in Span(T_2)$ But $S \cap T_2 = \emptyset$, hence $Span(S) \cap Span(T_2) = \{\tb{0}\}.$ Therefore we must have $\tb{w}_2 = \tb{0}$. So then $-\tb{v} = \tb{w}_1 \in W_1 \cap W_2$. Since $S \cap T_1 = \emptyset$, $Span(S) \cap Span(T_1) = \{\tb{0}\}$ and we have $\tb{w}_1 = \tb{0}$, so $\tb{v} = \tb{0}$ as well. So U is independent. \newline
+	\begin{align*}
+		|U| &= |S| + |T_1| + |T_2|\\
+		&=\dim{W_1\cap W_2} + (\dim{W_1}-\dim{W_1\cap W_2}) + (\dim{W_2} - \dim{W_1\cap W_2})\\
+		&= \dim(W_1) + \dim(W_2) - \dim(W_1 \cap W_2)\\
+	\end{align*}
+	\paragraph{Exercises for 1.4}
 	1.(k), 7
 	\paragraph{Exercises for 1.6}
 	1.(d)(e)(f), 3, 4, 16
@@ -150,7 +158,7 @@
 		&= S(a_1v_1 + ... + a_kv_k)\\
 		&= S(v)
 	\end{align*}
-	Therefore, S and T are equal as mappings from V to W. $\blacksquare$
+	Therefore, S and T are equal as mappings from V to W. \qed
 	\subsection{Linear Transformations Between Finite-Dimensional Vector Spaces}
 	\paragraph{Proposition 2.2.1} Let \litran be a linear transformation between the finite-dimensional vector spaces V and W. If $\{\tb{v}_1,...,\tb{v}_k\}$ is a basis for V and $\{\tb{w}_1,...,\tb{w}_l\}$ is a basis for W, then \litran is uniquely determined by the $l\cdot k$ scalars used to express $T(\tb{v}_j), j = 1,...,k$, in terms of $\tb{w}_1, ..., \tb{w}_l$.
 	\paragraph{Definition 2.2.6} Let \litran be a linear transformation between the finite-dimensional vector spaces V and W, and let $\alpha = \{\tb{v}_1,...,\tb{v}_k\}$ and $\beta = \{\tb{w}_1,...,\tb{w}_l\}$, respectively, be any bases for V and W. Let $a_{ij}, 1 \leq i \leq l$ and $1 \leq j\leq k$ be the $l \cdot k$ scalars that determine T with respect to the bases $\alpha$ and $\beta$. The matrix whose entries are the scalars $a_{ij}$, $1 \leq i \leq l$ and $1 \leq j\leq k$, is called the {\ti{matrix of the linear transformation T with respect to the bases $\alpha$ for V and $\beta$ for W}. This matrix is denoted by $[T]^\beta_\alpha$.
@@ -179,7 +187,7 @@ $[T(\tb{v})]_\beta = \begin{bmatrix}
 	\sum_{j=1}^kx_ja_{1j}\\
 	\vdots\\
 	\sum_{j=1}^kx_ja_{lj}
-\end{bmatrix}$ which is precisely $[T(\tb{v})]_\beta = [T]^\beta_\alpha[\tb{v}]_\alpha$. $\blacksquare$
+\end{bmatrix}$ which is precisely $[T(\tb{v})]_\beta = [T]^\beta_\alpha[\tb{v}]_\alpha$. \qed
 
 \paragraph{Proposition 2.2.19} 
  Let $\alpha = \{\tb{v}_1,...,\tb{v}_k\}$ be a basis for V and $\beta = \{\tb{w}_1,...,\tb{w}_l\}$ be a basis for W, and let $\tb{v} = x_1\tb{v}_1 +...+x_k\tb{v}_k \in V$
@@ -197,6 +205,7 @@ $[T(\tb{v})]_\beta = \begin{bmatrix}
  \end{enumerate}
  \subsection{Kernel and Image}
  \paragraph{Definition 2.3.1} The $kernel$ of T, denoted $Ker(T)$, is the subset of V consisting of all vectors $\tb{v} \in V$ such that $T(\tb{v}) = 0$.
+ \paragraph{Remark} Kernel is different from null spaces. A null space is about a matrix, and it is something in $\real ^n$.
  \paragraph{Proposition 2.3.2} Let \litran be a linear transformation. Ker(T) is a subspace of V.
  \paragraph{Examples}
  \begin{enumerate}
@@ -208,19 +217,56 @@ $[T(\tb{v})]_\beta = \begin{bmatrix}
  $$\vdots$$
  $$ a_{l1}x_1+...+a_{lk}x_k = 0$$
  where the coefficients $a_{ij}$ are the entries of the matrix \mt.
-\paragraph{Proposition 2.3.8} Let V be a finite-dimensional vector space, and let $\alpha = \{\tb{v}_1, ..., \tb{v}_k \}$ be a basis for V. Then the vectors $\tb{x}_1,...,\tb{x}_m \in V$ are linearly independent iff their corresponding coordinate vectors $[\tb{x}_1]_\alpha, ..., [\tb{x}_m]_\alpha$ are linearly independent.
+\paragraph{Remark} This says $$x \in \ker(T) \iff [x]_\alpha \in Nul[T]_\alpha^\beta$$
+\paragraph{Proposition 2.3.8 Independence is Basis-Independent} Let V be a finite-dimensional vector space, and let $\alpha = \{\tb{v}_1, ..., \tb{v}_k \}$ be a basis for V. Then the vectors $\tb{x}_1,...,\tb{x}_m \in V$ are linearly independent iff their corresponding coordinate vectors $[\tb{x}_1]_\alpha, ..., [\tb{x}_m]_\alpha$ are linearly independent.
 \paragraph{Definition 2.3.10} The subset of W consisting of all vectors $\tb{w} \in W$ for which there exists a $\tb{v} \in V$ such that $T(\tb{v}) = \tb{w}$ is called the $image$ of T and is denoted by $Im(T).$
 
 \paragraph{Proposition 2.3.11} Let \litran be a linear transformation. The image of T is a subspace of W.
 
 \paragraph{Proposition 2.3.12} If $\{ \tb{v}_1, ..., \tb{v}_m\}$is any set that spans V (in particular, it could be a basis of V), then $\{T(\tb{v}_1),...,T(\tb{v}_m)\}$ spans $Im(T)$.
 \paragraph{Corollary 2.3.13} If $\alpha = \{ \tb{v}_1, ..., \tb{v}_k\}$ is a basis for V and $\beta = \{ \tb{w}_1, ..., \tb{w}_l\}$ is a basis for W, then the vectors in W, whose coordinate vectors (in terms of $\beta$) are the columns of $[T]_\alpha^\beta$, span $Im(T)$.
-\paragraph{Theorem 2.3.17} If V is finite-dimensional vector space and \litran is a linear transformation, then
-$$dim(Ker(T)) + dim(Im(T)) = dim(V)$$
+\paragraph{Rank-Nullity Theorem 2.3.17} If V is finite-dimensional vector space and \litran is a linear transformation, then
+$$\dim(Ker(T)) + \dim(Im(T)) = \dim(V)$$
+Equivalently, 
+$$Nullity(T) + Rank(T) = \dim(V)$$
 
 
 \subsection{Applications of the Dimension Theorem}
-
- 
-	
+\paragraph{Proposition 2.4.2} A linear transformation \litran is injective iff $\dim(Ker(T)) = 0$, or $\dim(Im(T)) = \dim(V)$.
+\paragraph{Remark} Analogously, in MAT223 we said that a matrix is one-to-one if all the columns are l.i.
+\paragraph{Corollary 2.4.3} A linear mapping \litran on a finite-dimensional vector space V is injective iff $\dim(Im(T)) = \dim(V)$.
+\paragraph{Corollary 2.4.4} If $\dim(W) < \dim(V)$ and \litran is a linear mapping, then T is not injective. \newline
+\begin{proof}
+	$$dim(Im(T)) \leq dim(W) < dim(V)$$
+	$$\implies dim(Ker(T)) > 0$$
+\end{proof}
+\paragraph{Proposition 2.4.7} If W is finite-dimensional, then a linear mapping \litran is surjective iff $\dim(Im(T)) = \dim(W)$
+\paragraph{Remark} Analogously, in MAT223 we said that a matrix is onto if all the rows are l.i.
+\paragraph{Corollary 2.4.8} If V and W are finite-dimensional, with $\dim(V) < \dim(W)$, then there is no surjective linear mapping \litran \newline
+\begin{proof}
+	$\dim(Im(T)) \leq \dim(V) < \dim(W) \implies T$ is not surjective
+\end{proof}
+\paragraph{Corollary 2.4.9} A linear mapping \litran can be surjective iff $$\dim(V) \geq \dim(W)$$
+\paragraph{Proposition 2.4.10} Let $\dim(V) = \dim(W)$. A linear transformation \litran is injective iff it is surjective.
+\paragraph{Proposition 2.4.11} Let \litran be a linear transformation, and let $w \in Im(T)$. Let $v_1$ be any fixed vector with $T(v_1) = w$. Then every vector $v_2 \in T^{-1}(\{w\})$ can be written uniquely as $v_2 = v_1 + u$, where $u \in Ker(T)$
+\paragraph{Remark} In this situation $T^{-1}(\{w\})$ is a subspace of V iff $w = 0$.
+\paragraph{Corollary 2.4.15} Let \litran be a linear transformation of finite-dimensional vector spaces, and let $w \in W$. Then there is a unique vector $v \in V$ such that $T(v) = w$ iff
+\begin{enumerate}
+	\item $w \in Im(T)$, and
+	\item dim(Ker(T)) = 0
+\end{enumerate}
+\paragraph{Proposition 2.4.16} With notation as before
+\begin{enumerate}
+	\item The set of solutions of the system of linear equations $A\tb{x} = \tb{b}$ is the subset $T^{-1}(\{\tb{b}\})$ of $V = \real^n$
+	\item The set of solutions of the system of linear equations $A\tb{x} = \tb{b}$ is a subspace of V iff the system is homogeneous, in which case the set of solutions is $Ker(T)$.
+\end{enumerate}
+\paragraph{Corollary 2.4.17}
+\begin{enumerate}
+	\item The number of free variables in the homogeneous system $A\tb{x} = \tb{0}$ (or its echelon form equivalent) is equal to $\dim(Ker(T))$
+	\item The number of basic variables of the system is equal to $dim(Im(T)$
+\end{enumerate}
+\paragraph{Definition 2.4.18} Given an inhomogeneous system of equations, $A\tb{x} = \tb{b}$, any single vector $\tb{x}$ satisfying the system (necessarily $\tb{x} \neq \tb{0}$ is called a \under{particular solution} of the system of equations.
+\paragraph{Proposition 2.4.19} Let $\tb{x}_p$ be a particular solution of the system $A\tb{x} = \tb{b}$. Then every other solution to $A\tb{x} = \tb{b}$ is of the form $\tb{x} = \tb{x}_p + \tb{x}_h$, where $\tb{x}_h$ is a solution of the corresponding homogeneous system of equations $A\tb{x} = \tb{0}$. Furthermore, given $\tb{x}$ and $\tb{x}_p$, there is a unique
+	$\tb{x}_h$ such that $\tb{x} = \tb{x}_p + \tb{x}_h$.
+\paragraph{Corollary 2.4.20} The system $A\tb{x} = \tb{b}$ has a unique solution iff $\tb{b} \in Im(T)$ and the only solution to $A\tb{x} = \tb{0}$ is the zero vector.
 \end{document}
