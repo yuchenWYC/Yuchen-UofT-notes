@@ -136,6 +136,8 @@
 	\subsection{Interlude on Solving Systems of Linear Equations (MAT223)}
 	\subsection{Bases And Dimension (Jan 17)}
 	\paragraph{Definition} A subset S of vector space V is called a \ti{basis} of V if V = Span(S) and S is linearly independent.
+	\paragraph{Remark}
+	\textcolor{red}{A basis is the maximal set of linearly independent vectors / minimal set of spanning vectors.}
 	\paragraph{Examples} 
 	\begin{enumerate}
 		\item the standard basis S = \{\tb{$e_1$},...,\tb{$e_n$}\} in $\mb{R}^n$, since every vector $(a_1, ..., a_n) \in \mb{R}^n$ may be written as the linear combination $(a_1,..., a_n) = a_1e_1+ ... + a_ne_n$
@@ -164,8 +166,8 @@
 	Since we assumed that every \tb{x} has a unique representation in S, then it must be true that $a_i = 0$ for all $i$. Hence S is l.i.
  	\paragraph{Theorem 1.6.6} Let V be a vector space that has a finite spanning set, and let S be a linearly independent subset of V. Then there exists a basis S' of V, with $S \subset S'$
 	\paragraph{Lemma 1.6.8} Let S be a linearly independent subset of V and let $x \in V$, but $x \notin S$. Then $S \cup \{\tb{x}\}$ is l.i. iff $\tb{x} \notin Span(S)$.
-	\paragraph{Insight} the number of vectors in a basis is, in a rough sense, a measure of "how big" the space is.
-	\paragraph{Theorem 1.6.10 (Basis Theorem)} Let V be a vector space and let S be a spanning set for V, which has m elements. Then no linearly independent set in V can have more than m elements.\newline
+	\paragraph{Insight} the number of vectors in a basis is, in a rough sense, a measure of ``how big" the space is.
+	\paragraph{Theorem 1.6.10 (Basis Theorem)} Let V be a vector space and let S be a spanning set for V, which has m elements. Then no linearly independent set in V can have more than $m$ elements.\newline \newline
 	\ti{\under{proof:}} It suffices to show that every set in V with more than m elements is linearly dependent. Write $S = {y_1, ..., y_m}$ and suppose $S' = {x_1, ..., x_n}$ is a subset of V with $n >m$ vectors. Consider an equation
 	$$(1)a_1x_1 + ... + a_nx_n = \tb{0}$$
 	Our goal is to show that $a_i$ not all 0.
@@ -180,28 +182,28 @@
 	$$.$$
 	$$.$$
 	$$b_{1m}a_1+...+b_{nm}a_n=0$$
-	But this is a system with n unknowns and m equations and $n>m$, so there must exist a non-trivial solution $\{a_1,...,a_n\}$, which is what we wanted to show. QED
-	\paragraph{Corollary 1.6.11} Let V be a vector space and let S and S' be two bases of V, with m and m' elements, respectively. Then m = m'.\newline
+	But this is a system with n unknowns and m equations and $n>m$, so there must exist a non-trivial solution $\{a_1,...,a_n\}$, which is what we wanted to show. \qed
+	\paragraph{Corollary 1.6.11} Let $V$ be a vector space and let $S$ and $S'$ be two bases of $V$, with $m$ and $m'$ elements, respectively. Then $m = m'$.\newline \newline
 	\proof\newline
-	Since S is a spanning set of V and S' is l.i., we have $m'\leq m$. Since S' is a spanning set of V and S is l.i.m we have $m \leq m'$. Hence $m = m'$. QED
+	Since S is a spanning set of V and S' is l.i., we have $m'\leq m$. Since S' is a spanning set of V and S is l.i.m we have $m \leq m'$. Hence $m = m'$. \qed
 	\paragraph{Definitions 1.6.12}
 	\begin{enumerate}
 		\item If V is a vector space with some finite basis(possibly empty), we say V is \under{\it{finite-dimentional}}.
 		\item Let V be a finite-dimensional vector space. The dimension of V, denoted dim(V), is the number of vectors in a (hence any) basis of V.
 		\item If $V = \{\tb{0}\}$, we define dim(V) = 0.
-		\item dim$(span\{(1,2,3),(4,5,6),(7,8,9)\}) = 2$
 	\end{enumerate}
 	\paragraph{Examples}
 	\begin{enumerate}
-		\item For each n, dim($\mb{R}^n$) = n, since the standard basis contains n vectors.
+		\item For each n, $\dim($\mb{R}^n$) = n$, since the standard basis contains n vectors.
 		\item dim($P_n(\mb{R})) = n + 1$, since a basis for $P_n(\mb{R})$ contains n + 1 functions.
 		\item The vector spaces $P(\mb{R}), C^1(\mb{R})$ and $C(\mb{R})$ are not finite-dimensional. We say that such spaces are \under{\it{infinite-dimentional}}.
+		\item $\dim(Span\{(1,2,3),(4,5,6),(7,8,9)\}) = 2$
 	\end{enumerate}
-	\paragraph{Corollary 1.6.14} Let W be a subspace of a finite-dimensional vector space V. Then $dim(W) \leq dim(V).$ Furthermore, $	dim(W) = dim(V)$ iff $W = V$.
+	\paragraph{\textcolor{blue}{Corollary 1.6.14}} Let W be a subspace of a finite-dimensional vector space V. Then $\dim(W) \leq \dim(V).$ Furthermore, $	\dim(W) = \dim(V)$ iff $W = V$.
 	
 	\paragraph{Corollary 1.6.15} Let W be a subspace of $\mb{R}^n$ defined by a system of homogeneous linear equations. Then dim(W) is equal to the number of free variables in the corresponding echelon form system.
 	\paragraph{Theorem 1.6.18} Let $W_1$ and $W_2$ be finite-dimensional subspaces of a vector space V. Then $$\dim(W_1 + W_2) = \dim(W_1) + \dim(W_2) - \dim(W_1 \cap W_2)$$
-	\paragraph{Remark} Analogous to the Principle of Inclusion-Exclusion \newline
+	\paragraph{Remark} Analogous to the Principle of Inclusion-Exclusion \newline \newline
 	\proof Result obvious if either $W_1$ or $W_2$ is \{\tb{0}\}. \newline
 	Therefore, we assume that neither $W_1$ nor $W_2$ is  \{\tb{0}\}. Starting from a basis S of $W_1 \cap W_2$. We can always find sets $T_1$ and $T_2$ (disjoint from S) such that $S \cup T_1$ is a basis for $W_1$ and $S \cup T_2$ is a basis for $W_2$. We claim that $U = S \cup T_1 \cup T_2$ is a basis for $W_1 + W_2$, since 
 	$$ U = S \cup T_1 \cup T_2 = (S \cup T_1) \cup (S\cup T_2)$$
@@ -222,7 +224,7 @@
 	\newpage
 	\section{Linear Transformations}
 	\subsection{Linear Tranformations}
-	A function T from V to W is denoted by $T: V \rightarrow W$. The vector $\tb{w} = T(\tb{v})$ in W is called the image of \tb{v} under the function T. Loosely speaking, we want our functions to turn the algebraic operations of addition and scalar multiplication in V into addition and scalar multiplication in W.
+	A function T from V to W is denoted by $T: V \rightarrow W$. The vector $\tb{w} = T(\tb{v})$ in W is called the \ti{image} of \tb{v} under the function T. Loosely speaking, we want our functions to turn the algebraic operations of addition and scalar multiplication in V into addition and scalar multiplication in W.
 	\paragraph{Definition 2.1.1} A function $T: V \rightarrow W$ is called a \ti{linear mapping} or a \ti{linear transformation} if it satisfies
 	\begin{enumerate}
 		\item $T(\tb{u} + \tb{v}) = T(\tb{u}) + T(\tb{v})$ for all \tb{u} and \tb{v} $\in$ V
