@@ -27,6 +27,10 @@
 \newcommand{\mt}[0]{$[T]_\alpha^\beta$ }
 \newcommand{\qed}[0]{$\hfill\blacksquare$}
 \newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
 
 % Attr.
 \title{MAT224 Linear Algebra II \\ Lecture Notes}
@@ -38,6 +42,98 @@
 	\tableofcontents
 	\newpage
 	\section{Vector Spaces}
+	\subsection{Vector Spaces}
+	\paragraph{Definition 1.1.1} A (real) vector space is a set V (whose elements are called vectors) together with
+	\begin{enumerate}
+		\item an operation called vector addition, which for each pair of vectors $\vx, \vy \in V$ produced another vector in V denoted $\vx + \vy$, and
+		\item an operation called multiplication by a scalar (a real number), which for each vector $\vx \in V$, and each scalar $c \in \real$ produced another vector in V denoted $c\vx$
+	\end{enumerate}
+	Furthermore, the two operations must satisfy the following axioms:
+	$\forall \vx, \vy, \vz \in V, \forall c, d \in \real$,
+	\begin{enumerate}
+		\item $(\vx + \vy) + \vz = \vx + (\vy + \vz)$
+		\item $\vx + \vy = \vy + \vx$
+		\item $\exists \vo \in V$ s.t. $\vx + \vo = \vx$ (additive identity)
+		\item $\exists -\vx \in V$ s.t. $\vx + -\vx = \vo$ (additive inverse)
+		\item $c(\vx + \vy) = c\vx + c\vy$
+		\item $(c + d)\vx = c\vx + d\vx$
+		\item $(cd)\vx = c(d\vx)$
+		\item $1\vx = \vx$
+	\end{enumerate}
+	\paragraph{Smooth functions}
+	$C^\infty$ \newline
+	Most functions are not smooth.
+	\subsection{Subspaces}
+	\paragraph{Example}
+	$C^\infty(\real) < C^k(\real) <$ Differentiable functions $< C(\real) < F(\real)$  
+	\paragraph{Definition} Let V be a vector space and Let $W \subseteq V$ be a subset. Then W is a (vector) subspace of V if W is a vector space itself under the operations of vector sum and scalar multiplication from V.
+	\paragraph{Theorem 1.2.8}  Let V be a vector space and Let $W \subseteq V$ be a \textcolor{red}{nonempty} subset of V. Then W is a subspace of V iff $\forall \vx, \vy \in W$, and all $c \in \real$, we have $c\vx + \vy \in W$. \newline
+	\begin{proof}
+	$\rightarrow$: If W is a subspace of V, then $\forall \vx, \vy \in W$ and $c \in \real, c\vx + \vy \in W$ holds since W itself is a real vector space. \newline
+	$\leftarrow$: If $\forall \vx, \vy \in W$, and all $c \in \real$, we have $c\vx + \vy \in W$ \newline
+	Can have $c = 1$, so $\vx + \vy \in W$ (close under addition) \newline
+	$c = -1$ and $\vy = \vx$, so $-\vx + \vx = \vo \in W$ (additive identity) \newline
+	$\vy = \vo$, so  $c\vx \in W$ (close under scalar multiplication) \newline
+	These implies all the axioms. \qed
+	\end{proof}
+
+	\paragraph{Examples}
+	\begin{enumerate}
+		\item $W = \{f\in C(\real) | f(\pi) = 0\}$. W subspace of $C(\real)$? -Yes
+		\item $W = \{f\in C(\real) | f(e) = e\}$. W subspace of $C(\real)$? -No, not close under addition
+		\item $W = \{(x_1,...,x_n) | x_i\geq 0 \forall i\}$. W subspace of $C(\real)$? -No, there is no additive inverse for each item in W.
+	\end{enumerate}
+	\paragraph{Theorem 1.2.13} Let V be a vector space. Then the intersection of any collection of subspaces of V is a subspace of V. \newline
+	\begin{proof}
+		Consider any collection of subspace of V. Note that the intersection of the subspaces is not empty since at least the zero vector from V is in it. Now let $\vx, \vy$ be any two vectors in the intersection, so they are in every single subspace in the collection. Therefore $c\vx + \vy$ is also in every single subspace in the collection, so that it is in the intersection as well. Hence the intersection is a subspace of V. \qed
+	\end{proof}
+	\paragraph{Application} The set of all solutions of any simultaneous system of equations is a subspace of $\real^n$.
+	\paragraph{Corollary 1.2.14} Let $a_{ij} (1 \leq i \leq m, 1\leq j \leq n)$ be any real numbers and let $W = \{(x_1,...,x_n) \in \real^n | a_{i1}x_1 + \hdots +a_{in}x_n = 0 \mbox{ for all } i, 1 \leq i \leq m\}$. Then W is a subspace of $\real^n$.
+	
+	
+	\subsection{Linear Combinations}
+	\paragraph{Definition 1.3.1} Let S be a subset of a vector space V.
+	\begin{enumerate}
+		\item A \ti{linear combination} of vectors in S is any sum $a_1\vx_1 + \hdots +  a_n \vx_n$ where the $a_i \in \real$, and the $\vx_i \in S$
+		\item If $S \neq \emptyset$, the set of all linear combinations of vectors in S is called the \ti{span} of S, and denoted Span(S). \textcolor{red}{If $S = \emptyset$, we define Span(S) = \{\vo\}}. (Remark: It is a mathematician convention)
+		\item If W = Span(S), we say S spans (or generates) W.
+	\end{enumerate}
+	\paragraph{Theorem 1.3.4} Let V be a vector space and let S be any subset of V. Then Span(S) is a subspace of V. \newline\newline
+	\begin{proof}
+		Span(S) is non-empty by definition. Let $\vx, \vy \in Span(S)$, then they are linear combinations of vectors in S. Check that $c\vx + \vy$ is also a linear combination of vectors in S, so $c\vx + \vy \in Span(S)$. Hence Span(S) is a subspace of V. \qed
+	\end{proof}
+	\paragraph{Definition} Let $W_1$ and $W_2$ be subspaces of a vector space V. The \ti{sum} of $W_1$ and $W_2$ is the set $$W_1 + W_2 = \{ \vx \in V | \vx = \vx_1 + \vx_2, \mbox{ for some } \vx_1 \in W_1 \mbox{ and } \vx_2 \in W_2\}$$
+	\paragraph{Proposition 1.3.8 The basis of sum is the union of two bases} Let $W_1 = Span(S_1)$ and $W_2 = Span(S_2)$ be subspaces of a vector space V. Then $W_1 + W_2 = Span(S_1 \cup S_2)$
+	\paragraph{Theorem 1.3.9} Let $W_1$ and $W_2$ be subspaces of a vector space V. Then $W_1 + W_2$ is also a subspace of V.
+	\paragraph{Proposition 1.3.11} $W_1 + W_2$ is the smallest subspace containing $W_1 \cup W_2$: \newline
+	Let $W_1$ and $W_2$ be subspaces of a vector space V and let W be a subspace of V such that $W_1 \cup W_2 \subseteq W$. Then $W_1 + W_2 \subseteq W$
+	\paragraph{Remark} $W_1 \cup W_2$ is a subspace of V iff one is contained in another.
+	
+	
+	
+	\subsection{Linear Dependence and Linear Independence} 
+	\paragraph{Definitions 1.4.2} Let V be a vector space, and let S be a subset of V.
+	\begin{enumerate}
+		\item A \ti{linear dependence} among the vectors of S is an equation
+		$$a_1\vx_1 + \hdots + a_n\vx_n = \vo$$
+		where the $x_i \in S$, and the $a_i \in \real$ are not all zero (i.e., at least one of the $a_i \neq \vo$
+		\item the set S is said to be \ti{linearly dependent} if there exists a linear dependence among the vectors in S.
+	\end{enumerate}
+	
+	\paragraph{Fact}
+	Let S be a set. If $\vo \in S$, then S is dependent. 
+	
+	\paragraph{Definition 1.4.4} A subset S of a vector space V is \ti{linearly independent} if whenever we have $a_i \in \real$ and $\vx_i \in S$ such that $a_1\vx_1 + \hdots + a_n\vx_n = \vo$, then $a_i = 0$ for all $i$.
+	
+	\paragraph{Example}
+	\textcolor{red}{In any vector space the empty subset $\emptyset$ is linearly independent.}
+	\paragraph{Proposition 1.4.7}
+	\begin{enumerate}
+		\item Let S be a linearly independent subset of a vector space V, and let S' be another subset of V that \textcolor{blue}{contains} S. Then S' is also linearly dependent.
+		\item Let S be linearly independent subset of a vector space V and let S' be another subset of V that is \textcolor{blue}{contained} in S. Then S' is also linearly independent.
+	\end{enumerate}
+	
+	\subsection{Interlude on Solving Systems of Linear Equations (MAT223)}
 	\subsection{Bases And Dimension (Jan 17)}
 	\paragraph{Definition} A subset S of vector space V is called a \ti{basis} of V if V = Span(S) and S is linearly independent.
 	\paragraph{Examples} 
@@ -233,7 +329,7 @@ $$Nullity(T) + Rank(T) = \dim(V)$$
 
 \subsection{Applications of the Dimension Theorem}
 \paragraph{Proposition 2.4.2} A linear transformation \litran is injective iff $\dim(Ker(T)) = 0$, or $\dim(Im(T)) = \dim(V)$.
-\paragraph{Remark} Analogously, in MAT223 we said that a matrix is one-to-one if all the columns are l.i.
+\paragraph{Remark} Analogously, in MAT223 we said that \textcolor{red}{a matrix is one-to-one if all the columns are l.i.}.
 \paragraph{Corollary 2.4.3} A linear mapping \litran on a finite-dimensional vector space V is injective iff $\dim(Im(T)) = \dim(V)$.
 \paragraph{Corollary 2.4.4} If $\dim(W) < \dim(V)$ and \litran is a linear mapping, then T is not injective. \newline
 \begin{proof}
@@ -241,7 +337,7 @@ $$Nullity(T) + Rank(T) = \dim(V)$$
 	$$\implies dim(Ker(T)) > 0$$
 \end{proof}
 \paragraph{Proposition 2.4.7} If W is finite-dimensional, then a linear mapping \litran is surjective iff $\dim(Im(T)) = \dim(W)$
-\paragraph{Remark} Analogously, in MAT223 we said that a matrix is onto if all the rows are l.i.
+\paragraph{Remark} Analogously, in MAT223 we said that \textcolor{red}{a matrix is onto if there is a pivot in every row}.
 \paragraph{Corollary 2.4.8} If V and W are finite-dimensional, with $\dim(V) < \dim(W)$, then there is no surjective linear mapping \litran \newline
 \begin{proof}
 	$\dim(Im(T)) \leq \dim(V) < \dim(W) \implies T$ is not surjective

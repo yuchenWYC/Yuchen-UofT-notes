@@ -26,9 +26,6 @@
 \newcommand{\qed}[0]{$\hfill\blacksquare$}
 
 \newcommand{\expect}[1]{\mathbb{E}({#1})}
-\begin{proof}
-	
-\end{proof}
 % Attr.
 \title{STA261 Probability and Statistics II \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -195,14 +192,82 @@ $$MSE_\theta(T) = Var_\theta(T) + (E_\theta(T) - \psi(\theta))^2$$
 \section{Population Variance $(\sigma^2)$}
 \paragraph{Definition} $\sigma^2 = E[(X - \mu)^2]$ where $\mu = E[X]$. \newline
 If we have equally likely N data points in our population, this is equivalent of $$\sigma^2 = \frac{1}{N}\sum_{i = 1}^N(X_i - \mu)^2$$
+\paragraph{In words:} It's the average squared difference of each of the data points ($X_i$) from the mean ($\mu$)
 \paragraph{Estimate $\sigma^2$ based on a sample of size $n$}
 When we are estimating based on the sample of size $n$, we replace $\mu$ by $\bar X$, so the numerator is $\sum_{i=1}^n(X_i-\bar X)^2$. We can divide it by \under{both $n$ or $n-1$}. The latter one is unbiased! \newline
-The fraction, $\frac{n-1}{n} \rightarrow 1$ as $n \rightarrow \infty$. So for large $n$, both estimator will produce similar estimate. In statistical literature, whenever we say $sample variance$ we refer to the $unbiased$ one. Hence, from now on,
+The fraction, $\frac{n-1}{n} \rightarrow 1$ as $n \rightarrow \infty$. So for large $n$, both estimator will produce similar estimate. In statistical literature, whenever we say \ti{sample variance} we refer to the $unbiased$ one. Hence, from now on,
 \paragraph{Definition of sample variance}
 $$S^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2$$
 \section{Sampling distribution of $S^2$(under Normal Distribution}
 \paragraph{Theorem} Suppose $X_1, X_2,...,X_n \sim N(\mu,\sigma^2)$ iid,
 $\bar X = \frac{1}{n}\sum_{i=1}^nX_i$ and $S^2 = \frac{1}{n-1}\sum_{i=1}^n(X_i - \bar X)^2$. \newline
-Then $\bar X$ and $S^2$ are independent, and $\frac{(n-1)S^2}{\sigma^2} \sim \chi_{(df=n-1)}^2$
-
-\end{document}
+Then 
+\begin{enumerate}
+	\item $\bar X$ and $S^2$ are independent, and 
+	\item $\frac{(n-1)S^2}{\sigma^2} \sim \chi_{(df=n-1)}^2$
+\end{enumerate}
+\proof \newline
+\paragraph{Part 1}
+Let 
+\begin{align*}
+    U &= \bar X = \frac{1}{n}X_1 + ... +\frac{1}{n}X_n \\
+	V &= X_1 - \bar X = X_1 - (\frac{1}{n}X_1 + ... +\frac{1}{n}X_n) \\
+	&= (1 - \frac{1}{n})X_1 - (\frac{1}{n}X_1 + ... +\frac{1}{n}X_n) \\\\
+	Cov(\bar X, X_1 - \bar X) &= Cov(\bar X, X_1) - Cov(\bar X, \bar X) \\
+	&= Cov(\frac{1}{n}X_1 + ... +\frac{1}{n}X_n, X_1) - \frac{\sigma^2}{n}\\
+	&= \frac{1}{n}Cov(X_1,X_1) -  \frac{\sigma^2}{n}\\
+	&=  \frac{\sigma^2}{n} -  \frac{\sigma^2}{n}\\
+	&= 0 \\
+\end{align*}
+Hence by E\&R theorem, U and V are independent.
+Similarly, we can show $\bar X$ is independent to each $X_i - \bar X$ for $i = 1, ..., n$ \newline
+Therefore, $\bar X$ is independent to  $\sum_{i=1}^n(X_i - \bar X)^2$ \newline
+Therefore, $\bar X$ is independent to  $\frac{\sum_{i=1}^n(X_i - \bar X)^2}{n-1} = S^2$
+\paragraph{Part 2}
+\begin{align*}
+	\sum_i(X_i - \mu)^2 &= \sum_i(X_i - \bar X + \bar X - \mu)^2 \\
+	&= \sum_i(X_i - \bar X)^2 + \sum_i(\bar X - \mu)^2 + 2\sum_i(X_i - \bar X)(\bar X - \mu)\\
+	&= \sum_i(X_i - \bar X)^2 + \sum_i(\bar X - \mu)^2 + 2(\bar X - \mu)\sum_i(X_i - \bar X)\\
+	&= \sum_i(X_i - \bar X)^2 + \sum_i(\bar X - \mu)^2 + 2(\bar X - \mu)(\sum_i X_i - n\bar X)\\
+	&= \sum_i(X_i - \bar X)^2 + \sum_i(\bar X - \mu)^2 + 2(\bar X - \mu)(n\bar X - n\bar X)\\
+	&= \sum_i(X_i - \bar X)^2 + n(\bar X - \mu)^2 \\
+	\implies \sum_i(X_i - \bar X)^2 &= \sum_i(X_i - \mu)^2 - n(\bar X - \mu)^2
+\end{align*}
+\begin{align*}
+\frac{\sum_{i=1}^n(X_i - \mu)^2}{\sigma^2} &= \frac{\sum_i(X_i - \bar X)^2}{\sigma^2} + \frac{ n(\bar X - \mu)^2}{\sigma^2} \\
+	\implies \sum_{i}(\frac{X - \mu}{\sigma})^2 &= \frac{\sum_i(X_i - \bar X)^2}{\sigma^2} + (\frac{\bar X - \mu}{\sigma/\sqrt{n}})^2 \\
+	&= \frac{(n-1)S^2}{\sigma^2} + (\frac{\bar X - \mu}{\sigma/\sqrt{n}})^2 \\
+	\implies \chi_{(n)}^2 &= \frac{(n-1)S^2}{\sigma^2} + \chi^2_{(1)}\\
+	\implies MGF(\chi_{(n)}^2) &= MGF(\frac{(n-1)S^2}{\sigma^2} + \chi^2_{(1)})\\
+	&= MGF(\frac{(n-1)S^2}{\sigma^2})* MGF(\chi^2_{(1)})\\
+	\implies MGF(\frac{(n-1)S^2}{\sigma^2}) &=  \frac{MGF(\chi_{(n)}^2)}{MGF(\chi^2_{(1)})}\\
+	&= \frac{(1-2t)^{-\frac{n}{2}}}{(1-2t)^{-\frac{1}{2}}} \\
+	&= (1-2t)^{-\frac{n-1}{2}} \\
+\end{align*}
+which is the MGF of $\chi^2_{(n-1)}$\qed
+\paragraph{E\&R theorem 4.6.2}
+ $X_1, X_2,..., X_n \sim N(\mu,\sigma ^2)i.i.d., $, U and V are two different linear combinations of the $X_i$'s, then \newline
+ $Cov(U,V) = 0 \iff$ U and V are independent.
+ \paragraph{Note} In general, zero covariance doesn't imply independent \newline
+ Example: $X \sim N(0,1), Y = X^2$, clearly X and Y are dependent, but 
+ \begin{align*}
+ Cov(X,Y) &= E[XY] - E[X]E[Y] \\
+ &=E[X^3]-0\cdot E[X]\\
+ &=E[X^3]\\
+ &=\int x^3f(x)dx\\
+ &=0 \tag{since $x^3f(x)$ is centro-symmetric}
+ \end{align*}
+ \paragraph{Unbiasedness of $S^2$ using the Chi-sq distribution}
+ $$E[\frac{(n-1)S^2}{\sigma^2}] = n-1$$
+ $$\implies E[S^2] = \sigma^2$$
+ This proves $S^2$ is an unbiased estimator for $\sigma^2$ under Normal distribution \newline
+ There's another way to prove it under any arbitrary distribution with the assumption that $X_i$'s are i.i.d. and $\mu, \sigma^2$ exists.
+ \section{Some relationships among distributions}
+ \begin{enumerate}
+ 	\item $\frac{\bar X - \mu}{S/\sqrt{n}} \sim t_(n-1)$
+ 	\item $\frac{\chi^2_{(m)}}{m} \overset{P}{\rightarrow}1$
+ \end{enumerate} 
+ \section{Difference between sample variance and variance of sample mean}
+ \paragraph{variance of sample mean:} Expectation of squared difference of sample mean from the \under{true mean}
+ \paragraph{sample variance:} average squared difference of each data points in the sample from the \under{sample mean}
+ \end{document}
