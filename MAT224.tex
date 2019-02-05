@@ -14,7 +14,7 @@
 % Property settings.
 \MakePerPage{footnote}
 \pagestyle{fancy}
-\lhead{Notes by Yuchen Wang}
+\lhead{Notes by Y.W.}
 
 % Commands
 \newcommand{\ti}[1]{\textit{#1}}
@@ -31,6 +31,8 @@
 \newcommand{\vy}[0]{\tb{y}}
 \newcommand{\vz}[0]{\tb{z}}
 \newcommand{\vo}[0]{\tb{0}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
 
 % Attr.
 \title{MAT224 Linear Algebra II \\ Lecture Notes}
@@ -105,7 +107,7 @@
 	\paragraph{Definition} Let $W_1$ and $W_2$ be subspaces of a vector space V. The \ti{sum} of $W_1$ and $W_2$ is the set $$W_1 + W_2 = \{ \vx \in V | \vx = \vx_1 + \vx_2, \mbox{ for some } \vx_1 \in W_1 \mbox{ and } \vx_2 \in W_2\}$$
 	\paragraph{Proposition 1.3.8 The basis of sum is the union of two bases} Let $W_1 = Span(S_1)$ and $W_2 = Span(S_2)$ be subspaces of a vector space V. Then $W_1 + W_2 = Span(S_1 \cup S_2)$
 	\paragraph{Theorem 1.3.9} Let $W_1$ and $W_2$ be subspaces of a vector space V. Then $W_1 + W_2$ is also a subspace of V.
-	\paragraph{Proposition 1.3.11} $W_1 + W_2$ is the smallest subspace containing $W_1 \cup W_2$: \newline
+	\paragraph{\textcolor{red}{Proposition 1.3.11}} $W_1 + W_2$ is the smallest subspace containing $W_1 \cup W_2$: \newline
 	Let $W_1$ and $W_2$ be subspaces of a vector space V and let W be a subspace of V such that $W_1 \cup W_2 \subseteq W$. Then $W_1 + W_2 \subseteq W$
 	\paragraph{Remark} $W_1 \cup W_2$ is a subspace of V iff one is contained in another.
 	
@@ -194,7 +196,7 @@
 	\end{enumerate}
 	\paragraph{Examples}
 	\begin{enumerate}
-		\item For each n, $\dim($\mb{R}^n$) = n$, since the standard basis contains n vectors.
+		\item For each n, $\dim(\mb{R}^n) = n$, since the standard basis contains n vectors.
 		\item dim($P_n(\mb{R})) = n + 1$, since a basis for $P_n(\mb{R})$ contains n + 1 functions.
 		\item The vector spaces $P(\mb{R}), C^1(\mb{R})$ and $C(\mb{R})$ are not finite-dimensional. We say that such spaces are \under{\it{infinite-dimentional}}.
 		\item $\dim(Span\{(1,2,3),(4,5,6),(7,8,9)\}) = 2$
@@ -232,18 +234,20 @@
 	\end{enumerate}
 	V is called the \ti{domain} of T and W is called the \ti{target} of T. \newline
 	We say that a linear transformation preserves the operations of addition and scalar multiplication.
-	\paragraph{Property} A linear mapping always takes the zero vector in the domain vector space to the zero vector in the target vector space.
+	\paragraph{Property} \textcolor{red}{A linear mapping always takes the zero vector in the domain vector space to the zero vector in the target vector space.}
 	\paragraph{Proposition 2.1.2} A function \litran is a linear transformation if and only if for all $a$ and $b \in \mb{R}$ and all $\tb{u}$ and $\tb{v} \in V$
 	$$T(a\tb{u} + b\tb{v}) = aT(\tb{u}) + bT(\tb{v})$$
 	\paragraph{Corollary 2.1.3} A function \litran is a linear transformation if and only if for all $a_1, .., a_k \in \mb{R}$ and for all $\tb{v}_1, ..., \tb{v}_k \in V$:
 	$$T(\sum^k_{i = 1} a_i \tb{v}_i) = \sum^k_{i = 1}a_iT(\tb{v}_i)$$
+	
+	\paragraph{Remark} prove this by induction!
 	\paragraph{Examples}
 	\begin{enumerate}
-		\item Let V be any vector space, and let W = V. The \ti{under{identity transformation}} $I: V \rightarrow V$ is defined by I(\tb{v}) = \tb{v} for all \tb{v} $\in$ V.
+		\item Let V be any vector space, and let W = V. The \ti{\under{identity transformation}} $I: V \rightarrow V$ is defined by I(\tb{v}) = \tb{v} for all \tb{v} $\in$ V.
 		\item Let V and W be any vector spaces, and let \litran be the mapping that takes every vector in V to the zero vector in W:
 		$$ T(\tb{v}) = \tb{0}_W$$
 		for all \tb{v} $\in$ V. T is called \it{\under{zero transformation}}.
-		\item $T(\tb{x}) = a_1x_1 + ... + a_nx_n$
+		\item $T(\vx) = a_1x_1 + ... + a_nx_n$
 		\item Differentiation, definite integration
 	\end{enumerate} 
 	\paragraph{Remark} The inner product plays a crucial role in linear algebra in that it provides a bridge between algebra and geometry, which is the heart of the more advanced material that appears later in the text.
@@ -335,11 +339,11 @@ $$Nullity(T) + Rank(T) = \dim(V)$$
 \paragraph{Corollary 2.4.3} A linear mapping \litran on a finite-dimensional vector space V is injective iff $\dim(Im(T)) = \dim(V)$.
 \paragraph{Corollary 2.4.4} If $\dim(W) < \dim(V)$ and \litran is a linear mapping, then T is not injective. \newline
 \begin{proof}
-	$$dim(Im(T)) \leq dim(W) < dim(V)$$
+	$$\dim(Im(T)) \leq \dim(W) < \dim(V)$$
 	$$\implies dim(Ker(T)) > 0$$
 \end{proof}
 \paragraph{Proposition 2.4.7} If W is finite-dimensional, then a linear mapping \litran is surjective iff $\dim(Im(T)) = \dim(W)$
-\paragraph{Remark} Analogously, in MAT223 we said that \textcolor{red}{a matrix is onto if there is a pivot in every row}.
+\paragraph{Remark} Analogously, in MAT223 we said that \textcolor{red}{a matrix $A \in M_{m\times n}(\real)$ is onto if there is a pivot in every row, or the columns of A spans $\real^m$}.
 \paragraph{Corollary 2.4.8} If V and W are finite-dimensional, with $\dim(V) < \dim(W)$, then there is no surjective linear mapping \litran \newline
 \begin{proof}
 	$\dim(Im(T)) \leq \dim(V) < \dim(W) \implies T$ is not surjective
@@ -361,10 +365,58 @@ $$Nullity(T) + Rank(T) = \dim(V)$$
 \paragraph{Corollary 2.4.17}
 \begin{enumerate}
 	\item The number of free variables in the homogeneous system $A\tb{x} = \tb{0}$ (or its echelon form equivalent) is equal to $\dim(Ker(T))$
-	\item The number of basic variables of the system is equal to $dim(Im(T)$
+	\item The number of basic variables of the system is equal to $\dim(Im(T))$
 \end{enumerate}
-\paragraph{Definition 2.4.18} Given an inhomogeneous system of equations, $A\tb{x} = \tb{b}$, any single vector $\tb{x}$ satisfying the system (necessarily $\tb{x} \neq \tb{0}$ is called a \under{particular solution} of the system of equations.
+\paragraph{Definition 2.4.18} Given an inhomogeneous system of equations, $A\tb{x} = \tb{b}$, any single vector $\tb{x}$ satisfying the system (necessarily $\tb{x} \neq \tb{0}$) is called a \under{particular solution} of the system of equations.
 \paragraph{Proposition 2.4.19} Let $\tb{x}_p$ be a particular solution of the system $A\tb{x} = \tb{b}$. Then every other solution to $A\tb{x} = \tb{b}$ is of the form $\tb{x} = \tb{x}_p + \tb{x}_h$, where $\tb{x}_h$ is a solution of the corresponding homogeneous system of equations $A\tb{x} = \tb{0}$. Furthermore, given $\tb{x}$ and $\tb{x}_p$, there is a unique
 	$\tb{x}_h$ such that $\tb{x} = \tb{x}_p + \tb{x}_h$.
 \paragraph{Corollary 2.4.20} The system $A\tb{x} = \tb{b}$ has a unique solution iff $\tb{b} \in Im(T)$ and the only solution to $A\tb{x} = \tb{0}$ is the zero vector.
+\subsection{Composition of Linear Transformations}
+\paragraph{Definition} Let U, V, and W be vector spaces, and let $S: U \rightarrow V$ and $T: V \rightarrow W$ be linear transformations. The \ti{composition} of S and T is denoted $TS: U \rightarrow W$ and is defined by $$TS(\tb{v}) = T(S(\tb{v}))$$
+Notice that this is well defined since the image of S is contained in V, which is the domain of T.
+\paragraph{Proposition 2.5.1} Let $S: U \rightarrow V$ and $T: V \rightarrow W$ be linear transformations, then TS is a linear transformation.
+\paragraph{Remark} In general, ST is not equal to TS. We emphasize that the composition is well defined only if the image of the first transformation is contained in the domain of the second.
+\paragraph{Proposition 2.5.4}
+\begin{enumerate}
+	\item Let $\trans{R}{U}{V}, \trans{S}{V}{W} \mbox{ and } \trans{T}{W}{X}$ be linear transformations of the vector space U,V,W and X as indicated. Then
+	$$T(SR) = (TS)R \mbox{ (associativity)}$$
+	\item Let $\trans{R}{U}{V}, \trans{S}{V}{W} \mbox{ and } \trans{T}{W}{X}$ be linear transformations of the vector space U,V,W and X as indicated. Then
+	$$T(R+S) = TR + TS \mbox{ (distributivity)}$$
+	\item Let $\trans{R}{U}{V}, \trans{S}{V}{W} \mbox{ and } \trans{T}{W}{X}$ be linear transformations of the vector space U,V,W and X as indicated. Then
+	$$(T+S)R = TR + SR \mbox{ (distributivity)}$$
+\end{enumerate}
+\paragraph{Proposition 2.5.6} Let $\trans{S}{U}{V}$ and $\trans{T}{V}{W}$ be linear transformations. Then
+\begin{enumerate}
+	\item $Ker(S) \subset Ker(TS)$
+	\item $Im(TS) \subset Im(T)$
+\end{enumerate}
+\begin{proof}
+	\begin{enumerate}
+		\item If $\vu \in Ker(S), S(\vu) = \vo$. Then $TS(\vu) = T(\vo) = \vo$. Therefore $\vu \in Ker(TS)$.
+		\item If $\vx \in Im(TS)$, then $\exists \vu \in U$ s.t. $TS(\vu) = T(S(\vu))= \vx$, then $\exists \tb{v} = S(\vu) \in V$ s.t. $T(\tb{v}) = \vx$. Therefore $\vx \in Im(T)$ \qed
+	\end{enumerate}
+\end{proof}
+\paragraph{Corollary 2.5.7} Let $\trans{S}{U}{V}$ and $\trans{T}{V}{W}$ be linear transformations of finite-dimensional vector spaces. Then
+\begin{enumerate}
+	\item $\dim(Ker(S)) \leq \dim(Ker(TS))$
+	\item $\dim(Im(TS)) \leq \dim(Im(T))$
+\end{enumerate}
+\paragraph{Proposition 2.5.9} If $[S]_\alpha^\beta$ has entries $a_{ij}$, $i = 1,\hdots,n$ and $ j = 1, \hdots, m$ and $[T]_\beta^\gamma$ has entries $b_{kl}$, $k = 1, \hdots, p$ and $l = 1, \hdots, n$, then the entries of $[TS]_\alpha^\gamma$  are $\sum_{l=1}^n b_{kl}a_{lj}$
+\paragraph{Definition 2.5.10} Let A be an $n\times m$ matrix and B a $p\times n$ matrix, then the \ti{matrix product} BA is defined to be the $p \times m$ matrix whose entries are $\sum_{l = 1}^n b_{kl}a_{lj}$ for $k = 1, \hdots, p$ and $j = 1, \hdots, m$.
+\paragraph{Proposition 2.5.13} Let $\trans{S}{U}{V}$ and $\trans{T}{V}{W}$ be linear transformations between finite-dimensional vector spaces. Let $\alpha, \beta$ and $\gamma$ be bases for U,V and W, respectively. Then $$[TS]_\alpha^\gamma = [T]_\beta^\gamma[S]_\alpha^\beta$$
+In words, the matrix of the composition of two linear transformations is the product of the matrices of the transformations
+\paragraph{Proposition 2.5.14}
+\begin{enumerate}
+	\item Let A,B and C be $m\times n, n\times p$ and $p \times r$ matrices, then
+	$$(AB)C = A(BC) \mbox{ (associativity) }$$
+	\item Let A,B and C be $m\times n, n\times p$ and $p \times r$ matrices, then
+	$$A(B + C) = AB + AC \mbox{ (distributivity) }$$
+	\item Let A,B and C be $m\times n, n\times p$ and $p \times r$ matrices, then
+	$$(A+B)C = AC + BC \mbox{ (distributivity) }$$
+\end{enumerate}
+
+\section{Problem Notes}
+\paragraph{1} $S = \{\tb{a}\} \subseteq \real^2$, then we cannot determine whether S is dependent (when $\tb{a} = \vo$) or independent (when $\tb{a} \neq \vo$)
+\paragraph{2} If a set in a vector space contains the zero vector, then it is linearly dependent.
+\paragraph{3} Multiple Choice questions: check the hypothesis of theorems!
 \end{document}
