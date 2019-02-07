@@ -92,7 +92,7 @@ $$Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$$
 \paragraph{Corollary}
 \begin{enumerate}
 	\item If X and Y are independent, then $Var(X+Y) = Var(X) + Var(Y)$
-	\item If $X_1,...X_n$ are independent, then $Var(\Sigma_{i=1}^n X_i = \Sigma_{i=1}^nVar(X_i)$
+	\item If $X_1,...X_n$ are independent, then $Var(\Sigma_{i=1}^n X_i) = \Sigma_{i=1}^nVar(X_i)$
 \end{enumerate}
 \paragraph{Definition} The \ti{correlation} of two r.v.s X and Y is given by
 $$Corr(X,Y) = \frac{Cov(X,Y)}{Sd(X)Sd(Y)}$$ 
@@ -138,7 +138,7 @@ $$L(\theta) = \Pi_{i=1}^n f_\theta(x_i)$$
 \begin{enumerate}
 	\item Let's say we are interested in a point estimate of $\theta$
 	\item A sensible choice will be to pick $\hat{\theta}$ that maximizes $L(\theta)$
-	\item So $\hat{\theta} satisfies L(\hat{\theta} \geq L(\theta)$ for all $\theta \in \Omega$
+	\item So $\hat{\theta}$ satisfies $L(\hat{\theta}) \geq L(\theta)$ for all $\theta \in \Omega$
 	\item $\hat{\theta}$ is called the \under{maximum likelihood estimate} (MLE) of $\theta$
 \end{enumerate}
 \paragraph{Computation of the MLE}
@@ -155,14 +155,14 @@ $$L(\theta) = \Pi_{i=1}^n f_\theta(x_i)$$
 \paragraph{Properties of MLE}
 \begin{enumerate}
 	\item MLE is not unique
-	\item MLE may not exists
+	\item MLE may not exist
 	\item The likelihood may not always be differentiable.
 \end{enumerate}
 \section{Sampling Distribution of an Estimator}
 \begin{enumerate}
 	\item Recall: An Estimator (T) is a random variable (infinite number of sample means)
 	\item If we repeat the sampling procedure and keep calculating T for each set of sample and finally draw a density histogram based on the T values we get the sampling distribution of T
-	\item \tb{Standard error:} Standard deviation of an estimator is called the standard error (SE)
+	\item \tb{\textcolor{blue}{Standard error}:} Standard deviation of an estimator is called the standard error (SE)
 \end{enumerate}
 
 \paragraph{Definition of Mean Squared Error}
@@ -212,7 +212,7 @@ Let
 \begin{align*}
     U &= \bar X = \frac{1}{n}X_1 + ... +\frac{1}{n}X_n \\
 	V &= X_1 - \bar X = X_1 - (\frac{1}{n}X_1 + ... +\frac{1}{n}X_n) \\
-	&= (1 - \frac{1}{n})X_1 - (\frac{1}{n}X_1 + ... +\frac{1}{n}X_n) \\\\
+	&= (1 - \frac{1}{n})X_1 - (\frac{1}{n}X_2 + ... +\frac{1}{n}X_n) \\\\
 	Cov(\bar X, X_1 - \bar X) &= Cov(\bar X, X_1) - Cov(\bar X, \bar X) \\
 	&= Cov(\frac{1}{n}X_1 + ... +\frac{1}{n}X_n, X_1) - \frac{\sigma^2}{n}\\
 	&= \frac{1}{n}Cov(X_1,X_1) -  \frac{\sigma^2}{n}\\
@@ -252,7 +252,7 @@ which is the MGF of $\chi^2_{(n-1)}$\qed
  Example: $X \sim N(0,1), Y = X^2$, clearly X and Y are dependent, but 
  \begin{align*}
  Cov(X,Y) &= E[XY] - E[X]E[Y] \\
- &=E[X^3]-0\cdot E[X]\\
+ &=E[X^3]-0\cdot E[Y]\\
  &=E[X^3]\\
  &=\int x^3f(x)dx\\
  &=0 \tag{since $x^3f(x)$ is centro-symmetric}
@@ -264,10 +264,73 @@ which is the MGF of $\chi^2_{(n-1)}$\qed
  There's another way to prove it under any arbitrary distribution with the assumption that $X_i$'s are i.i.d. and $\mu, \sigma^2$ exists.
  \section{Some relationships among distributions}
  \begin{enumerate}
- 	\item $\frac{\bar X - \mu}{S/\sqrt{n}} \sim t_(n-1)$
+ 	\item $\frac{\bar X - \mu}{S/\sqrt{n}} \sim t_{(n-1)}$
  	\item $\frac{\chi^2_{(m)}}{m} \overset{P}{\rightarrow}1$
  \end{enumerate} 
  \section{Difference between sample variance and variance of sample mean}
  \paragraph{variance of sample mean:} Expectation of squared difference of sample mean from the \under{true mean}
  \paragraph{sample variance:} average squared difference of each data points in the sample from the \under{sample mean}
+ \section{Consistent Estimator}
+ \paragraph{Definition}
+ Let $T_n$ be an estimator of parameter $\theta$, $T_n$ is said to be consistent (in probability) if $$T_n \overset{P}{\rightarrow} \theta$$
+ In words, $T_n$ converges to $\theta$ in probability.
+ \paragraph{Note}
+ If $T_n \overset{a.s.}{\theta}$ then $T_n$ is called consistent (almost surely). In this course we will only talk about consistent (in probability)
+ \paragraph{Proving consistency using LLN}
+ LLN tells us, $\bar X = \frac{1}{n}\sum X_i \overset{P}{\rightarrow} E[X_i]$ for any distribution. Immediately that tells us:
+ \begin{enumerate}
+ 	\item If $X_i \overset{iid}{\sim} N(\mu,\sigma^2)$ then $\bar X$ is a consistent estimator of $\mu$
+ 	 \item If $X_i \overset{iid}{\sim} Poisson(\lambda)$ then $\bar X$ is a consistent estimator of $\lambda$
+ 	 \item And we can say this for few other known distributions
+ \end{enumerate}
+ Goal: prove consistency when the estimator is not simply $\bar X$
+ Still use LLN but with the help of a well known Lemma and the continuous mapping theorem
+ \paragraph{Slutsky's Lemma}
+ We have two different sequence $X_n$ and $Y_n$ \newline
+ If $X_n \overset{P}{\rightarrow}X \mbox{ and } Y_n \overset{P}{\rightarrow}Y$, then $X_n + Y_n \overset{P}{\rightarrow} X + Y$ \newline
+ If $X_n \overset{P}{\rightarrow}X \mbox{ and } Y_n \overset{P}{\rightarrow}Y$, then $X_nY_n \overset{P}{\rightarrow} XY$
+ \paragraph{Continuous mapping theorem}
+ Let $X_n \overset{P}{\rightarrow} X$ and $g()$ be a continuous function, then $g(X_n) \overset{P}{\rightarrow} g(X)$
+ \paragraph{Proving $S^2$ is a consistent estimator of $\sigma^2$}
+ $\hdots$
+ \paragraph{MSE consistent}
+ An estimator $T_n$ is called \under{MSE consistent} if
+ $$MSE(T_n) \rightarrow 0 \mbox{ as } n \rightarrow \infty$$
+ Example: for $N(\mu,\sigma^2)$
+ $MSE(\bar X) = \sigma^2 / n \rightarrow 0 \mbox{as} n \rightarrow \infty$
+ Therefore $\bar X$ is a MSE consistent estimator of $\mu$ \newline
+ In naive words, after you have calculated the MSE of an estimator, just check if it goes to zero for large $n$
+ \paragraph{Note}
+ MSE consistent $\implies$ consistent (in probability)
+ \section{Efficient Estimator}
+ \paragraph{Definition of Efficiency}
+ Let $T_1$ and $T_2$ be two different estimators of $\theta$, \under{Efficiency of $T_1$ relative to $T_2$} is defined as 
+ $$eff(T_1,T_2) = \frac{var[T_2]}{var[T_1]}$$
+ \paragraph{Remark}
+ \begin{enumerate}
+ 	\item $eff(T_1, T_2) > 1 \implies T_1$ has smaller variance $\implies T_1$ is more efficient
+ 	\item This comparison is meaningful when $T_1$ and $T_2$ are both unbiased or both have the same bias.  
+ \end{enumerate}
+ \paragraph{Lower bound of the variance of an unbiased estimator}
+ This famous inequality provides a lower bound for the variance of all the unbiased estimators. In other words it gives a lower bound of the MSE (since Bias = 0). The estimator whose variance achieves this lower bound is said to be efficient. Before we state the inequality let's define few terms...
+ \paragraph{Score function, $S(\theta)$}
+ The derivative of the log-likelihood $$S(\theta) = \frac{\partial l(\theta)}{\partial \theta}$$
+ For the random variable X, $S(\theta| X = x) = \frac{\partial}{\partial \theta} \ln f_\theta(x)$. For an observed i.i.d sample, it's written as $S(\theta|x_1,x_2,\hdots,x_n)$ with $$S(\theta|x_1,x_2,\hdots,x_n) = \frac{\partial}{\partial \theta} \sum_i \ln f_\theta(x_i) = \sum_i \frac{\partial}{\partial \theta} \ln f_\theta(x_i) = \sum_i S(\theta|x_i)$$
+ \paragraph{Fisher Information, $I(\theta)$}
+ The function $$I(\theta) = var_\theta[S(\theta|X)]$$ It's the amount of information that each observable random variable X contains about $\theta$. \newline
+ Information of a sample of size $n = var[S(\theta|x_1,x_2,\hdots,x_n)] = nI(\theta)$
+ \paragraph{A plot showing the randomness of $S(\theta)$}
+ The likelihood function looks different for different data!
+ \paragraph{One important property of $S(\theta)$}
+ Under some assumptions, $$E[S(\theta|X = x)] = 0$$
+ Which implies $$E[S(\theta|x_1,x_2,\hdots,x_n)] = \sum_i E[S(\theta|x_i)] = 0$$
+ \paragraph{Cramer-Rao Inequality}
+ Let $X_1, X_2, \hdots, X_n$ be i.i.d. with density $f_\theta(x)$,
+ $T(X_1, X_2, \hdots, X_n)$ be an unbiased estimator of $\theta$,
+ Then under some assumptions on $f_\theta(x)$, $$var[T] \geq \frac{1}{nI(\theta)}$$
+ $\frac{1}{nI(\theta)}$ is also known as the Cramer-Rao lower bound (CRLB)
+ \paragraph{Proof of Cramer-Rao Inequality}
+ 	$\hdots$
+ \paragraph{Definition of sufficient statistic}
+ A statistic $T(X_1, X_2, \hdots, X_n)$ is said to be \under{sufficient} for $\theta$ if the conditional distribution of $X_1, X_2, \hdots, X_n$, given $T = t$, does not depend on $\theta$
  \end{document}
