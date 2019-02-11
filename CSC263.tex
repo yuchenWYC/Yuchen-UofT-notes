@@ -1,0 +1,62 @@
+\documentclass[11pt]{article}
+
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{fancy}
+\lhead{Notes by Y.W.}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
+\newcommand{\litran}[0]{$T: V \rightarrow W$ }
+\newcommand{\slitran}[0]{Let $ T: V \rightarrow W$ be a linear transformation }
+\newcommand{\mt}[0]{$[T]_\alpha^\beta$ }
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
+
+% Attr.
+\title{CSC263 \\ Lecture Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+	\section{Notes On AVL Trees}
+	\paragraph{Definition of AVL Trees} A binary tree is \ti{height-balanced} if the heights of the left and right subtrees of \ti{every} node \textcolor{red}{differ by at most one}. An AVL tree is a height-balanced binary search tree.
+	\paragraph{Remark} By convention, the height of an empty tree is $-1$; the height of a tree consisting of a single node is $0$.
+	\paragraph{Definition of balance factor} Let $h_R$ and $h_L$ be the heights of the right and left subtrees of a node $m$ in a binary tree respectively. The \ti{balance factor} of $m$, $BF[m]$, is defined as $BF[m] = h_R - h_L$. \newline
+	For an AVL tree, the balanced factor of any node is $-1, 0$ or $+1$. \newline
+	\begin{enumerate}
+		\item if $BF[m] = +1, m$ is right heavy
+		\item if $BF[m] = -1, m$ is left heavy
+		\item if $BF[m] = 0, m$ is balanced
+	\end{enumerate}
+	In AVL trees we will store $BF[m]$ in each node $m$
+	\paragraph{Algorithm Search}
+	Treat T as an ordinary binary search tree
+	\paragraph{Algorithm Insert}
+	First insert $x$ in $T$ as in ordinary binary search trees: trace a path from the root downward, and insert a new node with key $x$ in it in the proper place, so as to preserve the binary search tree property. This may destroy the integrity of our AVL tree in that 
+	
+\end{document}
