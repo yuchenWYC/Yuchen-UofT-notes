@@ -32,6 +32,8 @@
 \newcommand{\vz}[0]{\tb{z}}
 \newcommand{\vo}[0]{\tb{0}}
 \newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vw}[0]{\tb{w}}
+\newcommand{\vv}[0]{\tb{v}}
 \newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
 
 % Attr.
@@ -414,6 +416,35 @@ In words, the matrix of the composition of two linear transformations is the pro
 	\item Let A,B and C be $m\times n, n\times p$ and $p \times r$ matrices, then
 	$$(A+B)C = AC + BC \mbox{ (distributivity) }$$
 \end{enumerate}
+\subsection{The Inverse of a Linear Transformation}
+\paragraph{Definition} If $f: S_1 \rightarrow S_2$ is a function from one set to another, we say that $g$ is the \ti{inverse function of f} if for every $x \in S_1, g(f(x)) = x$ and for every $y \in S_2, f(g(y)) = y$. \textcolor{red}{If such a $g$ exists, $f$ must be both injective and surjective(bijective).} \\
+To see this, notice that if $f(x_1) = f(x_2)$, then $$x_1 = g(f(x_1)) = g(f(x_2)) = x_2$$ So that $f$ is injective. If $y \in S_2$, then for $x = g(y), f(x) = f(g(y)) = y$ so that $f$ is surjective.\\
+Converse is true: bijective $\implies$ exists an inverse
+\paragraph{Proposition 2.6.1} If \litran is injective and surjective, then the inverse function $S: W \rightarrow V$ is a linear transformation.\\\\
+\begin{proof}
+	Let $\vw_1$ and $\vw_2 \in W$ and $a$ and $b \in \real$. By definition, $S(\vw_1) = \vv_1$ and $S(\vw_2) = \vv_2$ are the unique vectors $\vv_1$ and $\vv_2$ satisfying $T(\vv_1) = \vw_1$ and $T(\vv_2) = \vw_2$. By definition, $S(a\vw_1 + b\vw_2)$ is the unique vector $\vv$ with $T(\vv) = a\vw_1 + b\vw_2$ but $\vv = a\vv_1+b\vv_2$ satisfies $T(a\vv_1+b\vv_2) = aT(\vv_1) + bT(\vv_2) = a\vw_1+b\vw_2$. \under{Thus, $S(a\vw_1 + b\vw_2) = a\vv_1 + b\vv_2 = aS(\vw_1) + bS(\vw_2)$} as we desired. \qed 
+\end{proof}
+\paragraph{Proposition 2.6.2} A linear transformation \litran has an inverse linear transformation S if and only if T is injective and surjective.
+\paragraph{Definition 2.6.3} If \litran is a linear transformation that has an inverse transformation $S: W \rightarrow V$, we say that T is \under{invertible}, and we denote the inverse of $T$ by $T^{-1}$.
+\paragraph{Definition 2.6.4} If \litran is an invertible transformation, $T$ is called an \under{isomorphism}, and we say $V$ and $W$ are \under{isomorphic vector spaces}.
+
+\paragraph{Notes}
+$T^{-1}T(\vv)$ is the identity linear transformation of V, $T^{-1}T = I_V$, and $TT^{-1}$ is the identity linear transformation of W, $TT^{-1} = I_W$. \textcolor{blue}{If $S$ is a linear transformation that is a candidate for the inverse, we need only verify that $ST = I_V$ and $TS = I_W$.}
+\paragraph{Proposition 2.6.7} If V and W are finite-dimensional vector spaces, then there is an isomorphism \litran if and only if $\dim(V) = \dim(W)$.
+\paragraph{Definition 2.6.10} An $n \times n$ matrix A is called \ti{invertible} if there exists an $n\times n$ matrix B so that $AB = BA = I$. $B$ is called the \ti{inverse} of A and is denoted by $A^{-1}$.
+\paragraph{Proposition 2.6.11} Let \litran be an isomorphism of finite-dimensional vector spaces. Then for any choice of bases $\alpha$ for $V$ and $\beta$ for $W$
+$$[T^{-1}]_\beta^\alpha = {[T]_\alpha^{\beta}}^{-1}$$
+
+\subsection{Change of Basis}
+\paragraph{Proposition 2.7.3} Let V be a finite-dimensional vector space, and let $\alpha$ and $\alpha'$ be bases for V. Let $\vv \in V$. Then the coordinate vector $[\vv]_{\alpha'}$ of $\vv$ in the basis $\alpha'$ is related to the coordinate vector $[\vv]_\alpha$ of $\vv$ in the basis $\alpha$ by $$[I]_\alpha^{\alpha'}[\vv]_\alpha = [\vv]_{\alpha'}$$
+\paragraph{Theorem 2.7.5} Let \litran be a linear transformation between finite-dimensional vector spaces V and W. Let $I_V: V \rightarrow V$ and $I_W: W \rightarrow W$ be the respective identity transformations of V and W. Let $\alpha$ and $\alpha'$ be two bases for V, and let $\beta$ and $\beta'$ be two bases for $W$. Then
+$$[T]_{\alpha'}^{\beta'} = [I_W]_\beta^{\beta'}\cdot[T]_\alpha^\beta\cdot[I_V]_{\alpha'}^{\alpha}$$
+\paragraph{Definition 2.7.6} Let A,B be $n \times n$ matrices. A and B are said to be \ti{similar} if there is an invertible $n\times n$ matrix Q such that
+$$B = Q^{-1}AQ$$
+
+
+
+
 
 \section{Problem Notes}
 \paragraph{1} $S = \{\tb{a}\} \subseteq \real^2$, then we cannot determine whether S is dependent (when $\tb{a} = \vo$) or independent (when $\tb{a} \neq \vo$)
