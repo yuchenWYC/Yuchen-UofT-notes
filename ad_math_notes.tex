@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{fancy}
+\lhead{Notes by Y.W.}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
+\newcommand{\litran}[0]{$T: V \rightarrow W$ }
+\newcommand{\slitran}[0]{Let $ T: V \rightarrow W$ be a linear transformation }
+\newcommand{\mt}[0]{$[T]_\alpha^\beta$ }
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vw}[0]{\tb{w}}
+\newcommand{\vv}[0]{\tb{v}}
+\newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
+
+% Attr.
+\title{Advanced Math Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\tableofcontents
+	\newpage
+	\section{Free parameter}
+	A variable in a mathematical model which cannot be predicted precisely or constrained by the model and must be estimated experimentally or theoretically.
+	\section{Rectifier}
+	\subsection{Definition}
+	An activation function defined as the positive part of its argument:
+	$$f(x) = \max(0,x)$$
+	Also known as: ramp function \\
+	A unit employing the rectifier is also called a \tb{rectified linear unit (ReLU)}
+	\subsection{Softplus}
+	A smooth approximation to the rectifier is the analytic function $$f(x) = \log(1+e^x)$$
+	Also known as: SmoothReLU\\
+	The derivative of softplus is $$f'(x) = \frac{1}{1+e^{-x}}$$(the logistic function)
+	\paragraph{Notes}
+	The logistic function is a smooth approximation of the derivative of the rectifier, the \tb{Heaviside step function}
+	\subsection{Multivariable Generalization to Softplus}
+	LogSumExp with the first argument set to zero
+	$$LSE_0^+(x_1,\hdots,x_n) := LSE(0,x_1,\hdots,x_n) = \log(1+e^{x_1} + \hdots + e^{x_n})$$
+	\paragraph{Notes}
+	The LogSumExp function itself is:
+	$$LSE(x_1,\hdots,x_n) = \log(e^{x_1} + \hdots + e^{x_n})$$
+	and its gradient is the softmax.\\
+	The softmax with the first argument set to zero is the multivariable generalization of the logistic function.
+	\section{Softmax Function}
+	The softmax function takes an un-normalized vector, and normalizes it into a probability distribution. That is, prior to applying softmax, some vector elements could be negative, or greater than one; and might not sum to 1; but after applying softmax, each element $x_i$ is in the interval $[0,1]$, and $\sum_i x_i = 1$ \\
+	$$\sigma:\real^K \rightarrow \{\sigma\in \real^K|\sigma_i>0,\sum_{i=1}^K \sigma_i = 1\}$$
+	$$\sigma(\vz)_j = \frac{e^{z_j}}{\sum_{k=1}^K e^{z_k}}$$ for $j = 1,\hdots,K$
+\end{document}

@@ -275,7 +275,7 @@ which is the MGF of $\chi^2_{(n-1)}$\qed
  Let $T_n$ be an estimator of parameter $\theta$, $T_n$ is said to be consistent (in probability) if $$T_n \overset{P}{\rightarrow} \theta$$
  In words, $T_n$ converges to $\theta$ in probability.
  \paragraph{Note}
- If $T_n \overset{a.s.}{\theta}$ then $T_n$ is called consistent (almost surely). In this course we will only talk about consistent (in probability)
+ If $T_n \overset{a.s.}{\rightarrow}\theta$ then $T_n$ is called consistent (almost surely). In this course we will only talk about consistent (in probability)
  \paragraph{Proving consistency using LLN}
  LLN tells us, $\bar X = \frac{1}{n}\sum X_i \overset{P}{\rightarrow} E[X_i]$ for any distribution. Immediately that tells us:
  \begin{enumerate}
@@ -297,11 +297,11 @@ which is the MGF of $\chi^2_{(n-1)}$\qed
  An estimator $T_n$ is called \under{MSE consistent} if
  $$MSE(T_n) \rightarrow 0 \mbox{ as } n \rightarrow \infty$$
  Example: for $N(\mu,\sigma^2)$
- $MSE(\bar X) = \sigma^2 / n \rightarrow 0 \mbox{as} n \rightarrow \infty$
+ $MSE(\bar X) = \sigma^2 / n \rightarrow 0 \mbox{ as } n \rightarrow \infty$
  Therefore $\bar X$ is a MSE consistent estimator of $\mu$ \newline
  In naive words, after you have calculated the MSE of an estimator, just check if it goes to zero for large $n$
  \paragraph{Note}
- MSE consistent $\implies$ consistent (in probability)
+ \textcolor{red}{MSE consistent $\implies$ consistent (in probability)}
  \section{Efficient Estimator}
  \paragraph{Definition of Efficiency}
  Let $T_1$ and $T_2$ be two different estimators of $\theta$, \under{Efficiency of $T_1$ relative to $T_2$} is defined as 

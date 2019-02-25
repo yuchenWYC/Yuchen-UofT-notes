@@ -34,6 +34,8 @@
 \newcommand{\vu}[0]{\tb{u}}
 \newcommand{\vw}[0]{\tb{w}}
 \newcommand{\vv}[0]{\tb{v}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
 \newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
 
 % Attr.
@@ -442,9 +444,71 @@ $$[T]_{\alpha'}^{\beta'} = [I_W]_\beta^{\beta'}\cdot[T]_\alpha^\beta\cdot[I_V]_{
 \paragraph{Definition 2.7.6} Let A,B be $n \times n$ matrices. A and B are said to be \ti{similar} if there is an invertible $n\times n$ matrix Q such that
 $$B = Q^{-1}AQ$$
 
-
-
-
+\section{The Determinant Function}
+\subsection{The Determinant as Area}
+\paragraph{Corollary 3.1.2} Let $V = \real^2$. $T: V \rightarrow V$ is an isomorphism if and only if the area of the parallelogram constructed previously is nonzero.
+\paragraph{Proposition 3.1.3} The function $Area(\tb{a}_1,\tb{a}_2)$ has the following properties for $\tb{a}_1, \tb{a}_2,, \tb{a}'_1$, and $\tb{a}'_2 \in \real^2$
+\begin{enumerate}
+	\item $Area(b\va_1 + c\va'_1, \va_2) = b Area(\va_1, \va_2) + c Area(\va'_1, \va_2)$ for $b, c\in \real$
+	\item $Area(\va_1, b\va_2 + c\va'_2) = b Area(\va_1, \va_2) + c Area(\va_1, \va'_2)$ for $b, c\in \real$
+	\item $Area(\va_1, \va_2) = -Area(\va_2, \va_1)$
+	\item $Area((1,0),(0,1)) = 1$
+\end{enumerate}
+\paragraph{Proposition 3.1.4} If $B(\va_1,\va_2)$ is any real-valued function of $\va_1$ and $\va_2 \in \real^2$ that satisfies Properties (i),(ii),(iii) of Proposition (3.1.3), then B is equal to the area function.
+\paragraph{Definition 3.1.5}
+The determinant of a $2 \times 2$ matrix A, denoted by $\det(A)$ or $\det(\va_1,\va_2)$, is the unique function of the rows of A satisfying
+\begin{enumerate}
+	\item $\det(\va_1, b\va_2 + c\va'_2) = b \det(\va_1, \va_2) + c \det(\va_1, \va'_2)$ for $b, c\in \real$
+	\item $\det(\va_1, \va_2) = -\det(\va_2, \va_1)$
+	\item $\det(\tb{e}_1, \tb{e}_2) = 1$
+\end{enumerate}
+As a consequence of (3.1.4), $\det(A)$ is given explicitly by\\
+$$\det(A) = a_{11}a_{22} - a_{12}a_{21}$$
+We can rephrase the work of this section as follows
+\paragraph{Proposition 3.1.6}
+\begin{enumerate}
+	\item A $2\times 2$ matrix A is invertible if and only if $\det(A) \neq 0$
+	\item If $T: V \rightarrow V$ is a linear transformation of a two-dimensional vector space V, then T is an isomorphism if and only if $\det([T]_\alpha ^\alpha) \neq 0$
+\end{enumerate}
+\subsection{The Determinant of an $n\times n$ Matrix}
+\paragraph{Definition 3.2.1} A function $f$ of \textcolor{red}{the rows of a matrix A} is called \under{multilinear} if $f$ is a linear function of each of its rows when the remaining rows are held fixed. That is, $f$ is multilinear if for all $b$ and $b' \in \real$,
+	$$f(\va_1,\hdots,b\va_l+b'\va'_l,\hdots,\va_n) = bf(\va_1,\hdots,\va_l,\hdots,\va_n)+ b'f(\va_1,\hdots,\va'_l,\hdots,\va_n)$$
+\paragraph{Definition 3.2.2} A function $f$ of the rows of a matrix A is said to be \under{alternating} if whenever any two rows of A are interchanged $f$ changes sign. That is, for all$i \neq j, 1\leq i, j\leq n$, we have
+$$f(\va_1,\hdots,\va_l,\hdots,\va_j,\hdots,\va_n) = -f(\va_1,\hdots,\va_j,\hdots,\va_i,\hdots,\va_n)$$
+\paragraph{Lemma 3.2.3} If $f$ is an alternating real-valued function of the rows of an $n\times n$ matrix and two rows of the matrix A are identical, then $f(A) = 0$
+\paragraph{Definition 3.2.4} Let A be an $n\times n$ matrix with entries $a_{ij}, i,j = 1,\hdots,n$. The $ij$th \under{minor} of A is defined to be the $(n-1)\times(n-1)$ matrix obtained by deleting the $i$th row and $j$th column of A. The $ij$th minor is denoted by $A_{ij}$.
+\paragraph{Proposition 3.2.5} Let A be a $3 \times 3$ matrix, and let $f$ be an alternating multilinear function. Then
+$$f(A) = [a_{11}\det(A_{11}) - a_{12}\det(A_{12}) + a_{13}\det(A_{13})]f(I)$$
+\paragraph{Corollary 3.2.6} There exists exactly one multilinear alternating function $f$ of the rows of a $3 \times 3$ matrix such that $f(I) = 1$
+\paragraph{Definition 3.2.7} The determinant function of a $3 \times 3$ matrix is the unique alternating multilinear function $f$ with $f(I) = 1$. This function will be denoted by $\det(A)$.
+\paragraph{Theorem 3.2.8} There exists exactly one alternating multilinear function $f: M_{n\times n}(\real) \rightarrow \real$ satisfying $f(I) = 1$, which is called the determinant function $f(A) = \det(A)$. Further, any alternating multilinear function $f$ satisfies $f(A) = \det(A)f(I)$
+\paragraph{Proposition 3.2.10} If an $n \times n$ matrix A is not invertible, then $\det(A) = 0$.
+\paragraph{Proposition 3.2.11} $$\det(\va_1,\hdots,\va_n) = \det(\va_1,\hdots,\va_i + b\va_j, \hdots, \va_n)$$
+\paragraph{Lemma 3.2.12} If A is an $n \times n$ diagonal matrix, then $\det(A) = a_{11}a_{22}\hdots a_{nn}$
+\paragraph{Proposition 3.2.13} If A is invertible, then $\det(A) \neq 0$
+\paragraph{Theorem 3.2.14} Let A be an $n\times n$ matrix. A is invertible if and only if $\det(A) \neq 0$
+\subsection{Further Properties of the Determinant}
+Let $A'$ be the matrix whose entries $a'_{ij}$ are the scalars $(-1)^{i+j}\det(A_{ji})$. The quantity $a'_{ij}$ is called the $ji$th \under{cofactor} of A.
+\paragraph{Proposition 3.3.1} $$AA' = det(A)I$$
+\paragraph{Corollary 3.3.2} If A is an invertible $n \times n$ matrix, then $A^{-1}$ is the matrix whose $ij$th entry is $(-1)^{i+j}\det(A_{ji})/\det(A)$
+\paragraph{Proposition 3.3.4} For any fixed j, $1 \leq j \leq n$,
+$$\det(A) = \sum_{i=1}^n(-1)^{i+j}a_{ij}\det(A_{ij})$$
+\paragraph{Remark 3.3.5} In general, if $\vb$ is a vector in $\real^n$, $A'\vb$ is a vector whose $i$th entry is $\sum_{j=1}^n a'_{ij}b_j=\sum_{j=1}^nb_j(-1)^{i+j}\det(A_{ji})$. This is the determinant of the matrix whose columns are $\va_1,\hdots,\va_{i-1},\vb,\va_{i+1},\hdots,\va_n$, where $\va_j, 1\leq j\leq n$, is the $j$th column of A. The determinant is expanded along the $i$th column. This fact will be used in the discussion of Cramer's rule, which appears later in this section.
+\paragraph{Proposition 3.3.7}If A and B are $n \times n$ matrices, then
+\begin{enumerate}
+	\item $\det(AB) = \det(A)\det(B)$
+	\item If A is invertible, then $\det(A^{-1}) = 1/\det(A)$
+\end{enumerate}
+\paragraph{Corollary 3.3.8} If $T: V \rightarrow V$ is a linear transformation, $\dim(V) = n$, then $$\det([T]_\alpha^\alpha) = \det([T]_\beta^\beta)$$ for all choices of bases $\alpha$ and $\beta$ for V.
+\paragraph{Definition 3.3.9} The \under{determinant} of a linear transformation $T: V \rightarrow V$ of a finite-dimensional vector space is the determinant of $[T]_\alpha^\alpha$ for any choice of $\alpha$. We denote this by $\det(T)$.
+\paragraph{Proposition 3.3.11} A linear transformation $T: V \rightarrow V$ of a finite-dimensional vector space is an isomorphism if and only if $\det(T) \neq 0$
+\paragraph{Proposition 3.3.12} Let $S: V \rightarrow V$ and $T: V \rightarrow V$ be linear transformations of a finite-dimensional vector space, then
+\begin{enumerate}
+	\item $\det(ST) = \det(S)\det(T)$ and 
+	\item if T is an isomorphism, $\det(T^{-1}) = \det(T)^{-1}$
+\end{enumerate}
+\paragraph{Proposition 3.3.13 (Cramer's rule)} Let A be an invertible $n\times n$ matrix. The solution $\vx$ to the system of equations $A\vx = \vb$ is the vector whose $j$th entry is the quotient $$\det(B_j)/\det(A)$$
+where $B_j$ is the matrix obtained from A by replacing the $j$th column of A by the vector $\vb$.
 
 \section{Problem Notes}
 \paragraph{1} $S = \{\tb{a}\} \subseteq \real^2$, then we cannot determine whether S is dependent (when $\tb{a} = \vo$) or independent (when $\tb{a} \neq \vo$)

@@ -58,5 +58,28 @@
 	Treat T as an ordinary binary search tree
 	\paragraph{Algorithm Insert}
 	First insert $x$ in $T$ as in ordinary binary search trees: trace a path from the root downward, and insert a new node with key $x$ in it in the proper place, so as to preserve the binary search tree property. This may destroy the integrity of our AVL tree in that 
+	\begin{enumerate}
+		\item The addition of a new leaf may have destroyed the height-balance of some nodes
+		\item The balance factors of some nodes must be updated to take into account the new leaf
+	\end{enumerate}
+	\paragraph{Steps for Insert} as following\\
+	Insert \tb{x} into T as in any BST: \\
+	\indent x is now a leaf\\
+	\indent Set BF(x) to 0 \\
+	Go up from x to the root and for each node v in this path \\
+	\indent Adjust the BF: \\
+	\indent\indent if x is in right subtree of v: Increment BF(v) \\
+	\indent\indent if x is in left subtree of v: Decrement BF(v) \\
+	\indent Rebalance if necessary: \\
+	\indent if BF(v) = +2:\\
+	\indent\indent if BF(v.right) = +1\\
+	\indent\indent\indent Do Left Rotation, update BFs of rotated nodes, and stop\\
+	\indent\indent if BF(v.right) = -1\\
+	\indent\indent\indent Do Right-Left Rotation, update BFs of rotated nodes, and stop\\
+	\indent\indent if BF(v.right) = -2\\
+	\indent\indent\indent Symmetric to above case
+
+	
+	
 	
 \end{document}
