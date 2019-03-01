@@ -23,6 +23,11 @@
 \newcommand{\under}[1]{\underline{#1}}
 \newcommand{\proof}[0]{\textit{\underline{proof: }}}
 \newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
+\newcommand{\vi}[0]{\tb{i}}
+\newcommand{\vj}[0]{\tb{j}}
+\newcommand{\vk}[0]{\tb{k}}
 % Attr.
 \title{Math Notes}
 \author{Yuchen Wang}
@@ -57,6 +62,24 @@ $$\sin^2{a} = \frac{1-\cos{2a}}{2} $$
 \paragraph{Definition} In 3-dimensional Euclidean space only, the cross product of vectors \tb{a} and \tb{b} is 
 $$\tb{a} \times \tb{b} = \begin{pmatrix}a_2b_3 - a_3b_2\\ a_3b_1-a_1b_3\\a_1b_2-a_2b_1\end{pmatrix}$$ 
 \paragraph{Remark} "xia, dafan, shang"
+\paragraph{As a Determinant}
+\begin{align*}
+	\va \times \vb &= \begin{vmatrix}
+		\vi & \vj & \vk \\
+		a_1 & a_2 & a_3 \\
+		b_1 & b_2 & b_3
+	\end{vmatrix} \\
+	&= \begin{vmatrix}
+		a_2 & a_3 \\
+		b_2 & b_3 \\
+	\end{vmatrix} \vi - \begin{vmatrix}
+		a_1 & a_3 \\
+		b_1 & b_3 \\
+	\end{vmatrix} \vj +  \begin{vmatrix}
+		a_1 & a_2 \\
+		b_1 & b_2 \\
+	\end{vmatrix} \vk
+\end{align*}
 \paragraph{Properties}
 \begin{enumerate}
 	\item $\tb{a} \times \tb{b}$ is orthogonal to both \tb{a} and \tb{b}
