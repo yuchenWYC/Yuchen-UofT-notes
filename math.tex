@@ -104,8 +104,19 @@ Take the primitive of (4) to get the Taylor polynomial of $\ln(1-x)$.
 \section{$\varepsilon$ definition of supremum and infimum}
 \paragraph{Definition} Let S be a nonempty subset of the real numbers that is bounded above. The upper bound $u$ is said to be the supremum of S iff $$\forall \varepsilon >0, \exists x \in S, u - \varepsilon < x$$
 \paragraph{Definition} Let S be a nonempty subset of the real numbers that is bounded below. The lower bound $w$ is said to be the infimum of S iff $$\forall \varepsilon >0, \exists x \in S, x < w + \varepsilon$$
-\section{Odd-Even Decomposition}
+\section{Even and Odd functions}
+\subsection{Profucts}
+The product of two even functions is an even function. \\
+The product of two odd functions is an even function. \\
+The product of an even function and an odd function is an odd function.\\
+The quotient of two even functions is an even function.
+\subsection{Odd-Even Decomposition}
 For any continuous function $f$, $f$ can be decomposed into the sum of one even function and one odd function:
 $$f(x) = \frac{1}{2}(f(x) + f(-x)) + \frac{1}{2}(f(x) - f(-x))$$
 We can verify that the first part is even, and the second part is odd.
+\section{Real roots and Polynomials}
+Every polynomial $p(x)$ of degree 3 with real coefficients has at least one real root. For $x = A$ sufficiently negative, $p(x) < 0$; for $x = B$ sufficiently positive, $p(x) > 0$, since the degree is odd. Hence, by the intermediate value theorem for continuous functions, there is at least one solution $x_0$ of $p(x) = 0$ between A and B.
+\section{Bilinear Map}
+A \tb{bilinear map} is a function combining elements of two vector spaces to yield an element of a third vector space, and is linear in each of its arguments. \\
+In other words, when we hold the first entry of the bilinear map fixed while letting the second entry vary, the result is a linear operator, and similarly for when we hold the second entry fixed.(example: matrix multiplication)
 \end{document}

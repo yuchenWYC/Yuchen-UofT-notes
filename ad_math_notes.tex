@@ -71,4 +71,35 @@
 	The softmax function takes an un-normalized vector, and normalizes it into a probability distribution. That is, prior to applying softmax, some vector elements could be negative, or greater than one; and might not sum to 1; but after applying softmax, each element $x_i$ is in the interval $[0,1]$, and $\sum_i x_i = 1$ \\
 	$$\sigma:\real^K \rightarrow \{\sigma\in \real^K|\sigma_i>0,\sum_{i=1}^K \sigma_i = 1\}$$
 	$$\sigma(\vz)_j = \frac{e^{z_j}}{\sum_{k=1}^K e^{z_k}}$$ for $j = 1,\hdots,K$
+	\section{Cross Product in Higher Dimensions}
+	A way of turning 3 vectors in 4-space into a fourth vector, orthogonal to the others, in a trilinear way \\
+	Canonical basis of $\real^4: (e_1, e_2, e_3, e_4)$. If your vectors are $\tb{t} = (t_1, t_2, t_3, t_4), \tb{u} = (u_1, u_2, u_3, u_4)$ and $\tb{v} = (v_1, v_2, v_3, v_4)$, then compute the determinant:
+	$$\begin{vmatrix}
+	t_1 & t_2 & t_3 & t_4 \\
+	u_1 & u_2 & u_3 & u_4 \\
+	v_1 & v_2 & v_3 & v_4 \\
+	e_1 & e_2 & e_3 & e_4
+	\end{vmatrix}$$
+	The cross product of $\tb{t}, \tb{u}, \tb{v}$ is:
+		$$-e_1\begin{vmatrix}
+	 t_2 & t_3 & t_4 \\
+	 u_2 & u_3 & u_4 \\
+	 v_2 & v_3 & v_4 \\
+	\end{vmatrix}
+	+e_2\begin{vmatrix}
+	t_1 & t_3 & t_4 \\
+	u_1 & u_3 & u_4 \\
+	v_1 & v_3 & v_4 \\
+	\end{vmatrix}
+	- e_3\begin{vmatrix}
+	t_1 & t_2 & t_4 \\
+	u_1 & u_2 & u_4 \\
+	v_1 & v_2 & v_4 \\
+	\end{vmatrix}
+	+ e_4\begin{vmatrix}
+	t_1 & t_2 & t_3 \\
+	u_1 & u_2 & u_3 \\
+	v_1 & v_2 & v_3 \\
+	\end{vmatrix}
+	$$
 \end{document}
