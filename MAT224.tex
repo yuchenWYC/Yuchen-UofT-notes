@@ -67,6 +67,14 @@
 		\item $(cd)\vx = c(d\vx)$
 		\item $1\vx = \vx$
 	\end{enumerate}
+	\paragraph{Proposition 1.1.6}
+	Let V be a vector space. Then
+	\begin{enumerate}
+		\item The zero vector $\vo$ is unique.
+		\item For all $\vx \in V, 0\vx = \vo$.
+		\item For each $\vx \in V$, the additive inverse $-\vx$ is unique.
+		\item For all $\vx \in V$, and all $c \in \real, (-c)\vx = -(c\vx)$.
+	\end{enumerate}
 	\paragraph{Smooth functions}
 	$C^\infty$ \newline
 	Most functions are not smooth.
@@ -775,8 +783,32 @@ The \under{absolute value} of the complex number $z = a+bi$ is the nonnegative r
 \paragraph{Remark}
 In general, if $n$ is an integer,
 $$z^n = r^n(\cos(n\theta) + i\sin(n\theta))$$ 
-\paragraph{Definition 5.1.11 (de Moivre's formula)}
+\paragraph{Definition 5.1.11}
 A field F is called \under{algebraically closed} if \textcolor{red}{every polynomial $p(z) = a_nz^n + \hdots + a_1z + a_0$ with coefficients in F, $a_i \in F$ for $i = 0,\hdots,n$, has $n$ roots in $F$.}
+
+    \paragraph{Statement of De Moivre's Theorem.}
+    \begin{equation*}
+        \forall x\in \real, n\in \mathbb{Z}, \left(\cos(x) + i\sin(x)\right)^n = \cos(nx) + i\sin(nx)
+    \end{equation*}
+    We can also reformulate this into the familiar notation that we used above, denoting the absolute
+    value, or length, of the complex number, we have
+    \begin{equation*}
+        z^n = |z|^n\left(\cos(n\theta) + i\sin(n\theta)\right)
+    \end{equation*}
+
+    \paragraph{Relation w/ Euler's Formula.} First, we recall the Euler Formula as below
+    \begin{equation*}
+        \textcolor{red}{e^{i\theta} = \cos \theta + i\sin \theta}
+    \end{equation*}
+    Notice that in a special case of $\theta = \pi$, the above identity is a.k.a Euler's 
+    Identity($e^{i\pi}+1=0$). Considering any $z\in \mc$, to derive the above identity, we have the following
+    \begin{align*}
+    	z &= |z|e^{i\theta}\\
+        z^n &= |z|^n\left(e^{i\theta}\right)^n\\
+        &= |z|^ne^{i\theta n} \\
+        &= |z|^n\left(\cos n\theta + i\sin n \theta\right)
+    \end{align*}
+    notice that we can now interchange, as we please, $\cos \theta + i\sin \theta$ with $e^{i\theta}$. \qed
 \paragraph{Theorem 5.1.12} $\mc$ is algebraically closed and $\mc$ is the smallest algebraically closed field containing $\real$
 \subsection{Vector Spaces Over a Field}
 \paragraph{Definition 5.2.1} A vector space over a field F is a set V (whose elements are called vectors) together with addition and multiplication and 8 axioms as in chapter 1.

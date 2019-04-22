@@ -60,7 +60,7 @@ $$E(h(X,Y)) = \Sigma_{x,y}h(x,y)P(X=x,Y=y)$$
 $$ E(x) = \int_{-\infty}^{\infty}xf_X(x)dx$$
 \paragraph{Theorem: expectation involving nested functions} 
 \begin{enumerate}
-\item Let X be a an absolutely continuous random variable with density function $f_X$, and let $g: \mb{R} \rightarrow \mb{R}$ be some function such that the expectation of the random variable $g(X)$ exists. Then $$\int_{-\infty}^{\infty} =  g(x)f_X(x)dx$$
+\item Let X be a an absolutely continuous random variable with density function $f_X$, and let $g: \mb{R} \rightarrow \mb{R}$ be some function such that the expectation of the random variable $g(X)$ exists. Then $$E[g(x)]=\int_{-\infty}^{\infty} g(x)f_X(x)dx$$
 \item Let X and Y be discrete random variables, and let $h: \mb{R}^2 \rightarrow \mb{R}$ be some function such that the expectation of the random variable $h(X,Y)$ exists. Then
  $$E(h(X,Y)) = \int_{-\infty}^{\infty}h(x,y)f_{X,Y}(x,y)dxdy$$
  \end{enumerate}
@@ -82,7 +82,7 @@ where $\sigma_X$ is the \ti{standard deviation} of X.
 $$Cov(aX + bY. Z) = aCov(X,Z) + bCov(Y,Z)$$
 \paragraph{Theorem} Let X and Y be r.v.s. Then
 $$Cov(X,Y) = E(XY) - E(X)E(Y)$$
-\paragraph{Theorem} If X and Y are independent, then $$Cov(X,Y) = 0$$.
+\paragraph{Theorem} If X and Y are independent, then $$Cov(X,Y) = 0$$
 \paragraph{Theorem} 
 \begin{enumerate}
 \item For any r.v.s X and Y,
@@ -97,6 +97,23 @@ $$Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$$
 \paragraph{Definition} The \ti{correlation} of two r.v.s X and Y is given by
 $$Corr(X,Y) = \frac{Cov(X,Y)}{Sd(X)Sd(Y)}$$ 
 provided $Var(X) < \infty$ and $Var(Y) < \infty$
+\section{Independent Random Variables}
+\paragraph{Definition 1} Let $X$ and $Y$ be two continuous random variables. We say X and Y are independent if
+$$f_{X,Y}(x,y) = f_X(x) \times f_Y(y)$$
+$\forall x,y \in \mathbb{R}$
+\paragraph{Lemma 1} X and Y are two continuous random variables. If X and Y are independent, then
+$$E[g(X)h(Y)] = E(g(X)] \times E[h(Y)]$$
+\textcolor{red}{for any two functions $g()$ and $h()$.} \\\\
+\proof\\
+\begin{align*}
+	E[g(X)h(Y)] &= \int_{-\infty}^\infty \int_{-\infty}^\infty g(x)h(y)f_{X,Y}(x,y)\,dxdy\\
+	&= \int_{-\infty}^\infty \int_{-\infty}^\infty g(x)h(y)f_X(x)f_Y(y)\,dxdy\\
+	&= \int_{-\infty}^\infty f_Y(y)h(y)\int_{-\infty}^\infty g(x)f_X(x)\,dxdy\\
+	&= \int_{-\infty}^\infty f_Y(y)h(y)E[g(X)]\,dy\\
+	&= E[g(X)]\int_{-\infty}^\infty f_Y(y)h(y)\,dy\\
+	&= E[g(X)]E[h(Y)]
+\end{align*}
+\qed
 \section{Types of Inferences}
 \paragraph{Estimation:}
 \begin{enumerate}

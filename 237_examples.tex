@@ -1,0 +1,71 @@
+\documentclass[11pt]{article}
+
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+\usepackage{esint}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\bx}[0]{\mathbf{x}}
+\newcommand{\bv}[0]{\mathbf{v}}
+\newcommand{\bw}[0]{\mathbf{w}}
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
+\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
+\newcommand{\vc}[0]{\tb{c}}
+\newcommand{\vf}[0]{\tb{F}}
+\newcommand{\vi}[0]{\tb{i}}
+\newcommand{\vj}[0]{\tb{j}}
+\newcommand{\vk}[0]{\tb{k}}
+\newcommand{\vg}[0]{\tb{G}}
+\newcommand{\vn}[0]{\tb{n}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vL}[0]{\tb{L}}
+\newcommand{\p}[0]{\partial}
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\qerat}{\tag*{$\blacksquare$}}
+\newcommand{\lima}{\underset{\vx \rightarrow \va}{\lim}}
+
+\title{MAT237 Examples}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+\noindent 1. Let $S:= [0, 100] \subset \real$, and let $f(x) = x^2$. Show $f$ is uniformly continuous on S. \\
+2. Let $S:= [0, \infty) \subset \real$, and let $f(x) = x^2$. Show $f$ is not uniformly continuous on S. \\
+3. Prove that the equation $$x^2 + y^2 = e^{(z-\frac{1}{2})^2 \cos(e^{-\sin(y/(x+2))})}$$
+has a solution in the ball $B(2, \vo) \subset \real^3$. \\
+4. \tb{``Moving the curve"} \\
+Let $C_1$ be the set $$\{(x,y): x^2+y^2 = 1, x \geq 0\}$$ oriented counterclockwise, and compute
+$$\int_{C_1} 3x^2ye^{x^3}\,dx + e^{x^3}\,dy$$
+5. Let $S$ be the set $\{(x,y,z) \in \real^3: x^2 + y^2 + z^2 = 1, z \geq 0\}$. Compute the area of $S$, as well as the integrals
+$$\iint_S z \, dA, \mbox{ and }\iint_S (0,0,z) \cdot \vn\, dA$$
+where the $\vn$ oriented upwards. \\
+6. Let $S:= \{(x,y,z) \in \real^3: x^2 + y^2 + z^2 = 1\}$ with the unit normal $\vn$ pointing outward, and compute
+$$\iint_S \vf \cdot \vn \, dA, \quad \mbox{for } \vf = (x+y, x-y\sin(yz), z\sin(yz))$$
+7. \tb{``Moving the surface"}\\
+Let $S:= \{(x,y,z): x^2 + y^2 \leq 1, z = 1 - x^2 - y^2\}$ with the unit normal oriented upward, and compute
+$$\iint_S \vf \cdot \vn \, dA \quad \mbox{for } \vf = (e^{yz}, \frac{x^2}{1+z^2}, 2z)$$
+\end{document}
