@@ -1,0 +1,1236 @@
+\documentclass[11pt]{article}
+
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+\usepackage{esint}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\bx}[0]{\mathbf{x}}
+\newcommand{\bv}[0]{\mathbf{v}}
+\newcommand{\bw}[0]{\mathbf{w}}
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
+\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
+\newcommand{\vc}[0]{\tb{c}}
+\newcommand{\ve}[0]{\tb{e}}
+\newcommand{\vm}[0]{\tb{m}}
+\newcommand{\vh}[0]{\tb{h}}
+\newcommand{\vf}[0]{\tb{F}}
+\newcommand{\vi}[0]{\tb{i}}
+\newcommand{\vj}[0]{\tb{j}}
+\newcommand{\vk}[0]{\tb{k}}
+\newcommand{\vg}[0]{\tb{G}}
+\newcommand{\vn}[0]{\tb{n}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vL}[0]{\tb{L}}
+\newcommand{\ff}[0]{\tb{f}}
+\newcommand{\fg}[0]{\tb{g}}
+\newcommand{\p}[0]{\partial}
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\qerat}{\tag*{$\blacksquare$}}
+\newcommand{\lima}{\underset{\vx \rightarrow \va}{\lim}}
+\usepackage{amsmath}% http://ctan.org/pkg/amsmath
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
+
+% Attr.
+\title{MAT237 Multivariable Calculus \\ Lecture Notes}
+\author{Yuchen Wang, Tingfeng Xia}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+\section{Limits, Continuity, and Related Topics}
+\subsection{Open, Closed, and other subsets of $\real^n$}
+\paragraph{Definition - Open Ball}
+Assume $\va \in \real^n$ and $r > 0$. \\ The \under{open ball with centre $\va$ and radius $r$} is the set denoted $B(r, \va)$, defined by
+$$ B(r, \va) = \{\vx \in \real^n: |\vx - \va| < r \}$$
+
+\paragraph{Definition - Sphere}
+The \under{sphere with centre $\va$ and radius $r$} is the set of points whose distance from $\va$ exactly equals $r$:
+$$ \{ \vx \in \real^n : |\vx - \va| = r \}$$
+
+\paragraph{Set Terminologies}
+\begin{enumerate}
+	\item A set $S \subset \real^n$ is \under{bounded} if there exists some $r > 0$ such that $S \subset B(r, \vo)$
+	\item A set is \under{unbounded} if and only if it is not bounded.
+	\item If $ S \subset \real^n$, then the \under{complement} of S, denoted $S^c$, is the set
+	defined by $$ S^c = \{x \in \real^n: \vx \notin S\}$$
+\end{enumerate}
+\paragraph{Interior, Boundary, and Closure}
+\begin{enumerate}
+    \item We say that $\vx$ belongs to the \under{interior} of S, and we write $\vx \in S^{int}$, if \\\\ $\exists \varepsilon > 0$ such that $B(\varepsilon, \vx) \subset S$
+    \item We say that $\vx$ belongs to the \under{boundary} of S, and we write $\vx \in \partial S$, if \\\\ $\forall \varepsilon > 0, B(\varepsilon, \vx) \cap S \neq \emptyset$ and
+    $B(\varepsilon, \vx) \cap S^c \neq \emptyset$
+    \item We say that $\vx$ belongs to the \under{closure} of S, and we write $\vx \in \bar{S}$, if \\\\ $\forall \varepsilon > 0, B(\varepsilon, \vx) \cap S \neq \emptyset$ \\\\
+    Equivalently, $\bar{S} = S^{int} \cup \partial S$
+\end{enumerate}
+\paragraph{Theorem 1} For any $S \subset \real^n$, $$S^{int} \subset S \subset \bar{S}$$
+\paragraph{Theorem 2} For any $S \subset \real^n$, $$\partial S = \partial (S^c)$$
+\paragraph{Definition - Open and Closed Sets}
+\begin{enumerate}
+    \item A set $S$ is \under{open} if $S = S^{int}$
+    \item A set $S$ IS \under{closed} if $S = \bar{S}$
+\end{enumerate}
+\paragraph{Remark}
+It is possible for a set $S \subset \real^n$ to be ``both open and closed", or ``neither open nor closed".
+\paragraph{Examples}
+\begin{enumerate}
+	\item Both open and closed: $\real^n$
+	\item Neither open nor closed: A ball with partial boundary; $[0, 1)$
+\end{enumerate}
+\paragraph{Theorem 3}
+S is open $\iff$ every point of S is an interior point\\
+$\iff \forall \vx \in S, \exists \varepsilon > 0$ such that $B(\varepsilon, \vx) \subset S$
+\paragraph{Theorem 4}
+S is closed $\iff$ every boundary point of S belongs to S \\
+$\iff S^c$ is open
+
+\subsection{Limits and Continuity}
+\paragraph{Homework 1.1 Theorem}
+Consider limits such as
+$$ \underset{(x,y) \rightarrow (0,0)}{\lim}\frac{|x|^{r_1}|y|^{r_2}}{|x|^{s_1} + |y|^{s_2}} $$
+where $r_1, r_2, s_1, s_2$ are positive numbers.\\
+The limit \textcolor{red}{exists and equals 0} if and only if $$\frac{r_1}{s_1} + \frac{r_2}{s_2} > 1$$
+\paragraph{Basic Property of Limits}
+\begin{enumerate}
+	\item The sum of two limits that do not exist can still exist.
+	\item The sum of two limits, one exist, one does not exist, must not exist.
+	\item The product of two limits that do not exist can still exist.
+	\item The product of two limits, one exist, one does not exist, can still exist.
+\end{enumerate}
+
+
+\paragraph{Definition of Limit}
+Assume that $S \subset \real^n$, and that $\vf: S \rightarrow \real^k$ is a function. The statement
+$$\underset{\vx \rightarrow \va}{\lim} \vf(\vx) = \vL$$
+is defined to mean
+$$\forall \varepsilon>0, \exists \delta > 0 \mbox{ such that } \vx \in S \wedge 0<|\vx - \va| < \delta \implies |\vf(\vx) - \vL| < \varepsilon$$
+In order for the definition to make sense, we need to assume that $\va$ satisfies
+\begin{equation}
+	\forall \delta > 0, \exists \vx \in S, \,0 < |\vx - \va| < \delta
+\end{equation}
+For example, this always holds if $\va \in S^{int}$, or if $\va \in \overline{S^{int}}$ (the closure of $S^{int}$)
+\paragraph{Theorem 1: Limit Laws}
+Assume that $S \subset \real^n$ and that $\va$ is a point in $\real^n$ satisfying (1). Further assume that $f, g: S \rightarrow \real$ are functions and $L, M$ are numbers such that $\underset{\vx \rightarrow \va}{\lim} f(\vx) = L, \underset{\vx \rightarrow \va}{\lim} g(\vx) = M$ \\
+Then
+$$\lima[f(\vx) + g(\vx)] = L + M, \quad
+\lima [f(\vx)g(\vx)] = LM$$
+\paragraph{Theorem 2: Squeeze Theorem}
+Assume that $S \subset \real^n$ and that $\va$ is a point in $\real^n$ satisfying (1). Further assume that $f, g, h: S \rightarrow \real$ are functions and $p > 0$ and L are numbers such that \\
+$f(\vx) \leq g(\vx) \leq h(\vx)$ for all $\vx \in S$ such that $|\vx - \va| < p$\\
+and $$\lima f(\vx) = \lima h(\vx) = L$$
+Then $\lima g(\vx) = L$
+\paragraph{Remark}
+These theorems are only for real-valued functions, because with vector-valued functions it is not clear how to generalize the hypothesis $f \leq g\leq h$ and we have several choices for the definition of a product of functions.
+\paragraph{Corollary of the Squeeze Theorem}
+Assume that $S \subset \real^n$ and that $\va$ is a point in $\real^n$ satisfying (1). Further assume that $g, h: S \rightarrow \real$ are functions such that 
+$$|g(\vx)| \leq h(\vx) \mbox{ for all } \vx \in S, \lima h(\vx) = 0$$
+Then
+$$\lima g(\vx) = 0$$
+\proof The conclusion follows directly from the Squeeze Theorem with $-h(\vx)$ playing the role of $f(\vx)$. \qed
+
+\paragraph{Theorem 3} Assume that $S \subset \real^n$ and that $\va$ is a point in $\real^n$ satisfying (1). If $\vf = (f_1, \hdots, f_k)$ is a vector-valued function $S \rightarrow \real^k$, then
+$$\lima \vf(\vx) = \vL \mbox{ if and only if } \lima f_j(\vx) = L_j \, \forall j = 1, \hdots, k$$
+
+\paragraph{\textcolor{blue}{Question Type}: Determine whether a limit exist}
+\begin{enumerate}
+	\item For a limit that does not exist, find two $y$ functions that yield different limits.
+	\item For a limit that does exist, an explanation must involve using the squeeze theorem.
+\end{enumerate}
+
+
+\paragraph{Definition of Continuity}
+If $S \subset \real^n$, then a function $\vf: S \rightarrow \real^k$ is continuous at $\va \in S$ if 
+$$ \lima f(\vx) = f(\va)$$ or
+$$\forall \varepsilon > 0, \exists \delta > 0 \mbox{ such that } \vx \in S \wedge |\vx - \va| < \delta \implies |\vf(\vx) - \vf(\va)| < \varepsilon$$
+\textcolor{red}{If $\vf$ is continuous at every point in S, then we say simply that $\vf$ is continuous.}
+\paragraph{Theorem 4: Basic properties of Continuity} Assume that $S \subset \real^n$ and that $\va \in S$
+\begin{enumerate}
+	\item If $\vf: S \rightarrow \real^k$ is a vector-valued function with components $(f_1, \hdots, f_k)$, then $\vf$ is continuous at $\va$ if and only if every component function $f_j$ is continuous at $\va$.
+	\item If $\vf, \vg: S \rightarrow \real^k$ are continuous at $\va$, then the sum $\vf + \vg$ is continuous at $\va$.
+	\item If $f, g: S \rightarrow \real$ are continuous at $\va$, then the product $fg$ is continuous at $\va$. If in addition $g(\va) \neq 0$< then the quotient $f/g$ is continuous at $\va$.
+	\item A composition of continuous functions is continuous. That is, assume that $S \subset \real^n$ and $T \subset \real^k$, and that $\vf: S \rightarrow \real^k$ and $\vg: T \rightarrow \real^l$ are functions such that $\vg \circ \vf $ is well-defined. (Thus, the image of $\vf$ is a subset of T.). If $\vf$ is continuous at $\va$ and $\vg$ is continuous at $\vf(\va)$, then $\vg \circ \vf$ is continuous at $\va$.
+	\item The elementary functions of a single variable (trigonometric functions and their inverses, polynomials, exponentials and log) are continuous on their domains.
+\end{enumerate}
+\paragraph{Theorem 5} Assume that $\vf$ is a function $\real^n \rightarrow \real^k$. Then the following are equivalent:
+\begin{enumerate}
+	\item $\vf$ is continuous.
+	\item For every open set $U \subset \real^k$, the set $\{ \vx \in \real^n: \vf(\vx) \in U\}$ is open.
+	\item For every closed set $K \subset \real^k$, the set $\{ \vx \in \real^n: \vf(\vx) \in K \}$ is closed.
+\end{enumerate}
+\subsection{Sequences and Completeness}
+\paragraph{Theorem 1: Bounded Sequence Theorem} Every bounded sequence in $\real^n$ has a subsequence that converges to a limit.
+\paragraph{Basic of Sequences}
+\begin{enumerate}
+	\item A \under{sequence in $\real^n$} may be written as
+	$$\{\va_j\}_{j=1}^\infty, \quad \{\va_j\}_j, \quad \{\va_j\}, \quad \hdots$$
+	\item We say that a sequence $\{\va_j\}_j$ in $\real^n$ \under{converges to the limit $L \in \real^n$} if
+	$$ \forall \varepsilon > 0, \exists J > 0 \mbox{ such that } j\geq J \implies |\va_j - \vL| < \varepsilon$$
+\end{enumerate}
+\paragraph{Theorem 2} Let $\{\va_j\}_j$ be a sequence in $\real^n$, and let $\vL = (L_1, \hdots, L_n) \in \real^n$. Then
+$$\underset{j\rightarrow\infty}{\lim} \va_j = \vL \iff \underset{j\rightarrow\infty}{\lim}a_{jk} = L_k \forall k = 1,\hdots,n$$
+
+\paragraph{Theorem 3: Monotone Sequence Theorem} Every bounded nondecreasing sequence of real numbers converges to a limit.
+
+\paragraph{Definition of Subsequences} A \under{subsequence} of a sequence $\{\va_j\}_{j\geq j_0}$ in $\real^n$, is a new sequence, denoted $\{\va_{k_j}\}_j$, where $\{k_j\}$ is an increasing sequence of integers such that $k_j \geq j_0$ for every $j$. Thus, the $j$th term $\va_{k_j}$ of the subsequence is the $k_j$th term of the original sequence.
+\paragraph{Fact} If $\{\va_j\}_j$ is a sequence in $\real^n$ that converges to a limit $\vL \in \real^n$, then any subsequence of $\{\va_j\}_j$ converges to the same limit.
+
+\subsection{Compactness}
+\paragraph{Definition} A set $S \subset \real^n$ is said to be \under{compact} if \textcolor{red}{every} sequence in S has a subsequence that converges to a limit in S.
+\paragraph{Theorem 1: Bolzano-Weierstrass Theorem} $S \subset \real^n$ is compact $\iff S$ is closed and bounded.
+\paragraph{Proposition 1} if $\{\vx_j\}_j$ is a \under{convergent} sequence in a \textcolor{red}{closed} set $S \subset \real^n$, then the limit of the sequence must belong to S.
+
+\paragraph{Theorem 2: The Extreme Value Theorem} Assume that K is a compact subset of $\real^n$, and that $f: K \rightarrow R$ is continuous. Then
+\begin{equation*}
+	\mbox{the set }\{f(\vx): \vx \in K\} \mbox{ is compact}
+\end{equation*}
+and there exists $\vx^*$ and $\vx_*$ in $K$ such that
+$$f(\vx^*) = \sup\{f(\vx): \vx \in K\}, \quad f(\vx_*) = \inf\{f(\vx): \vx \in K\}$$
+When there exists $\vx^*$, we say that \under{f attains its supremum}, and when there exists $\vx_*$, we say that \under{f attains its infimum}.
+\paragraph{Notation} We often use the abbreviations
+$$\underset{S}{\inf} f := \inf\{f(\vx): \vx \in S\}, \quad \underset{S}{\sup} f:= \sup\{f(\vx): \vx \in S\}$$
+
+\paragraph{Application of the EVT}
+It can sometimes guarantee that an optimization problem \tb{must have a solution}.
+(It does not given any indication how to find the solution, when it exists.)
+
+\paragraph{Proposition 2} Assume that $\{\vz_j\}_j$ is a sequence in a set $S \subset \real^k$ for some $k \geq 1$ and that $\vz_j \rightarrow \vz \in S$ as $ j \rightarrow \infty$. Assume also that $f$ is a continuous function on S. Then $f(\vz_j) \rightarrow f(\vz)$ as $j \rightarrow \infty$.
+\paragraph{Proposition 3} If S is a compact subset of $\real$< then $\sup S \in S$ and $\inf S \in S$
+\paragraph{Definition of Uniformly Continuous Functions} A function $\vf: S \rightarrow \real^k$ (for some $S \subset \real^n$) is \under{uniformly continuous} if
+$$\forall \varepsilon > 0, \exists \delta > 0, \vx, \vy \in S \wedge |\vx - \vy| < \delta \implies |\vf(\vx) - \vf(\vy)| < \varepsilon$$
+\paragraph{Remark} Uniform continuity will be important for us when we begin to look at integration of functions of several variables. 
+\paragraph{The difference between continuity and uniform continuity} is that if a functions is continuous, then the choice of $\delta$ may depend on $\vx$, whereas if it is uniformly continuous, then given $\varepsilon >0$ we can find a $\delta > 0$ that "works" for all $\vx \in S$ simultaneously.
+\paragraph{Examples} Sine and cosine functions
+\paragraph{Theorem 3} If $K$ is a \textcolor{red}{compact subset of $\real^n$} and $f: K \rightarrow \real^k$ is \textcolor{red}{continuous}, then $f$ is uniformly continuous.
+\paragraph{Corollary}
+If $S_1$ and $S_2$ are path-connected, and $S_1 \cap S_2 \neq \emptyset$, then $S := S_1 \cup S_2$ is path-connected.
+\subsection{The Intermediate Value Theorem}
+\paragraph{Definition of Path-connectedness} A set $S \subset \real^n$ is \under{path-connected} if, for every pair of points $\vx$ and $\vy$ in $S$,
+$$\exists \mbox{ continuous } \gamma: [0,1] \rightarrow S, \gamma(0) = \vx, \gamma(1) = \vy$$
+\paragraph{Theorem 1: the Intermediate Value Theorem} Assume that $S$ is a path-connected subset of $\real^n$ and that $f: S \rightarrow \real$ is continuous. If $\va, \vb$ are points in $S$ and either
+$$f(\va) < t < f(\vb)$$ or
+$$f(\vb) < t < f(\va)$$
+then there exists a point $\vc \in S$ such that $f(\vc) = t$. 
+
+\section{Differentiation and related topics}
+\subsection{Differentiation of Real-valued Functions}
+\paragraph{Definition of Linearity}
+A function $l: \real^n \rightarrow \real^m$ is linear if it has the form
+$$l(\vx) = M\vx$$
+where $M$ is a $m \times n$ matrix.
+Alternatively, a function $l: \real^n \rightarrow \real^m$ is linear if
+$$l(a\vx + b\vy) = al(\vx) + bl(\vy)$$
+for all $a,b \in \real$ and $\vx, \vy \in \real^n$. \\
+If a function has the form $f(\vx) = M\vx + \vb$, we may say that it is \under{affine}. We may also sometimes call it a ``first-order polynomial" or a "polynomial of degree 1".
+\paragraph{Definition of Differentiability - Single Variable}
+Function $f: (a,b) \rightarrow \real$ is differentiable at $x$ if $x \in (a,b)$ and
+$$\underset{h\rightarrow 0}{\lim}\frac{f(x+h) - f(x)}{h}$$ exists. \\
+\textcolor{red}{Equivalently,}
+Function $f: (a,b) \rightarrow \real$ is differentiable at $x$ if $x \in (a,b)$ and there exists a number $m$ such that
+$$\underset{h\rightarrow 0}{\lim}\frac{f(x+h) - f(x) - mh}{h}$$
+and the number $m$ is the derivative of $f$ at $x$, denoted $f'(x)$.\\
+\paragraph{Interpretation}
+Temporarily fix $x$, and view $h$ as a variable, and view $f(x+h) - f(x)$ as a function of $h$. Then $f$ is differentiable at $x$ if the linear function $mh$ approximates $f(x+h) - f(x)$, with errors that are \textcolor{red}{smaller than linear} as $h \rightarrow 0$. When this holds, $f'(x) = m$.
+\textcolor{red}{Alternatively,}
+Function $f: (a,b) \rightarrow \real$ is differentiable at $x$ if $x \in (a,b)$ and there exists a number $m$ and a function $E(h)$ such that
+$$f(x+h) = f(x) + mh + E(h), \quad \mbox{and } \underset{h\rightarrow 0}{\lim}\frac{E(h)}{h} = 0$$
+and the number $m$ is the derivative of $f$ at $x$, denoted $f'(x)$.
+\paragraph{Definition of Differentiability - Multi Variable}
+Assume that $f$ is a function $S \rightarrow \real$, where S is an open subset of $\real^n$. We say that $f$ is \under{differentiable} at a point $\vx \in S$ if there exists a \textcolor{red}{vector} $\vm \in \real^n$ such that
+$$ \underset{\vh \rightarrow \vo}{\lim} \frac{f(\vx + \vh) - f(\vx) - \vm\cdot \vh}{|\vh|} = 0$$
+When this holds, we say that the vector $\vm$ (\textcolor{red}{which is uniquely determined by the above condition} is the \under{gradient of f at \vx}, which is denoted $\nabla f(\vx)$. Thus, the gradient $\nabla f$(when it exists) is characterized by the property that
+$$ \underset{\vh \rightarrow \vo}{\lim} \frac{f(\vx + \vh) - f(\vx) - \nabla f(\vx)\cdot \vh}{|\vh|} = 0$$
+\paragraph{Alternatively}, $f$ is differentiable at $\vx$ if there exists a vector $\vm$ such that
+$$f(\vx + \vh) = f(\vx) + \vm \cdot \vh + E(\vh)$$
+where $\underset{\vh \rightarrow \vo}{\lim} \frac{E(\vh)}{|\vh|} = 0$.
+When this holds, we define $\nabla f(\vx) = m$.
+\paragraph{Theorem 1} Assume that $f: S \rightarrow \real$, where S is an open subset of $\real^n$, and that $\vx \in S$. If $f$ is differentiable at $\vx$, then $f$ is continuous at $\vx$.
+\paragraph{Definition of Partial Derivatives}
+If $f$ is a function defined on an open subset $S \subset \real^n$, then at a point $\vx \in S$, we define $$\frac{\p f}{\p x_j}(\vx) := \underset{h \rightarrow 0}{\lim} \frac{f(\vx+h\ve_j) - f(\vx)}{h}$$
+This is called the \ti{jth partial derivative of f, the partial derivative of f in the $x_j$ direction}, or the \ti{partial derivative of f with respect to $x_j$}.
+\paragraph{Theorem 2} Let $f$ be a function $S \rightarrow \real$, where $S$ is an open subset of $\real^n$. If $f$ is differentiable at a point $\vx \in S$, then $\frac{\p f}{\p x_j}$ exists at $\vx$ for all $j = 1, \hdots, n$, and in addition, $$\nabla f(\vx) = (\frac{\p f}{\p x_1}, \hdots, \frac{\p f}{\p x_n})$$
+\textcolor{blue}{That is, the partial derivatives are the components of the gradient vector.}\\
+\textcolor{red}{The converse is not true:} It can happen that all partial derivatives $\frac{\p f}{\p x_j}$ exist at $\vx$ but that $f$ is not differentiable at $\vx$.
+
+\paragraph{\textcolor{blue}{Question Type} - Determine whether a function $f$ is differentiable at a point $\vx$}
+\begin{enumerate}
+	\item If any partial derivatives $\p f/\p x_j$ fail to exist at $\vx$, then $f$ is not differentiable there, and
+	\item If all partial derivatives exist, then the vector $\vm = (\p f/\p x_1, \hdots, \p f/ \p x_n)$ is the \textcolor{red}{only} possible vector that can ``work" in the definition of differentiability.
+\end{enumerate}
+\paragraph{Theorem 3} Assume $f$ is a function $S \rightarrow \real$ for some open $S \subset \real^n$. If all partial derivatives of $f$ \textcolor{red}{exist and are continuous} at every point of $S	$, then $f$ is differentiable at every point of $S$.
+\paragraph{Definition of Class $C^1$} A function $f : S \rightarrow \real$ is said to be "of class $C^1$, or simply "$C^1$" for short, if all partial derivatives of $f$ exist and are continuous at every point of S.
+
+\paragraph{Definition of Directional Derivatives}
+A direction if $\real^n$ is naturally represented by a unit vector.\\
+Given a unit vector $\vu$ and a point $\vx \in \real^n$, the point $\vx + h\vu$ is the point reached by starting at $\vx$ and traveling a distance $h$ in the direction $\vu$. So $f(\vx + h\vu) - f(\vx)$ represents the change in $f$ if we start at $\vx$ and move at a distance in the direction $\vu$.\\
+The \under{directional derivative} of $f$ at $\vx$ in the direction $\vu$ is defined to be 
+$$\p_\vu f(\vx) := \underset{h \rightarrow 0}{\lim} \frac{f(\vx+h \vu) - f(\vx)}{h}$$
+whenever the limit exists.
+\paragraph{Remark}
+\begin{enumerate}
+	\item $\p_\vu f(\vx)$ represents the instantaneous rate of change of $f$ if we move in the direction $\vu$ through the point $\vx$.
+	\item $\forall j \in {1, \hdots, n}$, $$\frac{\p f}{\p x_j} = \p_{\ve_j}f$$
+\end{enumerate}
+\paragraph{Theorem 4} If $f$ is differentiable at a point $\vx$, then $\p_\vu f(\vx)$ exists for every unit vector $\vu$< and moreover 
+$$\p_\vu f(\vx) = \vu \cdot \nabla f(\vx)$$
+\paragraph{\textcolor{red}{Fundamental Principle}} When it not equal to zero, $\nabla f(\vx)$ points in the direction in which $f$ is increasing most rapidly at $\vx$. 
+\subsection{Differentiation (continued)}
+\subsubsection{Differentiation of vector-valued functions}
+Suppose that $S$ is an open subset of $\real^n$, and consider a vector-valued function $\tb{f}: S \rightarrow \real^m$. \\
+Idea: $\tb{f}$ is differentiable at a point $\va \in S$ if $\ff$ can be approximated by a linear map $\real^n \rightarrow \real^m$ near $\va$, with errors that are ``smaller than linear".
+\paragraph{Definition} Assume that $S$ is an open subset of $\real^n$. Given a function $\ff: S \rightarrow \real^m$, we say that $\ff$ is differentiable at a point $\va \in S$ if there exists a $m \times n$ matrix $M$ such that 
+$$\ff(\va + \vh) = \ff(\va) + M\vh + \tb{E}(\vh), \quad \mbox{where } \underset{\vh \rightarrow \vo}{\lim} \frac{\tb{E}(\vh)}{|\vh|} = \vo \in \real^m$$
+or
+$$ \underset{\vh \rightarrow \vo}{\lim} \frac{\ff(\vx + \vh) - \ff(\vx) - M\vh}{|\vh|} = 0$$
+When this holds, we say that $M$ is the derivative of $\ff$ at $\va$, and we write $M = D\ff(\va)$.
+\paragraph{Definition of Jacobian Matrix}
+When $M$ satisfy the above definition of differentiability, we say that $M$ is a $Jacobian$ matrix.
+\subsubsection{The differential}
+\paragraph{Definition} Given a differentiable function $f: S \rightarrow \real$, where S is an open subset of $\real^n$, at a point $\va \in S$ we define $df|_{\va}$ to be the linear map $\real^n \rightarrow \real$ given by
+$$df|_{\va}(\vh) = \nabla f(\va)\cdot \vh$$
+\paragraph{Notation for differentials}
+$$df = \frac{\p f}{\p x_1} dx_1 + \hdots + \frac{\p f}{\p x_n} d_xn$$
+\paragraph{\textcolor{blue}{linear approximation}} The definition of the differential implies that if $f$ is differentiable at $\va$, then
+$$f(\va + \vh) \approx f(\va) + df|_{\va}(\vh)$$
+for $\vh$ small.
+\subsection{the Chain Rule}
+\paragraph{Theorem 1: the Chain Rule} Assume that S and T are open subsets of $\real^n$ and $\real^m$, and that we are given functions $\fg: S \rightarrow \real^m$ and $\ff: T \rightarrow \real^l$. Assume also that $\va \in S$ is a point such that $\fg(\va) \in T$; thus $\ff \circ \fg(\vx) = \ff(\fg(\vx))$ is well-defined for all $\vx$ close to $\va$. \\
+$$D(\ff \circ \fg)(\va) = D\ff(\fg(\va)) \, D\fg(\va)$$
+Equivalently, $$\frac{\p}{\p x_j}(f_k \circ \fg)(\va) = \sum_{i=1}^m \frac{\p f_k}{\p y_i}(\vg(\va)) \frac{\p g_i}{\p x_j}(\va)$$ for $k = 1, \hdots, l$ and $j = 1,\hdots, n$
+\paragraph{Different Notation}
+Write $\vu = (u_1,\hdots,u_l)$ to denote a typical point in $\real^l$. If we suppose that the $\vx, \vy$ and $\vu$ variables are related by
+$$\vy = \fg(\vx), \quad \vu = \ff(\vy) = \ff(\fg(\vx))$$
+Then the Chain Rule becomes
+$$\frac{\p u_k}{\p x_j} = \frac{\p u_k}{\p y_1}\frac{\p y_1}{\p x_j} + \hdots + \frac{\p u_k}{\p y_m}\frac{\p y_m}{\p x_j}$$
+for $k = 1,\hdots, l$ and $j = 1,\hdots,n$
+\paragraph{Examples}
+\begin{enumerate}
+	\item $f(\vx) = |\vx| \implies \nabla f(\vx) = \frac{\vx}{|\vx|}$ for $\vx \neq \vo$
+	\item \tb{homogeneous functions}\\
+	A function $f: \real^n \rightarrow \real$ is said to be \under{homogeneous of degree $\alpha$} if $$f(\lambda\vx) = \lambda^\alpha f(\vx)$$
+	for all $\vx \neq \vo$ and $\lambda > 0$.
+\end{enumerate}
+\subsubsection{Level Sets and the Gradient}
+Assume that $S$ is an open subset of $\real^n$ and that $f: S \rightarrow \real$ is differentiable at $\va$. Then \\
+\textcolor{red}{$\nabla f(\va)$ is orthogonal to the level set of $f$ that passes through $\va$.}
+\paragraph{Tangent plane to a level set}
+Suppose $S$ is an open subset of $\real^3$ and that $f: S \rightarrow \real$ is a function that is differentiable at a point $\va \in S$. Assume also that
+$$\nabla f(\va) \neq 0$$
+We define the \under{tangent plane to C at $\va$} $:= \{\vx \in \real^3: (\vx - \va)\cdot \nabla f(\va) = 0\}$.
+\subsection{The Mean Value Theorem}
+\paragraph{Theorem 1: the Mean Value Theorem} Assume that $f$ is a real-valued function of class $C^1$ defined on an open set $S \subset \real^n$. For two points $\va, \vb \in S$, let $L_{\va, \vb}$ denote the line segment that connects them. If $L_{\va, \vb} \subset S$, then there exists $\vc \in L_{\va, \vb}$ such that $$f(\vb) - f(\va) = (\vb - \va)\cdot \nabla f(\vc)$$
+\paragraph{\textcolor{red}{Applications}}
+\begin{enumerate}
+	\item If a function $f$ has the property that $f'(t) = 0$ for all $t$ in an interval $(a,b)$, then $f$ is constant on $(a,b)$.
+	\item If a function $f$ has the property that $|f'(t)| \leq M$ for all $t$ in an interval $(a,b)$, then the slope of $f$ between any two points is at most $M$. More precisely,
+	$$|f'(t)| \leq M \mbox{ for all }t \in (a,b) \implies |f(t) - f(s)| \leq M|t-s| \mbox { for all }s, t \in (a,b)$$
+\end{enumerate}
+\paragraph{Theorem 2} Assume that $S$ is an open, convex subset of $\real^n$ and that $f: \real^n \rightarrow \real$ is a function that is differentiable in $S$, and moreover that there exists $M \geq 0$ such that $|\nabla f(\vx)| \leq M$ for all $\vx \in S$. Then for every $\va, \vb \in S$,
+$$|f(\vb) - f(\va)| \leq M|\vb - \va|$$
+\paragraph{Theorem 3} Assume that $S$ is an open, convex subset of $\real^n$ and that $f: \real^n \rightarrow \real$ is a function that is differentiable in $S$. If $\nabla f(\vx) = \vo$ for every $\vx \in S$, then $f$ is constant on $S$.
+
+\paragraph{Theorem 4} Assume that $S$ is an open, \textcolor{red}{path-connected} subset of $\real^n$ and that $f: \real^n \rightarrow \real$ is a function that is differentiable on $S$. If $\nabla f(\vx) = \vo$ for every $\vx \in S$, then $f$ is constant on $S$.
+
+\subsection{Higher Order Derivatives}
+\paragraph{Theorem 1} Assume that $S$ is an open subset of $\real^n$. If $f: S \rightarrow \real$ is \textcolor{red}{$C^2$},
+$$\frac{\p^2 f}{\p x_i\p x_j} = \frac{\p^2 f}{\p x_j \p x_i}$$
+for all $i,j = 1, \hdots, n$ everywhere in $S$.
+\paragraph{Theorem 2} Assume that $S$ is an open subset of $\real^n$. If $f: S \rightarrow \real$ is \textcolor{red}{$C^k$}. For any integers $i_1, \hdots, i_k$ between 1 and $n$, if $j_1, \hdots, j_k$ is a reordering of $i_1, \hdots, i_k$, then
+$$\frac{\p}{\p x_{i_k}}\hdots\frac{\p}{\p x_{i_1}} = \frac{\p}{\p x_{j_k}}\hdots\frac{\p}{\p x_{j_1}}$$
+everywhere in $S$.
+\paragraph{The Hessian Matrix} If $f$ is a $C^2$ function of $n$ variables, then it is customary to arrange the second derivatives of $f$ into a $n \times n$ matrix, called the \under{Hessian matrix} (or sometimes just \under{the Hessian} and denote H:
+$$H = \begin{pmatrix}
+	\p_1\p_1 f &\hdots &\p_n\p_1 f\\
+	\vdots &\ddots &\vdots \\
+	\p_1\p_n f &\hdots &\p_n\p_n f
+\end{pmatrix}$$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Taylor's Theorem}
+\subsubsection{Review of Taylor's Theorem in 1 Dimension}
+\paragraph{Definition of Taylor polynomials} Assume $I \subset \real$ is an open interval and that $f: I \rightarrow \real$ is a function of class $C^k$ on $I$.
+
+For a point $a\in I$, the \under{$k$th order Taylor polynomial of $f$ at $a$} is the unique polynomial of order at most $k$, denoted $P_{a,k}(h)$ such that
+\begin{align*}
+    f(a) &= P_{a,k}(0)\\
+    f'(a) &= P'_{a,k}(0)\\
+    \vdots\\
+    f^{(k)}(a) &= P_{a,k}^{(k)}(0)
+\end{align*}
+\begin{align*}
+    P_{a,k}(h) &= f(a) + hf'(a) + \frac{h^2}{2}f''(a) +...+\frac{h^k}{k!}f^{(k)}(a)\\
+    &= \sum_{j=0}^{k}\frac{h^j}{j!}f^{(j)}(a)
+\end{align*}
+\paragraph{Remark}
+Taylor's Theorem guarantees that $P_{a,k}(h)$ is a very good approximation of $f(a+h)$, and that \textcolor{red}{the quality of the approximation increases as $k$ increases.}
+\paragraph{Theorem 1: Taylor's Theorem in 1D}Assume $I \subset \real$ is an open interval and that $f: I \rightarrow \real$ is a function of class $C^k$ on $I$. For $a \in I$ and $h \in \real$ such that $a+h\in I$, let $P_{a,k}(h)$ denote the $k$th-order Taylor polynomial at $a$ and define the remainder
+$$R_{a,k}(h) := f(a+h) - P_{a,k}(h)$$
+Then $$\lim_{h\rightarrow0}\frac{R_{a,k}(h)}{h^k} = 0$$
+
+\subsubsection{Taylor's Theorem in higher dimensions}
+Assume $S \subset \real^n$ is an open set and that $f: S \rightarrow \real$ is a function of class $C^k$ on $S$. For a point $a\in S$, the $kth$ order Taylor polynomial of $f$ at $a$ is the unique polynomial of order at most $k$, denoted $P_{a,k}(\tb{h})$ such that
+\begin{align*}
+    f(\tb{a}) &= P_{\tb{a},k}(\tb{0}) \\
+    \partial^\alpha f(\tb{a}) &= \partial^\alpha P_{\tb{a},k}(\tb{0})
+\end{align*}
+for all partial derivatives of order up to $k$.
+
+\paragraph{Theorem 2: Taylor's Theorem in $n$ Dimensions}Assume $S \subset \real^n$ is an open interval and that $f: S \rightarrow \real$ is a function of class $C^k$ on $I$. For $a \in S$ and $h \in \real^n$ such that $a+h\in S$, let $P_{a,k}(h)$ denote the $k$th-order Taylor polynomial at $a$ and define the remainder
+$$R_{\va,k}(\vh) := f(\va+\vh) - P_{\va,k}(\vh)$$
+Then $$\lim_{\vh\rightarrow\vo}\frac{R_{\va,k}(\vh)}{|\vh|^k} = 0$$
+c
+\subsubsection{The Quadratic case}
+\paragraph{A Taylor polynomial formula for k = 2}
+\begin{equation*}
+P_{\tb{a},2}(\tb{h}) = f(\tb{a}) + \nabla f(\tb{a})\cdot \tb{h} + \frac{1}{2}(H(\tb{a})\tb{h})\cdot \tb{h}
+\end{equation*}
+where we remember that $\tb{h} = \tb{x} - \tb{a}$ if we want the result in terms of $x,y$. 
+%As a result, $$\lim_{h\rightarrow0}\frac{R_{a,2}(h)}{h^2} = 0$$ for $R_{a,2}(h) = f(a+h) - P_{a,2}(h)$
+
+\subsection{Critical Points}
+\paragraph{Definition} A symmetric $n \times n$ matrix A is
+\begin{enumerate}
+    \item \tb{positive definite} if $\tb{x}^T A \tb{x} > 0$ for all $x \in \real^n \symbol{92} \{\tb{0}\}$
+    \item \tb{nonnegative definite} if $\tb{x}^T A \tb{x} \geq 0$ for all $x \in \real^n$
+\end{enumerate}
+In addition, we say that A is
+\begin{enumerate}
+    \item \tb{negative definite} if -A is positive definite
+    \item \tb{nonpositive definite} if -A is nonnegative definite
+\end{enumerate}
+A matrix A is \tb{indefinite} if none of the above holds. Equivalently, A is indefinite if there exist $\tb{x, y}\in \real$ such that $\tb{x}^TA\tb{x} < 0 < \tb{y}^TA\tb{y}$
+\paragraph{Theorem 1} Assume that A is a symmetric matrix. Then \newline
+\begin{enumerate}
+    \item A is positive definite $\iff$ all its eigenvalues are positive \newline
+$\iff \exists \lambda_1 > 0$ such that $\tb{x}^TA\tb{x} \geq \lambda_1|\tb{x}|^2$ for all $\tb{x} \in \real^n $
+    \item A is nonnegative definite $\iff$ all its eigenvalues are nonnegative \newline
+    \item A is indefinite $\iff$ A has both positive and negative eigenvalues
+\end{enumerate}
+\paragraph{Remark} If A is a symmetric matrix then \newline
+The smallest eigenvalue of A = $\min_{\{\tb{u}\in \real^n: |\tb{u}| = 1\}} \tb{u}^TA\tb{u}$
+\paragraph{Theorem 2} For the matrix $A = \begin{pmatrix}
+    \alpha & \beta \\
+    \beta & \gamma 
+\end{pmatrix}$,
+\begin{enumerate}
+    \item if $det A < 0,$ then A is indefinite
+    \item if $det A > 0$, then
+    \subitem if $\alpha > 0$ then A is positive definite
+    \subitem if $\alpha < 0$ then A is negative definite
+    \item if $det A = 0$ then at least one eigenvalue equals zero.
+\end{enumerate}
+\paragraph{Definition} A critical point $\tb{a}$ of $C^2$ function $\tb{f}$ is \under{degenerate} if det$(D\tb{H}(\tb{a})) = 0$
+\paragraph{Theorem 3 - first derivative test} If $\tb{f}: S \in \real^n \rightarrow \real$ is differentiable, then every local extremum is a critical point.
+\paragraph{Theorem 4 - second derivative test}
+\begin{enumerate}
+    \item If $f: S \rightarrow \real$ is $C^2$ and \tb{a} is a local minimum point for $f$, then \tb{a} is a critical point of $f$ and $H(\tb{a})$ is nonnegative definite.
+    \item If \tb{a} is a critical point and $H(\tb{a})$ is positive definite, then \tb{a} is a local minimum point.
+\end{enumerate}
+\paragraph{Corollary} Assume that $f$ is $C^2$ and $\nabla f(\tb{a}) = \tb{0}$
+\begin{enumerate}
+    \item If H(a) is positive definite, then a is a local min;
+    \item If H(a) is negative definite, then a is a local max;
+    \item If H(a) is indefinite, then a is a saddle point;
+    \item If none of the above hold, then we cannot determine the character of the critical point without further thought.
+\end{enumerate} 
+
+\paragraph{E.Knight's approach to critical points.}In solving a question of $f:\real^2 \rightarrow{} \real$ we could use the following ``quick check" approach:
+\begin{enumerate}
+    \item Calculate the gradient of $F$, equating it to zero to find the critical points
+    \item Calculate the Hessian of $F$, find the corresponding matrices for each critical points, where the Hessian is defined as
+    \begin{equation*} H(f) = 
+        \begin{bmatrix}
+             \partial_{xx}f & \partial_{xy}f = \partial_{yx}f \\
+             \partial_{xy}f = \partial_{yx}f & \partial_{yy}f
+        \end{bmatrix}
+    \end{equation*}
+    \item Calculate the determinant of the hessian, and there are the following cases to consider
+    \begin{enumerate}
+        \item det$H<0$, then $sig(H) = (1,1)$ and the point is a saddle point
+        \item det$H>0$, then
+            \begin{enumerate}
+                \item $tr(H)<0 \implies sig(H) = (2,0)$ and the point is a local minimum
+                \item $tr(H)>0 \implies sig(H) = (0,2)$ and the point is a local maximum
+            \end{enumerate}
+        \item det$H=0$, then the test is inconclusive. We have to do this case by starring at it.
+    \end{enumerate}
+\end{enumerate}
+\subsection{Lagrange Multipliers}
+\subsubsection{One constraint}
+Consider the problem
+\begin{equation*}
+\begin{cases}
+  \mbox{minimize/maximize} \quad &f(\tb{x}) \\
+  \mbox{subject to the constraint:} &g(\tb{x}) = 0\\
+\end{cases}
+\end{equation*}
+\paragraph{Theorem 1}
+Assume that $f$ and $g$ are functions $S \rightarrow \real$ of class $C^1$, where S is an open subset of $\real^n$.\\
+If $\vx$ is a local minimum point or local maximum point of $f$ subject to the constraint $g = 0$, and if \textcolor{red}{$\nabla g(\vx) \neq \vo$} then there exists $\lambda \in \real$ such that the following system of equations is satisfied by $\vx$ and $\lambda$:
+\begin{equation*}
+\begin{cases}
+  \nabla f(\tb{x}) + \lambda \nabla g(\tb{x}) &= \tb{0} \\
+  g(\tb{x}) &= 0\\
+\end{cases}
+\end{equation*}
+
+
+\paragraph{\textcolor{blue}{Proposition}}
+the Lagrange multiplier equations $\implies \nabla f(\vx)$ is orthogonal at $\vx$ to the set of points satisfying the constraint.
+\subsubsection{Two constraints}
+Assume that $f, g_1$ and $g_2$ are functions $\real^n \rightarrow \real$ of class $C^1$. Assume also that $\{ \nabla g_1(\tb{x}), \nabla g_2(\tb{x})\}$ are \textcolor{red}{linearly independent} at all $\tb{x}$ where $g_1(\tb{x}) = g_2(\tb{x}) = 0$ \newline
+Then if $x$ is any solution to the optimization problem, there exists $\lambda_1, \lambda_2 \in \real$ such that the following system of equations is satisfies by $\tb{x}, \lambda_1$ and $\lambda_2$:
+\begin{equation*}
+\begin{cases}
+  \nabla f(\tb{x}) + \lambda_1 \nabla g_1(\tb{x}) + \lambda_2 \nabla g_2(\tb{x}) &= \tb{0} \\
+  g_1(\tb{x}) &= 0\\
+  g_2(\tb{x}) &= 0
+\end{cases}
+\end{equation*}
+\subsubsection{Inequality Constraints}
+Consider the problem
+\begin{equation*}
+    \begin{cases}
+        \mbox{minimize/maximize } f(\tb{x})\\
+        \mbox{subject to the constraint: } g(\tb{x}) \leq 0
+    \end{cases}
+\end{equation*}
+where we assume that $g$ is $C^2$, say, and that $\nabla g(\tb{x}) \neq 0$ on the set $\{\tb{x}\in \real^n: g(\tb{x}) = 0\}$ \newline
+We can reduce this to problems we already know how to solve. EVT guarantees that the problem has a solution.
+\paragraph{Case 1} The max or min occurs in the set $\{x\in \real^n: g(\tb{x}) < 0\}$ \newline
+Then it is a critical point, which we know how to find and classify
+\paragraph{Case 2} The max or min occurs in the set $\{x\in \real^n: g(\tb{x}) = 0\}$ \newline
+Then we can find it by the Lagrange Multiplier technique. \newline
+Finally we can choose the smallest/largest value of $f$ and the point where that value is attained from among all the candidates found in steps 1 and 2 above.
+\section{The Implicit and Inverse Function Theorems}
+\subsection{The Implicit Function Theorem}
+Assume that S is an open subset of $\real^{n+k}$ and that $F: S \rightarrow \real^k$ is a function of class $C^1$. Assume also that $(\tb{a}, \tb{b})$ is a point in S such that $$\tb{F}(\va, \vb)= \vo \mbox{ and } \det D_{\tb{y}}\tb{F(a, b)} \neq 0$$ \newline
+1. Then there exists $r_0, r_1 > 0$ such that for every $\tb{x} \in \real^n$ such that $|\tb{x} - \tb{a}| < r_0$, there exists a unique $\tb{y} \in \real^k$ such that $|\tb{y} - \tb{b}| < r_1$
+\begin{equation}
+	\tb{F(x, y) = 0}
+\end{equation}
+    In other words, equation (2) implicitly defines a function $\tb{y = f(x)}$ for $x \in \real^n$ near \tb{a}, with \tb{y = f(x)} close to \tb{b}. Note in particular that \tb{b = f(a)}. \\\\
+2. Moreover, the function $\tb{f}: B(r_0,\tb{a}) \rightarrow B(r_1, \tb{b}) \subset \real^k$ from part (1) above is of class $C^1$, and its derivatives may be determined by differentiating the identity $$\tb{F(x,f(x)) = 0}$$ and solving to find the partial derivatives of \tb{f}.
+\paragraph{Analytic Content of the Theorem}
+Suppose we want to solve the equation $\vf(\vx, \vy) = \vo$ for $\vy$ as a function of $\vx$, say $\vy = \ff(\vx)$. If we have a solution $\vb = \ff(\va)$, then in principle it is possible to solve for $\vx$ near $\va$, \textcolor{red}{if the crucial hypothesis $\det D_\vy \vf(\va,\vb) \neq 0$ holds.} \textcolor{blue}{Thus it is a theorem about the possibility of solving systems of (in general nonlinear) equations.}
+\paragraph{Remark} 
+Differentiating $\vf(\vx, \ff(\vx)) = 0$:
+$$D_\vy\vf|_{(\vx, \ff(\vx))}D\ff(\vx) = -D_\vx\vf|_{(\vx,\ff(\vx))}$$
+Substituting $(\vx, \ff(\vx)) = (\va, \vb)$ we get
+$$D_\vy\vf(\va, \vb)D\ff(\va) = -D_\vx\vf(\va,\vb)$$
+We need to solve for $D\ff(\va)$ in terms of derivatives of $\vf$ evaluated at $(\va, \vb)$, which leads to
+$$D\tb{f(a)} = -[D_\tb{y}\tb{F(a, b)}]^{-1}D_\tb{x}\tb{F(a, b)}$$
+\paragraph{Limitations}
+\begin{enumerate}
+	\item We have to start by knowing one solution $\vy = \vb$ for some specific $\vx = \va$.
+	\item It only gives \textcolor{blue}{local} information near point $(\va, \vb)$.
+	\item It does not give a formula for $\vy = \ff(\vx)$ solving $\vf(\vx,\vy) = 0$. It does however, tell us how to compute $D\ff(\va)$, and this allows us to approximate the solution
+	$$\ff(\va + \vh) \approx \ff(\va) + D\ff(\va)\vh = \vb + D\ff(\va)\vh$$
+	for $\vh$ small.
+\end{enumerate}
+
+
+\subsection{Geometric Contents of the Implicit Function Theorem}
+k-Dimensional Manifolds in $\real^n$
+\subsubsection{The General Case}
+Fix $k < n$. For a k-dimensional manifold $M$ in $\real^n$, we say that $M$ has "degrees of freedom" $k$. There are 3 natural ways to represent $M$ (be careful with the dimensions!!! ):
+\paragraph{1. As a \tb{graph}:}
+        $$\func{f}{U \subset \real^k}{\real^{n-k}}$$ where U is open.
+        $$ S = \{(\tb{x}, \tb{f}(\tb{x})) \in \real^n: \tb{x} = \tb{f}(\tb{x}), \forall \tb{x} \in U \}$$
+\paragraph{2. As a \tb{level set}:}
+    $$ \func{F}{U\in \real^n}{\real^{n-k}}$$ where U is open.
+    $$ S = \{\tb{x} \in U: \tb{F}(\tb{x}) = \tb{c}\}$$ for some $\tb{c} \in \real^{n-k}$.\newline
+    This is also called the \ti{"zero locus"} of \tb{F} when $\tb{c} = \tb{0}$
+\paragraph{Remark 1} The regularity conditions that guarantees that $S$ is smooth is that
+\begin{enumerate}
+    \item $\nabla F_1(\tb{x}), ..., \nabla F_{n-k}(\tb{x})$ are linearly independent at each $\tb{x} \in S$. Or equivalently,
+    \item the matrix $D\tb{F}(\tb{x})$ has rank $n-k$ at every $\tb{x} \in S$.
+\end{enumerate}
+\paragraph{Remark 2} It can happen that S is smooth but the above conditions are not satisfied. Example: The square of a smooth set $\vf(x,y,z) = (x^2 + y^2 - 1)^2,  \vc = \vo$
+\paragraph{3. Parametrically}
+$$\func{f}{U \subset \real^k}{\real^{n}}$$ where U is open.
+$$ S = \{\tb{f}(\tb{u}): \tb{u} \in U\}$$
+\paragraph{Remark} The regularity conditions that guarantees that S is smooth is that
+\begin{enumerate}
+    \item $\partial_{u_1}\tb{f}(\tb{u}),...,\partial_{u_k}\tb{f}(\tb{u})$ are linearly independent at each $\tb{u} \in U$. Or equivalently,
+    \item the matrix $D\tb{f}(\tb{u})$ has rank $k$ at every $\tb{u} \in U$.
+\end{enumerate}
+\paragraph{Notes} We can prove that if the above conditions are satisfied, then S is smooth. Construct $\func{F}{\real^{2k}}{\real^k}$, then use IFT (the proof is hard but worthwhile to think about since the general case implies every specific case).
+
+\subsubsection{The Specific Cases}
+\paragraph{Theorem 1 - When is a curve regular?}
+Assume that $\func{F}{\real^2}{\real}$ is $C^1$, and let
+$$S:=\{\tb{x} \in \real^2: F(\tb{x}) = 0 \}$$
+If $\tb{a} \in S$ and $\nabla F(\tb{a}) \neq 0$, then there exists some $r>0$ such that $B(r, \tb{a}) \cap S$ is a $C^1$ graph. \newline
+(Prove directly using IFT)
+\paragraph{Theorem 2 - When is the parametrization regular?} 
+Assume that $\func{f}{(a, b)}{\real ^2}$ is $C^1$, and let
+$$S:=\{ \tb{f}(t): t \in (a, b)\}$$
+If $\tb{f}'(c) \neq 0$ for some $c \in (a, b)$, then there exists some $r>0$ such that $\{ \tb{f} (t): |t-c| < r\}$ is a $C^1$ graph. \newline
+\paragraph{Remark}
+It says only that the parametrization is regular near $t = c$, it does not say that S is regular near \tb{f}(c). What it means is that when increasing/decreasing t, we have no control over the path of $f(t)$.
+\paragraph{Theorem 3- When is a surface regular?}
+conditions: $\tb{a} \in S$ and $\nabla F(\tb{a}) \neq 0$
+\paragraph{Theorem 4 - When is the parametrization regular?}
+conditions: $D\tb{f}(\tb{c})$ has rank 2 at some $c$
+
+\subsubsection{Remarks on smoothness of a parametric smooth curve} 
+\paragraph{Definition.}If $I\subseteq \real$ is an interval, a $\mathcal{C}^1$ map $\gamma: I \rightarrow{} \real^2$ is said to be
+\begin{enumerate}
+    \item A \textit{regular curve} if $\gamma'(t)\neq 0, \forall t\in I$
+    \item A \textit{simple curve} if $\gamma$ is injective on the interior of $I$.
+\end{enumerate}
+Hence if $\gamma$ is regular, then there is a neighbourhood if each point whose image looks like a graph of a $\mathcal{C}^1$-function. Simplicity guarantees that no funny overlaps can happen, and this is what is need for the curve to be smooth. \textbf{As a conclusion, we say a parametric curve is smooth if and only if it is \textit{regular} and \textit{simple}}. Equivalently we could also convert such parametrization into a zero locus of a $F$ to use the good old method of gradient directly.
+
+\subsubsection{\textcolor{red}{Remarks on Smoothness of a Set $S$}}
+\begin{enumerate}
+	\item S is smooth := S can be represented as a $C^1$ graph
+	\item Jacobian of a level set has full rank $\implies$ S is smooth
+	\item A parametrization of S is smooth $\wedge$ parametrization is injective $\implies$ S is smooth
+	\item S is smooth $\notimplies$ Jacobian of any level set has full rank
+	\item S is smooth $\notimplies$ any parametrization of S is smooth
+	\item A parametrization of S is smooth $\notimplies$ S is smooth
+\end{enumerate}
+
+
+\subsection{The Inverse Function Theorem} Let U and V be open sets in $\real^n$, and assume that $\func{f}{U}{V}$ is a mapping of class $C^1$. \newline
+Assume that \tb{a} $\in U$ is a point such that $D\tb{f(a)}$ is invertible. \newline
+and let $\tb{b} := \tb{f(a)}$. Then there exist open sets $M \subset U$ and $N \subset V$ such that
+\begin{enumerate}
+    \item $\tb{a} \in M$ and $\tb{b} \in N$
+    \item $\tb{f}$ is one-to-one from M onto N (hence invertible), and
+    \item the inverse function $f^{-1}: N \rightarrow M$ is of class $C^1$
+\end{enumerate}
+Moreover, if $x \in M$ and $y = \tb{f(x)}\in N$, then $$D(\tb{f}^{-1})(\tb{y}) = [D\tb{f(x)}]^{-1}$$
+In particular, $$D(\tb{f}^{-1})(\tb{b}) = [D\tb{f(a)}]^{-1}$$
+\paragraph{Remarks} The theorem tells us when a transformation of class $C^1$ has a \textcolor{red}{local} inverse of class $C^1$\\
+It says: Suppose we are given $n$ nonlinear equations in $n$ unknowns. Given $\ff: U \rightarrow V$ and $\vy \in V$, and we want to find $\vx$ solving
+$$\ff(\vx) = \vy$$
+If we know that $\ff(\va) = \vb$, then for $\vy$ near $\vb$, the solvability of the system can be established by considering whether the matrix $D\ff(\va)$ is invertible.
+
+
+\subsubsection{Some Important Coordinate Systems}
+\paragraph{Polar Coordinates in $\real^2$}
+$$\begin{pmatrix}
+    x\\y
+\end{pmatrix}
+= \begin{pmatrix}
+    r\cos{\theta}\\
+    r\sin{\theta}
+\end{pmatrix}
+= \tb{f}(r, \theta) $$
+For \tb{f} to be a bijection between open sets, we have to restrict its domain and range. A common choice is to specify that \tb{f} is a function $U \rightarrow V$ where
+$$U := \{(r, \theta): r > 0, |\theta| < \pi\},   V:= \real^2 \symbol{92}\{(x, 0): x \leq 0 \}$$
+(Note that there is a half of the x-axis missing)
+\paragraph{Spherical Coordinates in $\real^3$}
+$$\begin{pmatrix}
+    x\\y\\z
+\end{pmatrix}
+= \begin{pmatrix}
+    r\cos{\theta}\sin{\varphi}\\
+    r\sin{\theta}\sin{\varphi}\\
+    r\cos{\varphi}
+\end{pmatrix}
+= \tb{f}(r, \theta, \varphi)$$
+If we want \tb{f} to be a bijection between open sets U and V, it is necessary to restrict the domain and range in some appropriate way.
+
+\paragraph{Cylindrical Coordinates in $\real^3$}
+$$\begin{pmatrix}
+    x\\y\\z
+\end{pmatrix}
+= \begin{pmatrix}
+    r\cos{\theta}\\
+    r\sin{\theta}\\
+    z
+\end{pmatrix}
+= \tb{f}(r, \theta, z)$$
+
+\section{Integration}
+\subsection{Zero content}
+\paragraph{Zero content in 1-D} A set $S\subset \real$ is said to have zero content if
+\begin{equation*}
+    \forall \epsilon > 0, \exists~\text{intervals}~I_1,...,I_n ~s.t.~ S\subseteq \bigcup_{i=1}^{n}I_i \wedge \sum_{i=1}^{n}{Len(I_i)} < \epsilon
+\end{equation*}
+
+\paragraph{Multidimensional zero content.} A set $S\subset \real^n$ is said to have zero content if
+\begin{equation*}
+    \forall \epsilon > 0, \exists~\text{boxes}~B_1,...,B_n~s.t.~S\subseteq \bigcup_{i=1}^{n}B_i \wedge \sum_{i=1}^{n}{Area(B_i)} < \epsilon
+\end{equation*}
+
+\paragraph{Consequence of zero content.}If a set $Z$ has zero content, then
+\begin{equation*}
+    \forall \epsilon>0, \exists~\text{boxes}~B_1,...,B_n~s.t.~ S\subseteq \bigcup_{i=1}^{n}B^{int}_i \wedge \sum_{i=1}^{n}{Area(B_i)} < \epsilon
+\end{equation*}
+Notice the extra $int$.
+
+\paragraph{Proposition on zero content} 
+\begin{enumerate}
+    \item If $Z\subset \real^2$ has zero content and $U\subset Z$, then $U$ has zero content.
+    \item If $Z_1,...,Z_k$ have zero content, then so does $\bigcup_1^k Z_j$
+    \item $\mathbf{f}:(a_0, b_0) \xrightarrow{} \real^2$ is of class $C_1$, then $\mathbf{f}([a,b])$ has zero content whenever $a_0<a<b<b_0$
+\end{enumerate}
+\subsection{Theorems of 1-D Integral Calculus}
+\paragraph{Lemma: Refined partitions give better approximations} Let $P$ be some partition over an interval and let $P'$ be a refinement of $P$, then
+\begin{equation*}
+    LS_{P'}f \geq LS_{P}f \wedge US_{P'}f \leq US_{P}f
+\end{equation*}
+Where LS and US stands for lower sum and upper sum respectively.
+
+\paragraph{Lemma: Lower sum is always less then or equal to upper sum} If $P$ and $Q$ are any partitions of $[a,b]$, then $LS_Pf \leq US_Qf$. The essence of this proof is to consider the common refinement of these two partitions.
+
+\paragraph{Lemma. $\epsilon-\delta$ definition of integrability} If $f$ is a bounded function on $[a,b]$, the following conditions are equivalent:
+\begin{enumerate}
+    \item $f$ is integrable on $[a,b]$
+    \item $\forall \epsilon > 0, \exists P$ of $[a,b]$ such that $US_Pf - LS_Pf < \epsilon$
+\end{enumerate}
+
+\paragraph{Theorem:  Integration is ``Linear"}
+\begin{enumerate}
+    \item Suppose $a < b<c$. If $f$ is integrable on $[a,b]$ and on $[b,c]$, then $f$ is integrable on $[a,c]$, further more
+    \begin{equation*}
+        \int_a^c f(x)dx = \int_a^b f(x)dx + \int_b^c f(x)dx
+    \end{equation*}
+    \item If $f$ and $g$ are integrable on $[a,b]$, then so is $f+g$, further more
+    \begin{equation*}
+        \int_a^b [f(x) + g(x)]dx = \int_a^b f(x)dx + \int_a^b g(x)dx
+    \end{equation*}
+\end{enumerate}
+
+\paragraph{Theorem.} Suppose $f$ is integrable on $[a,b]$.
+\begin{enumerate}
+    \item If $c\in \mathbb{R}$, the $cf$ is integrable on $[a,b]$, and $\int_a^b cf(x) = c\int_a^bf(x)dx$
+    \item If $[c,d] \subset [a,b]$, then $f$ is integrable on $[c,d]$.
+    \item If $g$ is integrable on $[a,b]$ and $f(x) \leq g(x),\forall x \in [a,b]$, then $\int_a^b f(x)dx\leq \int_a^b g(x)dx$
+    \item $|f|$ is integrable on $[a,b]$, and $\left|\int_a^bf(x)dx\right| \leq \int_a^b |f(x)|dx$
+\end{enumerate}
+
+\paragraph{Theorem: Bounded + monotone $\implies$ integrable} If $f$ is bounded and monotone on $[a,b]$, then $f$ is integrable on $[a,b]$. The proof of this uses the $\epsilon-\delta$ definition of integrability
+
+\paragraph{Theorem: Continuous $\implies$ integrable} If $f$ is continuous on $[a,b]$, then $f$ is integrable on $[a,b]$. Note that continuous is a sufficient but not necessary condition of integrability
+
+\paragraph{Theorem: discontinuous at only finite pts $\implies$ integrable} If $f$ is bounded on $[a,b]$ and continuous at all except finitely many points in $[a,b]$, then $f$ is integrable on $[a,b]$. A easy example of this would be any $\mathbb{R}$ function that has a hole in it.
+
+\paragraph{Theorem: Discontinuous at only zero content $\implies$ integrable} If $f$ is bounded on $[a,b]$ and the set of points in $[a,b]$ at which $f$ is discontinuous has zero content, then $f$ is integrable on $[a,b]$.
+
+\paragraph{Proposition.} Suppose $f$ and $g$ are integrable on $[a,b]$ and $f(x) = g(x)$ for all except finitely many points $x\in [a,b]$. Then $\int_a^bf(x)dx = \int_a^bg(x)dx$. 
+
+\paragraph{The Fundamental Theorem Of Calculus}
+\begin{enumerate}
+    \item Let $f$ be an integrable function on $[a,b]$. For $x\in [a,b]$, let $F(x) = \int_a^xf(t)dt$. Then $F$ is continuous on $[a,b]$; more-over, $F'(x)$ exists and equals $f(x)$ at every $x$ at which $f$ is continuous,
+    \item Let $F$ be a continuous function on $[a,b]$ that is differentiable except perhaps at finitely many points in $[a,b]$, and let $f$ be a function on $[a,b]$ that agrees with $F'$ at all points where the latter is defined. If $f$ is integrable on $[a,b]$, then $\int_a^bf(t)dt=F(b)-F(a)$
+\end{enumerate}
+
+\paragraph{Proposition.} Suppose $f$ is integrable on $[a,b]$. Given $\epsilon>0, \exists \delta > 0$ such that if $P= \{x_0,...,x_J\}$ is any partition of $[a,b]$ satisfying
+\begin{equation*}
+    max\{x_j-x_{j-1} | 1\leq j \leq J\} < \delta
+\end{equation*}
+the sums $LS_Pf$ and $US_Pf$ differ from $\int_a^bf(x)dx$ by at most $\epsilon$.
+
+\subsection{Generalized Integral Calculus}
+\paragraph{Theorems of double integrals}
+\begin{enumerate}
+    \item If $f_1$ and $f_2$ are integrable on the bounded set $S$ and $c_1,c_2\in \real$, then $c_1f_1 + c_2f_2$ is integrable on $S$, and
+    \begin{equation*}
+        \iint_S[c_1f_1 + c_2f_2]dA = c_1\iint_Sf_1dA + c_2\iint_Sf_2dA
+    \end{equation*}
+    
+    \item Let $S_1$ and $S_2$ be bounded sets with no points in common (intersection $ =\emptyset$), and let $f$ be a bounded function. If $f$ is integrable on $S_1$ and on $S_2$, then $f$ is integrable on $S_1\cup S_2$, in which case
+    \begin{equation*}
+        \iint_{S_1\cup S_2}fdA = \iint_{S_1}fdA + \iint_{S_2} fdA
+    \end{equation*}
+    
+    \item If $f$ and $g$ are integrable on $S$ and $f(\mathbf{x})\leq g(\mathbf{x})$ for $\bx \in S$, then $\iint_S fdA \leq \iint_S g dA$
+    
+    \item If $f$ is integrable on $S$, then so is $|f|$, and
+    \begin{equation*}
+        \left|\iint_Sf dA\right| \leq \iint_S|f|dA
+    \end{equation*}
+\end{enumerate}
+
+\paragraph{Theorem.} Suppose $f$ is a bounded function on the rectangle $R$. If the set of points in $R$ at which $f$ is discontinuous has zero content, then f is integrable on $R$.
+
+
+\paragraph{Discontinuity of characteristic function} The function $\chi_S$ is discontinuous at $\bx$ if and only if $\bx$ is in the boundary of $S$.
+
+\paragraph{Theorem.} Let $S$ be a measurable subset of $\real^2$. Suppose $f:{\real^2} \rightarrow{}{\real}$ is bounded and the set of points in $S$ at which $f$ is discontinuous has zero content. Then $f$ is integrable on $S$. 
+\paragraph{Remark on this theorem:} The only points where $f_{\chi_S}$ can be discontinuous are those points in the closure of S where either $f$ or $\chi_S$ is discontinuous. Both of these cases are discontuinity on a set of zero content. And we can definitely fix $S$ inside of a rectangle, then by the previously stated theorem (The theorem directly above), such function is integrable.
+
+\paragraph{Proposition: Integration on a set of zero content evaluates to zero.} Suppose $Z\subset \real^2$ has zero content. If $f:\real^2\rightarrow{} \real$ is bounded, then $f$ is integrable on $Z$ and $\int_Z fdA = 0$
+
+\paragraph{Corollary}
+\begin{enumerate}
+    \item Suppose that $f$ is integrable on the set $S\subset \real^2$. If $g(\bx) = f(\bx)$ except for $\bx$ in a set of zero content, then $g$ is integrable on $S$ and $\int_S gdA = \int_S fdA$
+    \item Suppose that $f$ is integrable on $S$ and on $T$, and $S\cap T$ has zero content. Then $f$ is integrable on $S\cup T$, and $\int_{S\cup T}f\,dA = \int_Sf\,dA+ \int_Tf\,dA$
+\end{enumerate}
+\paragraph{Fubini's Theorem} Let $R = \{(x,y): a\leq x\leq b, c \leq y \leq d \}$, and let $f$ be an integrable function on R. Suppose that, for each $y \in [c, d]$, the function $f_y$ defined by $f_y(x) = f(x, y)$ is integrable on $[a,b]$, and the function $g(y) = \int_a^bf(x,y)dx$ is integrable on $[c,d]$. Then
+$$\iint_R fdA = \int_c^d\left[\int_a^b f(x,y)dx\right]dy$$
+Likewise, if $f^x(y) = f(x,y)$ is integrable on $[c,d]$ for each $x \in [a,b]$, and $h(x) = \int_c^df(x,y)dy$ is integrable on $[a,b]$, then
+$$\iint_R fdA = \int_a^b\left[\int_c^d f(x,y)dy\right]dx$$
+
+\subsection{Change of Variables}
+\paragraph{Change of Variable formula 1D} If $g$ is a one-to-one function of class $C^1$ on the interval $[a, b]$, then for any continuous function $f$,
+$$\int_{[a,b]} f(g(u))|g'(u)|du = \int_{g([a,b])}f(x)dx$$
+In practice it is often more convenient to have all the $g$'s on one side of the equation. If we set $I = g([a, b])$, we have $[a, b] = g^{-1}(I)$, and
+$$\int_I f(x) \, dx = \int_{g^{-1}(I)}f(g(u))|g'(u)|du$$
+Goal: find the analogous formula for multiple integrals. The questions is: How does the volume of a tiny piece of $n$-space change when one applies the transformation G?
+\paragraph{Theorem - Change of Variable for linear mappings} Let A be an invertible $n \times n$ matrix, and let $\tb{G}(\tb{u}) = A\tb{u}$ be the corresponding linear transformation of $\real^n$. Suppose S is a measurable region in $\real^n$ and $f$ is an integrable function on S. Then $G^{-1}(S) = \{A^{-1}\tb{x}: \tb{x} \in S\}$ is measurable and $f \circ \tb{G}$ is integrable on $\tb{G}^{-1}(S)$, and
+    $$ \int \hdots \int_S f(\vx)d^n\vx = |det A| \int \hdots \int_{\tb{G}^{-1}(S)}f(A\tb{u})d^n\tb{u}$$
+
+\paragraph{Theorem - Change of Variable for general functions} Given open sets U and V in $\real^n$, let $\func{G}{U}{V}$ be a one-to-one transformation of class $C^1$ whose derivative $D\tb{G}(\tb{u})$ is invertible for all $\tb{u} \in U$. Suppose that $T \subset U$ and $S \subset V$ are measurable sets such that $\tb{G}(T) = S$. If $f$ is an integrable function on S, then $f \circ \tb{G}$ is integrable on T, and 
+    $$ \int \hdots \int_S f(\vx)d^n\vx = \int \hdots \int_{T}f(\tb{G}(\tb{u}))|\det D\tb{G}(\tb{u})|d^n\tb{u}$$
+    
+\paragraph{Some important determinants}
+\begin{enumerate}
+    \item polar coordinates: factor = $r$
+    \item cylindrical coordinates: factor = $|\det(Dg)| = r$
+    \item spherical coordinates: factor = $r^2\sin\varphi$
+\end{enumerate}
+
+\subsection{Functions Defined by Integrals}
+\paragraph{Question}  $$ F(\vx) = \int\hdots\int_S f(\vx,\vy)d^n\vy$$ What condition on $f$ guarantee that F behaves well?
+\paragraph{Theorem 1 - Continuity of F} Suppose S and T are compact subsets of $\real^n$ and $\real^m$, respectively, and S is measurable. If $f(\vx, \vy)$ is continuous on the set $T \times S = \{(\vx, \vy): \vx \in T, \vy \in S\}$, then the function F defined by $$ F(\vx) = \int\hdots\int_S f(\vx,\vy)d^n\vy$$ is continuous on T.
+\paragraph{Theorem 2 - Differentiability of F} Suppose $S \subset \real^n$ is compact and measurable, and $T \subset \real^m$ is open. If f is a continuous function on $T \times S$ that is of class $C^1$ as a function of $\vx \in T$ for each $\vy \in S$, then the function F defined by $$ F(\vx) = \int\hdots\int_S f(\vx,\vy)d^n\vy$$ is of class $C^1$ on T, and 
+    $$ \frac{\partial F}{\partial x_j}(\vx) = \int \hdots \int_S \frac{\partial f}{\partial x_j}(\vx, \vy) d^n\vy (\vx \in T)$$
+\paragraph{Remark} Situation often occur in which the variable $\vx$ occurs in the limits of integration as well as the integrand. For simplicity we consider the case where $x$ and $y$ are scalar variables: $$F(x) = \int_a^{\varphi(x)} f(x,y)dy (*)$$
+We suppose that $f$ is continuous in $x$ and $y$ and of class $C^1$ in $x$ for each $y$, and that $\varphi$ is of class $C^1$. If $f$ does not depend on $x$, the derivative of F can be computed by the fundamental theorem of calculus together with the chain rule:
+$$\frac{d}{dx}\int_a^{\varphi(x)}f(y)fy = f(\varphi(x))\varphi'(x)$$
+For the more general case (*), we can differentiate F by combining this result with Theorem 2: Differentiate with respect to each $x$ in (*) while treating the others as constants, and add the results
+$$F'(x) = f(\varphi(x))\varphi'(x) + \int_a^{\varphi(x)}\frac{\partial f}{\partial x}(x,y) dy$$
+\subsection{Improper Multiple Integrals}
+There are many situations where one needs to integrate functions over infinite intervals(e.g. half-space or the whole space) or functions that are unbounded near some point in the region of integration. 
+\subsubsection{Bounded Functions on Unbounded Domains}
+Suppose, for example, that $f$ is a continuous function on $\real^2$ and we wish to define $\iint_{\real^2}fdA$. The obvious idea is to set $$\iint_{\real^2} fdA = \underset{r\rightarrow\infty}{\lim} \iint_{S_r}fdA$$ where the $S_r$'s are a family of measurable sets that fill out $\real^2$ as $r \rightarrow \infty$. For example, we could take $S_r$ to be 
+\begin{enumerate}
+    \item the disc of radius $r$ about the origin
+    \item the square of side length $r$ centered at the origin
+    \item the rectangle of side lengths $r$ and $r^2$ centered at the origin
+    \item the disc of radius $r$ centered at $(15, -37)$
+    \item $\hdots$
+\end{enumerate}
+No rationale for choosing one over another and no guarantee that different families $S_r$ will yield the same limit.
+\paragraph{Definition 1} We will say the \tb{improper integral} $\int \hdots \int_{\real^n} f(\vx)d^n\vx$ is \tb{absolutely convergent} (or sometimes just "\tb{the improper integral exists}") if there exists $L \in \real$ s.t.
+$$\forall \varepsilon >0, \exists R > 0 \mbox{ such that } \forall S \subset \real^n$$
+if $B(R, \vo) \subset S$, then $|\int \hdots \int_S f(\vx) d^n\vx - L| < \varepsilon$
+
+\paragraph{Theorem 2} Assume that $f: \real^n \rightarrow \real$ is continuous, and that
+$$\underset{R \rightarrow \infty}{\lim} \int \hdots \int_{B(R)} |f(\vx)|d^n\vx =: M \in [0, \infty) \mbox{ exists.}$$
+Then the improper integral $\int \hdots \int_{\real^n}f(\vx)d^n\vx$ is absolutely convergent.
+
+\paragraph{Corollary 1} Suppose $f:\real^n \rightarrow \real$ is bounded and integrable on any bounded set and satisfies $|f(\vx)| \leq C \cdot \frac{1}{||\vx||^p}$ whenever $||\vx|| > R$, for some constants $C,R > 0$.\\
+If $p>n$ then $\int\hdots \int_{\real^n}f\,d^n\vx$ exists.\\\\
+\begin{proof}
+(n=2)Suppose there exist a $p > 2$ such that the hypothesis of the theorem is satisfied. Consider $B(\vo,R)$.\\
+Then $$\int\hdots \int_{\real^n}fd^n\vx = \int\hdots \int_{B(\vo,R)}fd^n\vx + \int\hdots \int_{\real^2 \setminus B(\vo, R)}fd^n\vx$$
+(if it exists)\\
+It's sufficient to show both (1) and (2) exist for all $R>0$.\\
+By the hypothesis of the theorem (that $f$ is integrable on any bounded set), (1) exists.\\
+Consider (2)\\
+Convert to polar coordinates:
+\begin{align*}
+	\int\hdots \int_{\real^2 \setminus B(\vo, R)}fd^n\vx &= \int_0^{2\pi}\int_R^\infty frdrd\theta\\
+	&\leq \int_0^{2\pi}\int_R^\infty|f|rdrd\theta\\
+	&= 2\pi \int_R^\infty|f|rdrd\theta\\
+	&\leq 2\pi \int_R^\infty C \frac{1}{||\vx||^p}rdr\\
+	&= 2\pi \int_R^\infty C \frac{1}{r^p}rdr \tag{$||\vx|| = r$}\\
+	&= 2\pi C\int_R^\infty r^{1-p}dr\\
+\end{align*}
+$$\underset{d\rightarrow\infty}{\lim}2\pi C(d^{1-p}-R^{1-p})$$ exists iff $$ p - 1> 1 \iff p>2$$ \qed
+\end{proof}
+
+\subsubsection{Unbounded Functions on Bounded Domains}
+Now let S be a measurable subset of $\real^n$, and for a point $\tb{a} \in S^{int}$, and consider a continuous but unbounded function $f: S\setminus\{\va\} \rightarrow \real$.\\
+\paragraph{Example} $$f(x) = |\vx - \va|^{-p}$$ for some $p>0$.
+\paragraph{Definition 2} For continuous $f: S \setminus \{\tb{a}\} \rightarrow \real$, we say the \tb{improper integral} $\int \hdots \int_{S\setminus\{\va\}} f(\vx)d^n\vx$ is \tb{absolutely convergent} (or sometimes just "\tb{the improper integral exists}") if there exists $L \in \real$ s.t.
+$$\forall \varepsilon >0, \exists r > 0 \mbox{ such that } \forall U \subset S \mbox{ with } \tb{a} \in U^{int}$$
+if $ U \subset B(r, \tb{a})$, then $|\int \hdots \int_{S\setminus U} f(\vx) d^n\vx - L| < \varepsilon$
+
+\paragraph{Theorem 3} Assume that $f: S\setminus\{\tb{a}\} \rightarrow \real$ is continuous, and that
+$$\underset{r \rightarrow 0}{\lim} \int \hdots \int_{S\setminus B(r, \tb{a})} |f(\vx)|d^n\vx \mbox{ exists (and is finite)}$$
+Then the improper integral $\int \hdots \int_{S}f(\vx)d^n\vx$ is absolutely convergent.
+\paragraph{Corollary 2} Assume that S is a bounded measurable subset of $\real^n$ that contains the origin, and that $f: S \setminus \{\vo\}$ is continuous. If 
+$$\exists C > 0 \mbox{ and } p < n \mbox{ such that } |f(\vx)|\leq C|\vx|^{-p}$$
+for all $\vx \in S \setminus \{\vo\}$, then\\
+the improper integral $\int \hdots \int_S f(\vx)d^n\vx$ is absolutely convergent.
+
+
+\paragraph{Proposition} For $p > 0$, define $f_p$ on $\real^n \setminus \{\vo\}$ by $f_p(\vx) = |\vx|^{-p}$. The integral of $f_p$ over a ball $\{\vx:|\vx| < a\}$ is finite if and only if $p<n$; the integral of $f_p$ over the complement of a ball, $\{\vx:|\vx| > a\}$, is finite if and only if $p>n$.
+
+\paragraph{Proposition} $$\int_{-\infty}^\infty e^{-x^2}dx = \sqrt{\pi}$$
+\section{Vector Calculus}
+Let \tb{F} be an $\real^n$-valued function defined on some subset of $\real^n$. In this chapter, we think of such an \tb{F} as a function that assigns to each point $\vx$ in its domain a vector $\tb{F}(\vx)$, represented pictorially as an arrow based at \vx, and we therefore call it a \tb{vector field}.
+\subsection{Arc Length and Line Integrals}
+line integrals: integrals over curves\\
+Given a smooth curve C, hot to compute its length? \\
+Based on the idea of cutting up the curve into many tiny pieces, forming appropriate Riemann sums, and passing to the limit
+\subsubsection{Differentials on Curve; Arc Length} Suppose C is a smooth curve in $\real^n$. We consider two nearby points $\vx$ and $\vx + d\vx$ on the curve; here
+$$d\vx = (dx_1,\hdots,dx_n)$$
+is the vector difference between the two points, and we imagine it as being infinitely small. We may, however, be more interested in the distance between the two points, traditionally denoted by $ds$, which is $$ds = |d\vx| = \sqrt{dx^2_1+\hdots+dx^2_n}(*)$$\\
+Arc length of C = result of ``adding up all the $ds$'s" = $\int_Cds$\\\\
+To give these differentials a precise meaning that can be used for calculations, the best procedure is to paramatrize the curve. Thus, we assume that C is given by parametric equations $\vx = \tb{g}(t), a\leq t \leq b$, where $\tb{g}$ is of class $C^1$ and $\tb{g}'(t) \neq \vo$. Then the neighboring points $\vx$ and $\vx + d\vx$ are given by $\tb{g}(t)$ and $\tb{g}(t+dt)$, so $$d\vx = \tb{g}(t+dt) - \tb{g}(t) = \tb{g}'(t)dt = (\frac{dx_1}{dt},\hdots,\frac{dx_n}{dt})dt$$ Moreover,
+$$|d\vx| = |\tb{g}'(t)|dt = \sqrt{(\frac{dx_1}{dt})^2+ \hdots + (\frac{dx_n}{dt})^2}dt$$which is just what one gets by formally multiplying and dividing the expression on the right of (*) by $dt$\\\\
+Integration of the vector increments $d\vx$ just gives the total vector increment, that is, the vector difference between the initial and final points on the curve:
+$$\int_C d\vx = \int_a^b \tb{g}'(t)dt = \tb{g}(b)-\tb{g}(a)$$
+\paragraph{Definition of arc length for a smooth curve}
+$ds$ is the \ti{arc length} of the bit of curve between $d\vx$ and $\vx + d\vx$. Adding these up gives the total arc length of the curve
+$$\mbox{Arc length} = \int_C ds = \int_a^b|\tb{g}'(t)|dt$$
+\paragraph{Notes} The arc length and the vector difference between the two endpoints of the curve should not depend on the particular parametrization we use. The issue here is that a parametrization $\vx = \tb{g}(t)$ determines an \tb{orientation} for the curve C, that is, a determination of which direction along the curve is ``forward" (the direction in which the point $\tb{g}(t)$ moves as $t$ increases) and which direction is "backward". 
+\subsubsection{Line Integrals of Scalar Functions} 
+\paragraph{Definition of Piecewise Smoothness of a Function} The function $\tb{g}: [a,b] \rightarrow \real^n$ is called \tb{piecewise smooth} if
+\begin{enumerate}
+    \item It is continuous
+    \item Its derivative exists and is continuous except perhaps at finitely many points $t_j$, at which the one-sided limits $\underset{t\rightarrow t_j\pm}{\lim}\tb{g}'(t)$ exist. 
+\end{enumerate}
+\paragraph{Line Integrals of Scalar Functions} 
+If $f$ is a continuous function whose domain includes a smooth (or piecewise smooth) curve C in $\real^n$, we can integrate $f$ over the curve, taking the differential in the integral to be the element of arc length $ds$. Thus, if C is parametrized by $\vx = \tb{g}(t), a\leq t \leq b$, we define
+$$\int_C f ds = \int_a^b f(\tb{g}(t))|\tb{g}'(t)|dt$$ This is independent of the parametrization and the orientation.
+\paragraph{Definition of Average of $f$ over $C$}
+$$\mbox{Average of $f$ over $C$} = \frac{\int_C f\, ds}{\int_C \, ds}$$
+integral of $f$ over $C$ = (arclength of $C$) $\times$ (average of $f$ over $C$)
+\subsubsection{Rectifiable Curves}
+Let $C$ be a curve in $\real^n$ parametrized by injection $\tb{g}: [a,b] \rightarrow \real^n$ such that $g'(t) \neq 0$. Let $P = \{t_0, \hdots, t_J\}$ be any partition of $[a,b]$. The length of $C$ may be approximated by the sum of the lengths of the line segments connecting $\tb{g}(t_{j-1})$ to $\tb{g}(t_j)$ for $j = 1, \hdots, J$:
+$$L_P(C) := \sum_{j=1}^J |\tb{g}(t_j) - \tb{g}(t_{j-1})|$$
+We say that C is \under{rectifiable} if
+$$\{L_P(C): P \mbox{ is a partition of } [a,b]\} \mbox{ is bounded}$$
+and in this case, we define
+$$\mbox{arclength of }C := L(C) := \sup\{L_P(C): P \mbox{ is a partition of } [a,b]\}$$
+\paragraph{Theorem} If $\tb{g}: [a,b] \rightarrow \real^n$ is $C^1$, then
+$$L(C) = \int_a^b|\tb{g}'(t)|\,dt$$
+
+\subsubsection{The Line Integral of a Vector Field}
+\paragraph{Vector-Valued Line Integrals of Vector Fields} We can define the integral of an $\real^m$-valued function over a curve in $\real^n$, simply by integrating each component separately; that is, if $\tb{F} = (F_1,\hdots,F_m)$, then $\int_C\tb{F}ds = (\int_C F_1ds,\hdots,\int_C F_mds)$
+\paragraph{Scalar-Valued Line Integrals for Vector Fields} If C is a smooth (or piecewise smooth) curve in $\real^n$ and \tb{F} is a continuous vector field defined on some neighborhood of C in $\real^n$, the \tb{line integral} of \tb{F} over C is
+$$\int_C \tb{F} \cdot d\vx = \int_C (F_1dx_1+F_2dx_2+\hdots+F_ndx_n)$$
+That is, if C is described parametrically by $\vx = \tb{g}(t), a\leq t\leq b$, then
+$$\int_C \tb{F} \cdot d\vx = \int_a^b\tb{F}(\tb{g}(t))\cdot \tb{g}'(t)dt$$
+\paragraph{Proposition} The line integral $\int_C \vf \cdot d\vx$ is independent of the parametrization \ti{as long as the orientation is unchanged.}
+\subsubsection{Tangential Component}
+\paragraph{Definition of unit tangent vector}
+Since we have assumed that $\tb{g}'(t) \neq 0$, it makes sense to define $\tb{t}(\tb{g}(t)):= \frac{\tb{g}'(t)}{|\tb{g}'(t)|}$, which is the \under{unit tangent vector} to the curve $C$ at $\tb{g}(t)$, pointing to the direction given by the orientation.
+\paragraph{Definition of tangential component}
+$$F_{tang}(\vx):=\vf(\vx)\cdot \tb{t}(\vx)$$
+
+\paragraph{Interpretation of line integral of a vector field using $\vf_{tang}$}
+$$\int_C \vf \cdot d\vx = \int_a^b\vf(\tb{g}(t))\cdot(\frac{\tb{g}'(t)}{|\tb{g}'(t)|})|\tb{g}'(t)|\,dt = \int_C F_{tang}\,ds$$
+We can interpret $\int_C \vf \cdot d\vx$ as the scalar integral of the tangential component of $\vf$ over the curve $C$.
+
+\subsubsection{Fundamental Theorem of Line Integrals}
+If $C$ is a curve that starts at $\tb{p} \in \real^n$ and ends at $\tb{q}\in \real^n$, then
+$$\int_C \nabla\tb{f}\cdot d\vx = \tb{f}(\tb{g}(b)) - \tb{f}(\tb{g}(a))$$
+where $\tb{g}(a) = \tb{p}$ and $\tb{g}(b) = \tb{q}$ and the line integral around any closed path is 0.
+\subsection{Green's Theorem} 
+``The integral of something over the boundary of a region equals the integral of something else over the region itself."\\\\
+Let $R\subset \real^2$ be a region such that $R = \overline{R^{int}}$. Assume that $R$ is bounded. We say that $\partial R$ is piecewise smooth if:
+\begin{equation*}
+    \partial R = \bigcup_{i = 1}^n C_i~\text{with $C_i$ being smooth, $\forall i$}
+\end{equation*}
+
+\paragraph{Simple-Closed curve.}
+A Jordan Simple-Closed curve is a curve in $\real^2$ that is closed and non-self-overlapping. Such curve divides the region of $\real^2$ into to portions: those that are inside this curve, and those that are outside.
+More precisely, a simple closed curve is one that can be parametrized by a continuous map $\vx = \tb{g}(t), a\leq t \leq b$, such that $\tb{g}(a) = \tb{g}(b)$ but $\tb{g}(s) \neq \tb{g}(t) \mbox{ unless } \{s,t\} = \{a, b\}$
+\paragraph{Positive/ Natural Orientation} The \tb{positive orientation} on $\partial S$ is the orientation on each of the closed curves that make up the boundary such that the region S is on the $left$ with respect to the positive direction on the curve
+
+\paragraph{Regular Region}
+A compact set in $\real^n$ that is the closure of its interior.
+
+\paragraph{Statement of the Green's Theorem - Textbook Version}
+Suppose S is a regular region in $\real^2$ with piecewise smooth boundary $\partial S$. Suppose also that $\tb{F}$ is a vector field of class $C^1$ on $\bar{S}$. Then
+$$\int_{\partial S}\tb{F}\cdot d\vx = \iint_S(\frac{\partial F_2}{\partial x_1} - \frac{\partial F_1}{\partial x_2})dA$$
+In the more common notation, if we set $\tb{F} = (P,Q)$ and $\vx = (x,y)$,
+$$\int_{\partial S}P \, dx + Q \, dy = \iint_S(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y})dA$$
+The sum of line integrals over all curves that make up $\partial S$
+
+\paragraph{Statement of the Green's Theorem - E.Knight's Version} Let $C$ be a positively oriented, piece-wise smooth, simple closed curve in a plane, and let $D$ be the region bounded by $C$. If $L(\cdot)$ and $M(\cdot)$ are functions of $(x, y)$ defined on an open region containing $D$ and have continuous partial derivatives there, then
+\begin{equation*}
+    \ointctrclockwise_C \left(Ldx + Mdy\right) = \iint_D \left(\frac{\partial M}{\partial x} - \frac{\partial L}{\partial y}\right) dxdy
+\end{equation*}
+where the path of integration along $C$ is anticlockwise.
+
+\paragraph{Notes}
+\begin{enumerate}
+	\item Green's Theorem implies that $$\int_{\partial S} x \, dy = -\int_{\partial S} y \, dx = \int_{\partial S} \frac{1}{2}(x\,dy - y\,dx) = \iint_S 1 \, dA = area(S)$$
+\end{enumerate}
+\paragraph{Reformulation of Green's Theorem}
+Let $S \subset \real^2$ be a regular domain with piecewise smooth boundary. If $\vf$ is a $C^1$ vector field defined on an open set that contained S, then
+$$\iint_S (\frac{\partial F_1}{\partial x} + \frac{\partial F_2}{\partial y})\, dA = \int_{\partial S}\vf \cdot \tb{n} \, ds$$
+where $\tb{n}(t) = (t_2, -t_1) \perp \partial S$.
+
+
+\subsection{Surface Integrals}
+\subsubsection{Surface Area and Surface Integrals}
+On a curve the orientation is a matter of deciding which direction along a curve is ``positive"; on a surface it is a matter of deciding which side of the surface is the ``positive" side. \\
+Not every surface can be oriented. Counterexample: Mobius band \\
+However, if a surface forms part of the boundary of a regular region in $\real^3$, it is always orientable, and the positive normal vector is defined to be the one pointing out of the region.
+\paragraph{Element of Area}
+$$dA = |\frac{\partial \tb{G}}{\partial u} \times \frac{\partial \tb{G}}{\partial v}| \, du\, dv$$
+\paragraph{Area for a parametrized surface}
+If R is a measurable subset of W in the $uv$-plane and $\tb{G}(R)$ is the corresponding region in the surface S,
+$$\mbox{Area of \tb{G}(R) } = \iint_R|\frac{\partial \tb{G}}{\partial u} \times \frac{\partial \tb{G}}{\partial v}| \, du\, dv$$
+\paragraph{Surface Integrals of scalar Functions}
+If S admits a parametrization $\vx = \tb{G}(u,v)$ with $(u,v)\in W$, where W is tacitly assumed to be measurable,
+$$\iint_S f \, dA = \iint_W f(\tb{G}(u,v))|\frac{\partial \tb{G}}{\partial u}\times \frac{\partial \tb{G}}{\partial v}| \, du\, dv$$
+If S is the graph of a function $z = \varphi(x, y), (x,y) \in W$, the result is
+$$\iint_S f\, dA = \iint_W f(x,y,\varphi(x,y))\sqrt{1+(\partial_x \varphi)^2 + (\partial_y \varphi)^2}\, dx \, dy$$
+\paragraph{Surface Integrals of Vector Fields} It is natural to regard the vector $(\partial_u \tb{G} \times \partial_v \tb{G}) \, du \, dv$ itself as a ``vector element of area" for S: its magnitude gives the area of a small bit of S, and its direction, namely the normal direction to S, specifies how that bit is oriented in space. That is, we have
+$$(\frac{\partial \tb{G}}{\partial u} \times \frac{\partial \tb{G}}{\partial v}) \, du \, dv = \tb{n}\, dA$$ where $\tb{n}$ is a unit normal vector to the surface S. \\
+$dA$ is independent of the parametrization, and clearly so is $\tb{n}$ up to a factor of $\pm 1$ (using a different parametrization might result in replacing $\tb{n}$ by $-\tb{n}$. \\
+Suppose S is a surface with a specified orientation, and $\tb{F}$ is a continuous vector field defined on a neighborhood of S. The $\tb{surface integral}$ of \tb{F} over S is defined to be $$\iint_S \tb{F}\cdot \tb{n}\, dA$$
+Thus, if S is parametrized by $\vx = \tb{G}(u,v), (u,v)\in W$, we have
+$$\iint_S \tb{F}\cdot \tb{n}\, dA = \iint_W \tb{F}(\tb{G}(u,v))\cdot (\frac{\partial \tb{G}}{\partial u} \times \frac{\partial \tb{G}}{\partial v}) \, du \, dv$$
+\subsubsection{Normal Component}
+\paragraph{Definition of Unit Normal Vector}
+Since $\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}$ is orthogonal to $S$,
+$$\frac{\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}}{|\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}|} \mbox{ and } -\frac{\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}}{|\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}|}$$
+are \under{unit normal vectors} to $S$. \\
+Therefore, we write $\vn(\vg(\vu)) := \frac{\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}}{|\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}|}$.
+With this notation,
+\begin{align*}
+	\iint_S \vf \cdot \vn \, dA &= \iint_R \vf(\vg(\vu))\cdot (\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}) \,du\,dv \\
+	&= \iint_R \vf(\vg(\vu))\cdot \vn(\vg(\vu))|\frac{\p \vg}{\p u} \times \frac{\p \vg}{\p v}| \,du\,dv\\
+	&= \mbox{surface integral of the scalar function ($\vf \cdot \vn$) over $S$}
+\end{align*}
+
+
+
+\subsection{Vector Derivatives}
+$$\nabla = (\partial_1,\hdots,\partial_n)$$
+$$grad\,f = \nabla f = (\partial_1 f, \hdots, \partial_n f)$$
+$$div \, \tb{F} = \nabla \cdot \tb{F} = \partial_1 F_1 + \hdots+\partial_n F_n$$
+Suppose $n = 3$. If \tb{F} is a $C^1$ vector field on an open subset of $\real^3$, the \tb{curl} of \tb{F} is the vector field defined by
+$$curl\, \tb{F} = \nabla \times \vf = (\partial_2F_3 - \partial_3F_2)\vi +(\partial_3F_1 - \partial_1F_3)\vj + (\partial_1F_2 - \partial_2F_1)\vk$$
+\paragraph{Product Rules}
+\begin{align}
+	&grad(fg)=f\,grad g + g\,grad\,f\\
+	&grad(\vf \cdot \tb{G}) = (\vf \cdot \nabla)\vg \times (curl \, \vg) + (curl \vg) + (\vg \cdot \nabla)\vf + \vg \times (curl\, \vf)\\
+	&curl(f\vg)=f\,curl\vg+(grad\,f)\times \vg\\
+	&curl(\vf \times \vg) = (\vg \cdot \nabla)\vf + (div \, \vg)\vf - (\vf \cdot \nabla)\vg - (div \,\vf)\vg\\
+	&div(f\vg)=f\,div\vg+(grad\,f)\cdot\vg\\
+	&div(\vf\times\vg)=\vg \cdot (curl\,\vf) - \vf\cdot(curl\,\vg)
+\end{align}
+\paragraph{Combined Operations}
+\begin{align}
+	&curl(grad\,f) = (\p_2\p_3f-\p_3\p_2f)\vi+(\p_3\p_1f-\p_1\p_3f)\vj+(\p_1\p_2f-\p_2\p_1f)\vk = \vo\\
+	&div(curl\,\vf) = \p_1(\p_2F_3 - \p_3F_2)+\p_2(\p_3F_1-\p_1F_3)+\p_3(\p_1F_2-\p_2F_1) = 0\\
+\end{align}
+\paragraph{Laplacian}
+$$\nabla^2f=\Delta f = div(grad\,f) = \p_1^2f + \hdots + \p_n^2f$$
+Other two combinations together yield the Laplacian for vector fields in $\real^3$:
+$$grad(div\,\vf)-curl(curl\,\vf) = \nabla^2\vf = (\nabla^2F_1)\vi + (\nabla^2F_2)\vj + (\nabla^2F_3)\vk$$
+\subsection{The Divergence Theorem}
+The 3-dimensional analogue of Green's theorem; Relates surface integrals over the boundary of a regular region in $\real^3$ to volume integrals over the region itself; valid for regions with piece-wise smooth boundaries.
+\paragraph{The Divergence Theorem} Suppose R is a regular region in $\real^3$ with piecewise smooth boundary $\p R$, oriented so that the positive normal points out of R. Suppose also that $\vf$ is a vector field of class $C^1$ on R. Then
+	$$\iint_{\p R}\vf\cdot\tb{n}\,dA = \iiint_R div\, \vf\,dV$$
+\proof \\
+Begin by considering a class of simple regions.\\
+We say that R is $xy$-simple if it has the form
+$$R = \{(x,y,z):(x,y)\in W,\varphi_1(x,y) \leq z \leq \varphi_2(x,y)\}$$
+where W is a regular region in the $xy$-plane and  $\varphi_1$ and $\varphi_2$ are piecewise smooth functions on W. We define the notions of $yz$-simple and $xz$-simple similarly, and we say that R is \under{simple} if it is $xy$-simple, $yz$-simple and $xz$-simple.
+Next, show $\iint_{\partial R}F_3\tb{k}\cdot\tb{n}\,dA = \iint_R \partial_3 F_3 \, dV$\\
+The proof for $F_1i$ and $F_2 j$ is the same.\\
+It now follows that the divergence theorem is valid for regions that can be cut up into finitely many simple regions $R_1, \hdots, R_k$
+
+\subsubsection{Geometric Interpretation of div}
+Suppose \vf is a $C^1$ vector field on some open set containing the point $\va$.\\
+For $r > 0$, let $B_r$ be the ball of radius $r$ about $\va$. If $r$ is very small, the average value of $div \vf(\vx)$ on the ball $B_r$ is very nearly equal to $div\vf(\va)$. Therefore, by the divergence theorem,
+$$div \vf(\va) \approx \frac{3}{4\pi r^3}\iiint_{B_r} div\vf \, dV = \frac{3}{4\pi r^3} \iint_{\partial B_r}\vf \cdot \vn \, dA$$
+This approximation becomes better and better as $r \rightarrow 0$, and hence
+$$div \vf(\va) = \underset{r\rightarrow 0}{\lim}\frac{3}{4 \pi r^3} \iint_{|\vx - \va| = r} \vf \cdot \vn \, dA$$
+The flux of $\vf$ across $\partial B_r$ from the inside $(B_r) $ to the outside (the complement of $B_r$)
+
+
+
+
+\paragraph{Corollary (Green's Formulas)} Suppose R is a regular region in $\real^3$ with piecewise smooth boundary, and $f$ and $g$ are functions of class $C^2$ on $\bar R$. Then
+$$\iint_{\p R}f\nabla g\cdot \tb{n}\,dA = \iint_R(\nabla f \cdot \nabla g + f\nabla^2g)dV$$
+$$\iint_{\p R} (f\nabla g - g\nabla f)\cdot\tb{n}\,dA = \iint_R(f\nabla^2g -g\nabla^2f)\,dV$$
+The directional derivative $\nabla f\cdot\tb{n}$ that occurs in these formulas is called the \tb{outward normal derivative} of $f$ on $\p R$ and is often denoted by $\frac{\p f}{\p n}$.
+
+\subsection{Stokes's Theorem}
+``the generalization of Green's theorem in which the plane is replaced by a curved surface"
+\paragraph{Statement of Stokes's Theorem} Suppose $S_0$ is a smooth surface in $\real^3$, and S is a region in $S_0$ bounded by a piecewise curve $\partial S$. Assume S has an orientation given by $\tb{n}$ and $\partial S$ is positively oriented with respect to this orientation.\\
+Let $\tb{F}$ be a $C^1$ vector field defined on some neighborhood of S in $\real^3$. Then
+$$\int_{\partial S} \tb{F}\cdot d\vx = \iint_S (curl \, \vf)\cdot \tb{n} \,dA$$
+\paragraph{Special case} If S is a region in the $xy$-plane, then $\tb{n} = \tb{k} = (0,0,1)$; moreover, $\vf \cdot d\vx$ involves only the $x$- and $y$-components of $\vf$, i.e., $F_1$ and $F_2$, and $(curl \vf) \cdot \tb{n} = \partial_1 F_2 - \partial_2 F_1$. Hence Stokes's theorem reduces to Green's theorem in this case.
+\paragraph{Note} A closed curve in $\real^3$ is the boundary of infinitely many surfaces in $\real^3$. Stokes's theorem says that if C is a closed curve in $\real^3$ and S is \textcolor{red}{any} oriented surfaced bounded by C, then 
+$$\int_{\partial S} \tb{F}\cdot d\vx = \iint_S (curl \, \vf)\cdot \tb{n} \,dA$$
+for any $C^1$ vector field \tb{F}, provided that the orientations on C and S are compatible.
+
+\paragraph{Example}
+Use Stokes's Theorem twice to let the complicated integral vanish
+
+\paragraph{Definition of a closed surface} A piecewise smooth surface $S$ in $\real^3$ is \under{closed} if there exist subsets $S_1, S_2$ such that $\p S_1 = \p S_2 = S_1 \cap S_2$, and $\p S_1, \p S_2$ have opposite orientations.
+
+\paragraph{Remark} One can check that if $R \subset \real^3$ is a regular region with piecewise smooth boundary, then $S:= \p R$ is a closed surface.
+
+\paragraph{Corollary} If S is a closed surface (i.e., a surface with no boundary) in $\real^3$ with unit outward normal $\tb{n}$, and $\vf$ is a $C^1$ vector field on S, then $$\iint_S(curl \,\tb{F}) \cdot \tb{n} \, dA = 0$$
+\proof \\ 
+If $\vf$ is differentiable on the region R inside S, this follows from the divergence theorem since $div(curl \,\vf) = 0$ for any $\vf$
+More generally, draw a simple closed curve C in S that divides S into two regular regions $S_1$ and $S_2$, and we have
+$$\iint_S (curl \,\vf)\cdot \vn \,dA = \iint_{S_1}(curl\,\vf)\cdot\vn\,dA+\iint_{S_2}(curl\,\vf)\cdot \vn \, dA $$
+On the other hand, if we give C the orientation compatible with $S_1$, Stokes's theorem gives
+$$\iint_S (curl \,\vf)\cdot \vn \,dA = \int_C \vf \cdot d\vx = - \iint_{S_2}(curl \, \vf)\cdot \vn \,dA$$
+Hence the terms on the right cancel.
+
+\subsubsection{Moving the Surface}
+It follows immediately from Stokes' Theorem that if $S$ and $S'$ are two (oriented) surfaces such that $\p S = \p S'$ (with the same orientation), then
+$$\iint_S curl\, \vf \cdot \vn \, dA = \int_{\p S}\vf \cdot d\vx = \int_{\p S'}\vf\cdot d\vx = \iint_{S'} curl\, \vf \cdot \vn \, dA$$
+This means that to evaluate an integral $$\int_S curl\,\vf\cdot \vn \, dA$$ we can \ti{move the surface} to a (suitable and simpler) new surface $S'$.
+
+
+
+
+\subsubsection{Geometric Interpretation of Curl}
+Suppose \vf is a $C^1$ vector field on some open set containing the point $\va$.\\
+Fix a unit vector $\vu$. \\
+Let $D_\epsilon$ be the disc of radius $\epsilon$ centered at $\va$ in the plane perpendicular to $\vu$, oriented so that $\vu$ is the positive normal for $D_\epsilon$.\\
+As $\epsilon \rightarrow 0$, the average value of $(curl \vf) \cdot \vu$ over $D_\epsilon$ approaches its value at $\va$:
+$$(curl \vf ( \va ) ) \cdot \vu = \underset{\epsilon \rightarrow 0}{\lim} \,\frac{1}{\pi \epsilon^2} \iint_{D_\epsilon} (curl\vf) \cdot \vu \,dA$$
+Since $\vu$ is the normal to $D_\epsilon$, Stokes's theorem gives
+$$(curl \vf(\va))\cdot \vu = \underset{\epsilon \rightarrow 0}{\lim} \,\frac{1}{\pi \epsilon^2} \int_{C_\epsilon}\vf\cdot d\vx$$ where $C_\epsilon$ is the circle of radius $\epsilon$ about $\va$ in the plane perpendicular to $\vu$, traversed counterclockwise as viewed from the side on which $\vu$ lies. \\
+Think of $\vf$ as a force field, $\int_{C_\epsilon}\vf\cdot d\vx$ is the \textcolor{blue}{work done by $\vf$ on a particle that moves around $C_\epsilon$.} Thus $(curl \vf(\va))\cdot \vu$ represents the \textcolor{blue}{tendency of the force $\vf$ to push the particle around $C_\epsilon$}.
+\subsection{Vector Fields That Are Gradients or Curls}
+``Inverse" question of computing $grad \,f$ or $curl \,\vf$:\\
+$\bullet$ does there exist some function $f$ such that $\vg = grad \, f$? If so, can we find $f$? \\
+$\bullet$ does there exist some vector field $\vf$ such that $\vg = curl \, \vf$? If so, can we find $\vf$?
+\subsubsection{Vector Field that are Gradients}
+\paragraph{Proposition} Suppose \tb{G} is a continuous vector field on an open set R in $\real^n$. The following 3 conditions are equivalent:
+\begin{enumerate}
+	\item There exists a function $f: U \rightarrow \real$ of class $C^1$ such that $\vg = \nabla f$
+	\item If $C_1$ and $C_2$ are any two oriented curves in R with the same initial point and the same final point, then $\int_{C_1} \vg \cdot d\vx = \int_{C_2}\vg\cdot d\vx$
+	\item If C is any closed curve in R, $\int_C \vg \cdot d\vx = 0$
+\end{enumerate}
+\proof see textbook p258
+\paragraph{Conservative Vector Field} A vector field $\vg$ is called \under{conservative} in the region R if it satisfies the above conditions.
+\paragraph{Geometric Interpretation} $\vg$ a force field, the force does no net work on a particle that returns to its starting point.
+
+\paragraph{Proposition} A continuous vector field $\vg$ in an open set $R \subset \real^n$ is conservative $\iff$ there is a $C^1$ function $f$ on R such that $\vg = \nabla f$.\\
+\proof \\
+$\leftarrow:$ If $\vg = \nabla f$ and C is a closed curve parametrized by $\vx = \tb{g}(t), a\leq t\leq b$, by the chain rule we have 
+$$\int_C \nabla f \cdot d\vx = \int_a^b \nabla f(\tb{g}(t))\cdot \tb{g}'(t)\,dt = \int_a^b \frac{d}{dt}f(\tb{g}(t))dt = f(\tb{g}(b)) - f(\tb{g}(a)) = 0$$
+$\rightarrow:$ If $\vg$ is conservative in R. Need to construct a function $f$ such that $\nabla f = \vg$. Assume R is (piecewise) connected, pick $\va \in R$. For any $\vx \in R$, let C be a curve in R from $\va$ to $\vx$. We shall show $G_i = \partial_j f$ for each $j$.\\
+For case $j = 1$: \\
+Let $\tb{h} = (h, 0, \hdots, 0)$. Suppose h is small enough so that the line segment L from $\vx$ to $\vx + \tb{h}$ lies entirely in R. We define $f(x) = \int_C \vg \cdot d\vx$ where C is a curve from $\va$ to $\vx$. \\
+Make a curve from $\va$ to $\vx + \tb{h}$ by joining L onto the end of C, so that $$f(\vx + \tb{h}) = \int_C \vg \cdot d\vx + \int_L \vg \cdot d\vx$$But then
+$$\frac{f(\vx+\tb{h}) - f(\vx)}{h} = \frac{1}{h}\int_L \vg \cdot d\vx = \frac{1}{h} \int_0^h G_1(x_1+t,x_2,\hdots,x_n)\,dt$$
+By letting $h \rightarrow 0$ we obtain $\partial_1 f(\vx) = G_1(\vx)$
+\qed
+\paragraph{Theorem 1}
+\begin{enumerate}
+	\item If $\vg$ is a conservative vector field of class $C^1$ on an open set $U \subset \real^3$, then $curl \, \vg = \vo$.
+	\item If $U$ is convex, then the converse is true: if $\vg: U \rightarrow \real^3$ is a $C^1$ vector field and $curl \, \vg = \vo$, then $\vg$ is conservative. 
+	\item However, on some non-convex sets, there exist \tb{non-conservative} vector fields $\vg$ that satisfy $curl \, \vg = \vo$. 
+\end{enumerate}
+
+\noindent \proof \\
+Similar as previous proof.\\
+By Stokes's Theorem, $$\int_{\partial S}\vg \cdot d\vx = \iint_S(curl\, \vg)\vn \,dA = 0$$ (since $curl \,\vg = 0$)
+$$f(\vx + \tb{h}) - f(\vx) = \int_{L(\va, \vx)}\vg\cdot d\vx - \int_{L(\va, \vx + \tb{h})} \vg \cdot d\vx = \int_{L(\vx,\vx+\tb{h})}\vg\cdot d\vx$$
+Now the same argument applies.
+
+
+\subsubsection{Vector Field that are Curls}
+\paragraph{Theorem 2}
+\begin{enumerate}
+	\item If $\vg: U \rightarrow \real^3$ is a vector field of class $C^1$ and $\vg = curl\,\vf$ for some vector field $\vf: U \rightarrow \real^3$ of class $C^2$, then $div\,\vg = 0$
+	\item Suppose $\vg$ is a $C^1$ vector field in an open set $U \subset \real^3$ such that $div \, \vg = 0$. \\
+	\tb{a.} If $U$ is convex, then there exists a vector field $\vf$ such that $curl \, \vf = \vg$. \\
+	\tb{b.} However, if $U$ is not convex, it may be the case that no such vector field exists.
+\end{enumerate}
+\paragraph{Definition} If $div \,\vg = 0$, a vector field $\vf$ such that $curl \,\vf = \vg$ is called a \under{vector potential} for $\vg$.
+
+
+
+
+\section{Fourier Series}
+\paragraph{Definition} Infinite series that use the trigonometric functions $\cos n\theta$ and $\sin n\theta$, or, equivalently, $e^{in\theta}$ and $e^{-in\theta}$, as the basic building blocks.
+\paragraph{Piecewise Continuity of Functions} A function $f$ defined on an interval $[a,b]$ is \under{piecewise continuous} on $[a,b]$ if it is continuous except at finitely many points in $[a,b]$, and at each such point the one-sided limits
+$$f(x+) = \underset{\epsilon \rightarrow 0+}{\lim} f(\vx + \epsilon), \quad f(x-)=\underset{\epsilon \rightarrow 0+}{\lim} f(\vx - \epsilon)$$
+exist (and are finite)\\
+By making the change of variable $\theta = \frac{2\pi x}{P}$, we can convert any P-periodic function into a $2\pi$-periodic function. 
+\paragraph{Basic Idea} An arbitrary piecewise continuous $2\pi$-periodic function $f(\theta)$ can be expanded as an infinite linear combination of the functions $e^{in\theta}(n = 0,\pm 1, \pm 2,\hdots)$, of the form
+$$f(\theta) = \sum_{-\infty}^{\infty}c_ne^{in\theta}$$
+(advantage: exponentials tend to be easier to manipulate than trig functions)\\
+Since $e^{\pm in\theta} = \cos n\theta \pm i \sin n \theta$, then $c_ne^{in\theta} + c_{-n}e^{-in\theta} = (c_n + c_{-n})\cos n \theta + i(c_n - c_{-n}) \sin n\theta = a_n\cos n \theta + b_n \sin n\theta$
+$$f(\theta) = \frac{1}{2}a_0 + \sum_1^\infty(a_n\cos n\theta+b_n \sin n\theta)$$
+
+\noindent (advantage: $\cos n\theta$ and $\sin n\theta$ are real-valued and are respectively even and odd)\\
+f may be either real-valued or complex-valued\\
+\paragraph{Question}
+Given a $2\pi$-periodic function $f$, can it be expanded in a series of the form as above? If so, how do we find the coefficients $c_n$ in this series?
+\paragraph{Fourier coefficients}
+It can be derived that (see textbook p358)
+$$a_n = \frac{1}{\pi}\int_\pi^\pi f(\theta)\cos n\theta \, d\theta$$
+$$b_n = \frac{1}{\pi}\int_\pi^\pi f(\theta)\sin n\theta \, d\theta$$
+$$c_n = \frac{1}{2\pi}\int_\pi^\pi f(\theta)e^{-in\theta} \, d\theta$$
+\paragraph{Fourier Series}
+$$\sum_{-\infty}^{\infty} c_n e^{in\theta} = \frac{1}{2}a_0 + \sum_1^\infty(a_n\cos n\theta + b_n \sin n\theta)$$
+
+f may be either real-valued or complex-valued
+
+\paragraph{E.Knight's Version of Fourier Series, A Reformulation} To simplify our 
+calculations, let's reformat the above mentioned form
+of Fourier Series into the following:
+\begin{equation*}
+    f(\theta) = a_0 + \sum_{n\geq 1}b_n\cos n\theta + \sum_{m \geq 1}c_m\sin m \theta
+\end{equation*}
+where the Fourier coefficients are to be calculated by
+\begin{align*}
+    a_0 &= \frac{1}{2\pi}\int_{0}^{2\pi}f(\theta)d\theta \\
+    b_n &= \frac{1}{\pi}\int_{0}^{2\pi}f(\theta)\cos n\theta d\theta \\
+    c_m &= \frac{1}{\pi}\int_{0}^{2\pi}f(\theta)\sin m\theta d\theta 
+\end{align*}
+notice that we here are integrating over the region $[0, 2\pi]$, but in fact
+any region of length $2\pi$ would do, since we are assuming a $2\pi$-periodicity.
+We simplify our calculation in this reformulation in the way that $a_0$ now is
+just the average value of the original function $f(\theta)$ in some interval
+of length $2\pi$.
+\paragraph{Convergence of Fourier Series Decomposition.} We shall study the convergence of such series since 
+all of these would be pointless if we can not write down an converging series at the end of the day. We shall first look at 
+the following question: ``What can we say about the Fourier coefficients $b_n, c_n$ as $n\rightarrow \infty$''?
+To answer, we look at the following theorem:
+\begin{equation*}
+    \text{Theorem:}~~~~~~\sum_{n=1}^\infty b^2_n < \infty \land \sum_{n=1}^\infty c^2_n < \infty 
+\end{equation*}
+In paticular, we have $\lim_{n\rightarrow \infty}b_n = \lim_{n\rightarrow \infty}c_n = 0$.\newline
+\begin{proof}
+    Let $N\in \mathbb{N}$, and define $f_N(x) = \sum_{n=1}^N\left(b_n\cos(nx) + c_n\sin(nx)\right)$, then we consider
+    \begin{multline}
+        \int_0^{2\pi}f^2(x)dx = \int_0^{2\pi}f_N(x)dx \\+ 2\int_0^{2\pi}f_N(x)(f(x)-f_N(x))dx + \int_0^{2\pi}\left(f(x) - f_N(x)\right)^2dx
+    \end{multline}
+    using brute force, we will find that $\int_0^{2\pi}f_N(x)dx = \sum_{n=1}^N\left( b^2_n\pi + c_n^2\pi \right)$, and that $b_n = 0$.
+    % TODO: Add more on calculations later
+    We look at our equation (10) above, and see that $$\int_0^{2\pi}\left(f(x) - f_N(x)\right)^2dx \geq 0$$ since we are intergrating an non-negative function. So rearranging what we have yields us
+    \begin{equation*}
+        \sum_{n=1}^N\left( b^2_n\pi + c_n^2\pi \right) = \pi\sum_{n=1}^N\left( b^2_n + c_n^2 \right) \leq \frac{1}{\pi}\int_0^{2\pi}f^2(x)dx
+    \end{equation*}
+    but this inequality holds for any choice of $n$, and we can break the series into two as we please, so indeed we have found an upperbound and both of the two serieses are convergent. \qed
+\end{proof}
+
+\paragraph{Piece-wise smooth functions have exact Fourier Decompositions} Suppose that $f(x)$ is $2-\pi$ periodic piece-wise smooth, then $\forall x\in [0, 2\pi)$, we have $$\frac{f(x+) + f(x-)}{2} = a_0 + \sum_{n=1}^N\left(b_n\cos(nx) + c_n\sin(nx)\right)$$
+
+\end{document}
+
