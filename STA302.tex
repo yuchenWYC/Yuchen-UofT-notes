@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+\usepackage{esint}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\bx}[0]{\mathbf{x}}
+\newcommand{\bv}[0]{\mathbf{v}}
+\newcommand{\bw}[0]{\mathbf{w}}
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
+\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
+\newcommand{\vc}[0]{\tb{c}}
+\newcommand{\ve}[0]{\tb{e}}
+\newcommand{\vm}[0]{\tb{m}}
+\newcommand{\vh}[0]{\tb{h}}
+\newcommand{\vf}[0]{\tb{F}}
+\newcommand{\vi}[0]{\tb{i}}
+\newcommand{\vj}[0]{\tb{j}}
+\newcommand{\vk}[0]{\tb{k}}
+\newcommand{\vg}[0]{\tb{G}}
+\newcommand{\vn}[0]{\tb{n}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vL}[0]{\tb{L}}
+\newcommand{\ff}[0]{\tb{f}}
+\newcommand{\fg}[0]{\tb{g}}
+\newcommand{\rational}[0]{\mathbb{Q}}
+\newcommand{\p}[0]{\partial}
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\qerat}{\tag*{$\blacksquare$}}
+\newcommand{\lima}{\underset{\vx \rightarrow \va}{\lim}}
+\usepackage{amsmath}% http://ctan.org/pkg/amsmath
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
+
+% Attr.
+\title{Methods of Data Analysis \\ -- STA302 Course Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+\section{May 7th - Lecture 1}
+\paragraph{Definition 1 - Statistical Analysis} 
+Data Analysis that relies on Probability theory to account for the variability of the data.
+\paragraph{Permutation Test}
+Insert random premise, observe two samples Group A and Group B. \\
+If the groups have no effect, all of the permutations are equally likely. \\
+We can plot the Permutation Distribution with respect to difference between sample means.
+\paragraph{Characteristics of Permutation Test}
+\begin{enumerate}
+	\item Involves simple probability theory
+	\item distribution-free
+	\item listing all the permutation for large dataset is almost impossible
+\end{enumerate}
+
+\paragraph{Definition 2 - Statistical Significance}
+We say a difference is \textbf{statistically significant} if it's less probable than our pre-determined significance level. (when p-value $p <$  significance level $\alpha$)
+\paragraph{Definition 3 - Significant Effect} We say the groups have a \textbf{significant effect} if it causes the variable of interest to be significantly different.
+
+\section{May 9th - Lecture 2}
+\end{document}

@@ -42,6 +42,7 @@
 \newcommand{\vn}[0]{\tb{n}}
 \newcommand{\vu}[0]{\tb{u}}
 \newcommand{\vL}[0]{\tb{L}}
+\newcommand{\ff}[0]{\tb{f}}
 \newcommand{\p}[0]{\partial}
 \newcommand{\qed}[0]{$\hfill\blacksquare$}
 \newcommand{\qerat}{\tag*{$\blacksquare$}}
@@ -68,4 +69,13 @@ $$\iint_S \vf \cdot \vn \, dA, \quad \mbox{for } \vf = (x+y, x-y\sin(yz), z\sin(
 7. \tb{``Moving the surface"}\\
 Let $S:= \{(x,y,z): x^2 + y^2 \leq 1, z = 1 - x^2 - y^2\}$ with the unit normal oriented upward, and compute
 $$\iint_S \vf \cdot \vn \, dA \quad \mbox{for } \vf = (e^{yz}, \frac{x^2}{1+z^2}, 2z)$$
+8. $$F(x,y,z) := xy + xz\ln(yz) = 1$$
+Note that $(1,1,1)$ is a solution. Does the equation implicitly determine $z$ as a function $f(x,y)$ for $(x,y)$ near $(1,1)$, with $f(1,1) = 1$? If so, find a formula for $\p_x f(x,y)$, and evaluate it at $(x,y) = (1,1)$.\\\\
+9. Consider the system of equations
+\begin{align*}
+	F_1(x,y,u,v) = xye^u + \sin(v-u) = 0\\
+	F_2(x,y,u,v) = (x+1)(y+2)(u+3)(v+4) - 24 = 0
+\end{align*}
+Note that $(0,0,0,0)$ is a solution.\\
+Does the equation implicitly determine $(u,v)$ as a function $\ff$ of $(x,y)$ near $(0,0)$, with $\ff(0,0) = (0,0)$? If so, find a formula for $\p_x \ff(x,y)$ at $(x,y) = (0,0)$.
 \end{document}
