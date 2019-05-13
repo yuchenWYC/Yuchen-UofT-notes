@@ -68,13 +68,13 @@
     \newpage
 \section{Construction of Real Numbers}
 \subsection{Decimal Expansion}
-\paragraph{Definition 1}
+\paragraph{Definition 1.1.1}
 Let $r \in \real^{+}$. Then r is called
 \begin{enumerate}
 	\item \under{Terminating DE} if $r = q.d_1\hdots d_n 0$
 	\item \under{Repeating DE} if $r = q.d_1\hdots d_k d_{k+1}\hdots d_nd_{k+1}\hdots d_nd_{k+1}\hdots$
 \end{enumerate}
-\paragraph{Proposition 1} $x = \frac{l}{m}$ is \under{rational} if $x$ has a DE that is either terminating or repeating. \\
+\paragraph{Proposition 1.1.2} $x = \frac{l}{m}$ is \under{rational} if $x$ has a DE that is either terminating or repeating. \\
 \proof\\
 Let $x \in \real^+$. \\
 $\Rightarrow$: \\
@@ -124,11 +124,61 @@ $\begin{cases}
 \end{cases}$
 (by uniqueness of ED)
 $\implies$ ED is repeating. \qed
-\paragraph{Definition 2} $x \in \real$ is called \under{irrational} if $\nexists \frac{l}{m}$ such that $x = \frac{l}{m}$. Denote as $x \in \rational^C$.
-\paragraph{Proposition 2} $x \in \rational^C \iff$ the decimal expansion of $x$ neither terminates nor repeats.
-\paragraph{Fact 1} $\real = \rational \cup \rational^C$
-\subsection{Definition and Existence of Supremum and Infimum}
-Trivial.
-\subsection{Construction of Real Numbers Using Cauchy Sequence}
-Next lecture.
+\paragraph{Definition 1.1.3} $x \in \real$ is called \under{irrational} if $\nexists \frac{l}{m}$ such that $x = \frac{l}{m}$. Denote as $x \in \rational^C$.
+\paragraph{Proposition 1.1.4} $x \in \rational^C \iff$ the decimal expansion of $x$ neither terminates nor repeats.
+\paragraph{Fact 1} $\real = \rational \cup \rational^C$.
+\subsection{Properties of Supremum and Infimum}
+\paragraph{Proposition 1.2.1} Every nonempty bounded above set $S$ has a supremum. \\\\
+\proof\\
+Since $S$ is bounded above, $\exists M \in \real, \exists m_0, m_1 \in \mathbb{N}, M = m_0.m_1, M \geq s \,\, \forall s \in S$.\\
+Pick $s' = s_0.s_1 \in S$. Since $M \geq s'$, then $m_0 + 1 > s_0$. \\
+Find the smallest integer $a_0 \in \{s_0, s_0 + 1, \hdots, m_0 + 1\}$ that $a_0+ 1$ is an upper bound for $S$. \\
+Let $x_0 \in S$ s.t. $a_0 - 1 < x_0$.\\
+Let $y_1 = a_0 + \frac{a_1}{10}$ where $a_1 \in \{0,1,\hdots,9\}$ is the smallest integer s.t. $y_1$ is an upper bound for $S$. \\
+Let $x_1 \in S$ s.t. $a_0.a_1 - 0.1 \leq x_1 \leq a_0.a_1$\\
+Let $y_2 = a_0 + \frac{a_1}{10} + \frac{a_2}{10^2}$ where $a_2 \in \{0,1,\hdots,9\}$ is the smallest integer s.t. $y_2$ an upper bound for $S$. \\
+Let $x_2 \in S$ s.t. $a_0.a_1a_2 - 0.01 \leq x_2 \leq a_0.a_1a_2$\\
+$\hdots$ \\
+Let $y_n = a_0 + \frac{a_1}{10} + \hdots +  \frac{a_n}{10^n}$ where $a_n \in \{0,1,\hdots,9\}$ is the smallest integer s.t. $y_n$ an upper bound for $S$. \\
+Let $x_n \in S$ s.t. $a_0.a_1\hdots a_n - \frac{1}{10^n} \leq x_n \leq y_n$\\\\
+\textbf{Claim}: $L = a_0.a_1a_2\hdots$ is the supremum for $S$. \\
+\proof \\
+prove upper bound:
+Let $s = s_0.s_1\hdots \in S$. 
+There are 3 cases:
+\begin{enumerate}
+	\item $s_i = a_i \,\forall i$ so that $s = L$
+	\item $\exists k \in \mathbb{N}, \forall i < k, s_i = a_i$ but $s_k > a_k$
+	\begin{align*}
+		y_k &= a_0.a_1\hdots a_{k-1}a_k0\\
+		&< a_0.a_1\hdots a_{k-1}s_k0 \\
+		&= s_0.s_1\hdots s_{k-1}s_k 0\\
+		&\leq s_0.s_1\hdots s_{k-1}s_ks_{k+1}\\
+		&= s \in S
+	\end{align*}
+	Since $y_k$ is an upper bound for $S$, this cannot happen.
+	\item $s_i = a_i \,\,\forall i < k$ but $s_k < a_k$\\
+	$\implies y_k > s \implies L > y_k> s$
+\end{enumerate}
+prove subsequence property: $\forall \epsilon >0$, WTS $\exists s_\epsilon \in S$ s.t. $L - \epsilon \leq s_\epsilon \leq L$\\
+Let $\epsilon >0$. Pick $n > 0$ s.t. $\frac{1}{10^n} < \epsilon$, so then
+$$L - \epsilon \leq L - \frac{1}{10^n} \leq x_n \leq y_n < L$$
+Choose $s_\epsilon = x_n$.\qed
+
+
+\paragraph{Proposition 1.2.2} Supremum is unique.
+\proof\\
+Assume for a set $S \in \real$, there are two supremums $u,v \in \real$. \\
+Let $\epsilon = u - v > 0$.
+Then by definition of supremum, $\exists s_\epsilon \in S $ s.t. $u - \epsilon = v < s_\epsilon$\\
+$\implies$ contradiction: v is not a supremum of $S$. \qed
+\paragraph{Proposition 1.2.3} For bounded above set $A$ and $c \geq 0$, $$\sup(cA) = c\sup(A)$$
+\proof \\
+Let $M = \sup(A)$.\\
+Upper bound property: $\forall s \in cA, s/c \in A \implies s/c \leq M \implies s \leq cM$ \\
+Subsequence property: Let $\epsilon > 0$, then take $\epsilon* = \frac{\epsilon}{c}$.\\
+By the definition of $\sup(A)$, $\exists s_{\epsilon*} \in A, M - \epsilon* \leq s_{\epsilon*}$\\
+Choose $s_\epsilon = cs_{\epsilon*}$, then \\
+$M - \epsilon* \leq s_{\epsilon*} \implies cM - \epsilon \leq s_\epsilon$ as wanted. \qed
+
 \end{document}
