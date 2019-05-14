@@ -87,12 +87,15 @@ We say a difference is \textbf{statistically significant} if it's less probable 
 \section{May 9th - Lecture 2}
 \subsection{The basics}
 \paragraph{Fact 2.1.1} If $H_0$ is true, the p-value $\sim U(0,1)$ \\\\
-\under{\ti{remarks}}: Hard to prove, just take it.
+\under{\ti{remarks}}: This is saying that if p-value is greater than significance level, then it does not say anything about our confidence, it's just a value. Hard to prove, just take it.
 \paragraph{Tradeoff Between Type I and Type II Error}
 It's common to fix $\alpha$ (significance level or type-I error) and minimize type-II error.
 \subsection{One-way Analysis of variance (ANOVA)}
-One-way ANOVA is an extension of the t-test to 3 or more samples focus analysis on group differences.\\
-If groups are different, we expect there is a bigger difference between groups (\textcolor{blue}{reflecting the group effect}) than within groups (\textcolor{blue}{natural variability of the data}).
+Suppose the response $Y$ is quantitative and the predictor $X$ is categorical, taking $t$ values or levels denoted $1, \hdots, t$. With the regression model, we assume that the only aspect of the conditional distribution of $Y$, given $X = x$, that changes as $x$ changes, is the mean. \\
+Suppose we are interested in assessing whether or not there is a relationship between the response and the predictor. There is no relationship if and only if all the conditional distributions are the same. This is true under our assumptions if and only if all the means are equal.
+In our case, one-way ANOVA is an extension of the t-test to 3 or more samples focus analysis on group differences.\\
+$H_0$: All groups are the same.
+If groups are different, we expect there is a bigger difference between groups (\textcolor{blue}{the group effect}) than within groups (\textcolor{blue}{natural variability of the data}).
 \paragraph{Basic Definitions}
 Suppose we have $T$ groups and $n_t$ observations for the $t$-th group, and we denote each observation as $y$.
 \begin{enumerate}
@@ -114,7 +117,7 @@ add $-\bar{y_t}+\bar{y_t}$ inside the squared error term and everything is just 
 \paragraph{ANOVA}
 We want to assess how large is SSG relative to SSE, but it would be hard to establish a distribution for SSG/SSE. Knowing a sum of squares divided by its degrees of freedom has a chi-square distribution, we can conclude that
 $$SSG/(T-1) \sim \chi_{T-1}^2, \quad SSE/(n-T) \sim \chi_{n-T}^2$$
-\paragraph{Theorem 2.2.1} $\frac{SSG/(T-1)}{SSE/(n-T)} \sim F_{T-1, n-T}$ if $SSG/(T-1)$ and $SSE/(n-T)$ are equal. \\\\
+\paragraph{Theorem 2.2.1} If $SSG/(T-1) = SSE/(n-T)$, then $\frac{SSG/(T-1)}{SSE/(n-T)} \sim F_{T-1, n-T}$ \\\\
 \proof \\
 In STA261, we've proven that if $\sigma_x^2 = \sigma_y^2$, then $\frac{\hat{\sigma}_x^2}{\hat{\sigma}_y^2} \sim F_{n-1,n-1}$.\\ Since SSG/(T-1) is an estimation for the variation between groups ($\sigma_T$) and $SSE/(n-T)$ is an estimation for the variation within groups ($\sigma_\varepsilon$), then the result follows. \qed
 \paragraph{Remarks 2.2.2} Thus a small p-value indicates theses variances are different, which is evidence for the existence of some group effect.
@@ -125,19 +128,11 @@ In STA261, we've proven that if $\sigma_x^2 = \sigma_y^2$, then $\frac{\hat{\sig
 		\hline
 		Between & SSG & $T-1$ & $MSG = \frac{SSG}{T-1}$ & $F = \frac{MSG}{MSE}$ \\
 		\hline
-		Within & $n - T$ & $MSE = \frac{SSE}{n - T}$ &&\\
+		Within & SSE & $n - T$ & $MSE = \frac{SSE}{n - T}$ &\\
 		\hline
 		Total & $SST$ & $ n -1$ &&\\
 		\hline
 	\end{tabular}
-\paragraph{\textcolor{red}{the Effect Model}}
-$$y_{i,t} = \mu + \tau_t + \varepsilon_{i,t}$$
-where $\varepsilon \sim N(0, \sigma^2)$.
-\begin{enumerate}
-	\item $\mu$: global mean
-	\item $\tau_t$: the effect of the $t$th treatment with $\sum_{t=1}^T \tau_t = 0$
-	\item $\varepsilon$: errors representing the natural variability in real-life data
-\end{enumerate}
 
 
 \end{document}
