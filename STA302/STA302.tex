@@ -155,7 +155,7 @@ $$Var[\vz] = A\Sigma A^T$$
 We have a vector of $n$ predictors $\vx = [x_1,\hdots,x_n]$, as well as $n$ associated response variables $\vy = [y_1, \hdots, y_n]$. We want to estimate the parameters $\beta_0$ and $\beta_1$ that best fit the model $y = \beta_0 + \beta_1 x$. (In matrix notation: $\vy = X\beta$ where $\vy = \begin{bmatrix}
 	y_1 \\ \vdots \\ y_n \end{bmatrix}, X = \begin{bmatrix}
 		1 & x_1 \\ \vdots & \vdots \\ 1 & x_n
-	\end{bmatrix}, \beta = \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}$.
+	\end{bmatrix}, \beta = \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}$).
 \subsubsection{Least Square Estimation}
 Minimize sum of squared errors (MSE): $$\sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)^2$$
 We take derivative of $\sum_{i=1}^n (\vy - X\hat{\beta})^2$ wrt $\hat{\beta}$, set this to 0 and get 
@@ -198,22 +198,22 @@ where $e_i$ is a random variable that represents the residual. \\
 \paragraph{Assumptions}
 \begin{enumerate}
     \item $e_i \overset{i.i.d.}{\sim} N(0, \sigma^2)$ which follows the Gauss-Markov assumptions. 
-    \item $(Y|X = \vx) \sim N(X\beta, I\sigma^2)$ or $(Y|X = x) \sim N(\beta_0 + \beta_1x, \sigma^2)$
+    \item $(\vy|\vx) \sim N(X\beta, I\sigma^2)$ or $(Y|X = x) \sim N(\beta_0 + \beta_1x, \sigma^2)$
 \end{enumerate}
 \subsection{Maximum Likelihood Estimation}
 $$l(\beta | \vx) = -\frac{n}{2}\log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2} (\vy - X \beta)^T(\vy - X\beta)$$
-Maximizing this term wrt $\beta$ is equivalent to minimizing $\vy - X\beta)^T(\vy-X\beta)$, which gives $$\hat{\beta} = (X^TX)^{-1}X^T\vy$$
+Maximizing this term wrt $\beta$ is equivalent to minimizing $(\vy - X\beta)^T(\vy-X\beta)$, which gives $$\hat{\beta} = (X^TX)^{-1}X^T\vy$$
 \paragraph{Corollary 4.2.1}
 Minimizing MSE and the likelihood function leads to the same estimate $\hat{\beta}$.
 \paragraph{A Biased Estimator of $\sigma^2$}
 $$l(\beta | \vx) = -\frac{n}{2}\log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2} (\vy - X \beta)^T(\vy - X\beta)$$
 Maximizing the likelihood function wrt to $sigma^2$:
-$$\hat{\sigma^2} = \frac{(\vy - X\hat{\beta})^T(\vy-X\hat{\beta})}{n} = \frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n}$$
+$${\hat{\sigma}}^2 = \frac{(\vy - X\hat{\beta})^T(\vy-X\hat{\beta})}{n} = \frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n}$$
 This is MSE, a biased estimator of $\sigma^2$. \\
 The unbiased estimator of $\sigma^2$ is $$\frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n-2}$$
 \subsection{Inference}
 The action of extracting information about parameters given a dataset.\\
-\paragraph{Mean and Variance of $Y$}
+\paragraph{Mean and Variance of $\vy$}
 Since $\vy \sim N(X\beta, I\sigma^2$, then $E[\vy] = X\beta$ and $Var[\vy] = I\sigma^2$.
 \paragraph{Mean and Variance of $\hat{\beta}$}
 \begin{align*}
