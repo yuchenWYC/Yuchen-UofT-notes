@@ -1,5 +1,4 @@
 \documentclass[11pt]{article}
-
 % Libraries.
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -87,7 +86,7 @@ We say a difference is \textbf{statistically significant} if it's less probable 
 \section{May 9th - Lecture 2}
 \subsection{The basics}
 \paragraph{Fact 2.1.1} If $H_0$ is true, the p-value $\sim U(0,1)$ \\\\
-\under{\ti{remarks}}: This is saying that if p-value is greater than significance level, then it does not say anything about our confidence, it's just a value. Hard to prove, just take it.
+\under{\ti{remarks}}: This is saying that if p-value is greater than significance level, then it does not say anything about our confidence, it's just a value. Proof can be found online.
 \paragraph{Tradeoff Between Type I and Type II Error}
 It's common to fix $\alpha$ (significance level or type-I error) and minimize type-II error.
 \subsection{One-way Analysis of variance (ANOVA)}
@@ -133,6 +132,129 @@ In STA261, we've proven that if $\sigma_x^2 = \sigma_y^2$, then $\frac{\hat{\sig
 		Total & $SST$ & $ n -1$ &&\\
 		\hline
 	\end{tabular}
-
+\section{May 14th - Lecture 3}
+\subsection{Matrix Notation}
+$\vx = \begin{bmatrix}
+	x_1 \\ x_2
+\end{bmatrix}$ is a random variable. \\In addition, $A = \begin{bmatrix}
+	a_{11} & a_{12} \\ a_{21} & a_{22} \\ a_{31} & a_{32}
+\end{bmatrix}$, $\vc = \begin{bmatrix}
+	c_1\\c_2\\c_3
+\end{bmatrix}$.\\
+Then $$E[\vx] = \mu = \begin{bmatrix}
+	\mu_1 \\ \mu_2
+\end{bmatrix}$$
+$$Var[\vx] = \Sigma = \begin{bmatrix}
+	\sigma^2_1 & \sigma^2_{12} \\ \sigma^2_{12} & \sigma^2_2
+\end{bmatrix}$$
+where $\sigma^2_{ij} = cov(x_i, x_j)$.
+\paragraph{Theorem 3.1.1}
+Let $\vz = A\vx + \vc$. Then $$E[\vz] = A\mu + \vc$$
+$$Var[\vz] = A\Sigma A^T$$
+\subsection{Linear Regression}
+We have a vector of $n$ predictors $\vx = [x_1,\hdots,x_n]$, as well as $n$ associated response variables $\vy = [y_1, \hdots, y_n]$. We want to estimate the parameters $\beta_0$ and $\beta_1$ that best fit the model $y = \beta_0 + \beta_1 x$. (In matrix notation: $\vy = X\beta$ where $\vy = \begin{bmatrix}
+	y_1 \\ \vdots \\ y_n \end{bmatrix}, X = \begin{bmatrix}
+		1 & x_1 \\ \vdots & \vdots \\ 1 & x_n
+	\end{bmatrix}, \beta = \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}$.
+\subsubsection{Least Square Estimation}
+Minimize sum of squared errors (MSE): $$\sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)^2$$
+We take derivative of $\sum_{i=1}^n (\vy - X\hat{\beta})^2$ wrt $\hat{\beta}$, set this to 0 and get 
+\paragraph{Theorem 3.2.1.1}$$\hat{\beta} = (X^TX)^{-1}X^T\vy$$
+$$\hat{\vy} = X\hat{\beta} = X(X^TX)^{-1}X^T\vy$$
+\paragraph{Remark 3.2.1.2}
+$X(X^TX)^{-1}X^T$ is called \under{the hat matrix} since it puts the hat on $\vy$. This matrix $(H)$ has the following properties:
+\begin{enumerate}
+    \item $H^T = H$
+    \item $HH = H$
+    \item $HX = X$
+\end{enumerate}
+\subsubsection{ANOVA}
+Estimate how good a linear regression model is.
+\paragraph{Basic Definitions}
+$\bar{y}$ is called base estimation.
+\begin{enumerate}
+	\item \under{SST}: This is the sum of the squared deviations between each observation and the mean:
+	$$SST = \sum_{i=1}^n(y_{i}-\bar{y})^2$$
+	\item \under{SSE}: This is the sum of the squared deviations between each observation and the corresponding prediction
+	$$SSE = \sum_{i=1}^n(\hat{y_i} - y_i)^2$$
+	\textcolor{blue}{unexplained variation: How much our explanation is away from the true observation?}
+	\item \under{SSG}: This is the sum of the squared deviations between each prediction and the mean.
+	$$SSG = \sum_{i=1}^n(\hat{y_i}-\bar{y_i})^2$$
+	\textcolor{blue}{explained variation: How much our explanation takes us away from the base prediction?}
+\end{enumerate}
+\paragraph{Coefficient of Determination}
+$$R^2 = \frac{SSG}{SST} = 1- \frac{SSE}{SST}$$
+($0 \leq R^2 \leq 1$)\\
+The closer $R^2$ is from 1, the better the fit is.
+\section{May 16th - Lecture 4}
+\subsection{the Linear Regression Model}
+\paragraph{Definition 4.1.1}
+The \under{best linear unbiased estimator (BLUE)} is the unbiased estimator with the lowest variance.
+\paragraph{Gauss-Markov Assumptions 4.1.2}
+If $E[e_i] = 0, Cov(e_i, e_j) = 0 \, \forall i \neq j$ and $Var(e_i) = \sigma^2 < \infty \, \forall i$, then \textcolor{red}{the best linear unbiased estimator for $\beta$'s are given by minimizing the MSE}
+\paragraph{the Linear Regression Model}
+$$y_i = \beta_0 + \beta_1x_i + e_i$$
+where $e_i$ is a random variable that represents the residual. \\
+\paragraph{Assumptions}
+\begin{enumerate}
+    \item $e_i \overset{i.i.d.}{\sim} N(0, \sigma^2)$ which follows the Gauss-Markov assumptions. 
+    \item $(Y|X = \vx) \sim N(X\beta, I\sigma^2)$ or $(Y|X = x) \sim N(\beta_0 + \beta_1x, \sigma^2)$
+\end{enumerate}
+\subsection{Maximum Likelihood Estimation}
+$$l(\beta | \vx) = -\frac{n}{2}\log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2} (\vy - X \beta)^T(\vy - X\beta)$$
+Maximizing this term wrt $\beta$ is equivalent to minimizing $\vy - X\beta)^T(\vy-X\beta)$, which gives $$\hat{\beta} = (X^TX)^{-1}X^T\vy$$
+\paragraph{Corollary 4.2.1}
+Minimizing MSE and the likelihood function leads to the same estimate $\hat{\beta}$.
+\paragraph{A Biased Estimator of $\sigma^2$}
+$$l(\beta | \vx) = -\frac{n}{2}\log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2} (\vy - X \beta)^T(\vy - X\beta)$$
+Maximizing the likelihood function wrt to $sigma^2$:
+$$\hat{\sigma^2} = \frac{(\vy - X\hat{\beta})^T(\vy-X\hat{\beta})}{n} = \frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n}$$
+This is MSE, a biased estimator of $\sigma^2$. \\
+The unbiased estimator of $\sigma^2$ is $$\frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n-2}$$
+\subsection{Inference}
+The action of extracting information about parameters given a dataset.\\
+\paragraph{Mean and Variance of $Y$}
+Since $\vy \sim N(X\beta, I\sigma^2$, then $E[\vy] = X\beta$ and $Var[\vy] = I\sigma^2$.
+\paragraph{Mean and Variance of $\hat{\beta}$}
+\begin{align*}
+    E[\hat{\beta}] &= E[(X^TX)^{-1}X^T\vy]\\
+    &= (X^TX)^{-1}X^TE[\vy]\\
+    &= (X^TX)^{-1}X^TX\beta \\
+    &= \beta
+\end{align*}
+$\implies$ $\hat{\beta}$ is an unbiased estimator of $\beta$.
+\begin{align*}
+    Var[\hat{\beta}] &= Var[(X^TX)^{-1}X^T\vy]\\
+    &= (X^TX)^{-1}X^T \, Var[\vy|X]((X^TX)^{-1}X^T)^T\\
+    &= (X^TX)^{-1}X^T \, I\sigma^2 ((X^TX)^{-1}X^T)^T \\
+    &= \sigma^2 (X^TX)^{-1}X^T((X^TX)^{-1}X^T)^T \\
+    &= \sigma^2 (X^TX)^{-1}X^T(X((X^TX)^{-1})^T)\\
+    &= \sigma^2 (X^TX)^{-1}X^T(X((X^TX)^{T})^{-1})\\
+    &= \sigma^2 (X^TX)^{-1}X^TX(X^TX)^{-1}\\
+    &= \sigma^2 (X^TX)^{-1}
+\end{align*}
+\paragraph{Theorem 4.3.0.1} $$\hat{\beta} \sim N(\beta, (X^TX)^{-1}\sigma^2)$$
+\proof\\
+$\hat{\beta} = (X^TX)^{-1}X^T\vy$, so $\hat{\beta}$ is a linear combination of normal r.v.'s($y_i$'s), therefore $\hat{\beta}$ follows normal distribution with mean and variance we have calculated. \qed
+\subsubsection{Inference for $\beta_1$}
+$$\hat{\beta_1} \sim N(\beta_1, \frac{\sigma^2}{SSX})$$
+where $SSX = \sum_{i=1}^n(x_i - \bar{x})^2$
+Then $$\frac{\hat{\beta_1} - \beta_1}{\sigma/\sqrt{SSX}} \sim N(0,1)$$
+\paragraph{Theorem 4.3.1.1}
+$$\frac{(n-2)S^2}{\sigma^2} \sim \chi^2_{(n-2)}$$
+where $S^2 = \frac{1}{n-2}\sum_{i=1}^n(y_i - \beta_0 - \beta_1x_i)^2$
+\paragraph{Theorem 4.3.1.2}
+$$\frac{\hat{\beta_1} - \beta_1}{S/\sqrt{SSX}} \sim t_{n-2}$$
+where $SSX = \sum_{i=1}^n(x_i - \bar{x})^2$
+\paragraph{Model Checking}
+$H_0$: $\beta_1 = 0$
+Then under $H_0$, Theorem 4.3.1.2 applies. 
+\begin{enumerate}
+    \item If the p-value is small, then $\vy$ and $\vx$ are statistically significant.
+    \item 0.95 confidence level for $\beta_1$:
+    $$(\hat{\beta_1} - t_{(n-2)(1-\frac{\alpha}{2})}\frac{S}{\sqrt{SSX}}, \hat{\beta_1} + t_{(n-2)(1-\frac{\alpha}{2})}\frac{S}{\sqrt{SSX}})$$
+\end{enumerate}
+\subsubsection{Inference for $\beta_0$}
+$$\hat{\beta_0} \sim N(\beta_0, \sigma^2\frac{\sum x_i^2}{n\,SSX})$$
 
 \end{document}
