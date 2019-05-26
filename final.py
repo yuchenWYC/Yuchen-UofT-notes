@@ -16,7 +16,7 @@ def calculate_final(perc: int, scores: list, bonus: int) -> float:
         sum += pair[0] * pair[1]
     # lost = 100 * (1 - perc) - sum - bonus
     # return round(100 - ((15.5 - lost) / perc), 1)
-    return (95 - sum - bonus) / 40
+    return (94.5 - sum - bonus) / 40
 
 if __name__ == "__main__":
     my_scores = [(0.1, 100), (0.08, 99.167), (0.126, 98.3), (0.126, 81.7), 

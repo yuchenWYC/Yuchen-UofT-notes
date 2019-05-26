@@ -34,6 +34,8 @@
 \newcommand{\vu}[0]{\tb{u}}
 \newcommand{\vw}[0]{\tb{w}}
 \newcommand{\vv}[0]{\tb{v}}
+\newcommand{\vf}[0]{\tb{f}}
+\newcommand{\vm}[0]{\tb{m}}
 \newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
 
 % Attr.
@@ -109,4 +111,72 @@
 	v_1 & v_2 & v_3 \\
 	\end{vmatrix}
 	$$
+\section{Gaussian Process}
+\subsection{The Basics}
+\paragraph{Definition 1}
+We use a \under{Gaussian process} to describe a distribution over functions:
+$$\tb{f} \sim \mathcal{GP}(m, K)$$ 
+where $m: \chi \rightarrow \real$ is the \under{mean function}
+$$m(\vx) = E[f(\vx)]$$
+and $K: \chi^2 \rightarrow \real$ is the \under{covariance function}
+$$K(\vx, \vx') = E[(f(\vx) - m(\vx))(f(\vx') - m(\vx'))]$$
+\paragraph{Definition 2}
+For any set $S$, a \under{Gaussian Process} on S is a set of r.v.s $Z_t: t\in S$ s.t. $\forall n \in \mathbb{N}, \forall t_1,\hdots,t_n \in S, (Z_{t_1},\hdots, Z_{t_n})$ is multi-variate Gaussian.
+\paragraph{Theorem: Existence of Gaussian Process}
+For any set $S$, any mean function $\mu: S \rightarrow \real$, and any covariance function $k: S\times S \rightarrow \real$, there exists a GP $Z_t$ on S s.t. $E(Z_t) = \mu(t), Cov(Z_s, Z_t) = k(s,t) \, \forall s, t\in S$.
+
+\paragraph{GPs define multivariate Gaussian distributions}
+We have data points $X = [\vx_1^T, \hdots, \vx_n^T]^T$ and are interested in their function values $\tb{f}(X) = (f(\vx_1), \hdots, f(\vx_n))^T$.\\
+$\tb{f}$ is one subset of r.v. and has (prior) joint Gaussian distribution:
+$$\vf(X) \sim \mathcal{N}(\vm(X),K(X,X))$$
+\paragraph{Remarks}
+\begin{enumerate}
+	\item The covariance function $K(\vx, \vx')$ returns a measure of the similarity of $\vx$ and $\vx'$ that also encodes how similar $f(\vx)$ and $f(\vx')$ should be.
+	\item The mean function $m(\vx)$ encodes a prior expectation of the (unknown) function
+\end{enumerate}
+
+\paragraph{Setting the mean function}
+In most cases we simply use
+$$E(f(\vx)) = m(\vx) = 0$$
+which makes sense especially if we normalize the output to zero mean.
+\paragraph{Properties of the covariance function}
+The covariance function $K(\vx,\vx')$ needs to be a measure of similarity between $\vx$ and $\vx'$.
+\begin{enumerate}
+	\item K needs to be symmetric $$K(\vx, \vx') = K(\vx', \vx)$$
+	\item K needs to be positive semidefinite (nonnegative definite) $$\int_{-\infty}^\infty\int_{-\infty}^{\infty} K(\vx, \vx')g(\vx)g(\vx')\,d\vx d\vx' \geq 0$$ for all $g \in L_2$.
+\end{enumerate}
+
+\paragraph{Setting the covariance function}
+The default covariance function is the \under{Gaussian kernel}:
+$$K(\vx, \vx') = \sigma^2\exp(-\frac{(\vx-\vx')^T(\vx-\vx')}{2l^2})$$
+where $l$ varies the length (Or width) and $\sigma$ the height of the kernel.
+\subsection{Gaussian Process Regression}
+Basically equivalent to Bayesian linear regression.\\
+Twist is that using kernel instead of basis functions in order to define the family of functions that you are using for regression.\\
+This allows us to define a very rich family of functions that using basis functions alone could not handle (e.g. mapping into an infinite dimensional space).\\
+In a Gaussian Process regression model, mathematically the same inference as in linear regression can be done.
+\paragraph{The model}
+Let $Z \in \real^n \sim N(\mu, K), \varepsilon \in \real^n \sim N(0, \sigma^2I)$ be independent r.v.s. Let $y = Z + \varepsilon$, so $y \sim N(\mu, K+\sigma^2I)$.\\
+Let $a = (1, \hdots, l), b = (l+1, \hdots, n)$, so $y = \begin{pmatrix}
+	y_a \\ y_b \end{pmatrix}$, where $y_a = \begin{pmatrix} y_1 \\ \vdots \\y_l
+	\end{pmatrix}, y_b = \begin{pmatrix} y_{l+1} \\ \vdots \\ y_n \end{pmatrix}$.
+	In addition, $\mu = \begin{pmatrix} \mu_a \\ \mu_b \end{pmatrix}, C = \begin{pmatrix} C_{aa} & C_{ab} \\ C_{ba} & C_{bb} \end{pmatrix}, K = \begin{pmatrix} K_{aa} & K_{ab} \\ K_{ba} & K_{bb} \end{pmatrix}$\\
+Then we have $(Y_a | Y_b = y_b) \sim (m, D)$, where 
+\begin{align*}
+	m &= \mu_a + C_{ab}C^{-1}_{bb}(y_b - \mu_b) \\
+	&= \mu_a +K_{ab}(K_{bb} + \sigma^2 I)^{-1}(y_b - \mu_b)\\
+	D &= C_{aa} - C_{ab}C^{-1}_{bb}C_{ba} \\
+	&= (K_{aa}+\sigma^2 I)-K_{ab}(K_{bb}+\sigma^2I)^{-1}K_{ba}
+\end{align*}
+\paragraph{Hyperparameters}
+\begin{enumerate}
+	\item $\mu$
+	\item $K$
+\end{enumerate}
+\paragraph{Inference}
+\begin{enumerate}
+	\item Plot the mean function to predict unobserved values (good for visualization)
+	\item Plot the error curves
+	\item Choose a loss function and minimize the loss using posterior distribution
+\end{enumerate}
 \end{document}
