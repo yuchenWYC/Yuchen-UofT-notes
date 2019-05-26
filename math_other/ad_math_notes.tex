@@ -147,9 +147,17 @@ The covariance function $K(\vx,\vx')$ needs to be a measure of similarity betwee
 \end{enumerate}
 
 \paragraph{Setting the covariance function}
-The default covariance function is the \under{Gaussian kernel}:
-$$K(\vx, \vx') = \sigma^2\exp(-\frac{(\vx-\vx')^T(\vx-\vx')}{2l^2})$$
-where $l$ varies the length (Or width) and $\sigma$ the height of the kernel.
+\begin{enumerate}
+	\item \under{Gaussian Kernel}:
+$$K(r) = \theta_A^2 \exp[-\frac{r^2}{2\theta_L^2}]$$
+\item \under{Periodic Covariance Function}
+$$K(r) = \theta_A^2\exp[-\frac{\sin^2[(2\pi/\theta_P)r]}{2}]$$
+where $r = ||x-x'||$ denotes the Euclidean distance between two indexes.
+\end{enumerate}
+\paragraph{Hyperparameters}
+$\theta_A$:  $y$-scaling \\
+$\theta_L$:  $x$-scaling (or time scale if the data are time series) \\
+$\theta_P$:  period of the covariance functions \\
 \subsection{Gaussian Process Regression}
 Basically equivalent to Bayesian linear regression.\\
 Twist is that using kernel instead of basis functions in order to define the family of functions that you are using for regression.\\
@@ -168,7 +176,7 @@ Then we have $(Y_a | Y_b = y_b) \sim (m, D)$, where
 	D &= C_{aa} - C_{ab}C^{-1}_{bb}C_{ba} \\
 	&= (K_{aa}+\sigma^2 I)-K_{ab}(K_{bb}+\sigma^2I)^{-1}K_{ba}
 \end{align*}
-\paragraph{Hyperparameters}
+\paragraph{Parameters}
 \begin{enumerate}
 	\item $\mu$
 	\item $K$
@@ -179,4 +187,10 @@ Then we have $(Y_a | Y_b = y_b) \sim (m, D)$, where
 	\item Plot the error curves
 	\item Choose a loss function and minimize the loss using posterior distribution
 \end{enumerate}
+\paragraph{Negative Log Marginal Likelihood (NLML)}
+The values of hyperparameters $\theta$ may be optimized by minimizing NLML:
+\begin{align*}
+	NLML &= -\log p(\vy|\vx,\theta) \\
+	&= \frac{1}{2}\log |K| + \frac{1}{2}\vy^TK^{-1}\vy + \frac{n}{2} \log (2\pi)
+\end{align*}
 \end{document}
