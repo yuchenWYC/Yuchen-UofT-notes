@@ -193,4 +193,12 @@ The values of hyperparameters $\theta$ may be optimized by minimizing NLML:
 	NLML &= -\log p(\vy|\vx,\theta) \\
 	&= \frac{1}{2}\log |K| + \frac{1}{2}\vy^TK^{-1}\vy + \frac{n}{2} \log (2\pi)
 \end{align*}
+\section{Kronecker Product}
+A generalization of the outer product from vectors to matrices.
+\paragraph{Definition}
+$$A \otimes B = \begin{bmatrix}
+	a_{11}B & \hdots & a_{1n}B \\
+	\vdots & \ddots & \vdots \\
+	a_{m1}B & \hdots & a_{mn}B
+\end{bmatrix}$$
 \end{document}
