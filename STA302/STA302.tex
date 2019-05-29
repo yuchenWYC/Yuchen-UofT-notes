@@ -65,7 +65,7 @@
     \maketitle
     \tableofcontents
     \newpage
-\section{May 7th - Lecture 1}
+\section{May 7th - Introduction, p-values and statistical significance}
 \paragraph{Definition 1.1 - Statistical Analysis} 
 Data Analysis that relies on Probability theory to account for the variability of the data.
 \paragraph{Permutation Test 1.2}
@@ -83,7 +83,7 @@ We can plot the Permutation Distribution with respect to difference between samp
 We say a difference is \textbf{statistically significant} if it's less probable than our pre-determined significance level. (when p-value $p <$  significance level $\alpha$)
 \paragraph{Definition 1.5 - Significant Effect} We say the groups have a \textbf{significant effect} if it causes the variable of interest to be significantly different.
 
-\section{May 9th - Lecture 2}
+\section{May 9th - Hypothesis testing, t-test and ANOVA}
 \subsection{The basics}
 \paragraph{Fact 2.1.1} If $H_0$ is true, the p-value $\sim U(0,1)$ \\\\
 \under{\ti{remarks}}: This is saying that if p-value is greater than significance level, then it does not say anything about our confidence, it's just a value. Proof can be found online.
@@ -132,7 +132,7 @@ In STA261, we've proven that if $\sigma_x^2 = \sigma_y^2$, then $\frac{\hat{\sig
 		Total & $SST$ & $ n -1$ &&\\
 		\hline
 	\end{tabular}
-\section{May 14th - Lecture 3}
+\section{May 14th - Linear Regression: Least Square Error Formulation}
 \subsection{Matrix Notation}
 $\vx = \begin{bmatrix}
 	x_1 \\ x_2
@@ -186,7 +186,7 @@ $\bar{y}$ is called base estimation.
 $$R^2 = \frac{SSG}{SST} = 1- \frac{SSE}{SST}$$
 ($0 \leq R^2 \leq 1$)\\
 The closer $R^2$ is from 1, the better the fit is.
-\section{May 16th - Lecture 4}
+\section{May 16th - Linear Regression: Maximum Likelihood Formulation}
 \subsection{the Linear Regression Model}
 \paragraph{Definition 4.1.1}
 The \under{best linear unbiased estimator (BLUE)} is the unbiased estimator with the lowest variance.
@@ -256,5 +256,116 @@ Then under $H_0$, Theorem 4.3.1.2 applies.
 \end{enumerate}
 \subsubsection{Inference for $\beta_0$}
 $$\hat{\beta_0} \sim N(\beta_0, \sigma^2\frac{\sum x_i^2}{n\,SSX})$$
+
+\section{May 23th - Diagnostic for the linear regression model}
+\paragraph{Review of the model}
+$$y_i = \beta_0 + \beta_1 x_i + e_i$$ where $e_i \sim N(0, \sigma^2)$
+$$\vy = X\beta + \ve \implies \vy|X \sim N(X\beta, I\sigma^2)$$
+where $$\hat{\beta}_{MLE} = (X^TX)^{-1}X^T\vy$$
+$$\hat{\beta} \sim N(\beta, \sigma^2(X^TX)^{-1})$$
+
+\subsection{Predictive Inference}
+Since $\hat{\vy} = X\hat{\beta}$, then
+$$\hat{y} \sim N(X\beta, \sigma^2X(X^TX)^{-1}X^T)$$
+\paragraph{Prediction}
+For a new, unobserved predictor $x^*$, a simple prediction for the response could be $$y^* = \beta_0 + \beta_1x^*$$
+\paragraph{Predictive Distribution}
+We have $\hat{\beta} = [\hat{\beta}_0, \hat{\beta}_1]^T$, then
+$$\hat{y}^* = \hat{\beta}_0 + \hat{\beta}_1x^*$$
+Matrix notation:
+$$\hat{\vy}^* = X^*\hat{\beta}$$
+where $X^*$ is a vector of new observation $\vx^*$ added a column of 1s. \\
+then
+$$\vy^* \sim (X^*\beta, \sigma^2X^*(X^TX)^{-1}X^{*T})$$
+\paragraph{Confidence Interval for $X^*\beta$}
+$$\frac{\hat{\vy}^*-X^*\beta}{\sigma\sqrt{X^*(X^TX)^{-1}X^{*T}}} \sim N(0,I)$$
+Then $$0.95 CI = \hat{y}^*_i \pm 1.96 * \sigma \sqrt{(X^*(X^TX)^{-1}X^{*T})_{i}}$$
+\paragraph{Remarks}
+The confidence interval reflects our uncertainty about the population regression line
+\paragraph{the Prediction Error}
+$$y^* - \hat{y}^* = \beta_0 + \beta_1x^* + \varepsilon^* - \hat{\beta}_0 + \hat{\beta}_1x^*$$
+Matrix notation:
+$$\vy^* - \hat{\vy}^* = X^*\beta + \varepsilon - X^*\hat{\beta}$$
+Distribution:
+$$\vy^* - \hat{\vy}^* \sim N(\mu, \Sigma)$$ where
+\begin{align*}
+    \mu &= E[X^*\beta + \varepsilon - X^*\hat{\beta}]\\
+    &= X^*\beta + E[\varepsilon] - E[X^*\hat{\beta}]\\
+    &= X^*\beta + 0 - X^*\beta \\
+    &= 0 \\
+    \Sigma &= Var[X^*\beta + \varepsilon - X^*\hat{\beta}] \\
+    &= Var[\varepsilon - X^*\hat{\beta}]\\
+    &= Var[\varepsilon] + Var[X^*\hat{\beta}] + 2Cov[\varepsilon, X^*\hat{\beta}] \\
+    &= \sigma^2I + \sigma^2X^*(X^TX)^{-1}X^{*T} + 0\\
+    &= \sigma^2[I + X^*(X^TX)^{-1}X^{*T}]
+\end{align*}
+Then we can construct a CI for $\hat{\vy}^*$ using t-distribution ($df = n-2$)
+\subsection{Checking the Model Assumption}
+We will divide model checking into 3 pieces:
+\begin{enumerate}
+    \item Error assumption ($e_i \overset{i.i.d}{\sim} N(0,  \sigma^2)$)
+    \item Identical distribution (checking for unexpected observations)
+    \item Model assumption (linearity)
+\end{enumerate}
+\subsubsection{Checking Error Assumption}
+We only have access to the residuals (observed errors)
+$$\hat{e}_i = y_i - \hat{y}_i$$
+$$\hat{\ve} = (I - H)\vy$$
+\paragraph{Constant variance}
+Check $Var(e_i) = \sigma^2 \, \forall i$\\
+Plot the residuals against the fitted values($\hat{y}_i$)
+% \paragraph{Zero mean/ Independence}
+% Plot the residuals against the predictors, see if clustered around zero and looks random
+\paragraph{Normality of residuals}
+Quantile to Quantile plot (QQplot)
+\paragraph{Independence}
+\begin{enumerate}
+    \item Scatter plot (y against x)
+    \item Residual plot against predictors (see if clustered around zero and looks random)
+    \item Residual Sequence plot
+\end{enumerate}
+\paragraph{Remarks}
+We rarely check for this assumption
+
+\subsubsection{Unusual Observations}
+\paragraph{Definition 5.2.2.1 - Leverage points}
+A \under{leverage point} is a point whose $x$-value is distant from the other $x$-values
+\paragraph{leverages}
+In the linear regression model, the \under{leverage} for the $i$-th observation is defines as:
+$$h_i = H_{ii} = \frac{1}{n}+\frac{(x_i-\bar{x})^2}{\sum_{j=1}^n(x_j-\bar{x})^2}$$
+where $H = X(X^TX)^{-1}X^T$ \\
+Property: $\sum_{i=1}^n h_i = 2$ (number of parameters)
+\paragraph{Remarks}
+The average value for $h$ is $2/n$. Usually leverages larger than $4/n$ should be looked at more closely.
+\paragraph{Definition 5.2.2.2 - Outliers}
+An \under{outlier} is a data point whose $y$-value differs significantly from other observations.
+\paragraph{Remarks}
+Usually large residual $\hat{y}_i - y_i$ might indicate outliers
+\paragraph{Definition 5.2.2.3 - Influential observations}
+An \under{influential point} is one whose removal from the dataset would cause a large change in the fit. They could be leverage points, outliers but usually the both.
+\paragraph{Remarks}
+An outlier with a large leverage will definitely be an influential observation. It is sometimes called a \under{bad leverage}
+\paragraph{Definition 5.2.2.4 - Cook's Distance}
+For observation $i$, the \under{Cook's distance} is $$D_i = \frac{r_i^2}{2} \frac{h_i}{1-h_i}$$ where $r_i$ is the standardized residual and $h_i$ is the leverage.
+\paragraph{Remarks}
+$r_i$ measures the extent of outlying, $h_i$ measures the leverage. Thus, a large value of $D_i$ indicates influential observations.
+\paragraph{Simple rules of thumb} There is a problem when
+\begin{enumerate}
+    \item $D_i > 4/n$ on large datasets
+    \item $D_i > 1$ on small datasets
+    \item $D_i$ is separated by a large gap from the other $D_j$s
+\end{enumerate}
+
+\section{May 28th - Dummy variables and introduction to multiple linear regression}
+\section{May 30th - Interactions and multiple linear regression assumptions}
+\subsection{Transformation}
+We can use transformations to fix 2 problems:
+\begin{enumerate}
+	\item Non-constant variance
+	\item Non-linearity
+\end{enumerate}
+\section{June 6th - Model selection and variable selection}
+\section{June 11th - Ridge and Lasso regression}
+\section{June 13th - Statistical analysis, data science and ethics}
 
 \end{document}
