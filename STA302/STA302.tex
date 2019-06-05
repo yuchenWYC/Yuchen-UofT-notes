@@ -89,6 +89,13 @@ We say a difference is \textbf{statistically significant} if it's less probable 
 \under{\ti{remarks}}: This is saying that if p-value is greater than significance level, then it does not say anything about our confidence, it's just a value. Proof can be found online.
 \paragraph{Tradeoff Between Type I and Type II Error}
 It's common to fix $\alpha$ (significance level or type-I error) and minimize type-II error.
+\subsection{t-test}
+Under the model $(y_i|X=xi) \sim N(\beta_0 + \beta_1 x_i, \sigma^2)$, an unbiased estimator of $\sigma^2$ is 
+$$S^2 = \frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n-2} $$
+Then
+$$ \frac{\hat{\beta_1} - \beta_1}{\sqrt{\frac{S^2}{SXX}}} \sim t_{(n-2)}$$
+
+
 \subsection{One-way Analysis of variance (ANOVA)}
 Suppose the response $Y$ is quantitative and the predictor $X$ is categorical, taking $t$ values or levels denoted $1, \hdots, t$. With the regression model, we assume that the only aspect of the conditional distribution of $Y$, given $X = x$, that changes as $x$ changes, is the mean. \\
 Suppose we are interested in assessing whether or not there is a relationship between the response and the predictor. There is no relationship if and only if all the conditional distributions are the same. This is true under our assumptions if and only if all the means are equal.
@@ -179,7 +186,7 @@ $\bar{y}$ is called base estimation.
 	$$SSE = \sum_{i=1}^n(\hat{y_i} - y_i)^2$$
 	\textcolor{blue}{unexplained variation: How much our explanation is away from the true observation?}
 	\item \under{SSG}: This is the sum of the squared deviations between each prediction and the mean.
-	$$SSG = \sum_{i=1}^n(\hat{y_i}-\bar{y_i})^2$$
+	$$SSG = \sum_{i=1}^n(\hat{y_i}-\bar{y})^2$$
 	\textcolor{blue}{explained variation: How much our explanation takes us away from the base prediction?}
 \end{enumerate}
 \paragraph{Coefficient of Determination}
@@ -210,7 +217,7 @@ $$l(\beta | \vx) = -\frac{n}{2}\log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2} 
 Maximizing the likelihood function wrt to $sigma^2$:
 $${\hat{\sigma}}^2 = \frac{(\vy - X\hat{\beta})^T(\vy-X\hat{\beta})}{n} = \frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n}$$
 This is MSE, a biased estimator of $\sigma^2$. \\
-The unbiased estimator of $\sigma^2$ is $$\frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n-2}$$
+The unbiased estimator of $\sigma^2$ is \textcolor{red}{$$\frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n-2}$$}
 \subsection{Inference}
 The action of extracting information about parameters given a dataset.\\
 \paragraph{Mean and Variance of $\vy$}
@@ -263,10 +270,12 @@ $$y_i = \beta_0 + \beta_1 x_i + e_i$$ where $e_i \sim N(0, \sigma^2)$
 $$\vy = X\beta + \ve \implies \vy|X \sim N(X\beta, I\sigma^2)$$
 where $$\hat{\beta}_{MLE} = (X^TX)^{-1}X^T\vy$$
 $$\hat{\beta} \sim N(\beta, \sigma^2(X^TX)^{-1})$$
+\paragraph{Notes}
+\textcolor{red}{In all cases, we have $\sum_{i=1}^n e_i$ = 0.}
 
 \subsection{Predictive Inference}
 Since $\hat{\vy} = X\hat{\beta}$, then
-$$\hat{y} \sim N(X\beta, \sigma^2X(X^TX)^{-1}X^T)$$
+$$\hat{\vy} \sim N(X\beta, \sigma^2X(X^TX)^{-1}X^T)$$
 \paragraph{Prediction}
 For a new, unobserved predictor $x^*$, a simple prediction for the response could be $$y^* = \beta_0 + \beta_1x^*$$
 \paragraph{Predictive Distribution}
@@ -276,10 +285,10 @@ Matrix notation:
 $$\hat{\vy}^* = X^*\hat{\beta}$$
 where $X^*$ is a vector of new observation $\vx^*$ added a column of 1s. \\
 then
-$$\vy^* \sim (X^*\beta, \sigma^2X^*(X^TX)^{-1}X^{*T})$$
+$$\hat{\vy}^* \sim (X^*\beta, \sigma^2X^*(X^TX)^{-1}X^{*T})$$
 \paragraph{Confidence Interval for $X^*\beta$}
 $$\frac{\hat{\vy}^*-X^*\beta}{\sigma\sqrt{X^*(X^TX)^{-1}X^{*T}}} \sim N(0,I)$$
-Then $$0.95 CI = \hat{y}^*_i \pm 1.96 * \sigma \sqrt{(X^*(X^TX)^{-1}X^{*T})_{i}}$$
+Then $$0.95 CI = \hat{y}^*_i \pm 1.96 * \sigma \sqrt{[X^*(X^TX)^{-1}X^{*T}]_{ii}}$$
 \paragraph{Remarks}
 The confidence interval reflects our uncertainty about the population regression line
 \paragraph{the Prediction Error}
@@ -318,7 +327,7 @@ Plot the residuals against the fitted values($\hat{y}_i$)
 % Plot the residuals against the predictors, see if clustered around zero and looks random
 \paragraph{Normality of residuals}
 Quantile to Quantile plot (QQplot)
-\paragraph{Independence}
+\paragraph{Uncorrelatedness / Independence}
 \begin{enumerate}
     \item Scatter plot (y against x)
     \item Residual plot against predictors (see if clustered around zero and looks random)
@@ -357,13 +366,144 @@ $r_i$ measures the extent of outlying, $h_i$ measures the leverage. Thus, a larg
 \end{enumerate}
 
 \section{May 28th - Dummy variables and introduction to multiple linear regression}
-\section{May 30th - Interactions and multiple linear regression assumptions}
 \subsection{Transformation}
 We can use transformations to fix 2 problems:
 \begin{enumerate}
 	\item Non-constant variance
 	\item Non-linearity
 \end{enumerate}
+When the \textcolor{blue}{variance is exploding}, typically we raise $y$ to a power between 0 and 1 or apply a logarithmic transformation.
+\paragraph{Logarithmic Transformation}
+$$\log(y_i) = \beta_0 + \beta_1 x_i + e_i$$
+$$y_i = \exp(\beta_0)\exp(\beta_1x_i)\exp(e_i)$$
+\paragraph{Box-Cox Transformation}
+Let's consider a family of possible transformations $g_\lambda(y)$
+$$g_\lambda(y)=\begin{cases}
+	\frac{y^\lambda-1}{\lambda} & \text{if $\lambda \neq 0$} \\
+	\log(y) & \text{if $\lambda = 0$}
+\end{cases}$$
+$\lambda$ is selected by the model achieving the highest log-likelihood:
+$$g_\lambda(y_i) \sim N(\beta_0 + \beta_1x_i, \sigma^2)$$
+$$l(\lambda|\vy) = -\frac{n}{2}\log(2\pi) - \frac{n}{2}\log(\sigma^2) - \frac{1}{2\sigma^2}\sum_{i=1}^n(g_\lambda(y_i) - \beta_0 - \beta_1x_i)^2$$
+\paragraph{Conclusions}
+\begin{enumerate}
+	\item Transforming the response (or the predictors) might help with violated assumptions
+	\item It makes the model less interpretable.
+\end{enumerate}
+\subsection{Multiple Linear Regression}
+Suppose we have $p$ predictors.
+$$y = \beta_0 + \beta_1x_1 + \hdots + \beta_p x_p + e$$ where $e \sim N(0, \sigma^2)$
+$$y = \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix},
+X = \begin{bmatrix}
+	1 & x_{11} & \hdots & x_{1p} \\
+	\vdots & \vdots & \hdots & \vdots \\
+	1 & x_{n1} & \hdots & x_{np}
+\end{bmatrix}, \beta = \begin{bmatrix}
+	\beta_0 \\ \beta_1 \\ \vdots \\ \beta_p
+\end{bmatrix}$$
+Matrix notation:
+$$\vy = X\beta + \ve$$ where $\ve \sim N(0, I\sigma^2)$ (a vector of independent normal variables)
+Therefore,
+$$ \vy \sim N(X\beta, I\sigma^2)$$
+\paragraph{Inference}
+$$l(\theta|x_i) = -\frac{n}{2} \log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2}(\vy - X\beta)^T(\vy - X\beta)$$
+which leads to $$\hat{\beta} = (X^TX)^{-1}X^T\vy$$
+\subsection{Dummy variables}
+A set of binary variables to represent a categorical variable.
+Allows to fit a parameter for every possible categories of a categorical variable.
+\paragraph{Model - 2 groups}
+Fit a linear regression:
+$$y = \beta_0 + \beta_1x + e$$ where $e \sim N(0, \sigma^2)$
+$$y \sim N(\beta_0 + \beta_1 x, \sigma^2)$$
+This is a model that consists only \textcolor{red}{two different intercepts}, no slope.
+\paragraph{Inference}
+$$E(y) = \begin{cases}
+	\beta_0 & \text{if $x = 0$} \\
+	\beta_0 + \beta_1 &\text{if $x = 1$}
+\end{cases}$$
+$$H_0: \beta_1 = 0$$
+Applying t-test, this is exactly same to lecture 2.
+\paragraph{Model - 3 groups}
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + e$$
+where $e \sim N(0, \sigma^2)$
+\paragraph{Inference}
+$$E(y) = \begin{cases}
+	\beta_0 & \text{for Group A} \\
+	\beta_0 + \beta_1 &\text{for Group B} \\
+	\beta_0 + \beta_2 &\text{for Group C}
+\end{cases}$$
+$H_0: \beta_1 = \beta_2 = 0$ for testing if all groups are the same; $H_0: \beta_1 = 0$ for testing if Group B is same as Group A.
+
+\section{May 30th - Interactions and multiple linear regression assumptions}
+\subsection{Interactions}
+\paragraph{Definition} \under{Interaction} is the effect of predictor $x_1$ on the effect of predictor $x_2$ on $y$. With the interaction term, the linear regression model becomes
+$$y = \beta_0 + \beta_1x_1 + \beta_2 x_2 + \beta_{1,2}x_1x_2 + e$$
+where $e \sim N(0,1)$
+\paragraph{Remarks}
+As $x_1$ varies, 
+\begin{enumerate}
+	\item the effect of $x_2$ on $y$ is different.
+	\item the relationship between $x_2$ and $y$ is different.
+\end{enumerate}
+Interaction between two categorical predictors $\implies$ every combination are categories with respective effects\\
+Interaction between a categorical predictor and a numerical predictor $\implies$ different intercepts and different slopes\\
+\paragraph{Example: numerical and categorical}
+Suppose $x_1$ is numerical, $x_2$ is categorical.\\
+Then for a fixed $x_1$, 
+$$E(y) = \begin{cases}
+	\beta_0 + \beta_1x_1 & \text{if $x_2 = 0$} \\
+	(\beta_0 + \beta_2) + (\beta_1 + \beta_{1,2}x_2) & \text{if $x_2 = 1$}
+\end{cases}$$
+Now $\beta_2$ indicates difference in intercept and $\beta_{1,2}$ indicates difference in slope (interaction)
+\paragraph{Example: categorical and categorical}
+$\beta_{1,2}$ allow for a different effect from change of predictor 1 depending on the value of predictor 2.
+\paragraph{Example: numerical and numerical}
+More complicated. \\
+The slope and intercept of $x_1$ is different across different values of $x_2$.
+\paragraph{Remarks}
+The model is completely wrong without the interaction term.But interaction terms make the number of parameters explode quickly. ($p$ predictors $\implies {p \choose 2}$ interaction terms)
+
+\subsection{Polynomial fit}
+\begin{enumerate}
+	\item Can be understood as a special case of interactions. 
+	\item Can also solve the issue of observable pattern in the residuals
+\end{enumerate}
+$$y = \beta_0 + \beta_1 x + \beta_2 x^2$$
+
+\subsection{Model Checking}
+\subsubsection{Collinearity}
+\paragraph{Correlation}
+$$\rho_{X,Y} = \frac{Cov(X, Y)}{\sqrt{Var(X)Var(Y)}}$$
+range: $[-1, 1]$.\\
+when $\rho = 1/-1$, we call it "perfect correlation".
+\paragraph{Theorem}
+$\rho = \pm 1$ iff $P(Y = a + bX) = 1$ for some constants $a$ and $b$. \\
+\proof \\
+Rice p143.
+\paragraph{Collinearity}
+If two variables are perfectly correlated, it implies a perfect increasing(decreasing) linear relationship ($x_i = a+ bx_j$). This implies that $\det(X) = 0 = \det(X^TX) = 0$.\\
+$\implies X^TX$ not invertible \\
+$\implies \hat{\beta} = (X^TX)^{-1}X^T\vy$ does not exist \\
+$\implies$ perfect correlation should not happen. \\
+We also do not want a correlation close to -1 or 1, since the variance of $\hat{\beta}$ would be extremely large.
+\paragraph{Checking for collinearity}
+\begin{enumerate}
+	\item Look at the correlation matrix of the predictors. Large pairwise correlation indicates a problem.
+	\item Build a regression model for $x_i$ as response on all other predictors to assess $R_i^2$. High $R_i^2$ (close to 1) indicates a problem.
+	\item Look at the eigenvalues of $X^TX$. Small eigenvalues indicates a problem.
+\end{enumerate}
+
+\paragraph{Variance Inflating Factor (VIF)}
+$$Var(\hat{\beta_j}) = \frac{1}{1-R_j^2} \times \frac{\sigma^2}{(n-1)SSX_j}$$
+$\frac{1}{1-R_j^2}$ are defined as the VIF.
+
+\paragraph{Remarks}
+If the variable $X_j$ is uncorrelated then VIF = 1
+
+
+
+
+
 \section{June 6th - Model selection and variable selection}
 \section{June 11th - Ridge and Lasso regression}
 \section{June 13th - Statistical analysis, data science and ethics}
