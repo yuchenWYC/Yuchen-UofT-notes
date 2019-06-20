@@ -10,6 +10,8 @@
 \usepackage{fancyhdr}
 \usepackage{perpage}
 \usepackage{float}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 % Property settings.
 \MakePerPage{footnote}
@@ -165,11 +167,12 @@ This allows us to define a very rich family of functions that using basis functi
 In a Gaussian Process regression model, mathematically the same inference as in linear regression can be done.
 \paragraph{The model}
 Let $Z \in \real^n \sim N(\mu, K), \varepsilon \in \real^n \sim N(0, \sigma^2I)$ be independent r.v.s. Let $y = Z + \varepsilon$, so $y \sim N(\mu, K+\sigma^2I)$.\\
+Define $C = K + \sigma^2 I$.\\
 Let $a = (1, \hdots, l), b = (l+1, \hdots, n)$, so $y = \begin{pmatrix}
 	y_a \\ y_b \end{pmatrix}$, where $y_a = \begin{pmatrix} y_1 \\ \vdots \\y_l
 	\end{pmatrix}, y_b = \begin{pmatrix} y_{l+1} \\ \vdots \\ y_n \end{pmatrix}$.
 	In addition, $\mu = \begin{pmatrix} \mu_a \\ \mu_b \end{pmatrix}, C = \begin{pmatrix} C_{aa} & C_{ab} \\ C_{ba} & C_{bb} \end{pmatrix}, K = \begin{pmatrix} K_{aa} & K_{ab} \\ K_{ba} & K_{bb} \end{pmatrix}$\\
-Then we have $(Y_a | Y_b = y_b) \sim (m, D)$, where 
+Then we have $(Y_a | Y_b = y_b) \sim N(m, D)$, where 
 \begin{align*}
 	m &= \mu_a + C_{ab}C^{-1}_{bb}(y_b - \mu_b) \\
 	&= \mu_a +K_{ab}(K_{bb} + \sigma^2 I)^{-1}(y_b - \mu_b)\\
@@ -201,4 +204,41 @@ $$A \otimes B = \begin{bmatrix}
 	\vdots & \ddots & \vdots \\
 	a_{m1}B & \hdots & a_{mn}B
 \end{bmatrix}$$
+\section{Bayes' Theorem}
+$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$
+where $A$ and $B$ are events and $P(B) \neq 0$.
+\section{Maximum a Posteriori Estimation (MAP)}
+An estimate of an unknown quantity that equals the mode of the posterior distribution. \\
+Can be used to obtain a \textcolor{blue}{point estimate} of an unobserved quantity on the basis of empirical data.\\
+Closely related to MLE but employs an augmented optimization objective which incorporates a prior distribution (fix the overfitting problem). \\
+Can be seen as a regularization of MLE.
+\paragraph{Description}
+Assume we want to estimate an unobserved population parameter $\theta$ on the basis of observations $x$> Let $f$ be the sampling distribution of $x$ so that $f(x|\theta)$ is the probability of $x$ when the underlying population parameter is $\theta$. \\
+Now assume that a prior distribution $g$ exists. This allows us to treat $\theta$ as a random variable. By Bayes' Theorem, the posterior distribution of $\theta$ is 
+$$f(\theta|x) = \frac{f(x|\theta)g(\theta)}{\int_\Theta f(x|v)g(v)\,dv}$$
+where $g$ is the density function of $\theta$, $\Theta$ is the domain of $g$.
+Then
+$$\hat{\theta}_{MAP}(x) = \underset{\theta}{argmax} f(\theta|x)$$
+\section{Bayesian Linear Regression}
+Why not use MLE? - overfitting \\
+Why not use MAP? - no representation of uncertainty
+\paragraph{Setup}
+$$D = ((x_1, y_1), \hdots, (x_n, y_n)), x_i \in \real^d, y_i \in \real$$
+\paragraph{Model}
+$y_1, \hdots, y_n$ indep given $w$, $y_i \sim N(w^Tx_i, a^{-1}), a>0$ \\
+$w \sim N(0,b^{-1}I), b>0. \, (w=(w_1,\hdots,w_d))$ \\
+($a, b:= 1/ variance$ is called precision) \\
+Assume $a,b$ are known so the only parameter is $w$.
+\paragraph{Posterior Distribution of $w$}
+It can be shown that $$P(w|D) = N(w|\mu, \Lambda^{-1})$$
+where $\mu = a\Lambda^{-1}X^Ty$ and $\Lambda = aX^TX+bI$ where $X$ is the design matrix.
+\section{Laplace Distribution}
+Sometimes also called "double exponential distribution", because it can be though of as two exponential distributions (with an additional location parameter) spliced together back-to-back.
+\paragraph{PDF}
+$$\frac{1}{2b}\exp(-\frac{|x-\mu|}{b})$$
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{laplace.png}
+	\caption{PDF of Laplace Distribution}
+\end{figure}
 \end{document}

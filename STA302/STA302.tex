@@ -10,6 +10,8 @@
 \usepackage{perpage}
 \usepackage{float}
 \usepackage{esint}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 % Property settings.
 \MakePerPage{footnote}
@@ -123,7 +125,7 @@ add $-\bar{y_t}+\bar{y_t}$ inside the squared error term and everything is just 
 \paragraph{ANOVA}
 We want to assess how large is SSG relative to SSE, but it would be hard to establish a distribution for SSG/SSE. Knowing a sum of squares divided by its degrees of freedom has a chi-square distribution, we can conclude that
 $$SSG/(T-1) \sim \chi_{T-1}^2, \quad SSE/(n-T) \sim \chi_{n-T}^2$$
-\paragraph{Theorem 2.2.1} If $SSG/(T-1) = SSE/(n-T)$, then $\frac{SSG/(T-1)}{SSE/(n-T)} \sim F_{T-1, n-T}$ \\\\
+\paragraph{Theorem 2.2.1} If between-groups and within-groups variance are equal ($\sigma_T = \sigma_\varepsilon$), then $\frac{SSG/(T-1)}{SSE/(n-T)} \sim F_{T-1, n-T}$ \\\\
 \proof \\
 In STA261, we've proven that if $\sigma_x^2 = \sigma_y^2$, then $\frac{\hat{\sigma}_x^2}{\hat{\sigma}_y^2} \sim F_{n-1,n-1}$.\\ Since SSG/(T-1) is an estimation for the variation between groups ($\sigma_T$) and $SSE/(n-T)$ is an estimation for the variation within groups ($\sigma_\varepsilon$), then the result follows. \qed
 \paragraph{Remarks 2.2.2} Thus a small p-value indicates theses variances are different, which is evidence for the existence of some group effect.
@@ -164,7 +166,7 @@ We have a vector of $n$ predictors $\vx = [x_1,\hdots,x_n]$, as well as $n$ asso
 		1 & x_1 \\ \vdots & \vdots \\ 1 & x_n
 	\end{bmatrix}, \beta = \begin{bmatrix} \beta_0 \\ \beta_1 \end{bmatrix}$).
 \subsubsection{Least Square Estimation}
-Minimize sum of squared errors (MSE): $$\sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)^2$$
+Minimize sum of squared errors: $$\sum_{i=1}^n (\beta_0 + \beta_1 x_i - y_i)^2$$
 We take derivative of $\sum_{i=1}^n (\vy - X\hat{\beta})^2$ wrt $\hat{\beta}$, set this to 0 and get 
 \paragraph{Theorem 3.2.1.1}$$\hat{\beta} = (X^TX)^{-1}X^T\vy$$
 $$\hat{\vy} = X\hat{\beta} = X(X^TX)^{-1}X^T\vy$$
@@ -214,9 +216,9 @@ Maximizing this term wrt $\beta$ is equivalent to minimizing $(\vy - X\beta)^T(\
 Minimizing MSE and the likelihood function leads to the same estimate $\hat{\beta}$.
 \paragraph{A Biased Estimator of $\sigma^2$}
 $$l(\beta | \vx) = -\frac{n}{2}\log(2\pi) - n\log(\sigma) - \frac{1}{2\sigma^2} (\vy - X \beta)^T(\vy - X\beta)$$
-Maximizing the likelihood function wrt to $sigma^2$:
+Maximizing the likelihood function wrt to $\sigma^2$:
 $${\hat{\sigma}}^2 = \frac{(\vy - X\hat{\beta})^T(\vy-X\hat{\beta})}{n} = \frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n}$$
-This is MSE, a biased estimator of $\sigma^2$. \\
+This is MLE, a biased estimator of $\sigma^2$. \\
 The unbiased estimator of $\sigma^2$ is \textcolor{red}{$$\frac{\sum_{i=1}^n(y_i-\hat{y_i})^2}{n-2}$$}
 \subsection{Inference}
 The action of extracting information about parameters given a dataset.\\
@@ -292,7 +294,7 @@ Then $$0.95 CI = \hat{y}^*_i \pm 1.96 * \sigma \sqrt{[X^*(X^TX)^{-1}X^{*T}]_{ii}
 \paragraph{Remarks}
 The confidence interval reflects our uncertainty about the population regression line
 \paragraph{the Prediction Error}
-$$y^* - \hat{y}^* = \beta_0 + \beta_1x^* + \varepsilon^* - \hat{\beta}_0 + \hat{\beta}_1x^*$$
+$$y^* - \hat{y}^* = \beta_0 + \beta_1x^* + \varepsilon^* - (\hat{\beta}_0 + \hat{\beta}_1x^*)$$
 Matrix notation:
 $$\vy^* - \hat{\vy}^* = X^*\beta + \varepsilon - X^*\hat{\beta}$$
 Distribution:
@@ -308,7 +310,7 @@ $$\vy^* - \hat{\vy}^* \sim N(\mu, \Sigma)$$ where
     &= \sigma^2I + \sigma^2X^*(X^TX)^{-1}X^{*T} + 0\\
     &= \sigma^2[I + X^*(X^TX)^{-1}X^{*T}]
 \end{align*}
-Then we can construct a CI for $\hat{\vy}^*$ using t-distribution ($df = n-2$)
+Then we can construct a CI for $\vy^*$ using t-distribution ($df = n-2$)
 \subsection{Checking the Model Assumption}
 We will divide model checking into 3 pieces:
 \begin{enumerate}
@@ -501,11 +503,222 @@ $\frac{1}{1-R_j^2}$ are defined as the VIF.
 If the variable $X_j$ is uncorrelated then VIF = 1
 
 
-
-
-
 \section{June 6th - Model selection and variable selection}
+\subsection{Big Data}
+\paragraph{Properties}
+Big data usually includes datasets with sizes beyond the ability of commonly used software tools.
+\begin{enumerate}
+	\item Volume/Tall data: Large number of observations (large n)
+	\item Wide data: Large number of predictors (large p)
+	\item Variety: Multiple styles of data from texts to images to audio and video files.
+	\item Velocity: The speed at which the data is generated.
+\end{enumerate}
+\paragraph{Challenges}
+\begin{enumerate}
+	\item Data storage
+	\item Data analysis
+	\item Data visualization
+	\item Information privacy
+\end{enumerate}
+
+\subsubsection{Large number of predictors}
+\paragraph{We have a large number of predictors when we}
+\begin{enumerate}
+	\item have a large number of parameters
+	\item want to investigate many interaction terms and interaction of high order
+	\item want to add multiple polynomial terms
+\end{enumerate}
+
+\paragraph{Why is it a problem}?
+\begin{enumerate}
+	\item It reduces interpretation \\
+	"The simplest is best". it is easier to explain a simpler model. In order to get the big picture, we are willing to sacrifice small details.
+	\item It increases the variance of the estimates
+	$$ s^2 = \sum_{i=1}^n (y_i - \hat{y_i})^2 / (n- (p+1))$$
+	\item It is more prone to overfitting.\\
+	More parameters increase the detriment of generalization abilities.
+	\item It increases the chances of collinearity issues. 
+	Too many similar information.
+\end{enumerate}
+\subsection{Overfitting}
+\paragraph{Definition 8.2.1}
+Overfitting happens when we detect a pattern in the data set that does not exist for new observations.
+\paragraph{Definition 8.2.2}
+Poor performances of the model on non-observed points.
+\paragraph{Remarks}
+We say that a model overfits when it offers poor generalization abilities. 
+\paragraph{Performance Metric}
+We can observe symptoms of overfitting by selecting a performance metric and comparing its value on the training set to its value on the test set as we change the model complexity.\\
+Example:
+\begin{enumerate}
+	\item Mean Squared Error (MSE)
+	\item Maximum Likelihood (MLE)
+	\item $R^2$ coefficient
+	\item log-likelihood
+\end{enumerate} 
+\subsection{Variable Selection}
+We could select the set of variables that maximizes the likelihood or the $R^2$ coefficient. But to prevent overfitting, we penalizes for high number of parameters.
+\paragraph{Adjusted $R^2$}
+Recall that $$R^2 = \frac{SS_{reg}}{SST} = 1 - \frac{SSE}{SST}$$
+$R^2$-adjusted includes a penalty per parameter:
+$$Adjusted \, R^2 = 1 - \frac{SSE/(n-p-1)}{SST/(n-1)}$$
+\paragraph{Remarks}
+A large Adjusted $R^2$ indicates a good improvement over $\bar{y}$.
+
+\paragraph{Akaike information criterion (AIC)}
+The AIC is a likelihood-based metric with a penalty for the number of parameters.
+$$AIC = 2p - 2I$$
+where $p$ = number of parameters and $I$ = log-likelihood of the current model.
+\paragraph{Remarks}
+The smaller the AIC, the better the model is.
+\paragraph{Bayesian information criterion (BIC)}
+The BIC is also a likelihood-based metric with a penalty for the number of parameters.
+$$BIC = p\log{n} - 2I$$
+where $p$ = number of parameters and $I$ = log-likelihood of the current model.
+\paragraph{Remarks}
+The smaller the BIC, the better the model is.
+\paragraph{AIC vs BIC}
+\begin{enumerate}
+	\item BIC has a stronger penalty for the number of parameter.
+	\item Sometimes BIC leads to selecting an underdeveloped model but AIC leads to selecting a model that overfits.
+\end{enumerate}
+\paragraph{Variable Selection}
+If we have $p$ predictors, it would lead to $2^p$ different models. It might be reasonable to fit all of the $2^p$ models and select the one with the highest adjusted $R^2$ of lowest AIC/BIC.
+\paragraph{Hierarchical models}
+Start with only $x$, then include $x^2$ and compare the two models with one of our metrics. We can increase the order of the model as long as the adjusted $R^2$ (AIC/BIC) keeps increasing (decreasing) or as long as the added terms are significant.
+\paragraph{Forward Selection}
+\under{Forward Selection} is a stepwise subset technique that starts with the simplest model (no predictors) and sequentially add predictors to the model. At every step, for all predictors that are not in the model, we check their p-value if they were added to the model and add the predictor that would have \textcolor{red}{the smallest p-value}. We stop the process when $R^2$ (AIC/BIC) decreases (increases) or when all parameters were added to the model.
+\paragraph{Backward Elimination}
+\under{Backward elimination} start with all of the possible predictors. At every step, for all predictors in the model, we take out the predictor with \textcolor{red}{the largest p-value}. We stop the process when $R^2$ (AIC/BIC) decreases (increases) or when all parameters were taken out of the model.
+\paragraph{Advantages}
+These two technique share similar pros:
+\begin{enumerate}
+	\item They are easy to use
+	\item They are intuitive
+	\item They are computationally cheap (they are both a lot cheaper than looking through all subsets)
+\end{enumerate}
+\paragraph{Weaknesses}
+\begin{enumerate}
+	\item They don't use p-values appropriately
+	\item By testing model sequentially we might stop before finding the best model
+	\item The selection procedure disturbs inference and predicton
+\end{enumerate}
+\paragraph{Post-selection inference}
+The selection process changes the properties of the estimators as well as the standard inferential procedures (such as tests and confidence intervals). The regression coefficients obtained after variable selection are biased.
+\begin{enumerate}
+	\item The p-values are usually much smaller.
+	\item And the t-statistics and F-statistic can be misleading.
+\end{enumerate}
+
 \section{June 11th - Ridge and Lasso regression}
-\section{June 13th - Statistical analysis, data science and ethics}
+\subsection{Principal Component Analysis (PCA)}
+A reparametrization of the current system in order to create uncorrelated predictors. \\
+We project the predictors onto an orthogonal space.
+\paragraph{Remarks}
+\begin{enumerate}
+	\item It completely solves the collinearity problem of any predictor set
+	\item Reduces number of variables to keep the variance low and chances of overfitting low
+	\item \textcolor{red}{It makes the interpretation even harder.}
+	\item This transformation is extremely simple and fast
+\end{enumerate}
+\paragraph{Steps}
+\begin{enumerate}
+	\item Ideally we would like to do a projection that keeps observations as distinguishable as possible. We want to maximize the variance of the new vectors.
+	\item Define $S$ as the observed covariance matrix:
+	$$ S = \begin{bmatrix}
+		\sum_{i=1}^n (x_{i,1} - \bar{x}_1)^2 & \hdots & \sum_{i=1}^n(x_{i,1} - \bar{x}_1)(x_{i,p} - \bar{x}_p) \\
+		&\ddots \\
+		\sum_{i=1}^n (x_{i,p} - \bar{x}_p)(x_{i,1} - \bar{x}_1) &\hdots & \sum_{i=1}^n(x_{i,p} - \bar{x}_p)^2
+	\end{bmatrix} $$
+	\item With $Z = X\vu$ where $Z$ is our 1d space and $\vu_{p\times 1}$ is the projection vector. We want $\vu$ to be a direction in the original predictor space, so define $\vu$ as a vector of norm 1.
+	\item Since the $Var(\vz) = \vu^TS\vu$, we do the maximization problem using Lagrange multipliers with one constraint:
+	$$\begin{cases}
+		\text{Maximize} & \vu^TS\vu  \\
+		\text{Subject to} & \vu^T\vu = 1
+	\end{cases} $$
+	\item This leads to $$S\vu = \lambda\vu$$ which implies that $\lambda$ is an eigenvalue of $S$ and $\vu$ is an eigenvector of $S$.
+	\item Left-multiply $S\vu$ by $\vu^T$ we get $\vu^TS\vu = \lambda$, thus $\lambda$ is the variance of the projected data.
+	\item \textcolor{blue}{To maximize the variance, we select $\vu$ as the eigenvector associated with the largest eigenvalue.}
+\end{enumerate}
+
+\paragraph{Generalization}
+To generalize the process, suppose we have $p$ predictors. We can project the predictor matrix $X$ on a lower dimension orthogonal space $Z$ with dimension $m < p$ using a projection matrix $\vu_{p\times m}$:
+$$Z_{n\times m} = X_{n \times p}\vu_{p\times m}$$
+The matrix $\vu_{p\times m}$ consists eigenvectors associated with the $m$ largest eigenvalues of the data correlation matrix $S$. \\
+Then we can fit a linear model using $Z: \vy = Z\beta + \ve$ that we have lower number of predictors and they are all uncorrelated.
+
+
+\subsection{Ridge and Lasso Regression}
+\subsubsection{Ridge Regression}
+A \under{shrinkage technique}: technique that reduce the size of the parameters.
+\paragraph{Motivation}
+We could prevent overfitting by controlling the size of the parameters.\\
+\textcolor{red}{$\bar{y}$ does not overfit.} If $\beta_i = 0$ for $i \in \{1, \hdots, p\}$, then $\bar{y} = \beta_0$. Intuitively, if the $\beta_i$'s are small, they can only affect the $y$ so that it minimizes the chances of overfitting.
+\paragraph{Review}
+We established our $\hat{\beta}$ by minimizing sum of square error $(\vy - X\hat{\beta})^T(\vy - X\hat{\beta})$
+\paragraph{Regularization}
+One way to force small $\hat{\beta}$ would be to minimize $$\sum_{i=1}^n \beta_i^2$$
+Thus we can establish $\hat{\beta}_{ridge}$ as the solution of the minimization of 
+$$(\vy - X\hat{\beta})^T(\vy - X \hat{\beta}) + \lambda \sum_{i=1}^n \beta_i^2$$ 
+\textcolor{red}{where $\lambda$ is a hyper-parameter controlling the penalty on $\sum_{i=1}^n \beta_i^2$}. \\
+If $\lambda = 0$ then we have our regular $\hat{\beta} = (X^TX)^{-1}X^T\vy$; as $\lambda \rightarrow \infty$ then all of $\beta_i$'s goes to 0 and we have a model that predicts $\bar{y}$.
+\paragraph{A constrained optimization problem}
+The ridge regression can be expressed as a constrained optimization problem. In fact:
+$$\hat{\beta}_{ridge} = \begin{cases}
+	\underset{\beta}{argmin} & \sum_{i=1}^n(y_i - (\beta_0 + (\sum_{j=1}^p \beta_j x_{i,j}))^2 \\
+	\text{Subject to} & \sum_{j=1}^p \beta_j^2 \leq t
+\end{cases} $$
+\textcolor{blue}{Just know that there exist a one-to-one correspondence between $\lambda$ and $t$, and that both of the formulations lead to the same solution.}
+\paragraph{Parameter tuning for $\lambda$}
+Establish a huge list of possible $\lambda$s. Then try them all and select one that best result on the validation set.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{ridge.png}
+	\caption{x-axis: $\frac{1}{\lambda}$. As the penalty decrease, the parameters converge to LSE.}
+\end{figure}
+
+\paragraph{Remarks}
+The model does NOT reduce the number of parameters, thus does not improve interpretability.
+
+\subsubsection{Lasso Regression}
+Actually enforce \under{sparsity}: reduce some of the parameters. \textcolor{red}{But this method is non-convex, so it is much more complicated to solve and we cannot compute the exact solution.}
+\paragraph{Regularization}
+We want to minimize
+$$ 
+\sum_{i=1}^n(y_i - (\beta_0 + \sum_{j=1}^p \beta_j x_{i,j}))^2 + \lambda \sum_{j=1}^p |\beta_j|$$
+\paragraph{A constrained optimization problem}
+$$ \hat{\beta}_{lasso} = \begin{cases}
+ \underset{\beta}{argmin} & 	\sum_{i=1}^n(y_i - (\beta_0 + \sum_{j=1}^p \beta_j x_{i,j}))^2 
+ \\
+ \text{subject to} & \sum_{j=1}^p |\beta_j| \leq t
+ \end{cases} $$
+ \textcolor{blue}{There exist a one-to-one correspondence between $\lambda$ and $t$, and that both of the formulations lead to the same solution.}
+ 
+ \begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{lasso.png}
+	\caption{x-axis: $\frac{1}{\lambda}$. As the penalty decrease, the parameters converge to LSE.}
+\end{figure}
+
+ \paragraph{Remarks}
+ Computing the lasso solution is a quadratic programming problem, but efficient algorithms are available for computing the entire path of solutions as $\lambda$ varies with the same computational cost as for ridge regression.
+ 
+ \subsubsection{Ridge v.s. Lasso}
+  \begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{vs.png}
+	\caption{Contour of the prediction errors and Regularizations. Different constraints lead to different contour shapes. Notice that lasso always has the smallest error at one of the axis, thus induces sparsity.}
+\end{figure}
+
+ 
+ \paragraph{related R packages}
+ The GLMnet and Elastic net packages in R are freely available.
+
+
+ \paragraph{Post-selection inference}
+ Post-selection inference is still a problem problem when using these techniques. In fact there is not even a distribution in the model yet. SelectiveInference package in R allow to do valid inference for parameters that were selected using Elastic net.
+ 
+ 
+ 
 
 \end{document}
