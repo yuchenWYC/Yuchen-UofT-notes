@@ -6,6 +6,6 @@
 2. MAT237 2018-2019 Y (completed)
 3. STA261 Winter 2019 (partial)
 4. CSC263 Winter 2019 (a little bit, not serious)
-5. STA302 Summer 2019 (in progress)
+5. STA302 Summer 2019 (completed)
 6. MAT337 Summer 2019 (in progress)
 7. other stuff related to math
