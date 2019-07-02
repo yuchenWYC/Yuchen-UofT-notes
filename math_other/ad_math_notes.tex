@@ -235,10 +235,20 @@ where $\mu = a\Lambda^{-1}X^Ty$ and $\Lambda = aX^TX+bI$ where $X$ is the design
 \section{Laplace Distribution}
 Sometimes also called "double exponential distribution", because it can be though of as two exponential distributions (with an additional location parameter) spliced together back-to-back.
 \paragraph{PDF}
-$$\frac{1}{2b}\exp(-\frac{|x-\mu|}{b})$$
+$$\frac{1}{2b}\exp(-\frac{|x-\mu|}{b}$$
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{laplace.png}
 	\caption{PDF of Laplace Distribution}
 \end{figure}
+
+\section{Kullback-Leibler Divergence}
+Also called ``relative entropy", is a measure of how one probability distribution is different from a second, reference probability distribution.
+\paragraph{Definition}
+For discrete probability distribution $P$ and $Q$ defined on the same probability space, the \under{Kullback-Leibler divergence} between $P$ and $Q$ is defined to be
+$$D_{KL}(P|Q) = - \sum_{x \in \chi} P(x)\log(\frac{Q(x)}{P(x)})$$
+For distributions $P$ and $Q$ of a continuous random variable, the Kullback-Leiber divergence is defined to be the integral
+$$D_{KL}(P|Q) = \int_{-\infty}^\infty p(x)\log(\frac{p(x)}{q(x)})\, dx$$ where $p$ and $q$ denote the probability densities of $P$ and $Q$.
+
+ 
 \end{document}

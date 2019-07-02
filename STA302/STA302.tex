@@ -311,6 +311,13 @@ $$\vy^* - \hat{\vy}^* \sim N(\mu, \Sigma)$$ where
     &= \sigma^2[I + X^*(X^TX)^{-1}X^{*T}]
 \end{align*}
 Then we can construct a CI for $\vy^*$ using t-distribution ($df = n-2$)
+\paragraph{\textcolor{red}{Remarks}}
+Prediction intervals reflect uncertainty from both $\hat{\beta}$ and $\varepsilon$ (i.e. the irreducible error). The irreducible error is estimated using training sample.
+\paragraph{\textcolor{red}{Reducible and irreducible errors}}
+\begin{enumerate}
+	\item \under{Reducible error} is the error arising from the mismatch between $\hat{f}$ and $f$. $f$ is the true relationship between $X$ and $Y$, but we can't see $f$ directly - we can only estimate it. We can reduce the gap between our estimate and the true function by applying improved methods.
+	\item \under{Irreducible error} arises from the fact that X doesn't completely determine Y. That is, there are variables outside of X - and independent of X - that still have some small effect on Y. The only way to improve prediction error related to irreducible error is to identify these outside influences and incorporate them as predictors.
+\end{enumerate}
 \subsection{Checking the Model Assumption}
 We will divide model checking into 3 pieces:
 \begin{enumerate}
@@ -702,6 +709,11 @@ $$ \hat{\beta}_{lasso} = \begin{cases}
 
  \paragraph{Remarks}
  Computing the lasso solution is a quadratic programming problem, but efficient algorithms are available for computing the entire path of solutions as $\lambda$ varies with the same computational cost as for ridge regression.
+ \paragraph{Limitations}
+ \begin{enumerate}
+ 	\item If $p > n$, the lasso selects at most $n$ variables. (The number of selected genes is bounded by the number of samples)
+ 	\item Grouped variables: the lasso fails to do grouped selection. It tends to select one variable from a group and ignore the others.
+ \end{enumerate}
  
  \subsubsection{Ridge v.s. Lasso}
   \begin{figure}[h]
@@ -717,6 +729,28 @@ $$ \hat{\beta}_{lasso} = \begin{cases}
 
  \paragraph{Post-selection inference}
  Post-selection inference is still a problem problem when using these techniques. In fact there is not even a distribution in the model yet. SelectiveInference package in R allow to do valid inference for parameters that were selected using Elastic net.
+ 
+ \subsubsection{Elastic Net Regularization}
+ $$\hat{\beta} = \underset{\beta}{argmin} |\vy - X\beta|^2 + \lambda_2|\beta|^2 + \lambda_1 |\beta|$$
+ \paragraph{Properties}
+ \begin{enumerate}
+ 	\item Removes the limitation on the number of selected variables
+ 	\item Encourages \under{grouping effect}
+ 	\item Stabilizes the $l_1$ regularization path
+ \end{enumerate}
+ \begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{elastic.png}
+	\caption{Singularities at the vertexes (necessary for sparsity) and strict convex edges (grouping). The strength of convexity varies with $\alpha$}
+\end{figure}
+\paragraph{Lasso v.s. Elastic Net}
+
+ \begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{vs2.png}
+	\caption{Elastic Net encourages group effect.}
+\end{figure}
+ 
  
  
  
