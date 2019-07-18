@@ -651,6 +651,12 @@ We project the predictors onto an orthogonal space.
 \paragraph{Generalization}
 To generalize the process, suppose we have $p$ predictors. We can project the predictor matrix $X$ on a lower dimension orthogonal space $Z$ with dimension $m < p$ using a projection matrix $\vu_{p\times m}$:
 $$Z_{n\times m} = X_{n \times p}\vu_{p\times m}$$
+\under{Problem}
+	$$\begin{cases}
+		\text{Maximize} & \vu^TS\vu  \\
+		\text{Subject to} & \vu^T\vu =1 \\
+		\text{and} & \vu_i \text{'s are orthogonal}
+	\end{cases} $$
 The matrix $\vu_{p\times m}$ consists eigenvectors associated with the $m$ largest eigenvalues of the data correlation matrix $S$. \\
 Then we can fit a linear model using $Z: \vy = Z\beta + \ve$ that we have lower number of predictors and they are all uncorrelated.
 

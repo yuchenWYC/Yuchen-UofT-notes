@@ -1,0 +1,581 @@
+\documentclass[11pt]{article}
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+\usepackage{esint}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{hyperref}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\bx}[0]{\mathbf{x}}
+\newcommand{\bv}[0]{\mathbf{v}}
+\newcommand{\bw}[0]{\mathbf{w}}
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
+\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
+\newcommand{\vc}[0]{\tb{c}}
+\newcommand{\ve}[0]{\tb{e}}
+\newcommand{\vm}[0]{\tb{m}}
+\newcommand{\vh}[0]{\tb{h}}
+\newcommand{\vf}[0]{\tb{F}}
+\newcommand{\vi}[0]{\tb{i}}
+\newcommand{\vj}[0]{\tb{j}}
+\newcommand{\vk}[0]{\tb{k}}
+\newcommand{\vg}[0]{\tb{G}}
+\newcommand{\vn}[0]{\tb{n}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vL}[0]{\tb{L}}
+\newcommand{\ff}[0]{\tb{f}}
+\newcommand{\fg}[0]{\tb{g}}
+\newcommand{\rational}[0]{\mathbb{Q}}
+\newcommand{\p}[0]{\partial}
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\qerat}{\tag*{$\blacksquare$}}
+\newcommand{\lima}{\underset{\vx \rightarrow \va}{\lim}}
+\usepackage{amsmath}% http://ctan.org/pkg/amsmath
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
+
+% Attr.
+\title{Practical Time Series Analysis \\ -- Course Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+\section{Week 1 - Review}
+\paragraph{Introduction}
+One usually thinks of a time-series as a realization derived from a mathematical object called the stochastic process.
+\paragraph{Stationarity}
+$\begin{cases}
+	\mbox{Strong} \\ \mbox{Weak}
+\end{cases}$ \\
+We want strong stationarity, but we often find real datasets not exhibiting strong stationarity. \textcolor{blue}{But they do exhibit weak stationarity, or at least approximately so.}
+\paragraph{R histogram code}
+\begin{align*}
+\end{align*}
+\begin{lstlisting}
+hist(small.size.dataset, xlab='My data points', main='Histogram of my data', freq=F, col='green', breaks=10)
+lines(density(small.size.dataset), col='red', lwd=5)
+\end{lstlisting}
+\paragraph{Calculations: Formulas}
+\begin{enumerate}
+	\item $SSX = \sum(x_i-\bar{x})(x_i - \bar{x}) = \sum x_i^2 -\frac{1}{n}\sum x_i\sum x_i$
+	\item $SSY = \sum(y_i-\bar{y})(y_i - \bar{y}) = \sum y_i^2 -\frac{1}{n}\sum y_i\sum y_i$
+	\item $SSXY = \sum(x_i - \bar{x})(y_i - \bar{y}) = \sum x_iy_i - \frac{1}{n}\sum x_i \sum y_i$
+\end{enumerate}
+\begin{align*}
+	Cov(x, y) &= \frac{1}{n-1} \sum (\frac{x_i - \bar{x}}{S_x})(\frac{y_i - \bar{y}}{S_y}) \\
+	&= \frac{1}{n-1} \sum (\frac{x_i - \bar{x}}{\sqrt{\frac{SSX}{n-1}}})(\frac{y_i - \bar{y}}{\sqrt{\frac{SSY}{n-1}}}) \\
+	&= \sum(\frac{x_i - \bar{x}}{\sqrt{SSX}})(\frac{y_i - \bar{y}}{\sqrt{SSY}}) \\
+	&= \frac{1}{\sqrt{SSX SSY}} \sum(x_i - \bar{x})(y_i - \bar{y})\\
+	&= \frac{SSXY}{\sqrt{SSX}\sqrt{SSY}}
+\end{align*}
+\section{Week 2 - Visualizing Time Series, and Beginning to Model Time Series}
+\paragraph{Definition}
+Time series is a data set collected through time.
+\paragraph{Correlation}
+Sampling adjacent points in time introduce a correlation.
+(classical statistical inference might not work in this setting.)
+\paragraph{First intuitions on (Weak) Stationarity}
+\paragraph{Intuitions}
+\begin{enumerate}
+	\item No systematic change in mean (no trend)
+	\item No systematic change in variation
+	\item No periodic fluctuations
+	\item The properties of one section of a data are much like the properties of the other sections of the data
+	\item For an non-stationary time series, we will do some transformations to get stationary time series
+\end{enumerate}
+
+\subsection{Autocovariance function}
+\paragraph{Definition of Random Variables}
+A \under{random variable} is a function that goes from sample space to real numbers:
+$$X: S \rightarrow \real$$
+\paragraph{Remarks}
+Sample space contains all possible outcomes of the experiment, and if we map each possible outcome of the experiment to a real number, we get a random variable.
+\paragraph{Stochastic Processes}
+A collection of a random variables
+$$X_1, X_2, X_3, \hdots$$
+Each one of these random variables might have their own distribution
+\paragraph{Remarks}
+Opposite to deterministic process (e.g. when solving an ODE you know exactly what is next), at every step we have some randomness
+\paragraph{a Second Definition of Time Series}
+A \under{time series} is a realization of a stochastic process
+
+\paragraph{Autocovariance function}
+$$ \gamma(s,t) = Cov(X_s, X_t) = E[(X_s -  \mu_s)(X_t - \mu_t)]$$
+$$ \gamma_k = \gamma(t, t+k) \approx c_k$$
+$c_k$: autocovariance coefficient, approximates $\gamma_k$
+\paragraph{Remarks}
+Only depends on time difference (k). We assume we are working with stationary time series.
+
+\paragraph{Estimation of the covariance}
+We have a paired dataset
+$$(x_1, y_1), (x_2, y_2), \hdots, (x_n, y_n)$$
+Estimation of covariance (cov() in R)
+$$s_{xy} = \frac{\sum_{t=1}^n(x_t - \bar{x})(y_t - \bar{y})}{n-1}$$
+
+\paragraph{Autocovariance coefficient}
+$$c_k = \frac{\sum_{t=1}^{n-k} (x_t - \bar{x})(x_{t+k} - \bar{x})}{n}$$
+where
+$$ \bar{x} = \frac{\sum_{t=1}^nx_t}{n}$$
+\paragraph{R code}
+\begin{align*}
+\end{align*}
+\begin{lstlisting}
+(acf(time_series, type='covariance'))
+\end{lstlisting}
+The parentheses also gives a table. \\
+\subsection{Autocorrelation Function (ACF)}
+\paragraph{Assumptions}
+\begin{enumerate}
+	\item We assume weak stationarity
+	\item The autocorrelation coefficient between $x_t$ and $x_{t+k}$ is defined to be 
+	$$ -1 \leq \rho_k = \frac{\gamma_k}{\gamma_0} \leq 1$$
+	\item Estimation of autocorrelation coefficient at lag $k$
+	$$ r_k = \frac{c_k}{c_0} = \frac{\sum_{t=1}^{N-K}(x_t - \bar{x})(x_{t+k} - \bar{x})}{\sum_{t=1}^N(x_t - \bar{x})^2}$$
+\end{enumerate}
+
+\paragraph{R code}
+\begin{align*}
+\end{align*}
+\begin{lstlisting}
+(acf(time_series))
+\end{lstlisting}
+no specification for type. \\
+It plots autocorrelation coefficients at different lags: \under{Correlogram}, and it always starts at 1 since $r_0 = \frac{c_0}{c_0} = 1$. Dotted lines are showing the significance level.
+
+\subsection{Random Walk}
+\paragraph{Model}
+$$X_t = X_{t-1} + Z_t$$
+where $Z_t \sim Normal(\mu, \sigma^2)$
+$$X_t = \sum_{i=1}^t Z_i$$
+You accumulate noises.
+\paragraph{Inference}
+$$E[X_t] = E[\sum_{i=1}^t Z_i] = \sum_{i=1}^t E[Z_i] = \mu t$$
+$$Var[X_t] = Var[\sum_{i=1}^t Z_i] = \sum_{i=1}^t Var[Z_i] = \sigma^2t$$
+assume $Z_i$'s are independent
+\paragraph{Remarks}
+There is high auto-correlation and no stationarity.
+\paragraph{Difference}
+diff() to remove the trend, get stationary time series from a random walk.
+
+\subsection{Moving Average Processes}
+\paragraph{Intuition}
+$X_t$ is a stock price of a company. Each daily announcement of the company is modeled as a noise. Effect of the daily announcements (noises $Z_t$) on the stock price ($X_t$) might last few days (say 2 days). Then stock price is linear combination of the noises that affects it 
+$$X_t = Z_t + \theta_1 Z_{t-1} + \theta_2 Z_{t-2}$$
+This model is basically one example of a moving average processes, called moving average model of order 2 [MA(2)]. \\
+\under{Generalization}\\
+$$X_t = Z_t + \theta_1 Z_{t-1} + \theta_2 Z_{t-2} + \hdots + \theta_q Z_{t-q}$$
+where $Z_i$ are i.i.d. and $Z_i \sim Normal(\mu, \sigma)$.\\
+This is called MA(q) where q is the order.
+
+\section{Week 3 - Stationarity, MA(q) and AR(p) processes}
+\paragraph{Reading Materials}
+\begin{enumerate}
+	\item \href{https://d3c33hcgiwev3.cloudfront.net/_374ac75bfb1940158d7e4052f7c03d09_Stationarity---Examples--White-Noise_-Random-Walks_-and-Moving-Averages.pdf?Expires=1563148800&Signature=GvM6uPGci~v8-wjeys0ytXyCTHLrtumwzggd1EEk41mHi4-s-yXXRZAoxeZN2QWpDlnwPtrMKgdpfb6TrEKnxr9rIoBAzPOrwd~jiBhmYk9QTkqHetsCg1l1BsG5SF6W6xC72aTnB1ZT2q9hSgzAjgoxOGkdTgGEvKpmeF40J~M_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A}{\textcolor{blue}{Examples - White Noise, Random Walks, and Moving Averages}}
+	\item \href{https://d18ky98rnyall9.cloudfront.net/_9ea06758bd41cded9788592bdac148a3_Stationarity---Intuition-and-Definition.pdf?Expires=1563148800&Signature=Fr-OZqXfqynm8fQDFG24EXJfFkGALRz3EOpuvJ9AdCqKIsf96CSegIp9YOqF1~nRdFAuhmgFcmk9zBi7Yis~e9n-gt1HI8LV0vb3CaKw05oDVl3Oc47yu2vc5~B3Dl-4WqquAH7gkYKJSWPHuG4RdvmBU-ZbSDTNGtz5hfneonE_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A}{\textcolor{blue}{Stationarity - Intuition and Definition}}
+\end{enumerate}
+\paragraph{Definition of Stochastic Processes}
+A \under{stochastic process} is a family of random variables structured with a time index, denoted $X_t$ for discrete processes and $X(t)$ for continuous processes.
+\paragraph{Remarks}
+To fully specify the structure of a stochastic process, we need to know the joint distribution of the full set of random variables. So we usually just have one sequentially observed realization and infer properties of the generating process from this single trajectory.
+\paragraph{Definition of Strict Stationarity}
+We say a process is \under{strictly stationary} if the joint distribution of 
+$$X(t_1), X(t_2), \hdots, X(t_k)$$
+is the same as the joint distribution of 
+$$X(t_1 + \tau), X(t_2 + \tau), \hdots, X(t_k + \tau)$$
+for any $\tau$
+\paragraph{Implication}
+\begin{enumerate}
+	\item The random variables are identically distributed (constant mean and constant variance), though not necessarily independent.
+	\item Joint distribution of $X(t_1), X(t_2)$ is the same as joint distribution of $X(t_1 + \tau), X(t_2 + \tau)$. That is, the joint distribution depends only on the lag spacing.
+\end{enumerate}
+
+\paragraph{Definition of Weak Stationarity}
+We say a process is weakly stationary if it has constant mean and the joint distribution of two timepoints depends only on the lag spacing.
+\paragraph{Implication}
+Constant variance
+
+\paragraph{Example 1: White Noise}
+\under{Stationary}\\
+Consider a discrete family of independent, identically distributed normal random variables (often Gaussian)
+$$X_t \sim N(0, \sigma^2)$$
+then
+$$\gamma(t_1, t_2) = \begin{cases}
+	0 & t_1 \neq t_2 \\
+	\sigma^2 & t_1 = t_2 
+\end{cases}$$
+\paragraph{Example 2: Random Walks}
+\under{Not Stationary} \\
+Start with iid random variables $Z_t \overset{i.i.d}{\sim} (\mu, \sigma)$\\
+Build a walk with $t$ steps
+$$X_t = X_{t-1} + Z_t = \sum_{i=1} ^ t Z_i$$
+$$E[X_t] = E[\sum_{i=1}^t Z_i] = \sum_{i=1}^t E[Z_i] = t\cdot \mu$$
+$$V[X_t] = V[\sum_{i=1}^t Z_i] = \sum_{i=1}^t V[Z_i] = t\cdot \sigma^2$$
+We can see the expectation is 0 or increasing; the variance is increasing.
+
+\paragraph{Moving Average Process MA(q)}
+\under{Stationary}\\
+Start with i.i.d random variables $Z_t \overset{i.i.d}{\sim} (\mu, \sigma)$ \\
+MA(q) process: 
+$$X_t = \beta_0 Z_t + \beta_1 Z_{t-1} + \hdots + \beta_q Z_{t-q}$$
+when $k \leq q$, 
+$$Cov[X_t, X_{t+k}] = \sigma^2 \cdot \sum_{i=0}^{q-k} \beta_i\beta_{i+k}$$
+
+\subsection{Backward shift operator}
+\paragraph{Definition}
+We have a stochastic process $\{X_1, X_2, X_3, \hdots\}$. Backward shift operator is defined as 
+$BX_t = X_{t-1}$
+\paragraph{Remarks}
+$$B^2 X_t = BBX_t = BX_{t-1} = X_{t-2}$$
+$$B^kX_t = X_{t-k}$$
+\paragraph{Example1 - Rewrite Random Walk}
+\begin{align*}
+X_t &= X_{t-1} + Z_t \\
+X_t &= BX_t + Z_t \\
+(1 - B) X_t &= Z_t \\
+\phi(B) X_t &= Z_t  \tag{$\phi(B) = 1 - B$}
+\end{align*}
+
+\paragraph{Example2 - MA(2) process}
+\begin{align*}
+	X_t &= Z_t + 0.2Z_{t-1} + 0.04Z_{t-2} \\
+	X_t &= Z_t + 0.2BZ_t + 0.04B^2Z_t \\
+	X_t &= (1 + 0.2B + 0.04 B^2) Z_t \\
+	X_t &= \beta(B) Z_t  \tag{$\beta(B) = 1 + 0.2B + 0.04 B^2$}
+\end{align*}
+
+\paragraph{Example3 - MA(q) process}
+\begin{align*}
+	X_t &= \mu + \beta_0Z_t + \beta_1Z_{t-1} + \hdots + \beta_q Z_{t-q} \\
+	X_t &= \mu + \beta_0Z_t + \beta_1BZ_t + \hdots + \beta_q B^qZ_t \\
+	X_t - \mu &= \beta(B)Z_t \tag{$\beta(B) = \phi_0 + \phi_1B + \hdots + \phi_qB^q$}
+\end{align*}
+
+\subsection{Invertibility of a stochastic process}
+\paragraph{Definition}
+$\{X_t\}$ is a stochastic process. \\
+$\{Z_t\}$ is innovations, i.e., random disturbances or white noise.
+$\{X_t\}$ is called \under{invertible}, if $Z_t = \sum_{k=0}^\infty \pi_k X_{t-k}$ where $\sum_{k=0}^\infty |\pi_k|$ is convergent.
+
+\paragraph{Example - Model 1}
+$$X_t = Z_t + 2 Z_{t-1}$$
+model 1 is \under{not invertible} since
+$$\sum_{k=0}^\infty |\pi_k| = \sum_{k=0}^\infty 2^k$$
+which is divergent
+$$\gamma(k) = Cov[X_{t+k}, X_t] = Cov[Z_{t+k} + 2Z_{t+k-1}, Z_t + 2Z_{t-1}]$$
+\begin{enumerate}
+	\item If $k > 1$, then $t +k - 1 > t$, so all $Z$'s are uncorrelated, thus $\gamma(k) = 0$.
+	\item If $k = 0$, then $\gamma(0) = 5 \sigma_Z^2$
+	\item If $k = 1$, then $\gamma(1) = 2 \sigma_Z^2$
+	\item If $k < 0$, then $\gamma(k) = \gamma(-k)$
+\end{enumerate}
+Then
+$$\gamma(k) = \begin{cases}
+	0 & k > 1\\
+	2\sigma_Z^2 & k=1 \\
+	5\sigma_Z^2 & k=0 \\	
+	\gamma(-k) & k < 0 
+\end{cases}
+$$
+$$\rho(k) =  \begin{cases}
+	0 & k > 1\\
+	\frac{2}{5} & k=1 \\
+	1 & k=0 \\	
+	\gamma(-k) & k < 0 
+\end{cases}
+$$
+\paragraph{Inverting through backward substitution}
+\under{MA(1) process}
+$$X_t = Z_t + \beta Z_{t-1}$$
+$$ Z_t = X_t - \beta Z_{t-1} = X_t - \beta(X_{t-1} - \beta Z_{t-2}) = X_t - \beta X_{t-1} + \beta^2 Z_{t-2}$$
+
+$$X_t = \beta(B) Z_t$$
+where $\beta(B) = 1 + \beta B$
+Then, we find $Z_t$ by inverting the polynomial operator $\beta(B)$
+$$\beta(B)^{-1}X_t = Z_t$$
+$$\beta(B)^{-1} = \frac{1}{1 + \beta B}$$
+\under{In this manner,}
+$$Z_t = X_t - \beta X_{t-1} + \beta^2 X_{t-2} - \beta^3X_{t-3} + \hdots$$
+i.e.
+$$X_t = Z_t + \beta X_{t-1} - \beta^2 X_{t-2} + \beta^3X_{t-3} + \hdots$$
+$$\beta(B)^{-1} = 1 - \beta B + \beta^2B^2 - \beta^3B^3 + \hdots$$
+Thus we obtain, 
+$$\beta(B)^{-1}X_t = 1 - \beta X_{t-1} + \beta^2X_{t-2} - \beta^3 X_{t-3} + \hdots$$
+$$Z_t = \sum_{n=0}^\infty (-\beta)^n X_{t-n}$$
+In order to make sure that the sum on the right is convergent, we need $|\beta| < 1$.
+
+\paragraph{Example - Model 2}
+$$X_t = Z_t + \frac{1}{2} Z_{t-1}$$
+model 2 is \under{invertible} since 
+$$\sum_{k=0}^\infty|\pi_k| = \sum_{k=0}^\infty \frac{1}{2^k}$$
+is convergent (geometric series)
+
+\subsection{Mean Square Convergence}
+Let
+$$X_1, X_2, X_3, \hdots$$
+be a sequence of random variables (i.e. a stochastic process).
+We say $X_n$ converge to a random variable $X$ \under{in the mean-square sense} if
+$$E[(X_n - X)^2] \rightarrow 0 \text{ as } n \rightarrow \infty$$
+
+
+\subsection{Autoregressive Processes}
+
+\subsubsection{Definition}
+We are looking at some general stochastic processes that are useful in understanding the driving mechanisms behind the Time Series that we encounter. We've already seen the Random Walk. We can generalize this to an autoregressive process of order p, denoted AR(p).
+$$X_t = Z_t + history$$
+Let's take the $Z_t$'s to be white noise $Z_t \sim iid(0, \sigma^2)$.\\
+By history we mean that we include previous terms in the process as
+$$history = \Phi_1X_{t-1} + \hdots + \Phi_pX_{t-p}$$
+So we then have
+$$AR(p) \, process: \quad X_t = Z_t + \Phi_1X_{t-1} + \hdots + \Phi_pX_{t-p}$$
+\paragraph{AR(p) vs MA(q)}
+$$MA(q) \, process: \quad X_t = \theta_0Z_t + \theta_1Z_{t-1} + \hdots + \theta_qZ_{t-q}$$
+\begin{enumerate}
+	\item We build an MA(q) from a finite set of innovations (the Z's)
+	\item We build an AR(p) from a current innovation $Z_t$ together with knowledge of a finite set of prior states (the X's)
+\end{enumerate}
+\paragraph{Example: Random Walk}
+Take $p=1$ and $\Phi_1 = 1$
+$$X_t = Z_t + X_{t-1}$$
+\paragraph{Caution}
+\textcolor{red}{An autoregressive process isn't necessarily stationary!}
+\paragraph{R code}
+\begin{align*}
+\end{align*}
+\begin{lstlisting}
+set.seed(2017) 
+X.ts <- arima.sim(list(ar = c(.7,.2)), n=1000) 
+par(mfrow=c(2,1)) 
+plot(X.ts, main="AR(2) Time Series, phi1=.7, phi2=.2")
+X.acf = act(X.ts, main="Autocorrelation of AR(2) Time Series")
+\end{lstlisting}
+\paragraph{Stationarity of an AR(2)}
+In order for an AR(2) to be stationary, we need
+$$-1 < \Phi_2 < 1$$
+$$\Phi_2 < 1 + \Phi_1$$
+$$\Phi_2 < 1 - \Phi_1$$
+
+
+\subsubsection{Backshift Operator and the ACF}
+\paragraph{Reading Materials}
+\begin{enumerate}
+	\item \href{https://d18ky98rnyall9.cloudfront.net/_d570e41d8783f122a8a58349f1b9ab7e_Autoregressive-Processes----Backshift-Operator-and-ACF.pdf?Expires=1563580800&Signature=hC7W21Zc8AKXejuNbKJlZh0MSvf3e57tgReUagbTdoHo-yd050pvevwuF2w5dYdlXkT5rV0SMxr9Fr0ISJAP4DK38gQPLPE71uYSk7c~~L-ss-jyIlYnhbzrFI6DStdsYk22Su2VRWVC6QdAwkf0XvyktF09XAecZnqpOkIhDlA_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A}{\textcolor{blue}{Backshift Operator and the ACF}}
+\end{enumerate}
+\paragraph{Definition}
+\begin{align*}
+	X_{t-1} &= BX_t \\
+	X_{t-2} &= B^2X_t \\
+	\vdots \\
+	X_{t-p} &= B^p X_t 
+\end{align*}
+Now from the expression
+$$X_t = Z_t + \Phi_1BX_t + \hdots + \Phi_pB^pX_t = Z_t + (\Phi_1B + \hdots + \Phi_pB^p)X^t$$
+\paragraph{Express AR(p) as an Infinite Order Moving Average}
+$$Z_t = (1 - \Phi_1B - \hdots - \Phi_pB^p)X_t = \Phi(B)X_t$$
+We can write
+$$X_t = \frac{1}{1 - (1 - \Phi_1B - \hdots - \Phi_pB^p)}Z_t = (1 + \theta_1 B + \theta_2 B^2 + \hdots) Z_t$$
+\paragraph{Example: p = 1}
+\begin{align*}
+	X_t &= Z_t + \Phi BX_t \\
+	(1 - \Phi B) X_t &= Z_t \\
+	X_t &= \frac{1}{(1 - \Phi B)}Z_t = (1 + \Phi B + \Phi^2B^2 + \hdots) Z_t \\
+	X_t &= Z_t + \Phi Z_{t-1} + \Phi^2 Z_{t-2} + \hdots \\
+	X_t &= Z_t + \theta_1 Z_{t-1} + \theta_2 Z_{t-2} + \hdots
+\end{align*}
+
+\paragraph{Inference}
+\begin{align*}
+	E[X_t] &= E[(1 + \theta_1 B + \theta_2 B^2 + \hdots)Z_t] \\
+	&= E[Z_t] + \theta_1 E[Z_{t-1}] + \hdots + \theta_k E[Z_{t-k}] + \hdots \\
+	&= 0 \\
+	V[X_t] &= V[(1 + \theta_1 B + \theta_2 B^2 + \hdots)Z_t] \\
+	&= V[Z_t] + \theta_1^2 V[Z_{t-1}] + \hdots + \theta_k^2 V[Z_{t-k}] + \hdots \\
+	&= \sigma_Z^2 (1 + \theta_1^2 + \hdots + \theta_k^2 + \hdots) \\
+	&= \sigma_Z^2 \sum_{i=0}^\infty \theta_i^2
+\end{align*}
+Necessary condition for stationarity: the sum must converge. \\
+\paragraph{Results: Autocovariance}\under{Compare}: \\
+It can be shown that, for an MA(q) process,
+$$\gamma(k) = \sigma_Z^2 \cdot \sum_{i=0}^{q-k} \theta_i \theta_{i+k}$$
+For an AR(p) process,
+$$\gamma(k) = \sigma_Z^2 \cdot \sum_{i=0}^{\textcolor{red}{\infty}} \theta_i \theta_{i+k}$$
+$$\rho(k) = \frac{\sum_{i=0}^{\textcolor{red}{\infty}} \theta_i \theta_{i+k}}{\sum_{i=0}^\infty \theta_i^2}$$
+
+\subsection{Duality}
+\subsubsection{Invertibility condition for MA(q)}
+MA(q) process 
+$$X_t = \theta_0Z_t + \theta_1Z_{t-1} + \hdots + \theta_qZ_{t-q}$$
+is invertible if the roots of the polynomial
+$$\beta(B) = \beta_0 + \beta_1B + \hdots + \beta_q B^q$$
+all lie outside the unit circle, where we regard B as a complex variable (not an operator).\\
+(Proof is done using mean-square convergence)
+\paragraph{Example: MA(1) process}
+$$X_t = Z_t + \beta Z_{t-1}$$
+$$\beta(B) = 1 + \beta B$$
+In this case only one (real) root $B = - \frac{1}{\beta}$
+$$|-\frac{1}{\beta}| > 1 \implies |\beta| < 1$$
+Then, $Z_t = \sum_{k=0}^\infty(-\beta)^kB^kX_t = \sum_{k=0}^\infty(-\beta)^kX_{t-k}$
+
+\paragraph{Example - MA(2) process}
+$$X_t = Z_t + \frac{5}{6}Z_{t-1} + \frac{1}{6}Z_{t-1}$$
+Then
+$$X_t = \beta(B)Z_t$$
+where $$\beta(B) = 1 + \frac{5}{6}B + \frac{1}{6}B^2$$
+\begin{align*}
+	\beta(B)^{-1} &= \frac{1}{ 1 + \frac{5}{6}B + \frac{1}{6}B^2} = \frac{3}{1 + \frac{1}{2}B} - \frac{2}{1 + \frac{1}{3}B} \tag{two geometric series}\\
+	&= \sum_{k=0}^\infty[3(-\frac{1}{2})^k - 2(-\frac{1}{3})^k]B^k\\
+	Z_t &= \sum_{k=0}^\infty[3(-\frac{1}{2})^k - 2(-\frac{1}{3})^k]B^k X_t
+\end{align*}
+MA(2) process $\Rightarrow$ AR($\infty$) process
+\subsubsection{Stationary condition for AR(p)}
+AR(p) process $$X_t = \Phi_1X_{t-1} + \Phi_2 X_{t-1} + \hdots + \Phi_pX_{t-p} + Z_t$$
+is (weakly) stationary if the roots of the polynomial
+$$\Phi(B) = 1 - \Phi_1 B - \Phi_2 B^2 - \hdots - \Phi_p B^p$$
+all lie outside the unit circle, where we regard B as a complex variable (not an operator).
+\paragraph{Example: AR(1) process}
+\begin{align*}
+	X_t &= \Phi_1 X_{t-1} + Z_t \Rightarrow (1 - \Phi_1 B) X_t = Z_t \\
+	\Phi(b) &= 1 - \Phi_1 B  = 0 \\
+	\Rightarrow B &= \frac{1}{\Phi_1} \\
+	|\frac{1}{\Phi_1}| > 1 \\
+	\Rightarrow |\Phi_1| < 1 
+\end{align*}
+Thus, when $|\Phi_1| < 1$, the AR(1) process is stationary.
+\begin{align*}
+	X_t &= \frac{1}{1 - \Phi_1 B} Z_t \\
+	&= (1 + \Phi_1 B + \Phi_1^2 B^2 - \hdots) Z_t \\
+	&= \sum_{k=0}^\infty \Phi_1^k Z_{t-k} 
+\end{align*}
+Take the variance from both side,
+$$Var[X_t] = \sigma_Z^2 \sum_{k=0}^{\infty} \Phi_1^{2k}$$
+which is a convergent geometric series if $|\Phi_1^2| < 1$, i.e.,
+$$|\Phi_1| < 1$$
+AR(1) process $\Rightarrow$ MA($\infty$) process
+\paragraph{Duality}
+Under invertibility condition of MA(q),
+\textcolor{red}{$$MA(q) \Rightarrow AR(\infty)$$}
+Under stationarity condition of AR(p),
+\textcolor{red}{$$AR(p) \Rightarrow MA(\infty)$$}
+
+\subsection{Intro to Yule-Walker Equations}
+\subsubsection{Difference Equations}
+Example: $a_n = 5a_{n-1} - 6a_{n-2}$
+
+\paragraph{$k$-th Order Difference Equation}
+$$a_n = \beta_1a_{n-1} + \beta_2 a_{n-2} + \hdots + \beta_k a_{n-k}$$
+Its characteristic equation
+$$\lambda^k - \beta_1\lambda^{k-1} - \hdots - \beta_{k-1}\lambda - \beta_k = 0$$
+Then we look for the solutions of the characteristic equation. Say, all $k$ solutions are distinct real numbers, $\lambda_1, \lambda_2, \hdots, \lambda_k$, then
+$$a_n = c_1\lambda_1^n + c_2\lambda_2^n + \hdots + c_n\lambda_k^n$$
+Coefficients $c_j$'s are determined using intial(given) values.
+
+\paragraph{Example - Fibonacci Sequence}
+We are looking for a sequence $\{a_n\}_{n=0}^\infty$ such that
+$$a_n = a_{n-1} + a_{n-2}$$
+where $a_0 = 1, a_1 = 1$
+Characteristic equation becomes
+$$\lambda^2 - \lambda - 1 = 0$$
+Then $\lambda_1 = \frac{1 - \sqrt{5}}{2}$ and $\lambda_2 = \frac{1 + \sqrt{5}}{2}$.
+Thus
+$$a_n = c_1(\frac{1 - \sqrt{5}}{2})^n + c_2(\frac{1 + \sqrt{5}}{2})^n$$
+Use initial data
+$$\begin{cases}
+	c_1 + c_2 = 1 \\
+	c_1(\frac{1 - \sqrt{5}}{2})^n + c_2(\frac{1 + \sqrt{5}}{2})^n = 1
+\end{cases}$$
+We obtain
+$$c_1 = \frac{5 - \sqrt{5}}{10} = -\frac{1}{\sqrt{5}}(\frac{1 - \sqrt{5}}{2})$$
+$$c_2 = \frac{5 + \sqrt{5}}{10} = \frac{1}{\sqrt{5}}(\frac{1 + \sqrt{5}}{2})$$
+$$a_n = -\frac{1}{\sqrt{5}}(\frac{1 - \sqrt{5}}{2})^{n+1} + \frac{1}{\sqrt{5}(\frac{1 + \sqrt{5}}{2})^{n+1}}$$
+
+\subsubsection{Yule- Walker Equations}
+\paragraph{Example}
+We have an AR(2) process
+$$X_t = \frac{1}{3}X_{t-1} + \frac{1}{2}X_{t-2} + Z_t \quad(*)$$
+Polynomial
+$$\phi(B) = 1 - \frac{1}{3}B - \frac{1}{2}B^2$$
+has real roots $\frac{-2 \pm \sqrt{76}}{6}$ both of which has magnitude greater than 1, so roots are outside of the unit circle in $\real^2$. Thus, this AR(2) process is a stationary process.\\
+Multiply both side of (*) with $X_{t-k}$, and take expectation
+$$E(X_{t-k}X_t) = \frac{1}{3}E(X_{t-k}X_{t-1}) + \frac{1}{2}E(X_{t-k}X_{t-2}) + E(X_{t-k}Z_t)$$
+Since $\mu = 0$, and assume $E(X_{t-k}Z_t) = 0$,
+$$\gamma(-k) = -\frac{1}{3}\gamma(-k + 1) + \frac{1}{2}\gamma(-k + 2)$$
+Since $\gamma(k) = \gamma(-k)$ for any $k$,
+$$\gamma(k) = \frac{1}{3}\gamma(k-1) + \frac{1}{2}\gamma(k-2)$$
+Divide by $\gamma(0) = \sigma_X^2$,
+$$\textcolor{blue}{\rho(k) = \frac{1}{3}\rho(k-1) + \frac{1}{2}\rho(k-2)}$$
+This set of equations is called Yule-Waker equations.\\
+We look for a solution in the format of $\rho(k) = \lambda^k$.
+$$\lambda^2 - \frac{1}{3}\lambda - \frac{1}{2} = 0$$
+Roots are $\lambda_1 = \frac{2 + \sqrt{76}}{12}$ and $\lambda_2 = \frac{2 - \sqrt{76}}{12}$, thus
+$$\rho(k) = c_1(\frac{2 + \sqrt{76}}{12})^k + c_2(\frac{2 - \sqrt{76}}{12})^k$$
+Use constraints to obtain coefficients
+$$\rho(0) = 1 \rightarrow c_1 + c_2 = 1$$
+And for $k = p - 1 = 2 - 1 = 1$, 
+$$\rho(k) = \rho(-k)$$
+Thus,
+$$\rho(1) = \frac{1}{3}\rho(0) + \frac{1}{2}\rho(-1)$$
+$$\rightarrow \rho(1) = \frac{2}{3} \rightarrow c_1(\frac{2 + \sqrt{76}}{12}) + c_2(\frac{2 - \sqrt{76}}{12}) = \frac{2}{3}$$
+We have
+$$\begin{cases}
+	c_1 + c_2 = 1 \\
+    c_1(\frac{2 + \sqrt{76}}{12}) + c_2(\frac{2 - \sqrt{76}}{12}) = \frac{2}{3}
+\end{cases}$$
+Then $c_1 = \frac{4 + \sqrt{6}}{8}$ and $c_2 = \frac{4 - \sqrt{6}}{8}$. \\
+For any $k \geq 0$,
+$$\rho(k) = \frac{4 + \sqrt{6}}{8}(\frac{2 + \sqrt{76}}{12})^k + \frac{4 - \sqrt{6}}{8}(\frac{2 - \sqrt{76}}{12})^k$$
+and
+$$\rho(k) = \rho(-k)$$
+
+
+\end{document}
