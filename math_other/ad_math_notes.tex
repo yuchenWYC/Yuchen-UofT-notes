@@ -253,5 +253,38 @@ $$D_{KL}(P|Q) = \int_{-\infty}^\infty p(x)\log(\frac{p(x)}{q(x)})\, dx$$ where $
 \section{Power Set}
 Given a set S, the power set of S, is the set of all subsets of S. \\
 Notation: $2^S$ or $\mathcal{P}(S)$
+
+\section{the Binomial Theorem}
+$$(x+y)^n = \sum_{k=0}^n \binom{n}{k} x^{n-k}y^k$$
+
+\section{Markov Process}
+\subsection{Introduction}
+\paragraph{Definition 15.1.1 Stochastic Process}
+A \under{stochastic process} is a sequence of events in which the outcome at any stage depends on some probability.
+
+\paragraph{Definition 15.1.2 Markov Process}
+A \under{Markov process} is a stochastic process with the following properties:
+\begin{enumerate}
+	\item The number of possible outcomes or states is finite
+	\item The outcome at any stage depends only on the outcome of the previous stage
+	\item The probabilities are constant over time
+\end{enumerate}
  
+\paragraph{Definition 15.1.3 Markov Chain}
+If $\vx_0$ is a vector which represents the initial state of a system, then there is a matrix $M$ such that the state of the system after one iteration is given by the vector $M\vx_0$. Thus we get a chain of state vectors:
+$$\vx_0, M\vx_0, M^2\vx_0, \hdots$$
+where the state of the system after $n$ iterations is given by $M^n\vx_0$. Such a chain is called a \under{Markov chain} and the matrix M is called a \under{transition matrix}. \\
+The state vectors can be of one of two types: an absolute vector or a probability vector.\\ 
+An \under{absolute vector} is a vector whose entries give the actual number of objects in a given state. \\
+A \under{probability vector} is a vector where the entries give the percentage (or probability) of objects in a given state. \textcolor{blue}{Note that the entries of a probability vector add up to 1.}
+\paragraph{Theorem 15.1.4}
+Let $M$ be the transition matrix of a Markov process such that $M^k$ has only positive entries for some $k$. Then there exists a unique probability vector $\vx_s$ such that $$M\vx_s = \vx_s$$
+Moreover
+$$\underset{k \rightarrow \infty}{\lim} M^k\vx_0 = \vx_s$$
+for any initial state probability vector $\vx_0$.
+
+\subsection{The Transition Matrix and its Steady-state Vector}
+The transition matrix of an $n$-state Markov process is an $n\times n$ matrix $M$ where the $i,j$ entry of $M$ represents the probability that an object in state $j$ transitions into state $i$, that is if $M = (\vm_{ij})$ and the states are $S_1, S_2, \hdots, S_n$ then $\vm_{ij}$ is the probability that an object in state $S_j$ transitions to state $S_i$.
+
+
 \end{document}
