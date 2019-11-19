@@ -57,13 +57,13 @@
 	$$f(x) = \max(0,x)$$
 	Also known as: ramp function \\
 	A unit employing the rectifier is also called a \tb{rectified linear unit (ReLU)}
-	\subsection{Softplus}
+	\subsection{Softplus (Smooth ReLu)}
 	A smooth approximation to the rectifier is the analytic function $$f(x) = \log(1+e^x)$$
 	Also known as: SmoothReLU\\
 	The derivative of softplus is $$f'(x) = \frac{1}{1+e^{-x}}$$(the logistic function)
 	\paragraph{Notes}
 	The logistic function is a smooth approximation of the derivative of the rectifier, the \tb{Heaviside step function}
-	\subsection{Multivariable Generalization to Softplus}
+	\subsection{LogSumExp: Multivariable Generalization to Softplus}
 	LogSumExp with the first argument set to zero
 	$$LSE_0^+(x_1,\hdots,x_n) := LSE(0,x_1,\hdots,x_n) = \log(1+e^{x_1} + \hdots + e^{x_n})$$
 	\paragraph{Notes}
@@ -233,9 +233,9 @@ Assume $a,b$ are known so the only parameter is $w$.
 It can be shown that $$P(w|D) = N(w|\mu, \Lambda^{-1})$$
 where $\mu = a\Lambda^{-1}X^Ty$ and $\Lambda = aX^TX+bI$ where $X$ is the design matrix.
 \section{Laplace Distribution}
-Sometimes also called "double exponential distribution", because it can be though of as two exponential distributions (with an additional location parameter) spliced together back-to-back.
+Sometimes also called ``double exponential distribution", because it can be thought of as two exponential distributions (with an additional location parameter) spliced together back-to-back.
 \paragraph{PDF}
-$$\frac{1}{2b}\exp(-\frac{|x-\mu|}{b}$$
+$$\frac{1}{2b}\exp(-\frac{|x-\mu|}{b})$$
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{laplace.png}
@@ -286,5 +286,25 @@ for any initial state probability vector $\vx_0$.
 \subsection{The Transition Matrix and its Steady-state Vector}
 The transition matrix of an $n$-state Markov process is an $n\times n$ matrix $M$ where the $i,j$ entry of $M$ represents the probability that an object in state $j$ transitions into state $i$, that is if $M = (\vm_{ij})$ and the states are $S_1, S_2, \hdots, S_n$ then $\vm_{ij}$ is the probability that an object in state $S_j$ transitions to state $S_i$.
 
+\section{Jensen's Inequality (Probability Theory)}
+If X is a random variable and $\varphi$ is a convex function, then
+$$\varphi(E[X]) \leq E[\varphi(X)]$$
 
+\section{Weight Decay}
+An example of a regularization method. \\
+One way to penalize complexity would be to add all weights to the loss function. \\
+If we have the cost function $E(\vw)$, then change the cost function to
+$$\tilde{E}(\vw) = E(\vw) + \frac{\lambda}{2} \vw^2$$
+Where $\lambda$ is the regularization parameter.\\
+Applying gradient descent to this new cost function we obtain:
+$$w_i \leftarrow w_i - \eta \frac{\partial E}{\partial w_i} - \eta\lambda w_i$$
+\section{De Moivre's Formula}
+For any real number $x$ and integer $n$, it holds that
+$$(\cos (x) + i\sin(x))^n = \cos (nx) + i\sin(nx)$$
+where $i$ is the imaginary unit ($i^2 = -1$).
+\paragraph{Relation to Euler's formula}
+De Moivre's formula is a precursor to Euler's formula
+$$e^{ix} = \cos x + i \sin x$$
+One can derive de Moivre's formula using Euler's formula and the exponential law for integer powers $${\left(e^{i x}\right)^{n}=e^{i n x}} \\ $$
+since Euler's formula implies that the left side is equal to $(\cos x+i \sin x)^{n}$ while the right side is equal to  $e^{i n x}=\cos (n x)+i \sin (n x)$.
 \end{document}

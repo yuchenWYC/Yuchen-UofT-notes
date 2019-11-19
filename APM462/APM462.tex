@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-
+\DeclareUnicodeCharacter{3000}{}
 % Libraries.
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -11,6 +11,7 @@
 \usepackage{perpage}
 \usepackage{float}
 \usepackage{esint}
+\usepackage[margin=1.5cm]{geometry}
 
 % Property settings.
 \MakePerPage{footnote}
@@ -20,6 +21,7 @@
 \newcommand{\ti}[1]{\textit{#1}}
 \newcommand{\tb}[1]{\textbf{#1}}
 \newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
 \newcommand{\bx}[0]{\mathbf{x}}
 \newcommand{\bv}[0]{\mathbf{v}}
 \newcommand{\bw}[0]{\mathbf{w}}
@@ -56,6 +58,8 @@
 \newcommand{\notimplies}{%
   \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
 \newcommand{\q}[0]{\textcolor{red}{???}}
+\newcommand{\tspace}[0]{T_{x_0}}
+\newcommand{\tanspace}[0]{T_{x_0}M}
 % Attr.
 \title{APM462 \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -88,7 +92,7 @@ for all $i= 1,2,\hdots,m$.\\
 Similarly, let $y$ be $m \times 1$, then the typical element of the product
 $$z^T = y^TA$$
 is given by
-$$ z_i = \sum_{k=1}^n a_{ki}y_k$$
+$$ z_i^T = \sum_{k=1}^n a_{ki}y_k$$
 for all $i = 1, 2,\hdots, n$.  \\
 Finally, the scalar resulting from the product
 $$\alpha = y^T A x$$
@@ -276,7 +280,7 @@ $$f(\vx + \vv) = f(\vx) + \nabla f(\vx) \cdot \vv + o(||\vv||)$$
 \qed
 \subsection{2nd Order Mean Value Theorem in $\real^n$}
 $f \in C^2$ on $\real ^n$
-$$ f(\vx - \vv) = f(\vx) + \nabla f(\vx) \cdot \vv + \frac{1}{2}\vv^T\nabla^2 f(\vx + \theta \vv) \cdot \vv$$
+$$ f(\vx + \vv) = f(\vx) + \nabla f(\vx) \cdot \vv + \frac{1}{2}\vv^T\nabla^2 f(\vx + \theta \vv) \cdot \vv$$
 \paragraph{Remarks}
 In this course, \textcolor{red}{$\nabla^2$ means Hessian, not Laplacian.}
 $$\nabla^2 f(\vx) =  \left( \frac{\partial^2 f}{\partial \vx_i \partial \vx_j}\right)_{1\leq i, j\leq n}(\vx) = \begin{pmatrix}
@@ -313,7 +317,7 @@ So $\nabla f(\vx)$ points in the direction of steepest ascent.
 \subsection{Implicit Function Theorem}
 $f: \real^{n+1} \rightarrow \real \in C^1$ \\
 Fix $(\va,b) \in \real^n \times \real$ s.t. $f(\va,b) = 0$. \\
-If $\nabla f(\va,b) \neq 0$, then $\{(\vx, y) \in (\real^n \times \real) | f(\vx, \vy) = 0\}$ is locally (near $(\va, b)$) the graph of a function.
+If $\nabla f(\va,b) \neq 0$, then $\{(\vx, y) \in (\real^n \times \real) | f(\vx, y) = 0\}$ is locally (near $(\va, b)$) the graph of a function.
 
 \subsection{Level Sets of $f$}
 $c$-level set of $f$ := $\{ \vx \in \real^n | f(\vx) = c\}$
@@ -333,12 +337,12 @@ Second line above (or equal to) the graph
 \paragraph{Definition of Concave Function}
 A function $f$ is \under{concave} if $-f$ is convex.
 
-\subsection{Basic Properties of convex functions}
+\subsection{Basic Properties of Convex Functions}
 Let $\Omega \subseteq \real^n$ be a convex set.
 \begin{enumerate}
 	\item $f_1, f_2$ are convex functions on $\Omega \Rightarrow f_1 + f_2$ is a convex function on $\Omega$.
 	\item $f$ is a convex function, $a \geq 0 \Rightarrow af$ is a convex function.
-	\item $f$ is a convex on $\Omega \Rightarrow$ The sublevel sets of $f$, $SL_c:=\{\vx \in \real^n | f(\vx) \leq c\}$ is convex.
+	\item $f$ is a convex function on $\Omega \Rightarrow$ The sublevel sets of $f$, $SL_c:=\{\vx \in \real^n | f(\vx) \leq c\}$ is convex.
 \end{enumerate}
 \under{\ti{proof of (3):}} \\
 Let $x_1, x_2 \in SL_C$, so that $f(x_1) \leq c$ and $f(x_2) \leq c$. \\
@@ -511,7 +515,7 @@ Since function $f(x) = -\log (x)$ is convex, then
 \qed 
 \section{Basics of Unconstrained Optimization}
 \subsection{Extreme Value Theorem}
-Suppose $f: \real^n \rightarrow \real$ is continues, and compact set $K \subseteq \real^n$
+Suppose $f: \real^n \rightarrow \real$ is continuous, and compact set $K \subseteq \real^n$
 Then the problem
 $$\underset{x \in K}{\min} \, f(x)$$ has a solution.
 
@@ -582,12 +586,12 @@ $$\implies \nabla f(x_0) = 0$$
 $f \in C^2, \Omega \subseteq \real^n$ \\
 If $x_0 \in \Omega$ is a local minimum of $f$ on $\Omega$, then
 \begin{enumerate}
-	\item $\nabla \cdot v \geq 0$ for al feasible directions $v$ at $x_0$
+	\item $\nabla f(x_0) \cdot v \geq 0$ for al feasible directions $v$ at $x_0$
 	\item If $\nabla f(x_0) \cdot v = 0$, then $v^T \nabla^2 f(x_0) v \geq 0$
 	(function curves up)
 \end{enumerate}
 \begin{proof}
-[ ]
+[]
 \end{proof}
 
 \paragraph{Remark}
@@ -601,38 +605,48 @@ Let $A$ be an $n \times n$ matrix. A $k \times k$ submatrix of $A$ formed by del
 \paragraph{Definition: leading principal minor}
 Let $A$ be an $n \times n$ matrix. The $k$th order principal submatrix of $A$ obtained by deleting the \textcolor{red}{last} $n-k$ rows and columns of $A$ is called the $k$-th order \under{leading principal submatrix} of $A$, and its determinant is called a \under{leading principal minor} of $A$.
 
-\paragraph{Definition: positive definiteness}
+\paragraph{Definition: positive definiteness (Sylvester's Criterion)}
 A $n \times n$ matrix $A$ is \\
 \begin{enumerate}
-	\item \under{positive definite} if $v^TAv > 0$ for all $v \neq 0 \iff $ all eigenvalues $>0$ $\iff$ all leading minors $> 0$
-	\item \under{positive semi-definite} if $v^TAv \geq 0$ for all $v \iff $ all eigenvalues $\geq 0$ $\iff$ all principle minors $\geq 0$
+	\item \under{positive definite} if $v^TAv > 0$ for all $v \neq 0 \iff $ all eigenvalues $>0$ $\iff$ \textcolor{red}{all leading principle minors $> 0$}
+	\item \under{positive semi-definite} if $v^TAv \geq 0$ for all $v \iff $ all eigenvalues $\geq 0$ $\iff$ \textcolor{red}{all principle minors $\geq 0$}
 \end{enumerate}
+
+\paragraph{Lemma}
+Suppose $\nabla^2 f(x_0)$ is positive definite, then
+$$\exists a > 0 \,\, s.t. \,\, v^T\nabla^2f(x_0)v \geq a||v||^2 \quad \forall v$$
+
 
 \subsection{2nd order sufficient condition (for interior points)}
 $f \in C^2$ on $\Omega$ \\
 If $\begin{cases}
 	\nabla f(x_0) = 0 \\
 	\nabla^2 f(x_0) > 0
-\end{cases}$, then $x_0$ is a strict local minimum.
+\end{cases},$ then $x_0$ is a strict local minimum. \\
 \begin{proof}
 	[ ]
 \end{proof}
 
 
 \section{Optimization with Equality Constraints}
-\paragraph{Definition 1: surface}
+
+\subsection{Definitions of Related Spaces}
+\paragraph{Definition 5.1.1: surface}
 $$M =  \text{``surface"}  = \{ x \in \real^n | h_1(x) = 0, \hdots, h_k(x) = 0\}$$ 
 where $h_i \in C^1$
 
-\paragraph{Definition 2: differentiable curve on surface}
+\paragraph{Definition 5.1.2: differentiable curve on surface}
 A \under{differentiable curve} on surface $M \subseteq \real^n$ is a $C^1$ function
-$$ x: (-\epsilon, \epsilon) \rightarrow M: s \mapsto \lambda(s)$$ \q
+$$ x: (-\epsilon, \epsilon) \rightarrow M: s \mapsto x(s)$$ 
 \paragraph{Remarks}
-Let $x(s)$ be a differentiable curve on $M$ that passes through $x_0 \in M$, say $x(0) = x_0$. The vector $v = \frac{d}{ds}|_{s=0} \, x(0)$ touches M ``tangentially". We say $v$ is generated by $x(s)$.
-\paragraph{Definition 3: tangent vector}
+\begin{enumerate}
+	\item Let $x(s)$ be a differentiable curve on $M$ that passes through $x_0 \in M$, say $x(0) = x_0$. The vector $v = \frac{d}{ds}|_{s=0} \, x(0)$ touches M ``tangentially". We say $v$ is generated by $x(s)$.
+	\item In previous calculus courses, differentiable curves are often referred to as parameterizations.
+\end{enumerate}
+\paragraph{Definition 5.1.3: tangent vector}
 Any vector $v$ which is generated by some differentiable curve on $M$ through $x_0$ is called a \under{tangent vector}.
 
-\paragraph{Definition 4: tangent space}
+\paragraph{Definition 5.1.4: tangent space}
 \under{Tangent space} to the surface $M$ at point $x_0$ is
 $$T_{x_0} M = \{ \text{all tangent vectors to $M$ at $x_0$} \} \\
 = \{v \in \real^n: v = \frac{d}{ds} |_{s=0} \, x(s)\}$$
@@ -641,52 +655,80 @@ where $x(s)$ is a differentiable curve on $M$ s.t. $x(0) = x_0$
 \paragraph{Remarks}
 The zero vector is contained in all tangent spaces.
 
-\paragraph{Definition 1: T-space}
+\paragraph{Definition 5.1.5: T-space}
 $$T_{x_0} = \{ x\in \real^n: x^T \nabla h_i(x_0) = 0 \, \forall i\} = Span\{ \nabla h_1(x_0), \hdots, \nabla h_k(x_0)\}^\perp$$
 
-\paragraph{Definition 2: regular point}
+\paragraph{Definition 5.1.6: regular point}
 $x_0 \in M$ is a \under{regular point} (of the constraints) if $\{ \nabla h_1(x_0), \hdots. \nabla h_k(x_0) \}$ are linearly independent.
-
+\paragraph{Remark}
+If there is only one constraint $h$, then $x_0$ is regular if and only if $\nabla h(x_0) \neq 0$.
 
 \paragraph{When does the T-space equivalent to the tangent space?}
 \textcolor{red}{When $x_0$ is a regular point (of the constraints).}
 
-\paragraph{Theorem 3}
-Suppose $x_0$ is a regular point s.t. $ M = \{ x \in real^n: h_i(x) = 0 \, \forall i\}$. Then
+\paragraph{Theorem 5.1.7}
+Suppose $x_0$ is a regular point s.t. $ M = \{ x \in \real^n: h_i(x) = 0 \, \forall i\}$. Then
 $$T_{x_0}M = T_{x_0}$$
 
-\paragraph{Lemma 4}
+\paragraph{Lemma 5.1.8}
 $f, h_1, \hdots, h_k \in C^1$ on open $\Omega \subseteq \real^n$ \\
-$ M = \{ x \in real^n: h_i(x) = 0 \, \forall i\}$ \\
+$ M = \{ x \in \real^n: h_i(x) = 0 \, \forall i\}$ \\
 Suppose $x_0 \in M$ is a local minimum of $f$ on $M$, then
 $$\nabla f(x_0) \perp T_{x_0}M \iff \nabla f(x_0)\cdot v = 0$$ for all $v \in T_{x_0}M$
 
 \subsection{Lagrange Multipliers: 1st order necessary condition for local minimum}
 $f, h_1, \hdots, h_k \in C^1$ on open $\Omega \subseteq \real^n$. \\
-Let $x_0$ be a regular point of the constraints $ M = \{ x \in real^n: h_i(x) = 0 \, \forall i\}$. \\
+Let $x_0$ be a regular point of the constraints $ M = \{ x \in \real^n: h_i(x) = 0 \, \forall i\}$. \\
 Suppose $x_0$ is a local minimum of $f$ on $M$, then $\exists \lambda_1, \hdots, \lambda_k \in \real$ s.t.
 $$\nabla f(x_0) + \lambda_1 \nabla h_1(x_0) + \hdots + \lambda_k \nabla h_k(x_0) = 0$$
-
+\begin{proof}
+	$x_0$ regular implies that $$\tanspace = \tspace = Span\{\nabla h_1(x_0), \hdots, \nabla h_k(x_0)\}^\perp$$
+	By Lemma 5.1.8, $x_0$ is a loc min implies that $$\nabla f(x_0) \perp \tanspace$$
+	Then $$\nabla f(x_0) \in (\tanspace)^\perp = Span\{\nabla h_i (x_0)\}^{\perp\perp} = Span\{ \nabla h_i(x_0)\}$$
+	Then 
+	$$\nabla f(x_0) = -\lambda_1 \nabla h_1(x_0) - \hdots - \lambda_k \nabla h_k(x_0)$$
+	for some $\lambda_i \in \real$ \qed
+\end{proof} 
 
 \subsection{2nd order necessary condition for local minimum}
 $f, h_1, \hdots, h_k \in \textcolor{red}{C^2}$ on open $\Omega \subseteq \real^n$. \\
-Let $x_0$ be a regular point of the constraints $ M = \{ x \in real^n: h_i(x) = 0 \, \forall i\}$. \\
+Let $x_0$ be a regular point of the constraints $ M = \{ x \in \real^n: h_i(x) = 0 \, \forall i\}$. \\
 Suppose $x_0$ is a local minimum of $f$ on $M$, then
 \begin{enumerate}
 	\item $$\nabla f(x_0) + \sum_{i=1}^k \lambda_i \nabla h_i(x_0) = 0$$
 	for some $\lambda_i \in \real$
-	\item $$\nabla^2 f(x_0) + \sum \lambda_i \nabla^2 h_i(x_0) \geq 0$$ on $T_{x_0}M$
+	\item \textcolor{blue}{$$\nabla^2 f(x_0) + \sum \lambda_i \nabla^2 h_i(x_0) \geq 0$$ on $T_{x_0}M$}
 \end{enumerate}
 
 \subsection{2nd order sufficient condition for local minimum}
 $f, h_1, \hdots, h_k \in \textcolor{red}{C^2}$ on open $\Omega \subseteq \real^n$. \\
-Let $x_0$ be a regular point of the constraints $ M = \{ x \in real^n: h_i(x) = 0 \, \forall i\}$. \\
+Let $x_0$ be a regular point of the constraints $ M = \{ x \in \real^n: h_i(x) = 0 \, \forall i\}$. \\
 If $\exists \lambda_i \in \real$ s.t.
 \begin{enumerate}
 	\item $$ \nabla f(x_0) + \sum \lambda_i \nabla h_i(x_0) = 0$$
 	\item $$ \nabla^2 f(x_0) + \sum \lambda_i \nabla^2 h_i(x_0) \textcolor{red}{>} 0$$ on $T_{x_0} M$
 \end{enumerate}
-Then $x_0$ is a strict local minimum.
+Then $x_0$ is a strict local minimum.\\\\
+\begin{proof}
+	Recall that (2) means $[\nabla^2 f(x_0) + \sum \lambda_i h_i(x_0)]$ is pos-def on $T_{x_0}M$. \\
+	Then $ \exists a > 0$ s.t. $v^T [\nabla^2 f(x_0) + \sum \lambda_i h_i(x_0)] v \geq a||v||^2$ for all $v \in \tanspace$. \\
+	Let $x(s) \in M$ be a curve s.t. $x(0) = x_0$ and $v = x'(0)$. \\
+	WLOG, $||x'(0)|| = 1$.\\
+	By 2nd order Taylor, 
+	\begin{align*}
+		f(x(s)) - f(x(0)) &= s\frac{d}{ds}|_{s=0} f(x(s)) + \frac{1}{2} s^2 \frac{d}{ds^2} |_{s=0} f(x(s)) + o(s^2)\\
+		&= s\frac{d}{ds}|_{s=0} [f(x(s)) + \sum_i \lambda_i h_i(x(s)) ]+ \frac{1}{2} s^2 \frac{d}{ds^2}|_{s=0} [f(x(s)) + \sum_i \lambda_i h_i(x(s)) ] + o(s^2) \tag{$\sum_i \lambda_i h_i(x(s)) = 0$}\\
+		&=  s[\nabla f(x_0) + \sum \lambda_i \nabla h_i(x_0)] \cdot x'(0) + \frac{1}{2}s^2x'(0)^T[\nabla^2f(x_0) + \sum \lambda_i \nabla^2h_i(x_0)] x'(0) + o(s^2) \\
+		&= 0 + \frac{1}{2} s^2 v^T[\nabla^2f(x_0) + \sum \lambda_i \nabla^2h_i(x_0)]v + o(s^2) \\
+		&\geq \frac{1}{2}s^2 a||v||^2 + o(s^2) \\
+		&= \frac{1}{2}s^2 a + o(s^2) \\
+		&= s^2 [\frac{a}{2} + \frac{o(s^2)}{s^2}] > 0
+	\end{align*}
+	for small $s >0$, since $\frac{a}{2} > 0$ and $\underset{s \rightarrow 0}{\lim} \frac{o(s^2)}{s^2} = 0$ \\
+	Then $f(x(s)) > f(x_0)$ for small $s > 0$
+	Then $x_0$ is a strict local min of $f$. \qed
+\end{proof}
+
 
 \section{Optimization with Inequality Constraints}
 \paragraph{Problem}
@@ -694,21 +736,23 @@ open $\Omega \subseteq \real^n$\\
 $f: \Omega \rightarrow \real$ \\
 $h_1, \hdots, h_k: \Omega \rightarrow \real$ \\
 $g_1, \hdots, g_l: \Omega \rightarrow \real$ \\
-$$\min f(x) $$
-$$x \in \Omega \text{ subject to } 
+$$\begin{cases}
+	\min f(x) \\
+	x \in \Omega \text{ subject to } 
 \begin{cases}
 	h_1(x) = 0, \hdots, h_k(x) = 0 \\
 	g_1(x) \leq 0, \hdots, g_l(x) \leq 0
-\end{cases}$$
+\end{cases}
+\end{cases}(*)$$
 
 \paragraph{Definition 1: activeness}
-Let $x_0$ satisfy the constraints.
-We say that the constraint $g_i(x) \leq 0$ is \under{active} at $x_0$ if $g_i(x_0) = 0$. It is \under{inactive} at $x_0$ if $g_i(x_0) < 0$\\
+Let $x_0$ satisfy the constraints. \\
+We say that the constraint $g_i(x) \leq 0$ is \under{active} at $x_0$ if $g_i(x_0) = 0$. \\ It is \under{inactive} at $x_0$ if $g_i(x_0) < 0$.\\
 \paragraph{Definition 2: regular point}
 Suppose for some $l' \leq l$:
 $$g_1(x) \leq 0, \hdots, g_{l'}(x) \leq 0; \, g_{l' + 1}(x) \leq 0, \hdots, g_l(x) \leq 0$$
-where $g_1, \hdots g_{l'}$ active and the rest inactive.
-We say that $x_0$ is a \under{regular point} of the constraints if 
+where $g_1, \hdots g_{l'}$ active and the rest inactive. \\
+We say that $x_0$ is a \under{regular point} of the constraints if \\
 $\{\nabla h_1(x_0), \hdots, \nabla h_k(x_0), \nabla g_1(x_0), \hdots, \nabla g_{l'}(x_0)\}$ is linearly independent.
 
 \subsection{Kuhn-Tucker conditions: 1st order necessary condition for local minimum}
@@ -717,12 +761,528 @@ $f: \Omega \rightarrow \real$ \\
 $h_1, \hdots, h_k, g_1, \hdots, g_l: C^1 \in \Omega$ \\
 Suppose $x_0 \in \Omega$ is a regular point of the constraints which is a local minimum, then
 \begin{enumerate}
-	\item $$\nabla f(x_0) + \sum_{i=1}^k \lambda_i \nabla h_i(x_0) + \sum_{j=1}^l \mu_j \nabla g_j(x_0) = 0$$ for some $\lambda_i \in \real$
-	\item $\mu_j g_j(x_0) = 0$ for all $f$ with some \textcolor{red}{$\mu_j \geq 0$}
+	\item $$\nabla f(x_0) + \sum_{i=1}^k \lambda_i \nabla h_i(x_0) + \sum_{j=1}^l \mu_j \nabla g_j(x_0) = 0$$ for some $\lambda_i \in \real$ and \textcolor{red}{$\mu_j \geq 0$}
+	\item $\mu_j g_j(x_0) = 0$
 \end{enumerate}
 
+\paragraph{Remark 1}
+Given $x_0$, 
+$$
+\begin{cases}
+g_j(x) \leq 0 \text{ active at } x_0 \implies g_j(x_0) = 0 \implies \mu_jg_j(x_0) = 0 \\
+g_j(x) \leq 0 \text{ inactive at } x_0 \implies g_j(x_0) < 0 \implies \mu_j = 0
+\end{cases}
+$$
+$\implies \mu_j = 0$ for all inactive $g_j$ at $x_0$
+
+\paragraph{Remark 2}
+It is possible for an active constraint to have zero multiplier.
+
+\paragraph{Remark 3}
+$\mu_j \geq 0$ because $\nabla f$ and $\nabla g$ have opposite directions at a local minimum $x_0$. \\
+$$\nabla f(x_0) + \mu \nabla g(x_0) = 0 \implies \nabla f(x_0) = -\mu \nabla g(x_0) \implies -\mu < 0 \implies \mu > 0 $$
+\textcolor{red}{Is this true?}
+
+\paragraph{Idea of proof}
+$x_0$ is a local min of $f$ subject to (*) \\
+$\implies x_0$ is a local min for equality constraints $h_1(x) = 0, \hdots, h_k(x) = 0 +$ active inequality constraints $g_1(x) \leq 0, \hdots, g_{l'}(x) \leq 0$ \\
+$\implies x_0$ is a local min for $h_1(x) = 0, \hdots, h_k(x) = 0 + g_1(x) = 0, \hdots, g_{l'}(x) = 0$ 
+$\implies \nabla f(x_0) + \sum_{i=1}^k \lambda_i \nabla h_i(x_0) + \sum_{j=1}^{l'} \mu_j \nabla g_j(x_0) = 0$\\
+for some $\lambda_i \in \real$ and $\mu_j \in \real$.\\
+Let $\mu_j = 0$ for $j = l' + 1, \hdots, l$,
+then 
+$$\nabla f(x_0) + \sum_{i=1}^k \lambda_i \nabla h_i(x_0) + \sum_{j=1}^{\textcolor{red}{l}} \mu_j \nabla g_j(x_0) = 0$$
+
+\subsection{2nd order necessary conditions for local minimum}
+Open $\Omega \subseteq \real^n, f, h_1, \hdots, h_k, g_1, \hdots, g_l \in C^2$.
+Let $x_0$ be a regular point of the constraints:
+$$(+)\begin{cases}
+	h_1(x) = \hdots = h_k(x_0) = 0 \\
+	g_1(x), \hdots g_l(x_0) \leq 0
+\end{cases}$$
+Suppose $x_0$ is a local min of $f$ subject to (+).
+Then, $\exists \lambda_i \in \real, \mu_j \geq 0$ s.t.
+\begin{enumerate}
+	\item $\nabla f(x_0) + \sum_{i=1}^k \lambda_i \nabla h_i(x_0) + \sum_{j=1}^l \mu_j \nabla g_j(x_0) = 0$
+	\item $\mu_j g_j(x_0) = 0 $ for all $j$
+	\item \textcolor{red}{$[\nabla^2 f(x_0) + \sum \lambda_i \nabla^2h_i(x_0) + \sum \mu_j \nabla^2 g_h(x_0)]]$ is positive semi definite on tangent space to active constraints at $x_0$.}
+\end{enumerate}
+\begin{proof}
+	$x_0$ local min for ($\dag$) \\
+	$\implies x_0$ local min for only active constraints at $x_0$. \\
+	$\implies \begin{cases}
+		h_i(x) = 0 \,\, \forall i \\
+		g_j(x) = 0 \,\, j=1, \hdots, l'
+	\end{cases}$ \\
+	$\implies [\nabla^2 f(x_0) + \sum \lambda_i \nabla^2h_i(x_0) + \sum \mu_j \nabla^2 g_h(x_0)]]$ pos semi def on tangent space to active constraints. \qed
+\end{proof}
+
+\subsection{2nd order sufficient conditions}
+Open $\Omega \subseteq \real^n, f, h_i, g_j \in C^2$ on $\Omega$. \\
+\under{Problem:}
+$$\begin{cases}
+	\min &f(x) \\
+	\text{subject to }&\begin{cases}h_i(x) = 0 \\
+	g_j(x) \leq 0 \end{cases}
+\end{cases}$$
+Suppose $\exists x_0$ feasible and $\lambda_i, \mu_j \in \real$ s.t. 
+\begin{enumerate}
+	\item $\nabla f(x_0) + \sum_{i=1}^k \lambda_i \nabla h_i(x) + \sum_{j=1}^l \mu_j \nabla g_j(x_0) = 0$
+	\item $\mu_j g_j(x_0) =0$ all $j$
+\end{enumerate}
+If the Hessian matrix, $L(x_0) = \nabla^2 f(x_0) + \sum_{i=1}^k \lambda_i \nabla^2 f(x_0) + \sum_{i=1}^l \mu_j \nabla^2 g_j(x)$ is pos def on $\tilde{\tilde{T}}_{x_0}$-space of ``strongly active" constraints at $x_0$. \\
+Then $x_0$ is a strict local min. \\
+
+\paragraph{Remarks}
+\begin{enumerate}
+	\item $$\text{Active constraints at $x_0$} \begin{cases}
+	h_i(x) = 0 \quad i=1,\hdots,k \\
+	g_j(x) \leq 0 \quad j = 1,\hdots, l' \implies g_j(x_0) = 0
+	\end{cases}$$
+
+	\item $$\text{\textcolor{red}{Strongly active constraints at $x_0$}} 
+	\begin{cases}
+	h_i(x) = 0 \quad i=1,\hdots,k \\
+	g_j(x) \leq 0 \quad j = 1,\hdots, l'' \,\,\, \text{$g_j(x)$ is active at $x_0 \& \mu_j > 0$}
+	\end{cases}$$
+	$l'' \leq l' \leq l$
+	\item $$\tilde{\tilde{T}}_{x_0} = \{ v\in \real^n | v\cdot \nabla h_i(x_0) = 0 \text{ all $i$} \& v \cdot \nabla g_j(x_0) = 0 \text{all $j = 1, \hdots, l''$} \}$$
+	\item strongly active $\subseteq$ active \\
+	      (strongly active)$^\perp \supseteq$ (active)$^\perp$
+\end{enumerate}
+\begin{proof}
+	(details see another pdf by prof)
+	Suppose $x_0$ is \textcolor{red}{NOT} a (strict) local min.
+	\under{claim:} $\exists$ unit vector $v \in \real$ s.t.
+	\begin{enumerate}
+		\item $\nabla f(x_0) \cdot v \leq 0$
+		\item $\nabla h_i(x_0) \cdot v = 0 \quad i = 1, \hdots, k$
+		\item $\nabla g_j(x_0) \cdot v \leq 0 \quad j = 1, \hdots, l'$
+	\end{enumerate}
+	\under{proof of claim}: [] \\
+	\under{claim:} $\nabla g_j(x)\cdot v = 0$ for $j = 1, \hdots, l''$ \\
+	\under{proof of claim:} [] \\
+	$\implies$ contradiction! \\
+	\under{claim:} $\exists$ unit vector $v \in \real$ s.t.
+	\begin{enumerate}
+		\item $\nabla f(x_0) \cdot v \leq 0$
+		\item $\nabla h_i(x_0) \cdot v = 0 \quad i = 1, \hdots, k$
+		\item $\nabla g_j(x_0) \cdot v = 0 \quad j = 1, \hdots, l''$
+	\end{enumerate}
+	\under{proof of claim:} [] 
+	\qed
+\end{proof}
 
 
+\section{Different Computation Methods for Solving Optimum}
+\subsection{Newton's Method}
+$x_0 \in I$ start \\
+$x_{n+1} = x_0 - \frac{f'(x_0)}{f''(x_0)}$
+
+\paragraph{Theorem}
+Let $f \in C^3$ on $I$.\\
+Suppose $x_* \in I$ satisfies $f'(x_*) = 0$ and $f''(x_*) \neq 0$ (\textcolor{red}{$x_*$ is a non-degenerate critical point}).\\
+Then the sequence of points $\{x_n\}$ generated by Newton's method 
+$$x_{n+1} = x_n  - \frac{f'(x_0)}{f''(x_0)}$$ converges to $x_*$ if $x_0$ is sufficiently close to $x_*$.
+
+\paragraph{Why do we need this method?}
+In real life, we may not know the real function formula. We only have data, using which we can approximate the function formula. In a way, Newton's method is true ``applied mathematics".
+
+\paragraph{Proof of Theorem}
+Let $g(x) = f'(x)$ so that $x_{n+1} = x_n - \frac{g(x_n)}{g'(x_n)}$ \\
+By $g \in C^2, \exists \alpha$ s.t. $|g'(x_1)| > \alpha \, \forall x_1$ and $|g''(x_2)| < \frac{1}{\alpha} \,\, \forall x_2$ in a neighbourhood of $x_*$ (choose $\alpha$ small enough).
+
+\begin{align}
+	x_{n+1} - x_* &= x_n - \frac{g(x_n)}{g'(x_n)} - x_* \\
+	&= x_n - x_* - \frac{g(x_n) - g(x_*)}{g'(x_n)} &\text{($g(x_*) = 0$)}\\
+	&= \frac{-[g(x_n) - g(x_*) - g'(x_n)(x_n - x_*)]}{g'(x_n)} \\
+	&= \frac{1}{2}\frac{g''(\xi)}{g'(x_n)}(x_n - x_*)^2 \\
+	|x_{n+1} - x_*| &= \frac{1}{2}\frac{g''(\xi)}{g'(x_n)}|x_n - x_*|^2 < \frac{1}{2\alpha^2}|x_n - x_*|^2 &\text{(in small neighbourhood of $x_*$)} \\
+	\rho &:= \frac{1}{2\alpha^2} |x_0 - x_*| &\text{(choose $x_0$ sufficiently close to $x_*$ s.t. $\rho < 1$)} \\
+	|x_1 - x_*| &< \frac{1}{2\alpha^2}|x_0 - x_*|^2 \\
+	&= \frac{1}{2\alpha^2}|x_0 - x_*||x_0 - x_*| \\
+	&= \rho|x_0 - x_*| \\
+	|x_2 - x_*| &< \frac{1}{2\alpha^2}|x_1 - x_*|^2 \\
+	&< \frac{1}{2\alpha^2}\rho^2|x_0 - x_*|^2 \\
+	&= \frac{1}{2\alpha^2}|x_0 - x_*| \rho^2 |x_0 - x_*| \\
+	&< \rho^2 |x_0 - x_*| &\text{($\rho < 1$)} \\
+	|x_n - x_*| &< \rho^n |x_0 - x_*| \underset{n \rightarrow \infty}{\rightarrow} 0 \\
+	\implies x_n &\rightarrow x_*
+\end{align}
+\under{proof of (4)}: \\
+By 2nd order MVT,
+$$g(x) = g(y) + g'(y)(x-y) + \frac{1}{2}g''(\xi) (x-y)^2$$
+for some $\xi \in [x, y]$. \\
+Let $x = x_*$ and $y = x_n$, then
+$$g(x_*) = g(x_n) + g'(x_n)(x_* - x_n) + \frac{1}{2}g''(\xi)(x_* - x_n)^2$$
+$$\implies -[g(x_n) - g(x_*) - g'(x_n)(x_n - x_*)] = \frac{1}{2}g''(\xi)(x_n - x_*)^2 $$
+\qed
+\paragraph{Newton's Method (generalized)}
+$f: \Omega \underset{open}{\subseteq} \real^n \rightarrow \real$ and $f \in C^3$ on $\Omega$ \\
+$x_0 \in \Omega$ \\
+$x_{n+1} = x_n - [\nabla^2 f(x_n)]^{-1} \nabla f(x_n)$ \\
+(The algorithm requires $\nabla^2 f(x_n)$ invertible and stops when $\nabla f(x_n) = 0$)
+\paragraph{Note}
+Newton's method may fail to converge even if $f(x)$ has a unique global min $x_*$ and $x_0$ is arbitrarily close to $x_*$
+\paragraph{Remark}
+Newton's method, if converge, converges to
+\begin{enumerate}
+	\item local min
+	\item local max
+	\item saddle point
+\end{enumerate}
+
+\subsection{Method of Steepest Descent (Gradient Method)}
+$f: \Omega \underset{open}{\subseteq} \real^n \rightarrow \real \& C^1$ \\
+Recall: Direction of steepest ascent at $x_0$ is given by the direction of gradient $\nabla f(x_0)$
+\paragraph{Algorithm of steepest descent}
+$x_0 \in \Omega$ \\
+$x_{k+1} = x_k - \alpha_k \nabla f(x_k)$\\
+where $\alpha_k \geq 0$ satisfying $f(x_k - \alpha_k \nabla f(x_k)) = \underset{\alpha \geq 0}{\min} f(x_k - \alpha \nabla f(x_k))$ \\
+
+(keep going until you find the minimum) \\
+\paragraph{Fact: algorithm is descending}
+If $\nabla f(x_k) \neq$ then $f(x_{k+1}) < f(x_k)$\\
+Why? $f(x_{k+1}) = f(x_k - \alpha_k \nabla f(x_k)) \leq f(x_k - \alpha \nabla f(x_k))$ for all 
+$ 0 < \alpha \leq \alpha_k$ \\
+\under{Recall:} $\frac{d}{ds}|_{s=0} f(x_k - s\nabla f(x_k)) = \nabla f(x_k) \cdot (-\nabla f(x_k)) = - |\nabla f(x_k)|^2 < 0$ \\
+$\implies f(x_{k+1}) \leq f(x_k - \alpha \nabla f(x_k)) < f(x_k)$ for small $\alpha$
+
+\paragraph{Fact: the method of steepest descent moves perpendicular steps}
+\begin{align}
+	(x_{k+2} - x_{k+1}) \cdot (x_{k+1} - x_k) &= (-\alpha_{k+1}\nabla f(x_{k+1}))\cdot(-\alpha_k \nabla f(x_k)) \\
+	&= \alpha_k \alpha_{k+1} \nabla f(x_{k+1})\cdot \nabla f(x_k) \\
+\end{align}
+If $\alpha_k = 0$, then we are done. \\
+If $\alpha_k \neq 0$, then 
+\begin{align}
+	\nabla f(x_{k+1}) &= \underset{\alpha \geq 0}{\min}\, f(x_k - \alpha \nabla f(x_k)) \\
+\implies \frac{d}{d\alpha}|_{\alpha = \alpha_k} f(x_k - \alpha \nabla f(x_k)) &= (- \nabla f(x_k)) \cdot \nabla f(x_k - \alpha_k \nabla f(x_k)) = 0 \\
+\implies \alpha_k \alpha_{k+1} \nabla f(x_{k+1})\cdot \nabla f(x_k) &= 0
+\end{align}
+
+\paragraph{Note}
+This method is not the most efficient. May take infinite steps to converge.
+
+\paragraph{Theorem (Convergence of Steepest Descent)}
+$f \in C^1$ on $\Omega \underset{open}{\subseteq} \real^n$ \\
+Let $\{ x_k\}$ be sequence generated by steepest descent. \\
+$x_{k+1} = x_k - \alpha_k \nabla f(x_k)$ \\
+If $\{ x_k\}$ is ``bounded in $\Omega$" (i.e. $\exists$ compact set $K \subset \Omega$ s.t. $x_k \in K$ for all $k$)
+Then every convergence subsequence of $\{ x_k\}$ converges to a critical point $x_* \in \Omega$ of $f: \nabla f(x_*) = 0$\\\\
+\begin{proof}
+	$x_k \in$ compact $K \implies$ subsequence $x_{k_i} \rightarrow x_* \in K$ \\
+	Since $f(x_0) \geq f(x_1) \geq f(x_2) \geq \hdots$ and $f(x_{k_i}) \searrow f(x_*)$\\
+	Suppose by contradiction that $\nabla f(x_*) \neq 0$ \\
+	$x_{k_i} \rightarrow x_* \implies  \nabla f(x_{k_i}) \rightarrow \nabla f(x_*)$\\
+	Let $y_{k_i} = x_{k_i} - \alpha_{k_i} \nabla f(x_{k_i}) = x_{k_i + 1}$. Then $y_{k_i} \rightarrow y_*$. Then
+	\begin{align}
+		f(y_{k_i}) &= f(x_{k_i + 1} ) = \underset{\alpha \geq 0}{\min} f(x_i - \alpha \nabla f(x_{k_i}))  \\
+		f(y_{k_i}) &\leq f(x_{k_i} - \alpha \nabla f(x_{k_i})) \text{ for all $\alpha \geq 0$}\\
+		\underset{i \rightarrow \infty}{\lim} f(y_*) &\leq f(x_* - \alpha \nabla f(x_*)) \text{ for all $\alpha \geq 0$} \\
+		f(y_*) &\leq  \underset{\alpha \geq 0}{\min} f(x_* - \alpha \nabla f(x_*)) < f(x_*) \\
+		f(y_*) &< f(x_*)\\
+	\end{align}
+	But $f(y_*) \leftarrow f(y_{k_i}) = f(x_{k_i + 1}) \rightarrow f(x_*)$, so we have a contradiction. \qed
+\end{proof}
+
+\paragraph{Steepest descent: Quadratic case}
+$f(x) = \frac{1}{2} x^T Q x - b^T x$ \\
+$b, x \in \real^n$ $Q \, n \times n$ positive definite
+Let $0 < \lambda = \lambda_1 \leq \lambda_2 \leq \hdots \leq \lambda_n = \Lambda$ be eigenvalues of Q. \\
+Recall that if Q pos-def, then there is a unique minimum $x_*$ such that $Qx_* - b = 0 \iff  x_* = Q^{-1}b$\\
+$q(x) := \frac{1}{2}(x - x^*)^TQ(x - x^*) = f(x) + const$ \\
+Note: $q(x) \geq 0, q(x_*) = 0$. \\
+Define $g(x) := Qx - b  = \nabla q(x) = \nabla f(x)$
+So using the method of steepest descent: 
+$$x_{k+1} = x_k - \alpha_k g(x_k)$$
+\tb{Derive the formula for $\alpha_k$:} \\
+$\alpha_k$ minimizes $f(x_k - \alpha g(x_k))$
+\begin{align}
+	0 &= \frac{d}{d\alpha}|_{\alpha = \alpha_k} f(x_k - \alpha g(x_k)) \\
+	&= \nabla f(x_k - \alpha_k g(x_k)) \cdot (-g(x_k)) \\
+	&= - [Q (x_k - \alpha_k g(x_k)) - b] \cdot (g(x_k)) \\
+	&= -(Q x_k - b) \cdot g(x_k) \\
+	&= - |g(x_k)|^2 + \alpha_k g(x_k)^T Q g(x_k) \\
+	\implies \alpha_k &= \frac{|g(x_k)|^2}{g(x_k)^TQg(x_k)}\\
+	\implies x_{k+1} &= x_k - \alpha_k g(x_k) \\
+	&= x_k - \frac{|g(x_k)|^2}{g(x_k)^T Q g(x_k)} g(x_k)
+\end{align}
+
+\tb{Claim:} \\
+$$ q(x_{k+1}) = \left( 1 - \frac{|g(x_k)|^4}{(g(x_k)^TQ g(x_k))(g(x_k)^TQ^{-1}g(x_k))}\right)g(x_k)$$
+\begin{proof}
+\begin{align}
+	q(x_{k+1}) &= q(x_k - \alpha_k g(x_k)) \\
+	&= \frac{1}{2} (x_k - \alpha_k g(x_k) - x_*)^T Q (x_k - \alpha_k g(x_k) - x_*) \\
+	&= \frac{1}{2} (x_k - x_* - \alpha_k g(x_k))^T Q ((x_k - x_*) - \alpha_k g(x_k)) \\
+	&= \frac{1}{2} (x_k - x_*)^T Q (x_k - x_*) - \alpha_k g(x_k)^T Q (x_k - x_*) + \frac{1}{2} \alpha_k^2 g(x_k)^T Q g(x_k) \\
+	&= q(x_k) - \alpha_k g(x_k)^T Q (x_k - x_*) + \frac{1}{2} \alpha_k^2 g(x_k)^T Q g(x_k) \\
+	\implies q(x_k) - q(x_{k+1}) &= -\frac{1}{2} \alpha_k^2 g(x_k)^T Q g(x_k) + \alpha_k g(x_k)^T Q (x_k - x_*) \\
+	y_k := x_k - x_* \\
+	\frac{q(x_k) - q(x_{k+1})}{q(x_k)} &= \frac{-\frac{1}{2}\alpha_k^2 g(x_k)^T Q g(x_k) + \alpha_k g(x_k)^T Q y_k}{\frac{1}{2}y_k^T Q y_k}  \\
+	&= \frac{2\alpha_k g(x_k)^T Q y_k - \alpha_k^2 g(x_k)^T Q g(x_k)}{y_k^T Q y_k} \\
+	(&g_k := g(x_k) = Q x_k - b = Qx_k - Q x_* = Q (x_k - x_*) = Q y_k \implies y_k = Q^{-1}g_k) \\
+	&= \frac{2\alpha_k|g_k|^2 - \alpha_k^2 g_k^T Q g_k}{g_k^TQ^{-1}g_k}\\ 
+	&= \frac{2\frac{|g_k|^4}{g_k^TQg_k}  - \frac{|g_k|^4}{g_k^TQg_k}}{g_k^TQ^{-1}g_k}\\
+	&= \frac{|g_k|^4}{(g_k^TQ g_k)(g_k^TQ^{-1}g_k)} \tag{$\alpha_k = \frac{|g(x_k)|^2}{g(x_k)^T Q g(x_k)}$} \\
+	\implies q(x_k) - q(x_{k+1}) &= \left( \frac{|g_k|^4}{(g_k^TQ g_k)(g_k^TQ^{-1}g_k)} \right ) q(x_k) \\
+	\implies q(x_{k+1}) &= q(x_k)\left( 1 - \frac{|g_k|^4}{(g_k^TQ g_k)(g_k^TQ^{-1}g_k)} \right) \\
+	&\leq (1 - \frac{4 \lambda \Lambda}{(\lambda + \Lambda)^2}) q(x_k) \tag{By Kantorovich Inequality} \\
+	\implies q(x_{k+1}) &\leq \frac{(\Lambda - \lambda)^2}{(\lambda + \Lambda)^2} q(x_k)
+\end{align}
+
+\end{proof}
+
+\paragraph{Kantorovich Inequality}
+$Q: n\times n$ positive definite symmetric matrix \\
+$\lambda = \lambda_1 \leq \lambda_2 \leq \hdots \leq \lambda_n = \Lambda$ \\
+For any $v \in \real^n$:
+$$ \frac{|v|^4}{(v^TQv)(v^TQ^{-1}v)} \geq \frac{4\lambda \Lambda}{(\lambda + \Lambda)^2} $$
+
+
+\paragraph{Theorem: Steepest Descent in Quadratic Case}
+For any $x_0 \in \real^n$, method of steepest descent converges to the unique min point $x_*$ of $f$. \\
+Furthermore, for $q(x) := \frac{1}{2} (x - x_*) Q (x - x_*)$, where Q symmetric positive definite and $0 < \lambda = \lambda_1 \leq \lambda_2 \leq \hdots \leq \lambda_n = \Lambda$,  $$q(x_{k+1}) \leq \frac{(\Lambda - \lambda)^2}{(\lambda + \Lambda)^2} q(x_k)$$
+Let $r := \frac{(\Lambda - \lambda)^2}{(\lambda + \Lambda)^2}$, then
+$$q(x_k) \leq r^k q(x_0)$$ for all k. As $k \rightarrow \infty$, $q(x_k) \rightarrow \infty$.
+
+\paragraph{Notes}
+\begin{enumerate}
+	\item $x_k \in \{ x \in \real^n| q(x) \leq r^k q(x_0)\} = SL_k$ (sublevel set of function $q(x)$)
+	\item $(\frac{(\Lambda - \lambda)}{(\lambda + \Lambda)})^2 = (\frac{\Lambda / \lambda - 1}{\Lambda / \lambda + 1})^2$ depends only on the ratio $\frac{\Lambda}{\lambda}$ = ``condition number of Q" \\
+	\tb{case $\frac{\Lambda}{\lambda} = 1$}$\implies$ cond no $= 1 \implies 0 \leq q(x_1) \leq 0q(x_0) \implies q(x_1) = 0 \implies x_1 = x_*$\\
+	\tb{case $\frac{\Lambda}{\lambda} >> 1$} $\implies r \simeq 1$ (\textcolor{red}{worst case converges very flow})
+\end{enumerate}
+
+\subsection{Method of Conjugate Direction}
+\paragraph{Motivation}
+Method of conjugate directions is designed for quadratic functions with form $f(x) = \frac{1}{2}x^TQx - b^Tx$. For other functional forms, one can approximate the function using quadratic form firstly and then apply method of conjugate directions.
+
+\paragraph{Definition: Q-orthogonality}
+Let Q be a symmetric matrix. Two vectors $d, d' \in \real^n$ are \under{Q-orthogonal} (or \under{Q-conjugate}) if $$d^TQd' = 0$$
+A finite set of $d_0, \hdots, d_k$ is called \under{Q-orthogonal set} if $d_i^TQd_j = 0$ for all $i \neq j$.
+
+\paragraph{Example 1}
+Q is an identity matrix. $d, d'$ are Q-orthogonal iff they are orthogonal.
+
+\paragraph{Example 2}
+If $d, d'$ are two eigenvectors with different eigenvalues, then they are Q-orthogonal. \\
+\begin{proof}
+Suppose $Qv = \lambda v$ and $Qw = \lambda' w$ so $\lambda \neq \lambda'$
+	\begin{align}
+		<v, Qw> &= <v, \lambda'w> = \lambda'<v,w> \\
+		&= <Q^Tv, w> = <Qv, w> = <\lambda v, w> = \lambda <v,w>\\
+		&\implies (\lambda - \lambda')\langle v, w \rangle  = 0
+	\end{align}
+	Since $(\lambda - \lambda') \neq 0$, them we have $\langle v, w \rangle  = 0$.
+	$$\implies v^TQw = \langle v, Qw \rangle = \lambda \langle v, w \rangle  = 0$$\qed
+\end{proof}
+
+\paragraph{Example 3}
+If $Q$ is an $n \times n$ symmetric matrix, then there exists an orthogonal basis of eigenvectors $d_0, \hdots, d_{n-1}$ \\
+\tb{Claim: } They are also Q-orthogonal. \\
+\begin{proof}
+	$d_i^TQd_j = d_i^T(\lambda d_j) = \lambda d_i^Td_j = 0$ \qed
+\end{proof}
+
+\paragraph{Proposition}
+Let $Q$ be a symmetric positive definite matrix. Let $d_0, \hdots, d_k$ be a set of (non-zero) Q-orthogonal vectors. Then \textcolor{red}{$d_0, \hdots, d_k$ are linearly independent.} \\
+\begin{proof}
+	Assume $\alpha_0 d_0 + \hdots + \alpha_kd_k = 0$ for $\alpha_i \in \real$. \\
+	Multiply the whole equation by $d_i^T Q$:
+	$$\alpha_0 \underbrace{d_i^T Qd_0}_{=0} + \hdots + \alpha_i \underbrace{d_i^TQd_i}_{>0} + \hdots + \alpha_k \underbrace{d_i^T Qd_k}_{>0} = 0$$
+	which implies $\alpha_i d_i^TQd_i = 0$ and $\alpha_i$ = 0. \\
+	This is true for every $i$. Therefore $d_0, \hdots, d_k$ are linearly independent.\qed
+\end{proof}
+
+\paragraph{Lemma (Theorems covered so far)}
+\begin{enumerate}
+	\item $d_i, d_j$ are $Q$-orthogonal if $d_i^TQd_j = 0$;
+	\item Eigen-vectors with different eigenvalues are $Q$-orthogonal;
+	\item Matrix $Q$ symmetric $\implies$ there exists an orthogonal basis $\implies$ the set of basis is $Q$-orthogonal as well;
+	\item $Q$-orthogonal vectors are linearly independent.
+\end{enumerate}
+
+\paragraph{Example 4} (Special case: Method of Conjugate Direction on Quadratic Functions). Let $Q$ be a positive definite symmetric $n \times n$ matrix. The problem is
+$$\min f(x) = \frac{1}{2}x^TQx - b^Tx$$
+Recall that the unique global minimum is $x^* = Q^{-1}b$. \\
+Let $d_0, d_1, \hdots, d_{n-1}$ be non-zero Q-orthogonal vectors. \\
+Note that they are linearly independent by the previous theorem. \\
+Therefore, they form a basis of $\real^n$. \\
+The global minimum can be represented as 
+$$x^* = \sum_{j=0}^{n-1} \alpha_j d_j \, \alpha_j \in \real$$
+For every $j$, the following holds:
+$$d^TQx^* = \alpha_jd_j^TQd_j$$
+$$\implies \alpha_j = \frac{d_j^TQx^*}{d_j^TQd_j}$$
+\paragraph{Algorithm: Method of Conjugate Directions}
+Let $Q$ be a positive definite symmetric $n \times n$ matrix. and $\{d_j\}_{j=0}^{n-1}$ be a set of non-zero $Q$-orthogonal vectors, note that they form a basis of $\real^n$. \\
+Given initial point $x_0 \in \real^n$, the method of conjugate direction generates a sequence of points $\{x_k\}_{k=0}^n$ as the following:
+$$x_{k+1} \leftarrow x_k + \alpha_k d_k$$
+$$\alpha_k := -\frac{\langle g_k, d_k\rangle}{d_k^TQd_k} \,\, g_k := \nabla f(x_k)$$
+\paragraph{Theorem} Given the method of conjugate, the sequence of points generated eventually reaches the global minimum. That is, $x_{n} = x^*$. \\
+\begin{proof}
+	Let $x^*, x_0 \in \real^n$, consider
+	\begin{align}
+		x^* - x_0 &= \sum_{j=0}^{n-1}\beta_j d_j \\
+		\iff x^* &= x_0 + \sum_{j=0}^{n-1} \beta_j d_j \\
+		d_j^TQ(x^* - x_0 &= d_j^TQ(\sum_{j=0}^{n-1} \beta_j d_j) \\
+		&= \beta_j d_j^T Q d_j \\
+		\implies \beta_j &= \frac{d_j^TQ(x^* - x_0)}{d_j^TQd_j}
+	\end{align}
+Note that the algorithm generates the sequence as following:
+\begin{align}
+	x_k &= x_0 + \sum_{j=0}^{k-1} \alpha_j d_j \\
+	\implies (x_k - x_0) &= \sum_{j=0}^{k-1} \alpha_j d_j \\
+	\implies d_k^TQ(x_k - x_0) &= \sum_{j=0}^{k-1} \alpha_j d_k^T Q d_j = 0
+\end{align}
+Therefore,
+\begin{align}
+	\beta_k &= \frac{d_k^TQ(x^* - x_0)}{d_k^TQd_k} \\
+	&= \frac{d_k^TQ(x^* - x_0) - d_k^TQ(x_k - x_0)}{d_k^TQd_k} \\
+	&= \frac{d_k^TQ(x^* - x_k)}{d_k^TQd_k} \\
+	&= \frac{d_k^T(Qx^* - Qx_k)}{d_k^TQd_k} \\
+	&= \frac{d_k^T(b - Qx_k)}{d_k^TQd_k} \tag{The first order necessary condition suggests $Qx^* = b$} \\
+	&= -\frac{d_k^T(Qx_k - b)}{d_k^TQd_k} \\
+	&= -\frac{d_k^T\nabla f(x_k)}{d_k^TQd_k}　\tag{Assuming $f$ is quadratic} \\
+	&= \alpha_k
+\end{align}
+Consequently,
+\begin{align}
+	x^* &= x_0 + \sum_{j=0}^{n-1}\beta_j d_j \\
+	&= x_0 + \sum_{j=0}^{n-1} \alpha_j d_j \\
+	&= x_n
+\end{align}
+\qed
+
+\subsubsection{Geometric Interpretations of Method of Conjugate Directions}
+\paragraph{Theorem} Let $f \in C^1 (\Omega, \real)$, where $\Omega$ is a convex subset of $\real^n$, then $x_0$ is a local minimum of $f$ on $\Omega$ if and only if 
+$$\nabla f(x_0) \cdot (y - x_0) \geq 0 \, \forall y\in \Omega$$
+\paragraph{Example} Now consider the special case in which $\Omega$ is an affine hyperplane, that is, 
+$$\Omega = \{ x \in \real^n: cx + b = 0\}$$
+where $\dim(\Omega)$ is $n-1$. \\
+Note that for every $y \in \Omega, \nabla f(x_0)\cdot (y - x_0) \geq 0$. For any feasible direction $a$ at point $x_0$, by definition of hyperplane, $-a$ is a feasible direction as well. \\
+Consequently, $a \cdot \nabla f(x_0) = 0$ for every feasible direction. That is, $\nabla f(x_0) \perp \Omega$.
+\end{proof}
+
+\paragraph{Geometric Interpretation}
+Let $d_0, d_1, \hdots, d_{n-1}$ be a set of non-zero $Q$-orthogonal vectors in $\real^n$. Let $B_k = Span \{d_0, \hdots, d_{k-1}\}$ for $k = 0, 1, \hdots, n$. \\
+\under{Note:}
+\begin{itemize}
+	\item $$B_0 = \{0\} \subseteq B_1 = \langle d_0 \rangle \subseteq B_2 = \langle d_0, d_1 \rangle \subseteq \hdots \subseteq B_n = \langle d_0, \hdots, d_{n-1} \rangle  = \real^n$$
+	\item $$\dim B_k = k$$ 
+	\item $$x_0 + B_0 \subseteq x_0 + B_1 \subseteq \hdots$$
+\end{itemize}
+
+\paragraph{Theorem}
+The sequence $\{x_k\}$ generated from $x_0 \in \real^n$ by conjugate directions method has the property that $x_k$ minimizes $f(x) = \frac{1}{2}x^TQx - b^Tx$ on the affine hyperplane $x_0 + B_k$. \\
+\begin{proof}
+	Recall that $x_k$ is the minimizer of $f(x)$ on $x_0 + B_k \iff \nabla f(x_k) \perp x_0 + B_k$ \\
+	\textcolor{red}{Enough to prove that $\nabla f(x_k) \perp B_k$.} \\
+	We prove this by induction on $k$. \\
+	\under{Notation:} $\nabla f(x_k) = Q x_k - b =: g_k$. \\
+	\tb{Base case: k = 0} $B_0 = \{0\} \implies g_0 \perp B_0$ \\
+	\tb{Inductive Step: } Assume that $g_k \perp B_k$, show $g_{k+1} \perp B_{k+1}$ \\
+	Since $$x_{k+1} = x_k + \alpha_k d_k$$
+	then $$\underbrace{Q_{k+1} - b}_{g_{k+1}} = \underbrace{Q_{x_k} - b}_{g_k} + \alpha_k Q d_k$$
+\begin{align}
+	g_{k+1}^TB_k &= \langle d_0, \hdots, d_{k-1} \rangle \\
+	g_{k+1}^Td_k &= (\underbrace{g_k + \alpha_k Q d_k^T d_k}_{g_{k+1}})^Td_k \\
+	&= g_k^Td_k + \alpha_k d_k^T Q d_k \\
+	&= g_k^Td_k + (- \frac{g_k^Td_k}{d_k^TQd_k})d_k^TQd_k \\
+	&= 0
+\end{align}
+This implies that $g_{k+1} \perp d_k$ \\
+For $0 \leq i < k$, 
+\begin{align}
+g_{k+1}^T\cdot d_i &= (g_k + \alpha_k Q d_k)^T d_i \\
+&= \underbrace{g_k^Td_i}_{= 0} + \underbrace{\alpha_k d_k^T Q d_i}_{= 0} \\
+&= 0	
+\end{align}
+Therefore, $g_{k+1} \perp d_0, d_1, \hdots, d_k$\\
+Hence $g_{k+1} \perp \langle d_0, d_1, \hdots, d_k \rangle = B_k$
+\qed 
+
+\paragraph{Corollary} $x_n$ minimizes $f(x)$ on $x_0 + B_n$ (which is $\real^n$) \\
+i.e. $x_n = x^*$ 
+\paragraph{Corollary} $0 \leq q(x_{k}) = \underset{x \in x_0 + B_k}{\min} q(x) \leq q(x_{k-1}) = \underset{x \in x_0 + B_{k-1}}{\min} q(x)$
+\paragraph{Corollary}
+\begin{align}
+&\begin{cases}
+	\min f(x) \\
+	x \in x_0 + B_1
+\end{cases} \\
+\implies &\begin{cases}
+	\min f(x_0 + td_0) \\
+	t \in \real
+\end{cases}\tag{Since $x_0 + B_1 = \{x_0 + td_0 | t \in \real \}$} \\
+\implies &0 = \frac{d}{dt}|_{t=t_0} f(x_0 + td_0) = \nabla f(x_0 + t_0d_0) \cdot d_0 \tag{where $t_0$ is such that $x_1 = x_0 + t_0 d_0$}
+\end{align}
+\end{proof}
+
+\section{Calculus of Variations}
+Note: infinite dimensional optimization.
+\paragraph{Comparison with finite dimensions}
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ & finite dimensional & $\infty$-dimensional \\
+ \hline
+ problem & $\min \, f(x)$ & $\min \, F[u]$ \\
+ \hline
+ constraint & $x \in M$ & $u \in \mathcal{A}$ \\ 
+ \hline
+ note & set of points in $\real^n$ & space of functions \\
+ \hline
+\end{tabular}
+\end{center}
+\paragraph{Model model}
+$$\mc{A} =  \{ u: [0,1] \rightarrow \real | u \in C^1 \, s.t. \, u(0) = u(1) = 1\}$$
+\under{Note:} We call $F$ a ``Functional". It maps a function to a real number.
+\paragraph{Notation}
+Write $u(\cdot)$ for a function $u$.
+\subsection{Example}
+$F[u(\cdot)] = \frac{1}{2} \int_0^1 \{ u(x)^2 + u'(x)^2\} \, dx$.\\
+$ \begin{cases}
+	\min \, F[u(\cdot)] \\
+	u(\cdot) \in \mc{A}
+\end{cases}$\\
+means: Find $u^*(\cdot) \in \mc{A}$ s.t. $F[u^*(\cdot)] \leq F[u(\cdot)]$ for all $u(\cdot) \in \mc{A}$.
+\paragraph{Plan}
+\begin{enumerate}
+	\item We derive 1st order necessary conditions for a local min;
+	\item Find a function $u^*(\cdot)$ satisfying these conditions;
+	\item Check this candidate $u^*(\cdot)$ is in fact a minimizer.
+\end{enumerate}
+
+\paragraph{Idea}
+We reduce this problem to (many) 1-dimensional problems. \\
+Fix $v(\cdot) \in C^1$ on $[0,1]$ s.t. $v(0) = 0 = v(1)$. \\
+Suppose $u^*(\cdot) \in \mc{A}$ is a minimizer. \\
+Notice that $u^*(\cdot) + sv(\cdot) \in \mc{A}\, \forall s \in \real$. \\
+Let $f: \real \rightarrow \real$ s.t. $f(s) := F(u^*(\cdot) + sv(\cdot)$. \\
+If $u^*(\cdot)$ minimizes $F$, then $s=0$ minimizes $f$, then $f'(0) = 0$. \\
+Then $f(0) = F[u^*(\cdot)] \leq F[u^*(\cdot) + sv(\cdot)] = f(s)$ \\
+\begin{align}
+	f'(0) &= \frac{d}{ds}|_{s=0} \underbrace{F[u*(\cdot) + sv(\cdot)]}_{f(s)} \\
+	&= \frac{d}{ds}|_{s=0} \frac{1}{2} \int_0^1 \{ [u^*(x) + sv(x)]^2 + [u^{*'}(x) + sv'(x)]^2\} \, dx \\
+	&= \frac{1}{2}\frac{d}{ds}|_{s=0} \int_0^1 \{ u^*(x)^2 + u^{*'}(x)^2\} \, dx + \frac{d}{ds}|_{s=0} s \int_0^1 \{u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx + \frac{d}{ds}|_{s=0} \frac{s^2}{2} \int_0^1 \{v(x)^2 + v'(x)^2\} \, dx \\
+	&= \int_0^1 \{u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx
+\end{align}
+So far, if $u^*(\cdot)$ is a minimizer of $F$ over $\mc{A}$, then
+$$\int_0^1 \{u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx = 0 \quad (\heartsuit)$$
+for all $v(\cdot) \in C^1$ on $[0,1]$ and $v(0) = 0 = v(1)$.
+We call this a ``primitive form of 1st order condition", and call $v(\cdot)$ the test functions. \\
+Recall Integration by parts:
+$$\int_0^1 w(x)v'(x) \, dx = w(x)v(x)|_0^1 - \int_0^1 w'(x)v(x) \, dx$$
+\begin{align}
+	(\heartsuit) &= \int_0^1 u^*(x) v(x) \, dx + \int_0^1 u^{*'}(x) v'(x) \, dx \\
+	&=  \int_0^1 u^*(x) v(x) \, dx + \underbrace{u^{*'}(x)v(x)|_0^1}_{=0 \, (v(0) = v(1) = 0)} - \int_0^1 u^{*''}(x)v(x) \, dx \\
+	&= \int_0^1 \left(u^*(x) - u^{*''}(x)\right) v(x) \, dx \\
+	&= 0
+\end{align}
+For all test functions $v(\cdot)$.\\
+Next we will show that $(\heartsuit) \implies u^*(x) - u^{*''}(x) \equiv 0$
 
 
 

@@ -1,0 +1,43 @@
+\BOOKMARK [1][-]{section.1}{Matrix Calculus}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Matrix Multiplication}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Partitioned Matrices}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Matrix Differentiation}{section.1}% 4
+\BOOKMARK [1][-]{section.2}{Second-year Calculus Review}{}% 5
+\BOOKMARK [2][-]{subsection.2.1}{Mean Value Theorem in 1 Dimension}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.2}{1st Order Taylor Approximation}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.3}{2nd Order Mean Value Theorem}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.4}{Recall: Definition of gradient}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.5}{Mean Value Theorem in n dimension}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.6}{1st Order Taylor Approximation in Rn}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.7}{2nd Order Mean Value Theorem in Rn}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.8}{2nd Order Taylor Approximation in Rn}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.9}{Geometric Meaning of Gradient}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.10}{Implicit Function Theorem}{section.2}% 15
+\BOOKMARK [2][-]{subsection.2.11}{Level Sets of f}{section.2}% 16
+\BOOKMARK [1][-]{section.3}{Convex Sets \046 Functions}{}% 17
+\BOOKMARK [2][-]{subsection.3.1}{Definitions}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.2}{Basic Properties of Convex Functions}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.3}{Criterions for convexity}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.4}{Minimization and Maximization of Convex Functions}{section.3}% 21
+\BOOKMARK [1][-]{section.4}{Basics of Unconstrained Optimization}{}% 22
+\BOOKMARK [2][-]{subsection.4.1}{Extreme Value Theorem}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.2}{Unconstrained Optimization}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.3}{1st order necessary condition for local minimum}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.4}{2nd order necessary condition for local minimum}{section.4}% 26
+\BOOKMARK [2][-]{subsection.4.5}{2nd order sufficient condition \(for interior points\)}{section.4}% 27
+\BOOKMARK [1][-]{section.5}{Optimization with Equality Constraints}{}% 28
+\BOOKMARK [2][-]{subsection.5.1}{Definitions of Related Spaces}{section.5}% 29
+\BOOKMARK [2][-]{subsection.5.2}{Lagrange Multipliers: 1st order necessary condition for local minimum}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.3}{2nd order necessary condition for local minimum}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.4}{2nd order sufficient condition for local minimum}{section.5}% 32
+\BOOKMARK [1][-]{section.6}{Optimization with Inequality Constraints}{}% 33
+\BOOKMARK [2][-]{subsection.6.1}{Kuhn-Tucker conditions: 1st order necessary condition for local minimum}{section.6}% 34
+\BOOKMARK [2][-]{subsection.6.2}{2nd order necessary conditions for local minimum}{section.6}% 35
+\BOOKMARK [2][-]{subsection.6.3}{2nd order sufficient conditions}{section.6}% 36
+\BOOKMARK [1][-]{section.7}{Different Computation Methods for Solving Optimum}{}% 37
+\BOOKMARK [2][-]{subsection.7.1}{Newton's Method}{section.7}% 38
+\BOOKMARK [2][-]{subsection.7.2}{Method of Steepest Descent \(Gradient Method\)}{section.7}% 39
+\BOOKMARK [2][-]{subsection.7.3}{Method of Conjugate Direction}{section.7}% 40
+\BOOKMARK [3][-]{subsubsection.7.3.1}{Geometric Interpretations of Method of Conjugate Directions}{subsection.7.3}% 41
+\BOOKMARK [1][-]{section.8}{Calculus of Variations}{}% 42
+\BOOKMARK [2][-]{subsection.8.1}{Example}{section.8}% 43
