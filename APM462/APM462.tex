@@ -1254,9 +1254,8 @@ means: Find $u^*(\cdot) \in \mc{A}$ s.t. $F[u^*(\cdot)] \leq F[u(\cdot)]$ for al
 	\item Find a function $u^*(\cdot)$ satisfying these conditions;
 	\item Check this candidate $u^*(\cdot)$ is in fact a minimizer.
 \end{enumerate}
-
-\paragraph{Idea}
 We reduce this problem to (many) 1-dimensional problems. \\
+\tb{Step 1:} Derive 1st order necessary conditions for a local min \\
 Fix $v(\cdot) \in C^1$ on $[0,1]$ s.t. $v(0) = 0 = v(1)$. \\
 Suppose $u^*(\cdot) \in \mc{A}$ is a minimizer. \\
 Notice that $u^*(\cdot) + sv(\cdot) \in \mc{A}\, \forall s \in \real$. \\
@@ -1282,20 +1281,144 @@ $$\int_0^1 w(x)v'(x) \, dx = w(x)v(x)|_0^1 - \int_0^1 w'(x)v(x) \, dx$$
 	&= 0
 \end{align}
 For all test functions $v(\cdot)$.\\
-Next we will show that $(\heartsuit) \implies u^*(x) - u^{*''}(x) \equiv 0$
+
+\paragraph{Lemma: Fundamental Lemma of Calculus of Variations}
+Suppose $g$ is continuous function on interval $[a,b]$. If
+$$\int_a^b g(x)v(x) \, dx = 0$$ for all test functions $v(\cdot)$, then \\
+$g(x) \equiv 0$ on $[a,b]$.\\
+Then by Fundamental Lemma of Calculus of Variations, $(\heartsuit) \implies u^*(x) - u^{*''}(x) \equiv 0$, which is the 1st order necessary condition for $u^*(\cdot)$. \\
+\tb{Step 2:} Find a function $u^*(\cdot)$ satisfying these conditions
+\begin{align}
+\begin{cases}
+	u^*(x) = u^{*''}(x) \\
+	u^*(0) = u^*(1) = 1
+\end{cases} &\implies u^*(x) = c_1e^x + c_2e^{-x} \\
+\begin{cases}
+	1 = u^*(0) = c_1 + c_2 \\
+	1 = u^*(1) = c_1e + c_2 \frac{1}{e}
+\end{cases} &\implies c_1 = \frac{1}{e + 1}, c_2 = \frac{e}{e+1} \\
+&\implies u^*(x) = \frac{1}{e + 1} e^x + \frac{e}{e+1}e^{-x}
+\end{align}
+\tb{Step 3:} check $u^*(\cdot)$ is in fact a global minimizer. \\
+We derived that 
+$$F[u^*(\cdot) + sv(\cdot)] = F[u*(\cdot)] + \underbrace{s\int_0^1 \{ u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx}_{=0} + \underbrace{\frac{s^2}{2} \int_0^1 \{ v(x)^2 + v'(x)^2 \} \, dx}_{\geq 0}$$
+$$F[u*(\cdot)] \leq F[u*(\cdot) + sv(\cdot)]$$
+for all test functions $v(\cdot)$ and all $s \in real$. In particular, let $s = 1$, then\\
+$$F[u*(\cdot)] \leq F[u^*(x) + v(\cdot)]$$
+for all test functions $v(\cdot)$. In particular, let $v(\cdot) = u(\cdot) - u^*(\cdot)$, then
+$$F[u*(\cdot)] \leq F[u(\cdot)]$$ for all $u(\cdot) \in \mc{A}$. \\
+\textcolor{red}{Note: The space of $v(\cdot)$ is a vector space, but $\mc{A}$ is not a vector space (since $u(\cdot) \neq 0$). It is a translate of a vector space.}
+\paragraph{Lemma: Fundamental Lemma of Calculus of Variations}
+Suppose $g$ is continuous function on interval $[a,b]$. If
+$$\int_a^b g(x)v(x) \, dx = 0$$ for all test functions $v(\cdot)$, then \\
+$g(x) \equiv 0$ on $[a,b]$.\\
+\begin{proof}
+	Suppose for contradiction that $g(x) \not\equiv 0$ on $[a, b]$. \\
+	WLOG, $g(x_0) > 0$ for some $x_0 \in (a,b)$. This implies that $g > 0$ on $(c, d) \subsetneq (a,b)$. \\
+	Let $v(\cdot)$ be a continuous function s.t. 
+	$$ v(\cdot) \begin{cases}
+		> 0 \quad \text{on $(c,d)$} \\
+		= 0 \quad \text{otherwise}
+	\end{cases}$$
+	Then
+	$$\int_a^b g(x)v(x)\, dx = \int_c^d \underbrace{g(x) v(x)}_{>0} \, dx >0$$ which leads to a contradiction.
+\end{proof}
+
+\subsection{Classical Problem: the Brachistochrone}
+Galileo (1638): Find the curve connecting A and B on which a point mass moves without fiction under the influence of gravity in the least time possible.\\
+Johann Bernoulli (1696): Revisit the problem and sent invitations \\
+6 correct solutions sent (1697): \\
+Leibniz, Johann, \textcolor{blue}{Jacob}, l'Hospital, Von Tschinhaus, Anonymous $\rightarrow$ Newton (*)\\
+\textcolor{blue}{This answer is the beginning of Calculus of Variations}
 
 
+\subsection{General class of problems in Calculus of Variations}
+$$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
+$$F[u(\cdot)] = \int_a^b L(x,u(x),u'(x))\,dx$$ 
+where $L(x,z,p):[a,b] \times \real \times \real \rightarrow \real$
 
+\paragraph{Model example}
+$L(x, z, p) = \frac{z^2 + p^2}{2}, \quad F[u(\cdot)] = \int_0^1 \frac{u(x)^2 + u'(x)^2}{2} \, dx$\\
+\under{Notation:} 
+$$\begin{cases}
+	L_z (x,z,p) = \frac{\partial}{\partial z} L(x,z,p) \\
+	L_p (x,z,p) = \frac{\partial}{\partial p} L(x,z,p)
+\end{cases}$$
 
+\paragraph{Definition}
+Given $u(\cdot) \in \mc{A}$, suppose $\exists$ function $g(\cdot)$ on $[a,b]$ s.t.
+$$\frac{d}{ds}|_{s=0} F[u(\cdot) + sv(\cdot)] = \int_a^b g(x) v(x) \, dx$$ for all test functions $v(\cdot)$, then $g(\cdot)$ is called the \under{variational derivative} of $F$ at $u(\cdot)$, \\denoted by $\frac{\delta F}{\delta u}(u)(\cdot)$ or $\frac{\delta F}{\delta u}(u)$ or $\frac{\delta F}{\delta u}$.
 
+\paragraph{Analogy}
+\tb{In finite dimensions}:
+\begin{align}
+\frac{d}{ds}|_{s=0}f(u+sv) &= \textcolor{red}{\nabla f(u)\cdot v} \\
+&= \sum_i \nabla f(u)_i v_i	
+\end{align}
+for all $v \in \real^n$ \\
+\tb{In Calculus of Variations ($\infty$ dimensional)}:
+\begin{align}
+	\frac{d}{ds}|_{s=0} F[u(\cdot) + sv(\cdot)] &= \int_a^b \textcolor{red}{\frac{\delta F}{\delta u}(u)(x)} v(x) \, dx \tag{where possible} \\
+	&\sim \sum_x \frac{\delta F(u)}{\delta u} (x) v(x) \tag{a kind of an infinite sum}
+\end{align}
 
+\paragraph{Model example}
+$L(x, z, p) = \frac{z^2 + p^2}{2}, \quad F[u(\cdot)] = \int_0^1 \frac{u(x)^2 + u'(x)^2}{2} \, dx$\\
+$$\frac{d}{ds}|_{s=0} F[u(\cdot) + sv(\cdot)] = \hdots = \int_0^1 \textcolor{blue}{[u(x) - u''(x)]}v(x) \, dx$$ for all test functions $v(\cdot)$\\
+Therefore 
+$\frac{\delta F}{\delta u}(u)(x) = \textcolor{blue}{u(x) - u''(x)}$
 
+\paragraph{Lemma}
+$$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
+If $u^*(\cdot) \in \mc{A}$ minimizes $F$ over $\mc{A}$, and if $\frac{\delta F}{\delta u}(u^*)(\cdot)$ exists and is continuous, then it must satisfy
+$$\frac{\delta F}{\delta u}(u^*)(\cdot) \equiv 0$$
+\begin{proof}
+	note: $u^*(\cdot) + sv(\cdot) \in \mc{A}$ \\
+	If $u^*(\cdot)$ is a minimizer of $F$, then
+	$$F[u^*(\cdot) \leq F[u^*(\cdot) + sv(\cdot)]$$
+	for all test functions $v$. \\
+	Define $f(s) := F[u^*(\cdot) + sv(\cdot)]$, then $f(0) \leq f(s)$ for all $s \in \real$. \\
+	Then 
+	\begin{align}
+		\int_a^b \frac{\delta F}{\delta u}(u^*)(\cdot)v(x) \, dx
+		&= \frac{d}{ds}|_{s=0} F[u^*(\cdot) + sv(\cdot)] \tag{$\frac{\partial F}{\partial u}(u^*)(\cdot)$ exists} \\
+		&= \frac{d}{ds}|_{s=0} f(s)\\
+		&= f'(0) = 0 \tag{0 is the global minimize of $f$}
+	\end{align}
+	This implies that $\frac{\delta F}{\delta u}(u^*)(\cdot) \equiv 0$.
+\end{proof}
 
-
-
-
-
-
+\paragraph{Theorem: Euler-Langrange Equation}
+$$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
+$$F[u(\cdot)] = \int_a^b L(x,u(x),u'(x))\, dx$$
+where $L \in C^2$. \\
+Then if $u(\cdot) \in C^1$, then
+$\frac{\delta F}{\delta u}(u)(\cdot)$ exists, is continuous, and
+$$\frac{\delta F}{\delta u}(u)(x) = -\frac{d}{dx}[L_p(x,u(x),u'(x))] + L_z(x,u(x),u'(x))$$
+Then the Euler-Lagrange equation is given by
+\textcolor{red}{$$-\frac{d}{dx}[L_p(x,u(x),u'(x))] + L_z(x,u(x),u'(x)) = 0$$}\\
+\ti{\under{Note:}} The Euler-Lagrange equation is a second-order PDE whose solutions are the functions for which a given functional is stationary. Because a differentiable functional is stationary at its local maxima and minima, the Euler-Lagrange equation is useful for solving optimization problems in which, given some functional, one seeks the function minimizing or maximizing it. This is analogous to Fermat's Theorem in Calculus, stating that at any point where a differentiable function attains a local extremum its derivative is zero. \\
+\begin{proof}
+	
+\end{proof}
+\paragraph{Model example}
+$L(x, z, p) = \frac{z^2 + p^2}{2}, \quad F[u(\cdot)] = \int_0^1 \frac{u(x)^2 + u'(x)^2}{2} \, dx$\\
+$L_z(x,z,p) = z \implies L_z(x,u(x),u'(x)) = u(x)$ \\
+$L_p(x,z,p) = p \implies L_p(x,u(x),u'(x)) = u'(x)$ \\
+$$\frac{\delta F}{\delta u}(u(\cdot)) = -\frac{d}{dx}[u'(x)] + u(x) = -u''(x) + u(x)$$
+If $u^*(\cdot) \in \mc{A}$ is a minimizer, then
+$-u''(x) + u(x) = 0$
+\subsection{Example: min arclength}
+We will show that the straight line gives the shortest path.\\
+$$\min \, F[u(\cdot)] = \int_a^b(1+u'(x)^2)^\frac{1}{2}\,dx = \text{arclength of $u(\cdot)$}$$
+$$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
+Then $L(x,z,p) = (1+p^2)^{\frac{1}{2}}, L_z = 0$ and $L_p = \frac{p}{(1+p^2)^\frac{1}{2}}$ \\
+If $u^*(\cdot)$ is a minimizer, then
+$$- \frac{d}{dx}\frac{u'(x)}{(1+u'(x))^\frac{1}{2}} \equiv 0$$
+$\implies \frac{u'(x)}{(1+u'(x))^\frac{1}{2}} = const$ \\
+$\implies u'(x)^2 = const(1 + u'(x)^2)$ \\
+Then $u'(x) = \alpha$ for some $\alpha \in \real$. \\
+Then $u(x) = \alpha x + \beta $ for some $\beta \in \real$.
 
 
 \end{document}

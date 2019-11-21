@@ -143,4 +143,15 @@
 \contentsline {paragraph}{Notation}{30}{section*.142}% 
 \contentsline {subsection}{\numberline {8.1}Example}{30}{subsection.8.1}% 
 \contentsline {paragraph}{Plan}{30}{section*.143}% 
-\contentsline {paragraph}{Idea}{31}{section*.144}% 
+\contentsline {paragraph}{Lemma: Fundamental Lemma of Calculus of Variations}{31}{section*.144}% 
+\contentsline {paragraph}{Lemma: Fundamental Lemma of Calculus of Variations}{32}{section*.145}% 
+\contentsline {subsection}{\numberline {8.2}Classical Problem: the Brachistochrone}{32}{subsection.8.2}% 
+\contentsline {subsection}{\numberline {8.3}General class of problems in Calculus of Variations}{33}{subsection.8.3}% 
+\contentsline {paragraph}{Model example}{33}{section*.146}% 
+\contentsline {paragraph}{Definition}{33}{section*.147}% 
+\contentsline {paragraph}{Analogy}{33}{section*.148}% 
+\contentsline {paragraph}{Model example}{33}{section*.153}% 
+\contentsline {paragraph}{Lemma}{33}{section*.154}% 
+\contentsline {paragraph}{Theorem: Euler-Langrange Equation}{34}{section*.159}% 
+\contentsline {paragraph}{Model example}{34}{section*.160}% 
+\contentsline {subsection}{\numberline {8.4}Example: min arclength}{34}{subsection.8.4}% 

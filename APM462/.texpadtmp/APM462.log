@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  18 NOV 2019 14:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  21 NOV 2019 16:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -602,7 +602,7 @@ File: uesint.fd
 \openout5 = `APM462.toc'.
 
  [2] [3] [4]
-<p1.png, id=265, 559.08875pt x 557.08125pt>
+<p1.png, id=280, 559.08875pt x 557.08125pt>
 File: p1.png Graphic file (type png)
 <use p1.png>
 Package pdftex.def Info: p1.png  used on input line 187.
@@ -778,38 +778,63 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1172.
  [29]
-Underfull \hbox (badness 10000) in paragraph at lines 1259--1266
+Underfull \hbox (badness 10000) in paragraph at lines 1257--1265
 
  []
 
 [30]
-Overfull \hbox (37.75252pt too wide) detected at line 1271
+Overfull \hbox (37.75252pt too wide) detected at line 1270
 []
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 1282--1284
+
+ []
+
 [31]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1301.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1301.
+Underfull \hbox (badness 10000) in paragraph at lines 1305--1307
+
+ []
+
+[32]
+Underfull \hbox (badness 10000) in paragraph at lines 1366--1367
+
+ []
+
+[33]
+Underfull \hbox (badness 10000) in paragraph at lines 1405--1408
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1412--1413
+
+ []
+
+[34] [35]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1424.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1424.
  (/Users/raina/Desktop/UofT-notes/APM462/.texpadtmp/APM462.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1301.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1301.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1424.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1424.
 Package rerunfilecheck Info: File `APM462.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1301.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1424.
  ) 
 Here is how much of TeX's memory you used:
- 27238 strings out of 492616
- 653827 string characters out of 6129482
+ 27266 strings out of 492616
+ 654147 string characters out of 6129482
  828833 words of memory out of 5000000
- 30382 multiletter control sequences out of 15000+600000
+ 30385 multiletter control sequences out of 15000+600000
  13652 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,16n,96p,723b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/APM462/.texpadtmp/APM462.pdf (31 pages, 470082 bytes).
+Output written on /Users/raina/Desktop/UofT-notes/APM462/.texpadtmp/APM462.pdf (35 pages, 485440 bytes).
 PDF statistics:
- 785 PDF objects out of 1000 (max. 8388607)
- 721 compressed objects within 8 object streams
- 339 named destinations out of 1000 (max. 500000)
- 362 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 839 PDF objects out of 1000 (max. 8388607)
+ 771 compressed objects within 8 object streams
+ 364 named destinations out of 1000 (max. 500000)
+ 386 words of extra memory for PDF output out of 10000 (max. 10000000)
 
