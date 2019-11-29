@@ -1368,7 +1368,7 @@ $$\frac{d}{ds}|_{s=0} F[u(\cdot) + sv(\cdot)] = \hdots = \int_0^1 \textcolor{blu
 Therefore 
 $\frac{\delta F}{\delta u}(u)(x) = \textcolor{blue}{u(x) - u''(x)}$
 
-\paragraph{Lemma}
+\paragraph{Lemma}(1st order necessary conditions satisfied by a solution $u^*(\cdot) \in C^1$)
 $$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
 If $u^*(\cdot) \in \mc{A}$ minimizes $F$ over $\mc{A}$, and if $\frac{\delta F}{\delta u}(u^*)(\cdot)$ exists and is continuous, then it must satisfy
 $$\frac{\delta F}{\delta u}(u^*)(\cdot) \equiv 0$$
@@ -1388,6 +1388,12 @@ $$\frac{\delta F}{\delta u}(u^*)(\cdot) \equiv 0$$
 	This implies that $\frac{\delta F}{\delta u}(u^*)(\cdot) \equiv 0$.
 \end{proof}
 
+\paragraph{Theorem: Leibniz Integral Rule}
+Let $f(x,t)$ be a function such that both $f(x,t)$ and its partial derivative  $\frac{\partial}{\partial x} f(x,t)$ is continuous w.r.t. $t$ and $x$ in some region of the $(x,t)$-plane, including $a(x) \leq t \leq b(x), x_0 \leq x \leq x_1$. Also suppose that the functions $a(x)$ and $b(x)$ are both continuous and both have continuous derivatives for $x_0 \leq x \leq x_1$. Then, for $x_0 \leq x \leq x_1$,
+$$\frac{d}{dx}\left(\int_{a(x)}^{b(x)} f(x,t) \, dt\right) = f(x, b(x))\cdot \frac{d}{dx} b(x) - f(x, a(x)) \cdot \frac{d}{dx} a(x) + \int_{a(x)}^{b(x)} \frac{\partial}{\partial x} f(x,t) \, dt$$
+Note that if $a(x)$ and $b(x)$ are constants rather than functions of $x$, we have a special case of Leibniz's rule:
+$$\frac{d}{dx} \left( \int_a^b f(x,t)\, dt\right) = \int_a^b \frac{\partial}{\partial x} f(x,t)\, dt$$
+
 \paragraph{Theorem: Euler-Langrange Equation}
 $$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
 $$F[u(\cdot)] = \int_a^b L(x,u(x),u'(x))\, dx$$
@@ -1399,7 +1405,19 @@ Then the Euler-Lagrange equation is given by
 \textcolor{red}{$$-\frac{d}{dx}[L_p(x,u(x),u'(x))] + L_z(x,u(x),u'(x)) = 0$$}\\
 \ti{\under{Note:}} The Euler-Lagrange equation is a second-order PDE whose solutions are the functions for which a given functional is stationary. Because a differentiable functional is stationary at its local maxima and minima, the Euler-Lagrange equation is useful for solving optimization problems in which, given some functional, one seeks the function minimizing or maximizing it. This is analogous to Fermat's Theorem in Calculus, stating that at any point where a differentiable function attains a local extremum its derivative is zero. \\
 \begin{proof}
-	
+	Let $v$ be a test function ($v(a) = v(b) = 0$)
+	\begin{align}
+		\frac{d}{ds} |_{s=0} F[u(\cdot) + sv(\cdot)] 
+		&= \frac{d}{ds}|_{s=0}\int_a^b L(x, u(x) + sv(x), u'(x) + sv'(x)) \, dx \\
+		&= \int_a^b \frac{d}{ds}|_{s=0} L(x,z,p)\, dx \tag{By Leibniz's rule}\\
+		&= \int_a^b L_z(\cdot)v(x) + L_p(\cdot)v'(x)\, dx \\
+		&= \int_a^b L_z(\cdot)v(x) \, dx + \int_a^b L_p(\cdot)v'(x)\, dx \\
+		&= \int_a^b L_z(\cdot)v(x) \, dx + \textcolor{red}{L_p(\cdot)v(x)|_a^b} - \int_a^b \frac{d}{dx}L_p(\cdot)v(x) \, dx \tag{Integration by parts} \\
+		&= \int_a^b [-\frac{d}{dx}L_p(\cdot) + L_z(\cdot)]v(x) \, dx \text{  $\forall$ test functions $v(\cdot)$} 
+	\end{align}
+	By the definition of variational derivative, it follows that 
+	$$\frac{\delta F}{\delta u}(u)(x) = -\frac{d}{dx}[L_p(x,u(x),u'(x))] + L_z(x,u(x),u'(x))$$
+	Furthermore, since $L(\cdot) \in C^2, -\frac{d}{dx}L_p(\cdot)$ and $L_z(\cdot)$ are  continuous. Moreover, $u(\cdot)$ and $u'(\cdot)$ are continuous, so is the composite function. Hence the variational derivative is continuous. \qed
 \end{proof}
 \paragraph{Model example}
 $L(x, z, p) = \frac{z^2 + p^2}{2}, \quad F[u(\cdot)] = \int_0^1 \frac{u(x)^2 + u'(x)^2}{2} \, dx$\\
@@ -1420,5 +1438,42 @@ $\implies u'(x)^2 = const(1 + u'(x)^2)$ \\
 Then $u'(x) = \alpha$ for some $\alpha \in \real$. \\
 Then $u(x) = \alpha x + \beta $ for some $\beta \in \real$.
 
+\subsection{Example: Surface Area of Revolution}
+Suppose $u(\cdot) \in C^1$ on $[a,b]$, the surface area of rotating the curve $u$ connecting $a$ and $b$ can be computed as
+$$F[u(\cdot)] = \int_a^b 2\pi u(x) \sqrt{1 + u'(x)} \, dx$$
+For simplicity, assume $u > 0$. 
+In this example, the space of feasible functions is
+$$ \mc{A} = \{ u:[a,b] \rightarrow \real: u \in C^1, u(a) = A, u(b) = B, u > 0 \}$$
+If $u(\cdot)$ solves the minimization problem, it must be the case that
+$$\frac{\delta F}{\delta u}(u)(\cdot) \equiv 0 \quad (\dagger)$$
+Notice
+$$L(x,z,p) = 2\pi z \sqrt{1 + p^2}$$
+$$L_z(x,z,p) = 2\pi \sqrt{1 + p^2}$$
+$$L_p(x,z,p) = 2\pi z \frac{p}{\sqrt{1 + p^2}}$$
+\tb{Claim: } the family of $u(\cdot) = \beta \cosh(\frac{x - \alpha}{\beta})$ solves the necessary condition $\dagger$. \\
+\textbf{Instance 1} When $a=0, b=1, A=B=1$, plugging in the initial condition gives
+		\begin{align}
+			\begin{cases}
+				\beta \cosh \left(\frac{0-\alpha}{\beta}\right) &= 1 \\
+				\beta \cosh \left(\frac{1-\alpha}{\beta}\right) &= 1
+			\end{cases}
+		\end{align}
+		solving above system of equations provides the solution. \\
+		\textbf{Instance 2} When $a=0, b=1, A=1, B=0$, plugging in these initial conditions gives
+		\begin{align}
+			\begin{cases}
+				\beta \cosh \left(\frac{0-\alpha}{\beta}\right) &= 1 \\
+				\beta \cosh \left(\frac{1-\alpha}{\beta}\right) &= 0
+			\end{cases}
+		\end{align}
+		because $\cosh > 0$, the second equation suggests $\beta=0$, but in this case the first equation would never hold. \\
+		Therefore, there is no solution to this calculus of variation. \\
+		In face, the surface area is minimized by
+		\begin{align}
+			u(x) = \begin{cases}
+				1 &\text{ if } x = 0 \\
+				0 &\text{ otherwise}
+			\end{cases}
+		\end{align}
 
 \end{document}

@@ -1,0 +1,46 @@
+\contentsline {section}{\numberline {1}Lecture 9 - k-Means and EM Algorithm}{2}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}Latent variable models}{2}{subsection.1.1}% 
+\contentsline {subsection}{\numberline {1.2}Clustering}{2}{subsection.1.2}% 
+\contentsline {paragraph}{Example}{2}{section*.2}% 
+\contentsline {subsection}{\numberline {1.3}Clustering Problem}{2}{subsection.1.3}% 
+\contentsline {paragraph}{Assumptions}{2}{section*.3}% 
+\contentsline {subsection}{\numberline {1.4}K-means}{2}{subsection.1.4}% 
+\contentsline {paragraph}{Objective}{2}{section*.4}% 
+\contentsline {paragraph}{Objective Mathematically}{2}{section*.5}% 
+\contentsline {paragraph}{Notes}{2}{section*.6}% 
+\contentsline {subsubsection}{\numberline {1.4.1}K-means Algorithm}{2}{subsubsection.1.4.1}% 
+\contentsline {paragraph}{Performance}{3}{section*.7}% 
+\contentsline {subsection}{\numberline {1.5}Soft K-means}{3}{subsection.1.5}% 
+\contentsline {subsubsection}{\numberline {1.5.1}Soft K-means Algorithm}{3}{subsubsection.1.5.1}% 
+\contentsline {paragraph}{Remarks}{3}{section*.8}% 
+\contentsline {subsection}{\numberline {1.6}A Generative View of Clustering}{3}{subsection.1.6}% 
+\contentsline {paragraph}{Choose $\pi _k$ and $\mu _k$}{4}{section*.9}% 
+\contentsline {paragraph}{Note}{4}{section*.10}% 
+\contentsline {paragraph}{Maximum Likelihood objective}{4}{section*.11}% 
+\contentsline {subsection}{\numberline {1.7}Expectation-Maximization algorithm}{4}{subsection.1.7}% 
+\contentsline {paragraph}{Notes}{5}{section*.12}% 
+\contentsline {paragraph}{Remarks}{5}{section*.13}% 
+\contentsline {section}{\numberline {2}Reinforcement Learning}{5}{section.2}% 
+\contentsline {paragraph}{Problem}{5}{section*.14}% 
+\contentsline {subsection}{\numberline {2.1}Formalizing Reinforcement Learning Problems}{5}{subsection.2.1}% 
+\contentsline {paragraph}{Markov Decision Process (MDP)}{5}{section*.15}% 
+\contentsline {paragraph}{Policy}{6}{section*.16}% 
+\contentsline {paragraph}{Reward}{6}{section*.17}% 
+\contentsline {paragraph}{Discount Factor}{6}{section*.18}% 
+\contentsline {paragraph}{Transition Probability (or Dynamics)}{6}{section*.19}% 
+\contentsline {paragraph}{Value Function}{6}{section*.20}% 
+\contentsline {paragraph}{Notes}{7}{section*.21}% 
+\contentsline {subsection}{\numberline {2.2}Bellman Equation}{7}{subsection.2.2}% 
+\contentsline {paragraph}{Key observation}{7}{section*.22}% 
+\contentsline {paragraph}{Notes}{7}{section*.23}% 
+\contentsline {paragraph}{Greedy policy}{8}{section*.24}% 
+\contentsline {subsection}{\numberline {2.3}Finding the Value Function (Policy Evaluation Problem)}{8}{subsection.2.3}% 
+\contentsline {paragraph}{the Value Iteration method}{8}{section*.25}% 
+\contentsline {paragraph}{Contraction property of the Bellman operator}{9}{section*.26}% 
+\contentsline {paragraph}{Theorem}{9}{section*.27}% 
+\contentsline {paragraph}{Solution: Approximate/Fitted Value Iteration}{9}{section*.28}% 
+\contentsline {subsection}{\numberline {2.4}Q-Learning}{9}{subsection.2.4}% 
+\contentsline {paragraph}{Online RL}{9}{section*.29}% 
+\contentsline {paragraph}{Q-Learning with $\epsilon $-Greedy Policy}{10}{section*.30}% 
+\contentsline {paragraph}{Remarks}{10}{section*.31}% 
+\contentsline {subsection}{\numberline {2.5}Approaches to RL}{10}{subsection.2.5}% 

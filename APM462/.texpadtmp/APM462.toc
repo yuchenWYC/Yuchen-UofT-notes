@@ -152,6 +152,8 @@
 \contentsline {paragraph}{Analogy}{33}{section*.148}% 
 \contentsline {paragraph}{Model example}{33}{section*.153}% 
 \contentsline {paragraph}{Lemma}{33}{section*.154}% 
-\contentsline {paragraph}{Theorem: Euler-Langrange Equation}{34}{section*.159}% 
-\contentsline {paragraph}{Model example}{34}{section*.160}% 
-\contentsline {subsection}{\numberline {8.4}Example: min arclength}{34}{subsection.8.4}% 
+\contentsline {paragraph}{Theorem: Leibniz Integral Rule}{34}{section*.159}% 
+\contentsline {paragraph}{Theorem: Euler-Langrange Equation}{34}{section*.160}% 
+\contentsline {paragraph}{Model example}{35}{section*.165}% 
+\contentsline {subsection}{\numberline {8.4}Example: min arclength}{35}{subsection.8.4}% 
+\contentsline {subsection}{\numberline {8.5}Example: Surface Area of Revolution}{36}{subsection.8.5}% 

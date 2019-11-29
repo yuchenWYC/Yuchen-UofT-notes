@@ -1,0 +1,16 @@
+\BOOKMARK [1][-]{section.1}{Lecture 9 - k-Means and EM Algorithm}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Latent variable models}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Clustering}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Clustering Problem}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{K-means}{section.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.4.1}{K-means Algorithm}{subsection.1.4}% 6
+\BOOKMARK [2][-]{subsection.1.5}{Soft K-means}{section.1}% 7
+\BOOKMARK [3][-]{subsubsection.1.5.1}{Soft K-means Algorithm}{subsection.1.5}% 8
+\BOOKMARK [2][-]{subsection.1.6}{A Generative View of Clustering}{section.1}% 9
+\BOOKMARK [2][-]{subsection.1.7}{Expectation-Maximization algorithm}{section.1}% 10
+\BOOKMARK [1][-]{section.2}{Reinforcement Learning}{}% 11
+\BOOKMARK [2][-]{subsection.2.1}{Formalizing Reinforcement Learning Problems}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.2}{Bellman Equation}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.3}{Finding the Value Function \(Policy Evaluation Problem\)}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.4}{Q-Learning}{section.2}% 15
+\BOOKMARK [2][-]{subsection.2.5}{Approaches to RL}{section.2}% 16
