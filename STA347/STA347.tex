@@ -884,13 +884,13 @@ Suppose $X_n \overset{d}{\longrightarrow} X$ and $Y_n \overset{d}{\longrightarro
 \section{Law of Large Numbers}
 
 \theorem[Weak Law of Large Numbers]
-Let $X_n$ be i.i.d. with $\expect{|X_n|} < \infty$. Then $\bar{X}_n \rightarrow \expect{X_1}$ \red{in probability.}
+Let $X_n$ be i.i.d. with $\expect{|X_n|} < \infty$. Then \blue{$$\bar{X}_n \overset{p}{\longrightarrow} \expect{X_1}$$}
 
 \theorem[Strong Law of Large Numbers]
 Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with $\expect{|X_n|} < \infty$. Then \blue{$$\bar{X}_n \overset{a.s.}{\longrightarrow} \expect{X_1}$$}
 
 \theorem
-Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with $\expect{X_n^2} < \infty$. For $\mu = \expect{X_1}$. $$\bar{X}_n = (X_1 + \hdots + X_n) / n \rightarrow \mu$$ \red{almost surely and in $L^2$.}
+Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with \red{$\expect{X_n^2} < \infty$}.  $$\bar{X}_n = (X_1 + \hdots + X_n) / n \longrightarrow \expect{X_1}$$ \red{almost surely and in $L^2$.}
 
 \section{Central Limit Theorem}
 For $k \approx np$, the binomial probability is approximated by
