@@ -1,0 +1,924 @@
+\documentclass[11pt]{article}
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+\usepackage{esint}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{../raina}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Attr.
+\title{STA347 \\ Final Preparation}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+    \section{Experiments, Events and Sample Spaces}
+    \definition{Experiment, Sample space and event}
+    \begin{itemize}
+    	\item Experiment: Any process, real or hypothetical, in which the possible outcomes can be identified ahead of time;
+    	\item Sample space: The collection of all possible outcomes, denoted by $S$;
+    	\item Event: A well-defined subset of sample space
+    \end{itemize}
+   \definition[countably infinity]
+   A set is \tb{countably infinite} if its elements can be put in one-to-one correspondence with the set of natural numbers.
+   \definition[At most countable sets]
+   A set that is either finite or countably infinite is called an \tb{at most countable set}.
+   \theorem
+   Suppose $E, E_1, E_2, \hdots$ are events. The following are also events
+   \begin{enumerate}
+   	\item $E^c$
+   	\item $E_1 \cup E_2 \cup \hdots E_n$
+   	\item $\sum_{i=1}^\infty E_i$
+   \end{enumerate}
+   \section{Definition and Properties of Probability}
+   \definition[$\sigma$-field]
+   Let $\chi$ be a space. A collection $\mc{F}$ of subsets of $\chi$ is called a \tb{$\sigma$-field} if
+   \begin{enumerate}
+   	\item $\chi \in \mc{F}$
+   	\item (closure under complement) if $E \in \mc{F}$, then $E^c \in \mc{F}$
+   	\item (closure under countable union) if $E_1, E_2, \hdots \in \mc{F}$, then $\cup_{n=1}^\infty E_n \in \mc{F}$
+   \end{enumerate}
+   \remark A $\sigma$-field refers to the collection of subsets of a sample space that we should use in order to establish a mathematically formal definition of probability. The sets in the $\sigma$-field constitute the events from our sample space.
+   \axiom[Axioms of Probability]
+   Let $S$ be a sample space, and let $\mc{F}$ be a $\sigma$-field of $S$.
+   \begin{itemize}
+   	\item Axiom 1 (non-negativity) \(P(E) \geq 0\) for any event \(E \in \mathcal{F}\).
+   	\item Axiom \(2 \quad P(S)=1\)
+   	\item Axiom 3 (countable additivity) For every sequence of disjoint events \(E_{1}, E_{2}, \ldots \in \mathcal{F}\)
+$$
+P\left(\stackrel{\infty}{\cup} E_{i}\right)=\sum_{i=1}^{\infty} P\left(E_{i}\right)
+$$
+   \end{itemize}
+   \definition[probability] Any function $P$ on a sample space $S$ satisfying Axioms 1-3 is called a \tb{probability}.
+   \definition[disjoint sets] Sets $A$ and $B$ are \tb{disjoint} if $A \cap B = \emptyset$.
+   \theorem{Properties of Probability}
+   \begin{enumerate}
+   	\item $P(\emptyset) = 0$
+   	\item (finite additivity) For any disjoint events $E_1, \hdots, E_n$, $$P(\cup_{i=1}^n E_i) = \sum_{i=1}^n P(E_i)$$
+   	\item $P(A^c) = 1 - P(A)$
+   	\item For $A \subset B, P(A) \leq P(B)$
+   	\item $0 \leq P(A) \leq 1$
+   	\item $P(A- B) = P(A) - P(A \cap B)$
+   	\item $P(A\cup B) = P(A) + P(B) - P(A \cap B)$
+   	\item (subadditivity, Boole's inequality) For any events $E_1, \hdots, E_n$,
+   	$$P(\cup_{i=1}^n E_i) \leq \sum_{i=1}^n P(E_i)$$
+   \end{enumerate}
+
+\theorem[Continuity from below and above] Let $P$ be a probability. \\
+(continuity from below) If $A_n \nearrow A$ (i.e. $A_1 \subset A_2 \subset \hdots$ and $\cup_n A_n = A$), then $P(A_n) \nearrow P(A)$ \\
+(continuity from above) If $A_n \searrow A$ (i.e. $A_1 \supset A_2 \supset \hdots$ and $\cap_n A_n = A$), then $P(A_n) \searrow P(A)$ \\
+
+\subsection{Finite Sample Spaces}
+Suppose $|S| = n$, that is, $S= \{s_1, \hdots, s_n\}$. Then each member has probability, that is, $p_i = P(\{s_i\})$ such that
+$$p_i \geq 0 \text{ and } \sum_{i=1}^n p_i = 1$$ 
+
+\section{Classical Equal Probability and Combinatorics}
+\definition[permutation]
+When there are $n$ elements, the number of events pulling $k$ elements out of $n$ elements is called a \tb{permutation} of $n$ elements taken $k$ at a time and denoted by $P_{n,k}$.
+\theorem
+$$P_{n,k} = n(n-1)\hdots(n-k+1) = \frac{n!}{(n-k)!}$$
+
+\definition[combination]
+The number of combinations of $n$ elements taken $k$ at a time is denoted by $C_{n,k}$ or $n \choose k$.
+\theorem
+$$C_{n,k} =  {n \choose k } = \frac{n!}{k!(n-k)!} = P_{n,k} / k!$$
+\theorem[Binomial coefficients]
+$$(x+y)^n = \sum_{k=0}^n {n \choose k} x^ky^{n-k}$$
+\theorem[Newton Expansion]
+For $|z| < 1$, the term $(1 + z)^r$ can be expanded as
+$$(1+z)^r = \sum_{k=0}^\infty {r \choose k} z^k$$
+\theorem
+$${n \choose k} = \frac{r(r-1)\hdots(r-k+1)}{k!} = \frac{\Gamma(r + 1)}{\Gamma(r - k + 1)\Gamma(k + 1)}$$
+with $\Gamma(\alpha) = \int_0^\infty x^{\alpha - 1}e^{-x} \, dx$
+\theorem
+For any numbers $x_1, \hdots, x_k$ and non-negative integer $n$,
+$$(x_1 + \hdots + x_k)^n = \sum {n \choose n_1, \hdots, n_k} x_1^{n_1} \hdots x_k^{n_k}$$
+It is easy to see that
+\begin{equation}
+\begin{aligned}\left(\begin{array}{c}{n} \\ {n_{1}, \ldots, n_{k}}\end{array}\right) &=\left(\begin{array}{c}{n} \\ {n_{1}}\end{array}\right)\left(\begin{array}{c}{n_{2}+\cdots+n_{k}} \\ {n_{2}}\end{array}\right)\left(\begin{array}{c}{n_{3}+\cdots+n_{k}} \\ {n_{3}}\end{array}\right) \cdots\left(\begin{array}{c}{n_{k}} \\ {n_{k}}\end{array}\right) \\ &=\frac{n !}{n_{1} ! \cdots n_{k} !} \end{aligned}
+\end{equation}
+
+\theorem[Stirling's formula]
+$$\lim_{n \rightarrow \infty} \left| \log(n!) - [\frac{1}{2}\log(2\pi) + (n + \frac{1}{2})\log(n) - n] \right | = 0$$
+
+\section{Inclusion-Exclusion Formula}
+For any $n$ events $A_1, \hdots, A_n$,
+\begin{equation}
+\begin{aligned} P\left(\cup_{i=1}^n A_{i}\right)=& \sum_{i=1}^{n} P\left(A_{i}\right)-\sum_{i<j} P\left(A_{i} \cap A_{j}\right)+\sum_{i<j<k} P\left(A_{i} \cap A_{j} \cap A_{k}\right)+\cdots \\ &+(-1)^{n-1} P\left(A_{1} \cap \cdots \cap A_{n}\right) \end{aligned}
+\end{equation}
+
+\section{Conditional Probability}
+\definition[conditional probability]
+When $P(B) > 0$, the \tb{conditional probability} of an event $A$ given $B$ is defined by $$P(A|B) = P(A\cap B) / P(B)$$
+
+\theorem
+If $P(B) > 0$, then $P(A \cap B) = P(A|B)P(B)$.
+\theorem
+Let $A_1, \hdots, A_n$ be events with $P(A_1 \cap \hdots \cap A_n) > 0$. Then
+\begin{equation}
+P\left(A_{1} \cap \cdots \cap A_{n}\right)=P\left(A_{1}\right) P\left(A_{2} | A_{1}\right) P\left(A_{3} | A_{1}, A_{2}\right) \cdots P\left(A_{n} | A_{1}, \ldots, A_{n-1}\right)
+\end{equation}
+
+\section{Independence}
+\definition[independence]
+Two events $A$ and $B$ are \tb{independent} if and only if 
+$$P(A\cap B) = P(A)P(B)$$.
+A collection of events $\{A_i\}_{i\in I}$ are said to be \tb{(mutually) independent} if
+$$P(\cap_{i\in J} A_i) = \Pi_{i\in J} P(A_i)$$
+for any $\emptyset \neq J \subset I$. \\
+A collection of events $\{A_i\}_{i\in I}$ are said to be \tb{pair-wise independent} if
+$$P(A_i \cap A_j) = P(A_i)P(A_j)$$
+for $i \neq j \in I$.
+
+\theorem Two events $A$ and $B$ are independent if and only if $A$ and $B^c$ are independent.
+
+\definition[conditionally independence]
+Two events $A$ and $B$ are \tb{conditionally independent} given $C$ if
+$$P(A\cap B | C) = P(A|C)P(B|C)$$
+\remark Conditional independence does not imply independence.
+
+\section{Bayes Theorem}
+\definition
+A collection of sets $B_1, \hdots, B_k$ is called a \tb{partition} of $A$ if and only if $B_1, \hdots, B_k$ are disjoint and $A = \cup_{i=1}^k B_i$.
+\theorem[Law of total probability]
+Let events $B_1, \hdots, B_k$ be a partition of $S$ with $P(B_j) > 0$ for all $j = 1,\hdots, k$. For any event $A$,
+$$P(A) = \sum_{j=1}^k P(B_j)P(A|B_j)$$
+\theorem[Bayes' Theorem]
+If $ 0 < P(A), P(B) < 1$, then
+$$P(B|A) = \frac{P(A|B)P(B)}{P(A|B)P(B) + P(A|B^c)P(B^c)}$$
+
+\section{Random Variables}
+\definition
+A real-valued function $X$ on the sample space $S$ is called a \tb{random variable} if the probability of $X$ is well-defined, that is, $\{ s \in S: X(s) \leq r\}$ is an event for each $r \in \real$.
+
+\definition[Borel sets in $\real$]
+The collection of all Borel sets $\mc{B}$ in $\real$ is the smallest collection satisfying the followings
+\begin{enumerate}
+	\item $(a,b] \in \mc{B}$ for any $a < b \in \real$
+	\item (closure under complement) For any $B \in \mc{B}, B^c \in \mc{B}$
+	\item (closure under countable union) For any $B_1, B_2, \hdots \in \mc{B}, \cup_{j=1}^\infty B_j \in \mc{B}$
+\end{enumerate}
+We call the collection $\mc{B}$ the \tb{Borel $\sigma$-field}
+
+\definition[Probability of a random variable]
+For any Borel set $B$ in $\real$, an event $X \in B$ is defined as $\{s \in S: X(s) \in B\}$ and often denoted by $\{ X \in B\}$ or $(X \in B)$. The corresponding probability is
+$$P(X \in B) = P(\{ s \in S: X(s) \in B\})$$
+\lemma 
+If $|X(S)| < \infty$ and $(X = r)$ is an event for any $r \in X(S)$, then $X$ is a random variable.
+
+\definition[distribution]
+The \tb{distribution} of $X$ is the collection of all probabilities of all events induced by $X$, that is, $(B, P(X \in B))$. Two random variables $X$ and $Y$ are said to be \tb{identically distributed} if they have the same distribution.
+
+\remark
+\blue{
+To show X and Y having the same distribution, we need to check for any event $B$ on $\real$, $P(X \in B) = P(Y \in B)$. Since all Borel sets on $\real$ are induced by intervals, it is enough to prove $$P(a < X \leq b) = P(a < Y \leq b)$$ for any $a < b \in \real$. Even $P(X \leq a)=P(Y \leq a)$ for any $a \in \real$ guarantees that $X$ and $Y$ are identically distributed.
+}
+
+\definition[discrete random variable]
+A random variable $X$ is said to be \tb{discrete} if $P(X = x) = 0$ or $P(X = x) > 0$ and $P(X \in \chi_0) = 1$ where $\chi_0 = \{ x \in \real: P(X = x) > 0\}$
+
+\definition[probability mass function]
+The \tb{probability mass function} (pmf) of a discrete random variable $X$ is
+$$pmf_X(x) = P(X=x)$$
+for any possible value of $x \in X(S)$.
+
+\theorem
+Let $X$ be a discrete random variable. Then the set of $x$ having $P(X = x)$ is at most countable.
+
+\theorem
+Let $f$ be the pmf of a discrete random variable $X$. The set of possible values of $X$ is $X(S) = \{x_1, x_2, \hdots\}$. For $x \notin X(S) \geq 0$ and $\sum_{i=1}^\infty f(x_i) = 1$.
+
+\theorem
+Let $X(S) = \{x_1, x_2, \hdots\}$ be the set of possible values of a discrete random variable $X$. Then for any subset $A$ of $\real$,
+$$P(X \in A) = \sum_{x \in A}P(\{x\}) = \sum_{x \in A}pmf_X(x)$$
+\definition[absolutely continuity and probability density function]
+A random variable $X$ is said to be \tb{absolutely continuous} if the probability of each interval $[a, b]$ is of the form
+$$P(a < X \leq b) = \int_a^b f(x)\,dx$$
+where $a < b\in \real$ and $f$ is a non-negative function on $\real$. Such function $f$ is called a \tb{probability density function} (pdf) of $X$.
+\theorem
+Let $X$ be a continuous random variable. Then
+$$pdf_X(x) = \frac{d}{dx}P(X\leq x)$$
+
+\subsection{Examples of Random Variables}
+\definition[Bernoulli]
+A random variable $X$ taking value 0 or 1 with $P(X=1) = p$ and $P(X = 0) = 1 -p$ for some $p \in [0,1]$ is called a \tb{Bernoulli} random variable with success probability $p$ and often denoted by $X \sim$ Bernoulli($p$).
+
+\definition[discrete uniform]
+Let $\chi$ be a non-empty finite set. A random variable $X$ taking values in $\chi$ with equal probability is called a uniform random variable on $\chi$ and denoted by $X \sim uniform(\chi)$. \\
+The probability mass function of $X \sim uniform(\chi)$ is
+$$pmf_X(x) = \begin{cases}
+	\frac{1}{|\chi|} &\text{if $x \in \chi$} \\
+	0 &\text{otherwise}
+\end{cases} $$
+\definition[binomial]
+A random variable $X$ is called a \tb{binomial} random variable if it has the same distribution as $Z$ which is the number of success in $n$ independent trails with success probability $p$, and denoted by $X \sim$ binomial$(n,p)$.\\
+The probability mass function of $X \sim$ binomial$(n, p)$ is
+$$pmf_X(x) = \begin{cases}
+	{n \choose x} p^x(1-p)^{n-x} &\text{if $n = 0,1, \hdots$} \\
+	0 &\text{otherwise}
+\end{cases} $$
+
+\definition[continuous uniform]
+A random variable $X$ defined on $(a,b)$ for finite real numbers $a < b$ satisfying $P(c < X \leq d) = \frac{d-c}{b-a}$ for any $c,d$ such that $a\leq c \leq d\leq b$ is called a \tb{uniform} random variable on $(a,b)$ which is denoted by $X \sim$ uniform$(a,b)$.
+The probability mass function of $X \sim uniform(a,b)$ is
+$$pmf_X(x) = \begin{cases}
+	\frac{1}{b-a} &\text{if $a < x<b$} \\
+	0 &\text{otherwise}
+\end{cases} $$
+
+\definition[geometric]
+Consider an independent Bernoulli trial with success probability $p$. The number of trials until the first success is called a \tb{geometric} distribution with parameter $p$, denoted by geometric($p$). \\
+The geometric random variable $X \sim geometric(p)$ has probability mass function as
+$$pmf_X(n) = (1-p)^{n-1}p$$
+for $n \in \mb{N}$.
+
+
+
+\definition[negative binomial]
+Consider an independent Bernoulli trial with success probability $p$. The number of trials until $k$-th success is called a \tb{negative binomial} distribution with parameter $k$ and $p$, denoted by neg-bin($k$, $p$).\\
+The negative binomial random variable $X \sim neg-bin(k, p)$ has probability mass function as
+$$pmf_X(n) = {n-1 \choose k-1}(1-p)^{n-k}p^k$$
+for $n \in \mb{N}$ s.t. $n \geq k$.
+
+\definition[hypergeometric]
+Consider a jar containing \(n\) balls of which \(r\) are black and the remainder \(n-r\) are white.
+The random variable \(X\) is the number of black balls when \(m\) balls are drawn without
+replacement. The probability of \(k\) black balls are drawn is
+$$
+\operatorname{pmf}_{X}(k)=\left\{\begin{array}{cc}{\left(\begin{array}{c}{n-r} \\ {m-k}\end{array}\right) /\left(\begin{array}{c}{n} \\ {m}\end{array}\right)} & {\text { if } k=0, \ldots, \min (r, m)} \\ {0} & {\text { otherwise. }}\end{array}\right.
+$$
+Such distribution is called a \tb{hypergeometric} distribution.
+
+\definition[zeta/zipf]
+A positive integer valued random variable \(X\) follows a \tb{Zeta} or \tb{Zipf} distribution if
+$$
+\operatorname{pmf}_{X}(n)=\frac{n^{-s}}{\zeta(s)}
+$$
+for \(n=1,2, \ldots\) and \(s>1\) where \(\zeta(s)=\sum_{n=1}^{\infty} n^{-s}\)
+
+\definition[Poisson]
+A \tb{Poisson} distribution with parameter $\mu > 0$ has the probability mass function
+$$ pmf_X(n) = e^{-\mu}\frac{\mu^n}{n!}$$
+for non-negative integer $n$.
+
+\theorem
+If $X \sim Poisson(\lambda)$ and the distribution of $Y$, conditional on $X = k$, is a binomial distribution, $Y | (X=k) \sim Binom(k,p)$, then the distribution of $Y$ follows a Poisson distribution $Y \sim Poisson(\lambda \cdot p)$
+
+\theorem[Sums of Poisson-distributed random variables]
+If $X_i \sim Poisson(\lambda_i)$ for $i = 1,\hdots,n$ are independent, and $\lambda = \sum_{i=1}^n \lambda_i$, then $Y = \left( \sum_{i=1}^n X_i\right) \sim Poisson(\lambda)$.
+
+
+\definition[Exponential]
+A continuous random variable \(W\) having the probability density
+$$
+\operatorname{pdf}_{W}(w)=\lambda e^{-\lambda w} 1(w>0)
+$$
+is distributed from an exponential distribution with parameter \(\lambda>0,\) which is denoted by
+\(W \sim\) exponential \((\lambda)\).
+
+\subsection{Cumulative Distribution Function}
+The \tb{(cumulative) distribution function} of a random variable \(X\) is the function
+$$
+\operatorname{cdf}_{X}(x)=F_{X}(x)=P(X \leq x)
+$$
+for \(-\infty<x<\infty\).
+
+\theorem[properties of distribution functions]
+Let \(F\) be a distribution function. Then\\
+(a) \(F\) is nondecreasing,\\
+(b) \(\lim _{x \rightarrow \infty} F(x)=1\) and \(\lim _{x \rightarrow-\infty} F(x)=0\),\\
+(c) \(F\) is right continuous, that is, \(\lim _{y} \searrow F(y)=F(x),\)\\
+(d) \(F(x-):=\lim _{y}, \gamma F(y)=P(X<x)\)\\
+(e) \(P(X=x)=F(x)-F(x-)\)
+
+\theorem
+If a real function $F$ satisfies (a)-(c) in the above properties, then it is a distribution function of a random variable.
+
+\definition[$p$-quantile]
+The $p$-quantile of a random variable $X$ is $x$ such that $P(X \leq x) \geq p$ and 
+$P(X \geq x) \geq p$ and $P(X \geq x) \geq 1-p$.
+
+\definition
+ The median, lower quartile, upper quartile are 0.5-, 0.25-, 0.75-quantile. The inter quartile range (IQR) is the difference between upper and lower quartile.
+
+\subsection{Multivariate Distributions}
+\subsubsection{Bivariage Distributions}
+\definition
+The \tb{joint/bivariate distribution} of two random variables $X$ and $Y$ is the collection of all possible probabilities, that is, $P((X, Y) \in B)$ where $B$ is a Borel set in $\real^2$.
+
+\definition
+Two random variables $X$ and $Y$ are jointly continuously distributed if and only if there exists a non-negative function $f$ such that for any Borel set $B$ in $\real^2$
+$$P((X, Y) \in B) = \iint_B f(x,y)\,dx\,dy$$
+Such function $f$ is called a \tb{joint density function} of $(X, Y)$.
+
+\theorem[Properties of joint density functions]
+Joint density functions satisfies
+\begin{enumerate}
+	\item $$pdf_{X,Y}(x,y) \geq 0$$
+	\item $$\iint pdf_{X, Y} (x,y) \,dx\,dy = 1$$
+\end{enumerate}
+
+\definition
+The \tb{joint (cumulative) distribution function} of $X$ and $Y$ is
+$$cdf_{X,Y}(x,y) = P(X \leq x, Y \leq y)$$
+
+
+\definition
+When $X$ and $Y$ are discrete, then the \tb{joint probability mass function} of $X$ and $Y$ is defined by
+$$pmf_{X,Y}(x,y) = P(X=x, Y=y)$$
+
+
+
+\theorem[Properties of joint probability mass functions] Satisfies \\
+\begin{enumerate}
+	\item $$pmf_{X,Y}(x,y) \geq 0$$
+	\item $$\sum_{x,y} pmf_{X, Y} (x,y) = 1$$
+\end{enumerate}
+
+\theorem
+Consider two random variables $X$ and $Y$.
+\begin{align*}
+	\underset{y \rightarrow - \infty}{\lim}cdf_{X,Y}(x,y) &= 0 \\
+	\underset{x \rightarrow - \infty}{\lim}cdf_{X,Y}(x,y) &= 0 \\
+	\underset{y \rightarrow  \infty}{\lim}cdf_{X,Y}(x,y) &= cdf_X(x) \\
+	\underset{x \rightarrow  \infty}{\lim}cdf_{X,Y}(x,y) &= cdf_Y(y) \\
+\end{align*}
+
+\subsubsection{Marginal Distributions}
+Suppose $X$ and $Y$ are random variables. The cdf or pmf or pdf of $X$ (or $Y$) derived from the joint cdf or pmf or pdf is called the \tb{marginal} cdf or pmf or pdf of $X$ (or $Y$).
+
+\theorem
+\begin{enumerate}
+	\item $$pmf_X(x) = \sum_y pmf_{X,Y}(x,y)$$
+	\item $$pdf_X(x) = \int pdf_{X,Y}(x,y)\, dy$$
+\end{enumerate}
+
+\definition
+Two random variables $X$ and $Y$ are \tb{independent} if and only if 
+$$P(X \in A, Y \in B) = P(X \in A)P(Y \in B)$$
+
+\theorem
+If two random variables $X$ and $Y$ are independent, then the following hold if the functions exist.
+\begin{enumerate}
+	\item $cdf_{X,Y}(x,y) = cdf_X(x) \times cdf_Y(y)$ for all $x,y$
+	\item $pmf_{X,Y}(x,y) = pmf_X(x) \times pmf_Y(y)$ for all $x,y$
+	\item $pdf_{X,Y}(x,y) = pdf_X(x) \times pdf_Y(y)$ for all $x,y$
+\end{enumerate}
+
+\theorem
+If one of the following hold, then two random variables $X$ and $Y$ are independent.
+\begin{enumerate}
+	\item $cdf_{X,Y}(x,y) = cdf_X(x) \times cdf_Y(y)$ for all $x,y$
+	\item $pmf_{X,Y}(x,y) = pmf_X(x) \times pmf_Y(y)$ for all $x,y$
+	\item $pdf_{X,Y}(x,y) = pdf_X(x) \times pdf_Y(y)$ for all $x,y$
+\end{enumerate}
+
+\subsubsection{Conditional Distributions}
+\definition
+The conditional density of $X$ given $Y=y$ is
+$$pdf_{X|Y}(x|y) = \frac{pdf_{X,Y}(x,y)}{pdf_Y(y)}$$
+
+\theorem
+$$pdf_{X,Y}(x,y) = pdf_X(x)pdf_{X|Y}(x|y)$$
+\subsubsection{Multivariate Distributions}
+
+\definition
+The joint cumulative distribution function of $n$ variables $X_1, \hdots, X_n$ is defined by
+$$cdf_{X_1, \hdots, X_n}(x_1, \hdots, x_n) = P(X_1 \leq x_1, \hdots, X_n \leq x_n)$$
+The joint probability mass/density function of $n$ discrete/continuous random variables $X_1, \hdots, X_n$ is 
+$$pmf_{X_1,\hdots,X_n}(x_1,\hdots,x_n) = P(X_1 = x_1, \hdots, X_n = x_n)$$
+$$P((X_1, \hdots, X_n) \in B) = \int \underset{B}{\hdots}\int pdf_{X_1, \hdots, X_n}(x_1, \hdots, x_n) \,dx_n \hdots dx_1$$
+\definition
+Let $X_1, \hdots, X_n$ be random variables. Marginal cumulative distribution, probability mass, probability density functions of $X_1, \hdots, X_{i-1}, X_{i+1}, \hdots, X_n$ are
+\begin{align}
+	cdf_{X_1,\hdots,X_{i-1}, X_{i+1}, \hdots, X_n(x_1, \hdots, x_{i-1}, x_{i+1},\hdots, x_n)} = \underset{x_i \rightarrow \infty}{\lim}cdf_{X_1,\hdots,X_{i-1}, X_i, X_{i+1}, \hdots, X_n}(x_1, \hdots, x_{i-1}, x_i, x_{i+1},\hdots, x_n)\\
+	pmf_{X_1,\hdots,X_{i-1}, X_{i+1}, \hdots, X_n(x_1, \hdots, x_{i-1}, x_{i+1},\hdots, x_n)} = \sum_{x_i}pmf_{X_1,\hdots,X_{i-1}, X_i, X_{i+1}, \hdots, X_n}(x_1, \hdots, x_{i-1}, x_i, x_{i+1},\hdots, x_n)\\
+	pdf_{X_1,\hdots,X_{i-1}, X_{i+1}, \hdots, X_n(x_1, \hdots, x_{i-1}, x_{i+1},\hdots, x_n)} = \int pdf_{X_1,\hdots,X_{i-1}, X_i, X_{i+1}, \hdots, X_n}(x_1, \hdots, x_{i-1}, x_i, x_{i+1},\hdots, x_n) \, dx_i
+\end{align}
+\theorem
+Let $X_1, \hdots, X_n$ be continuous random variables having cdf. Then
+$$pdf_{X_1,\hdots,X_n}(x_1, \hdots, x_n) = \frac{\pd^n}{\pd x_1 \hdots \pd x_n}F(x_1,\hdots, x_n)$$
+\definition
+Random variables $X_1, \hdots, X_n$ are \tb{independent} if and only if for any Borel sets $B_1, \hdots, B_n$
+$$P(X_1 \in B_1, \hdots, X_n \in B_n) = P(X_1 \in B_1)\hdots P(X_n \in B_n)$$
+\theorem
+Random variables $X_1, \hdots, X_n$ are \tb{independent} if and only if 
+$$cdf_{X_1, \hdots, X_n}(x_1,\hdots,x_n) = cdf_{X_1}(x_1)\hdots cdf_{X_n}(x_n)$$
+\subsection{Functions of Random Variables}
+\theorem
+Let X be a discrete random variable and $Y = g(X)$ be a \under{transformed random variable} where $g: \real \rightarrow \real$ is a function. The pmf of $Y$ is
+$$pmf_Y(y) = \sum_{x:g(x) = y}pmf_X(x)$$
+\theorem
+Let X be a continuous random variable and $Y = g(X)$ be a \under{transformed random variable} where $g$ is an appropriate transformation like continuous increasing. The cdf of $Y$ is
+$$cdf_Y(y) = \int_{\{x:g(x) \leq y\}} pdf_X(x) \, dx$$
+The probability density function of $Y$ is
+$$pdf_Y(y) = \frac{d}{dy} cdf_Y(y)$$
+
+\theorem 
+Let $X$ be a continuous random variable and $F(x) = cdf_X(x)$. Then new random variable $Y=F(X)$ is uniformly distributed on $(0,1)$, that is, $Y \sim uniform(0,1)$.
+
+\theorem[change of variable]
+Let $X$ be a continuous random variable and $g$ be a one-to-one and differentiable function. Then the density of random variable $Y = g(X)$ is
+$$pdf_Y(y) = pdf_X(g^{-1}(y))\abs{\frac{d}{dy}g^{-1}(y)}$$
+whenever $y$ is in the range of $Y(S)$.
+
+\theorem
+Consider discrete random variables $X_1, \hdots, X_n$. There exist $m$ functions $g_1, \hdots, g_m$ so that $Y_i = g_i(X_1, \hdots, X_n)$. The joint probability mass function of $Y = (Y_1, \hdots, Y_m)$ is 
+$$pmf_Y(y) = \sum_{x:g_i(x) = y_i, i=1,\hdots,m} pmf_X(x)$$
+\definition
+Random variables $X_1, \hdots, X_n$ are said to be \tb{independent} and \tb{identically distributed (i.i.d)} if all random variables have the same distribution and are independent.
+
+\theorem
+Let $X$ and $Y$ be jointly continuous random variables. The density of $Z = X + Y$ is
+$$pdf_Z(z) = \int pdf_{X,Y}(x,z-x) \, dx$$
+If $X$ and $Y$ are independent, then
+$$pdf_X(z) = \int pdf_X(x)pdf_Y(z-x)\, dx$$
+
+\theorem[change of variable]
+Suppose $X_1, \hdots, X_n$ have a joint density function $f(x_1, \hdots, x_n)$ and $Y_i = g_i(X_1, \hdots, X_n)$ for one-to-one correspondent and differentiable functions $g_i$'s, say $y = g(x)$. The joint density of $Y_1, \hdots, Y_n$ is
+$$pdf_Y(y) = pdf_X(x) \abs{ \det \left ( \frac{\pd(x_1, \hdots, x_n)}{\pd(y_1, \hdots, y_n)} \right)}$$
+where $x = (x_1, \hdots, x_n) = g^{-1}(y)$
+
+\subsection{Expectation}
+\definition{expectation}
+The \tb{expectation} (or expected value or mean value) of a discrete random variable is 
+$$\expect{X} = \sum_x x \times P(X=x) = \sum_x x \times pmf_X(x)$$
+when the sum is absolutely convergent.
+\definition
+The expectation of a continuous random variable $X$ is defined by
+$$\expect{X} = \int x \times pdf_X(x) \, dx$$
+
+\theorem
+Assume a discrete random variable $X$ is non-negative. Then
+$$\expect{X} = \int_0^\infty P(X > z)\, dz = \int_0^\infty x \, dF(x)$$
+
+\corollary
+Let $X$ be a non-negative integer valued random variables. Then
+$$\expect{X} = \sum_{n=1}^\infty P(X \geq n)$$
+
+\lemma
+Let $F$ be the cumulative distribution function of a random variable $X$. For an interval, \red{$$P(a < X \leq b) = \expect{1(a < X \leq b)}$$} In general, for each event $A$ of $X$,
+\red{$$P(X \in A) = \expect{1 (X \in A)}$$}
+
+\theorem
+For any random variable $X$ with finite expectation,
+$$\expect{X} = \int_0^\infty P(X > z)\,dz - \int_{-\infty}^0 P(X < z) \, dz = \int_{-\infty}^\infty x \, dF(x)$$
+
+\theorem
+Let $X$ be a random variable and $g$ be a function on $\real$. If expectation of $Y = g(X)$ is defined, then
+$$\expect{Y} = \int g(x)\, d\, cdf_X(x) = \int_{-\infty}^\infty g(x) \cdot pdf_X(x) \, dx$$ or 
+$$\expect{Y} = \int g(x)\, d\, cdf_X(x) = \sum_x g(x) \cdot pdf_X(x)$$
+
+\lemma
+Assume $X, Y \geq 0$ with probability 1, that is, $P(X \geq 0, Y \geq 0) = 1$, then
+$$\expect{X + Y} = \expect{X} + \expect{Y}$$
+and
+$$\expect{X - Y} = \expect{X} - \expect{Y}$$
+
+\theorem[Properties of Expectation]
+Satisfies\\
+\begin{enumerate}
+	\item (linearity) Let $Y = aX + b$, then $$\expect{Y} = a\expect{X} + b$$
+	\item (monotonicity) If $X \geq 0$, that is, $P(X \geq 0) = 1$, then $E(X) \geq 0$
+	\item (additivity) $\expect(X + Y) = \expect{X} + \expect{Y}$
+	\item For constant random variable 1, $\expect{1} = 1$
+\end{enumerate}
+
+\theorem
+Let $X$ and $Y$ be two independent random variables and $g$ and $h$ be real functions satisfying $g(X)$ and $h(Y)$ are random variables with finite expectations. Then
+$$\expect{g(X)h(Y)} = \expect{g(X)}\expect{h(Y)}$$
+
+\subsection{Moments}
+\definition
+For positive integer $k$, the \tb{$k$-th moment} of $X$ is $\expect{X^k}$ and the \tb{$k$-th  central moment} is $\expect{(X - \expect{X})^k}$.
+
+\theorem
+If $\expect{|X|^t} < \infty$ for some $t > 0$, then $\expect{|X|^s} < \infty$ for any $0 \leq s \leq t$.
+
+\definition[variance]
+The \tb{variance} of a random variable $X$ is
+$$\var{X} = \expect{(X - \expect{X})^2}$$
+The \tb{covariance} and \tb{correlation} between two random variables $X$ and $Y$ are
+$$Cov(X,Y) = \expect{(X - \expect{X})(Y - \expect{Y})}$$ and
+$$Cor(X,Y) = \frac{Cov(X, Y)}{\sqrt{\var{X}\var{Y}}}$$
+
+\theorem[Properties of variance]
+satisfies
+\begin{enumerate}
+	\item $\var{X} \geq 0$
+	\item $\var{X} = \expect{X^2} - (\expect{X})^2$
+	\item $\var{aX + b} = a^2 \var{X}$
+	\item $\var{X + Y} = \var{X} + \var{Y} + 2Cov(X, Y)$
+	\item $\var{X + Y} = \var{X} + \var{Y}$ if and only if $X$ and $Y$ are uncorrelated.
+	\item \blue{If a random variable $X$ is bounded, then it must has finite variance.}
+	\item $\var{X} = 0$ if and only if $P(X = c) = 1$ for some $c \in \real$.
+\end{enumerate}
+\theorem[Properties of covariance]
+$$Cov[X, Y] = \expect{X, Y} - \expect{X}\expect{Y}$$
+
+
+\definition[skewness and kurtosis]
+The standardized third and fourth moments are said to be \tb{skewness} and \tb{kurtosis}, that is, \\
+skewness $= \expect{(X - \mu)^3} / \sigma^3$, \quad kurtosis $= \expect{(X - \mu)^4} / \sigma^4$ \\
+where $\mu = \expect{X}$ and $\sigma^2 = \var{X}$.
+
+
+\section{Inequalities}
+\theorem[Chebychev's inequality]
+Let $X$ be a random variable with mean $\mu$ and variance $\sigma^2$. Then, for any $\alpha > 0$,
+$$P(|X - \mu| \geq \alpha\sigma) \leq \frac{1}{\alpha^2}$$
+Equivalently, for $\alpha > 0$,
+$$\red{P(|X - \mu| > \alpha) \leq \frac{\var{X}}{\alpha^2}}$$
+
+\theorem[Markov's inequality]
+If $X \geq 0$ with $\mu = \expect{X} < \infty$, then for any $\alpha > 0$, 
+$$P(X \geq \alpha) \leq \mu / \alpha$$
+
+\remark
+The Chebychev's inequality is a special case of Markov's inequality by considering $$Y = (X - \mu)^2$$
+Note that
+\(A=\{s \in \Omega:| X(s)-E(X) | \geq r\}=\left\{s \in \Omega :(X(s)-E(X))^{2} \geq r^{2}\right\}\) \\
+Now, consider the random variable, \(Y,\) where
+\(Y(s)=(X(s)-E(X))^{2} .\) \\
+Note that \(Y\) is a non-negative random variable. \\
+Thus, we can apply Markov's inequality to it, to get: \\
+\(P(A)=P\left(Y \geq r^{2}\right) \leq \frac{E(Y)}{r^{2}}=\frac{E\left((X-E(X))^{2}\right)}{r^{2}}=\frac{V(X)}{r^{2}} . \)
+\theorem[Cauchy-Schwartz' inequality]
+Let $X$ and $Y$ be two random variables having finite second moment. Then
+$$[\expect{XY}]^2 \leq \expect{X^2}\expect{Y^2}$$
+where the equality holds if and only if $P(aX = bY) = 1$ for some $a, b \in \real$.
+
+\theorem
+Let $X$ and $Y$ be two random variables with finite second moment. Then $Y = aX + b$ for some $a,b$ if and only if $|Corr(X,Y)| = 1$.
+
+\lemma[Young's inequality]
+For $p,q > 1$ with $1/p + 1/q = 1$ and two nonnegative real numbers $x,y \geq 0$,
+$$xy \leq x^p/p + y^q /q$$
+
+\theorem[H\"older's inequality]
+For $p,q > 1$ with $1/p + 1/q = 1$, $$\expect{|XY|} \leq ||X||_p ||Y||_q$$ when the expectations exist and are finite where
+$||X||_r = \expect{|X|^r}^{1/r}$ for $r > 0$.
+
+\remark The Cauchy-Schwartz' inequality is a special case of H\"older's inequality ($p=q=2$)
+
+\theorem[Jensen's inequality]
+For a convex function $\varphi$, 
+$$\varphi(\expect{X}) \leq \expect{\varphi(X)}$$
+
+\theorem[Minkowski's inequality]
+For $p \geq 1$, 
+$$||X + Y||_p \leq ||X||_p + ||Y||_p$$
+
+\section{Conditional Expectation}
+\definition{conditional expectation}
+The conditional expectation of $Y$ given $X = x$ is defined by
+$$\expect{Y | X=x} = \int y \, dcdf_{Y|X}(y|x)$$
+
+\remark The conditional expectation $\expect{Y|X=x}$ is always a function of $x$, say $h(x)$. Then denote $h(X) = \expect{Y|X}$ as a random variable.
+
+\theorem
+Assume $\expect{|Y|} < \infty$. Then
+$$\expect{Y|X=x} = \int_0^\infty P(Y > z|X=x) \, dz - \int_{-\infty}^0 P(Y<z|X=x)\, dz$$
+If $Y$ is discrete, then
+$$\expect{Y|X=x} = \sum_y y \times pmf_{Y|X}(y|x)$$
+If $Y$ is continuous, then
+$$\expect{Y|X=x} = \int y \times pmf_{Y|X}(y|x) \, dy$$
+
+\theorem[Properties of conditional expectation]
+Satisfies
+\begin{enumerate}
+	\item $\expect{aY + b| X} = a\expect{Y|X} + b$
+	\item If $P(Y \geq 0|X) = 1$, then $\expect{Y|X} \geq 0$
+	\item $\expect{Y + Z |X} = \expect{Y|X} + \expect{Z|X}$
+	\item for constant random variable 1, $\expect{1|X} = 1$
+	\item for convex function $\phi$, $\expect{\varphi(Y)|X} \geq \varphi(\expect{Y|X})$
+\end{enumerate}
+
+\theorem[Law of Total Expectation]
+$$\expect{\expect{Y|X}} = \expect{Y}$$
+i.e. The expected value of the conditional expected value of $Y$ given $X$ is the same as the expected value of $Y$. \\
+One special case states that if $\{A_i\}_i$ is a finite or countable partition of the sample space, then
+$$\expect{X} = \sum_i \expect{X|A_i}P(A_i)$$
+
+\definition{conditional variance}
+The conditional variance is given by
+$$\var{Y|X=x} = \expect{(Y - \expect{Y|X=x})^2|X=x}$$
+
+\theorem
+$$\var{Y} = \expect{\var{Y|X}} + \var{\expect{Y|X}}$$
+
+\section{Probability Related Functions}
+Let $X$ be a random variable. 
+\begin{enumerate}
+	\item  \tb{moment generating function}: $mgf_X(t) = \expect{e^{tX}}$
+	\item  \tb{cumulant generating function}: $cgf_X(t) = \log\expect{e^{tX}}$
+	\item  \tb{probability generating function}: $pgf_X(t) = \expect{z^{X}}$
+    \item  \tb{characteristic generating function}: $chf_X(t) = \expect{e^{itX}}$ \\
+\end{enumerate}
+where $t \in \real, z > 0$ and $i = \sqrt{-1}$ is the unit imaginary number.
+
+\theorem[properties of mgf]
+As follows
+\begin{enumerate}
+	\item $mgf_X(0) = 1$
+	\item $\expect{X^k} = \frac{d^k}{dt_k} mgf_X(0)$ if it exists
+	\item If $\expect{|X|^k} < \infty$, then for $\mu_j = \expect{X^j}$ where $j = 1, \hdots, k$, 
+	$$mgf_X(t) = 1 + \mu_1t+ \mu_2\frac{t^2}{2!} + \hdots + \mu_k \frac{t^k}{k!} + o(|t|^k)$$
+	\item $mgf_{aX+b}(t) = e^{bt}mgf_X(at)$
+	\item If $X$ and $Y$ are independent, then $$mgf_{X,Y}(s,t) = mgf_X(s)mgf_Y(t)$$
+\end{enumerate}
+
+\theorem[properties of cgf]
+As follows
+\begin{enumerate}
+	\item $cgf_X(0) = 0$
+	\item If $X$ and $Y$ are independent, then $$cgf_{X,Y}(s,t) = cgf_X(s) + cgf_Y(t)$$
+\end{enumerate}
+
+\theorem[properties of pgf]
+As follows
+\begin{enumerate}
+	\item $pgf_X(1) = 1$
+	\item $\expect{X(X-1)\hdots(X-k+1)} = \frac{d^k}{dz^k}pgf_X(1)$ if it exists.
+	\item  If $X$ and $Y$ are independent, then $$pgf_{X,Y}(s,t) = pgf_X(s) + pgf_Y(t)$$
+\end{enumerate}
+	
+\theorem[properties of chf]
+As follows
+\begin{enumerate}
+	\item $chf_X(0) = 1$
+	\item $\expect{X^k} = (i)^{-k}\frac{d^k}{dt^k} chf_X(0)$ if it exists
+	\item If $\expect{|X|^k} < \infty$, then for $\mu_j = \expect{X^j}$ where $j = 1, \hdots, k$, 
+	$$chf_X(t) = 1 + i\mu_1t - \mu_2\frac{t^2}{2!} + \hdots + i^k \mu_k\frac{t^k}{k!} + o(|t|^k)$$
+	\item $chf_{aX+b} = e^{ibt}chf_X(at)$
+	\item If $X$ and $Y$ are independent, then $$chf_{X,Y}(s,t) = chf_X(s)chf_Y(t)$$
+	\item $|chf_X(t)| \leq 1$ for all $t$
+	\item chf is uniformly continuous
+	\item for any $t_1, \hdots, t_n \in \real$ and $z_1, \hdots, z_n \in \mb{C}$, $$\sum_{j,k}chf_X(t_j - t_k)z_j\bar{z}_k \geq 0$$
+\end{enumerate}
+
+\theorem If two random variables $X$ and $Y$ have the same moment generating functions in an open neighbourhood of 0, that is, $(-a, b)$ for $a,b > 0$, then $X$ and $Y$ are identically distributed.
+
+\theorem
+If a function $\varphi: \real \rightarrow \mb{C}$ satisfies 5 - 8 in Theorem 11.4, then there exists a random variable having $\varphi$ as its characteristic function.
+
+\definition
+The joint probability/moment/cumulant generating and characteristic functions of $X$ and $Y$ are
+\begin{enumerate}
+	\item $mgf_{X, Y}(s,t) = \expect{e^{sX + tY}}$
+	\item $cgf_{X, Y}(s,t) = \log mgf_{X,Y}(s,t)$
+	\item $pgf_{X, Y}(s,t) = \expect{s^Xt^Y}$
+	\item $chf_{X, Y}(s,t) = \expect{e^{isX + itY}}$
+\end{enumerate}
+
+\theorem[Inversion Formula]
+Let $\varphi$ be a characteristic function of a random variable $X$. Then for any $a, b$,
+$$P(a < X < b) + \{P(X=a) + P(X=b)\}/2 = \underset{T \rightarrow \infty}{\lim} \frac{1}{2\pi} \int_{-\infty}^\infty \frac{e^{-iat} - e^{-ibt}}{it} \varphi(t) \, dt$$
+
+\theorem[\red{Chernoff Bound}]
+Let $X$ be a random variable having moment generating function. For any constant $x$,
+$$P(X \geq x) \leq \underset{t > 0}{\inf}\,e^{-xt}mgf_X(t)$$
+
+\subsection{Survival Functions}
+Let $X$ be a non-negative valued random variable. \\
+The \tb{survival} function of $X$ is $S_X(t) = P(X > t)$ or $S_X(t) = 1 - F_X(t)$. \\
+(the probability of surviving longer than time $x$.\\
+The \tb{hazard} function is
+$$h_X(t) = \frac{pdf_X(t)}{S_X(t)} = \frac{pdf_X(t)}{1-F_X(t)}$$
+(measures the risk of event (or death) at time $x$.
+The \tb{cumulative hazard} function is
+$$H_X(t) = \int_0^t h_X(z) \, dz$$ for $t > 0$. \\
+The \tb{residual} (or future) lifetime given $X > t$ is defined by
+$$R_X(t) = X - t$$
+The \tb{mean residual lifetime} is the conditional expectation of residual lifetime given $X > t$, that is,
+\begin{align}
+	\expect{R_X(t) | X > t} = \int_0^\infty P(R_X(t) > z |X > t)\, dz = \int_t^\infty \frac{S_X(z)}{S_X(t)}
+\end{align}
+Particularly for $t = 0$ and $S_X(0) = 1$,
+$$\expect{R_X(0)|X>0} = \int_0^\infty S_X(z) \, dz = \expect{X}$$
+
+\section{Stochastic process}
+\definition
+A \tb{stochastic process} os a collection of time indexed random variables $$\{X_t: t \in \mc{T}\}$$
+A collection of $\sigma$-field $\mc{F} = \{\mc{F}_t\}_{t \in \mc{T}}$ is called a \tb{filtration} if $\mc{F} \subset \mc{F}_t$ for any $0 \leq s \leq t$. \\
+A stochastic process $X = \{X_t\}_{t \in \mc{T}}$ is said to be \tb{adapted to the filtration $\mc{F}$} if $X_t$ is $\mc{F}_t$-measurable (or $\{X_t \leq r\} \in \mc{F}_t$ for any real number $r$).
+
+\definition[Martingales]
+A stochastic process $X_n$ is said to be a (discrete-time) \tb{martingale} if
+\begin{enumerate}
+	\item $\expect{|X_n|} < \infty$
+	\item $\expect{X_{n+1} | X_0, \hdots, X_n} = X_n$ for all $n$
+	\item A stochastic process $X_n$ is said to be \tb{supermartingale} if it satisfies above (1) and
+	$$\expect{X_{n+1} | X_0, \hdots, X_n} \leq X_n$$ for all $n$.
+	\item A stochastic process $X_n$ is said to be \tb{submartingale} if it satisfies above (1) and
+	$$\expect{X_{n+1} | X_0, \hdots, X_n} \geq X_n$$ for all $n$.
+\end{enumerate}
+Note: the condition $X_0, \hdots, X_n$ is often replaced by $\mc{F}$, that is,
+$$\expect{X_{n+1}|\mc{F}_n} = X_n$$
+\remark A martingale is both supermartingale and submartingale. \\
+If $X_n$ is a submartingale, then $-X_n$ is a supermaringale.
+
+\definition[stopping time]
+A time valued random variable $T$ is said to be a \tb{stopping time} if the event $\{T \leq n\}$ can be expressed by $X_0, \hdots, X_n$
+\example
+The first time $T$ that the stochastic process $X_n$ is bigger than or equal to a constant $K$ is a stopping time by considering
+$$\{T = n\} = \{X_1 < K, \hdots, X_{n-1} < K, X_n \geq K\}$$
+\theorem[Optional Sampling Theorem]
+Let $X_n$ be a submartingale and T is a stopping time with $P(T \leq k) = 1$. Then
+$$\expect{X_0} \leq \expect{X_T} \leq \expect{X_k}$$
+
+\subsection{Random Walk}
+Let $X_1, X_2, \hdots$ be a sequence of independent random variables having mean zero and variance 1. Define $S_n = X_1 + \hdots + X_n$
+\theorem
+For any $\alpha > 0$,
+$$P(\underset{k = 1,\hdots, n}{\max} |S_k| \geq \alpha) \leq \frac{\var{S_n}}{\alpha^2}$$
+
+\theorem
+If $X_n$ is symmetric for each $n$, then
+$$P(\underset{k = 1,\hdots, n}{\max} |S_k| \geq \alpha) \leq 2P(S_n \geq \alpha)$$
+
+\subsection{Poisson Process}
+A \tb{Poisson process with intensity $\lambda$} is a stochastic process $N = \{N_t: t \geq 0\}$ taking values in non-negative integers satisfying \\
+(a) $N_0 = 0$ and $N_s \leq N_t$ if $0 \leq s \leq t$ \\
+(b) $P(N_{t+h} = n+m |N_t = n) = \begin{cases}
+	1 - \lambda h + o(h) &\text{if $m = 0$} \\
+	\lambda h + o(h) &\text{if $m = 1$} \\
+	o(h) &\text{if $m > 1$}
+\end{cases}$ \\
+(c) For $0 \leq s < t$, the arrivals $N_t - N_s$ in the interval $(s, t]$ is independent of the arrivals $N_s$ in the interval $(0, s]$.
+
+\theorem
+For any fixed time $t > 0$, $N_t \sim Poisson(\lambda t)$
+\theorem
+The interarrival times $X_1, X_2, \hdots$ are independent and identically distributed from exponential with $\lambda$
+
+\subsection{Reflection principle (Wiener process)}
+\definition[Wiener Process]
+A continuous-time stochastic process $W(t)$ for $t \geq 0$ with $W(0) = 0$ and such that the increment $W(t) - W(s)$ is Gaussian with mean $0$ and variance $t - s$ for any $0 \leq s < t$, and increments for nonoverlapping time intervals are independent. 
+\remark
+Brownian motion (i.e. random walk with random step sizes) is the most common example of a Wiener process.
+\theorem[Reflection principle]
+If $(W(t): t \geq 0$) is a Wiener process, and $a > 0$ is a threshold, then
+$$P\left( \underset{0 \leq s\leq t}{\sup} W(s) \geq a\right) = 2 P(W(t) \geq a)$$
+
+\remark
+If the path of a Wiener process $f(t)$ reaches a value $f(s) = a $ at time $t = s$, then the subsequent path after time $s$ has the same distribution as the reflection of the subsequent path about the value $a$. 
+
+
+\section{Mode of Convergence}
+\definition
+Modes of convergence
+\begin{itemize}
+	\item A sequence of random variables $X_n$ converges to $X$ \tb{in distribution} ($X_n \overset{d}{\longrightarrow} X$) if $$P(X_n \leq x) \rightarrow P(X \leq x)$$ as $n \rightarrow \infty$ for any $x$ with $P(X = x) = 0$.
+	\item  A sequence of random variables $X_n$ converges to $X$ \tb{in probability} ($X_n \overset{p}{\longrightarrow} X$) if $$P(|X_n - X| > \epsilon) \rightarrow 0$$ as $n \rightarrow \infty$
+	\item A sequence of random variables $X_n$ converges to $X$ \tb{almost surely} ($X_n \overset{a.s.}{\longrightarrow} X$) if $$P(\lim \sup_{n \rightarrow \infty} |X_n - X| = 0) = 1$$
+	\item A sequence of random variables $X_n$ converges to $X$ \tb{in $L^p$} ($X_n \overset{L^p}{\longrightarrow}X$) for $p > 0$ if $$\expect{|X_n - X|^p} \rightarrow 0$$ as $n \rightarrow \infty$
+\end{itemize}
+
+\theorem
+Let $X_n$ and $X$ be discrete random variables with probability mass functions $f_n(x)$ and $f(x)$ satisfying $f_n(x) \rightarrow f(x)$ for any $x$ with $f(x) > 0$. Then $$X_n \longrightarrow X$$ in distribution.
+
+\theorem[Relations between modes of convergence] As follows:\\
+(a) $X_n \overset{a.s.}{\longrightarrow} X \implies X_n \overset{p}{\longrightarrow} X$ \\
+(b) $X_n \overset{L^p}{\longrightarrow} X \implies X_n \overset{p}{\longrightarrow} X$ \\
+(c) $X_n \overset{p}{\longrightarrow} X \implies X_n \overset{d}{\longrightarrow} X$ \\
+
+\subsection{$L^1$ Convergence}
+\lemma[$L^1$ Convergence]
+If $Y \geq 0$ and $\expect[Y] < \infty$, then for any $\epsilon > 0$ there exists $M > 0$ such that $$\expect{Y\id{Y > M}} < \epsilon$$
+
+\lemma
+Suppose a random variable $Y$ has a finite absolute expectation, that is, $\expect{|Y|} < \infty$. For any $\epsilon > 0$, there exists $\delta > 0$ such that $|\expect{Y\id{A}}| < \epsilon$ for any event $A$ with $P(A) < \delta$ where $\id{A}$ is an indicator function of the event $A$. 
+
+\lemma
+Suppose a random variable $Y$ has a finite absolute expectation, that is, $\expect{|Y|} < \infty$ and a sequence $A_n$ of events satisfy $P(A_n) \rightarrow 0$. Then $$\expect{Y\id{A_n}} \rightarrow 0$$
+
+\theorem[Dominated Convergence Theorem]
+Suppose that $X_n \rightarrow X$ in probability, $|X_n| \leq Y$ and $\expect{Y} < \infty$. Then
+$$\expect{X_n} \rightarrow \expect{X}$$
+
+\theorem[Generalized Dominated Convergence Theorem]
+If all $X, Y, X_n, Y_n$ have finite absolute expectation, $|X_n| \leq Y_n$ for all $n$, $X_n \rightarrow X$ in probability, $Y_n \rightarrow Y$, and $\expect{Y_n} \rightarrow \expect{Y}$, then $$\expect{X_n} \rightarrow \expect{X}$$
+
+\theorem[Monotone Convergence Theorem]
+Let $X_n$ be non-negative non-decreasing random variables. Suppose $\underset{n \rightarrow \infty}{\lim} X_n = X$ is finite a.s. Then $$\underset{n \rightarrow \infty}{\lim} \expect{X_n} = \expect{X}$$ 
+ 
+\theorem[Fatou's lemma]
+Let $X_1, X_2, \hdots$ be a sequence of non-negative random variables. Then
+$$\expect{\underset{n \rightarrow \infty}{\lim} \inf X_n} \leq \underset{n \rightarrow \infty}{\lim}{\inf} \,\expect{X_n}$$
+
+
+\subsection{Almost Sure Convergence}
+\theorem[Borel-Cantelli lemma]
+Let $A = \cap_{m=1}^\infty\cup_{n=m}^\infty A_n$ be the event that infinitely many $A_n$'s occur.
+\begin{enumerate}
+	\item $P(A) = 0$ if $\sum_n P(A_n) < \infty$
+	\item $P(A) = 1$ if $\sum_n P(A_n) = \infty$ and $A_1, A_2, \hdots$ are independent.
+\end{enumerate}
+
+\theorem
+If for any $\epsilon > 0$, $\sum_{n=1}^\infty P(|X_n - X| > \epsilon) < \infty$, then $X_n \rightarrow X$ almost surely.
+
+\theorem If a sequence of random variables $X_n$ converges to $X$ in probability, then there exists a subsequence $n_k$ such that $X_{n_k}$ converges to $X$ almost surely.
+
+\theorem
+A sequence $x_n$ of real numbers converges to $x$ if and only if for any subsequence $n_k$ there exists a further subsequence $n_{k_l}$ such that $x_{n_{k_l}}$
+
+\theorem
+A sequence of random variables $X_n$ converges to $X$ in probability if and only if for any subsequence $n_k$ there exists a further subsequence $n_{k_l}$ such that $X_{n_{k_l}}$ converges to $X$ a.s. 
+
+\subsection{Convergence in distribution}
+\theorem
+As follows \\
+(a) If $X_n \overset{d}{\longrightarrow} c$ where $c$ is a constant, then $X_n \overset{p}{\rightarrow} c$. \\
+(b) If $X_n \overset{p}{\longrightarrow} c$ and $P(|X_n| \leq M) = 1$ for some $M > 0$, then $X_n \overset{L^p}{\longrightarrow} X$ for any $p > 0$
+
+\theorem
+Let $X$ be a random variable with $P(X=x) = 0$ for all $x$ and $F$ be the distribution function of $X$. Then $F(X) \sim uniform(0,1)$ and $F^{-1}(U) \sim X$ for any $U \sim uniform(0,1)$
+
+\theorem[Skorokhod's representation theorem]
+If $X_n \overset{d}{\longrightarrow} X$, then there exist random variables $Y, Y_1, Y_2, \hdots$ in a probability space such that \\
+(a) $X_n$ and $Y_n$ have the same distribution as well as $X$ and $Y$ have the same distribution \\
+(b) $Y_n \overset{a.s.}{\longrightarrow} Y$
+
+\theorem[Continuous mapping theorem]
+Let $g$ be a continuous function.
+\begin{enumerate}
+	\item $X_n \overset{a.s.}{\longrightarrow} X \implies g(X_n) \overset{a.s.}{\longrightarrow} g(X)$
+	\item $X_n \overset{p}{\longrightarrow} X \implies g(X_n) \overset{p}{\longrightarrow} g(X)$
+	\item $X_n \overset{d}{\longrightarrow} X \implies g(X_n) \overset{d}{\longrightarrow} g(X)$
+\end{enumerate}
+
+\theorem
+$X_n \overset{d}{\longrightarrow} X$ if and only if $\expect{g(X_n)} \rightarrow \expect{g(X)}$ for any bounded continuous function $g$.
+
+\theorem
+$X_n \overset{d}{\longrightarrow} X$ if and only if $$chf_{X_n}(t) \rightarrow chf_X(t)$$
+
+\theorem
+If $X_n \overset{d}{\longrightarrow} X$, then
+$$aX_n + b \overset{d}{\longrightarrow} aX + b$$ for any $a,b \in \real$
+
+\theorem[Slutsky's lemma]
+Suppose $X_n \overset{d}{\longrightarrow} X$ and $Y_n \overset{d}{\longrightarrow} c$ for a constant $c$.
+\begin{enumerate}
+	\item $X_n + Y_n  \overset{d}{\longrightarrow} X + c$
+	\item $X_nY_n  \overset{d}{\longrightarrow} Xc$
+	\item $X_n/Y_n \overset{d}{\longrightarrow} X/c$ if $c \neq 0$
+\end{enumerate}
+
+\section{Law of Large Numbers}
+
+\theorem[Weak Law of Large Numbers]
+Let $X_n$ be i.i.d. with $\expect{|X_n|} < \infty$. Then $\bar{X}_n \rightarrow \expect{X_1}$ \red{in probability.}
+
+\theorem[Strong Law of Large Numbers]
+Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with $\expect{|X_n|} < \infty$. Then \blue{$$\bar{X}_n \overset{a.s.}{\longrightarrow} \expect{X_1}$$}
+
+\theorem
+Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with $\expect{X_n^2} < \infty$. For $\mu = \expect{X_1}$. $$\bar{X}_n = (X_1 + \hdots + X_n) / n \rightarrow \mu$$ \red{almost surely and in $L^2$.}
+
+\section{Central Limit Theorem}
+For $k \approx np$, the binomial probability is approximated by
+$${n \choose k}p^k(1-p)^{n-k} \approx \frac{1}{\sqrt{2\pi np(1-p)}}\exp{\left ( - \frac{(k - np)^2}{2np(1-p)}\right)}$$
+
+\theorem[Levy's Central Limit Theorem]
+Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with $\mu = \expect{X_i}$ and $\sigma^2 = \var{X_i}$. Then
+$$\sqrt{n}(\bar{X}_n - \mu) / \sigma \overset{d}{\longrightarrow} N(0,1)$$
+
+\theorem[Lindeberg-Feller Central Limit Theorem]
+Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with $\expect{X_i} = 0$ and $\sigma_i^2 = \var{X_i^2} < \infty$. Let $s_n^2 = \expect{X_1^2} + \hdots + \expect{X_n^2}$ The Lindeberg condition
+$$\frac{1}{s_n^2 \sum_{k=1}^n \expect{X_k^2\id{X_k^2 > \epsilon s_n^2}}} \rightarrow 0$$ for any $\epsilon > 0$ holds if and only if
+$$(X_1 + \hdots + X_n) /s_n \overset{d}{\longrightarrow} N(0,1)$$ and $$\max(\sigma_1^2, \hdots, \sigma_n^2)/ s_n^2 \rightarrow 0$$
+
+\theorem[Lyapounov's condition]
+Let $X_1, \hdots, X_n$ be i.i.d. r.v.s with $\expect{X_i} = 0$ and $\sigma_i^2 = \var{X_i^2} < \infty$ satisfying Lyapounov's condition
+$$\underset{n \rightarrow \infty}{\lim} \frac{1}{s_n^{2 + \delta}} \sum_{k=1}^n \expect{|X_k|^{2 + \delta}} = 0$$
+Then Lindeberg's condition holds. Hence $$(X_1 + \hdots + X_n) /s_n \overset{d}{\longrightarrow} N(0,1)$$
+
+
+\theorem[$\delta$-method]
+Let $X_1, \hdots, X_n$ be i.i.d. r.v.s anf $a_n$ is a sequence of positive real numbers diverging to infinity. If $a_n(X_n - \mu) \overset{d}{\longrightarrow} Z$ for some r.v. Z and a constant $\mu$, then for any continuously differentiable function $g$,
+$$a_n(g(X_n) - g(\mu)) \overset{d}{\longrightarrow} g'(\mu)Z$$
+
+
+
+
+
+
+
+\end{document}

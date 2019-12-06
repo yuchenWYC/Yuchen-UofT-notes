@@ -12,54 +12,12 @@
 \usepackage{float}
 \usepackage{esint}
 \usepackage[margin=1.5cm]{geometry}
+\usepackage{../raina}
 
 % Property settings.
 \MakePerPage{footnote}
 \pagestyle{headings}
 
-% Commands
-\newcommand{\ti}[1]{\textit{#1}}
-\newcommand{\tb}[1]{\textbf{#1}}
-\newcommand{\mb}[1]{\mathbb{#1}}
-\newcommand{\mc}[1]{\mathcal{#1}}
-\newcommand{\bx}[0]{\mathbf{x}}
-\newcommand{\bv}[0]{\mathbf{v}}
-\newcommand{\bw}[0]{\mathbf{w}}
-\newcommand{\real}[0]{\mathbb{R}}
-\newcommand{\under}[1]{\underline{#1}}
-\newcommand{\proof}[0]{\textit{\underline{proof:} }}
-\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
-\newcommand{\vx}[0]{\tb{x}}
-\newcommand{\vy}[0]{\tb{y}}
-\newcommand{\vz}[0]{\tb{z}}
-\newcommand{\vo}[0]{\tb{0}}
-\newcommand{\va}[0]{\tb{a}}
-\newcommand{\vb}[0]{\tb{b}}
-\newcommand{\vc}[0]{\tb{c}}
-\newcommand{\ve}[0]{\tb{e}}
-\newcommand{\vm}[0]{\tb{m}}
-\newcommand{\vh}[0]{\tb{h}}
-\newcommand{\vf}[0]{\tb{F}}
-\newcommand{\vi}[0]{\tb{i}}
-\newcommand{\vj}[0]{\tb{j}}
-\newcommand{\vk}[0]{\tb{k}}
-\newcommand{\vg}[0]{\tb{G}}
-\newcommand{\vn}[0]{\tb{n}}
-\newcommand{\vu}[0]{\tb{u}}
-\newcommand{\vv}[0]{\tb{v}}
-\newcommand{\vL}[0]{\tb{L}}
-\newcommand{\ff}[0]{\tb{f}}
-\newcommand{\fg}[0]{\tb{g}}
-\newcommand{\p}[0]{\partial}
-\newcommand{\qed}[0]{$\hfill\blacksquare$}
-\newcommand{\qerat}{\tag*{$\blacksquare$}}
-\newcommand{\lima}{\underset{\vx \rightarrow \va}{\lim}}
-\usepackage{amsmath}% http://ctan.org/pkg/amsmath
-\newcommand{\notimplies}{%
-  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
-\newcommand{\q}[0]{\textcolor{red}{???}}
-\newcommand{\tspace}[0]{T_{x_0}}
-\newcommand{\tanspace}[0]{T_{x_0}M}
 % Attr.
 \title{APM462 \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -113,7 +71,7 @@ $$ A^{-1} = \begin{bmatrix}
 	(A_{11} - A_{12}A_{22}^{-1}A_{21})^{-1} & -A_{11}^{-1}A_{12}(A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1} \\
 	-A_{22}^{-1}A_{21}(A_{11} - A_{12}A_{22}^{-1}A_{21})^{-1} & (A_{22} - A_{21}A_{11}^{-1}A_{12})^{-1}
 \end{bmatrix}$$
-\proof \\
+\ti{proof: } \\
 Direct multiplication of the proposed $A^{-1}$ and $A$ yields
 $$A^{-1}A = I$$ \qed
 
@@ -138,7 +96,7 @@ For the special case where the \textcolor{red}{scalar} $\alpha$ is given by the 
 $$\alpha = x^TAx$$
 where $x$ is $n \times 1$, $A$ is $n \times n$, and $A$ does not depend on $x$, then
 $$\frac{\partial \alpha}{\partial x} = x^T (A + A^T)$$
-\proof \\
+\ti{proof: } \\
 By definition
 $$\alpha = \sum_{j=1}^n \sum_{i=1}^n a_{ij}x_ix_j$$
 Differentiating with respect to the $k$th element of $x$ we have
@@ -173,7 +131,7 @@ $$\frac{\partial \alpha}{\partial z} = x^T A^T\frac{\partial y}{\partial z} + y^
 \paragraph{Proposition 1.3.8}
 Let $A$ be an invertible, $m \times m$ matrix whose elements are functions of the scalar parameter $\alpha$. Then
 $$\frac{\partial A^{-1}}{\partial \alpha} = -A^{-1}\frac{\partial A}{\partial \alpha} A^{-1}$$
-\proof \\
+\ti{proof: } \\
 Start with the definition of the inverse
 $$A^{-1}A = I$$
 and differentiate, yielding
@@ -190,7 +148,7 @@ $$\frac{\partial A^{-1}}{\partial \alpha}  = -A^{-1}\frac{\partial A}{\partial \
 \paragraph{Young's Theorem 1.3.10}
 i.e. Symmetry of second derivatives
 $$[\nabla_{xy}f(x,y)]^T = \nabla_{yx}f(x,y)$$
-\proof \\
+\ti{proof: } \\
 This is straightforward by writing out the elements of the matrix. \qed
 
 
@@ -211,7 +169,7 @@ where $o(h)$ is ``little $o$" of $h$, the error term.
 \noindent Say a function $f(h) = o(h)$, this means $\underset{h \rightarrow 0}{\lim} \frac{f(h)}{h} = 0$\\
 For example, for $f(h) = h^2$, we can say $f(h) = o(h)$, \\
 since $\underset{h \rightarrow 0}{\lim} \frac{f(h)}{h} = \underset{h \rightarrow 0}{\lim} \frac{h^2}{h} = \underset{h \rightarrow 0}{\lim} h = 0$\\
-\proof (Use MVT): \\
+\ti{proof: } (Use MVT): \\
 WTS : $g(x+h) - g(x) - hg'(x) = o(h)$
 \begin{align*}
 	\underset{h \rightarrow 0}{\lim} \frac{[g(x+h) - g(x)] - hg'(x)}{h} &= \underset{h \rightarrow 0}{\lim} \frac{[hg'(x+\theta h)] - hg'(x)}{h} \\
@@ -225,7 +183,7 @@ WTS : $g(x+h) - g(x) - hg'(x) = o(h)$
 $g \in C^2$ on $\real$
 $$g(x + h) = g(x) + hg'(x) + \frac{h^2}{2} g'(x+\theta h)$$
 for some $\theta \in (0,1)$ \\\\
-\proof \\
+\ti{proof: } \\
 WTS: $g(x+h) - g(x) - hg'(x) - \frac{h^2}{2}g''(x) = o(h^2)$
 \begin{align*}
 	\underset{h \rightarrow 0}{\lim} \frac{g(x+h) - g(x) - hg'(x) - \frac{h^2}{2}g''(x)}{h^2}
@@ -246,7 +204,7 @@ In Cartesian coordinates, $\nabla f(\vx) = (\frac{\partial f}{\partial \vx_1}(\v
 $f \in C^1$ on $\real^n$, then for any $\vx, \vv \in \real^n$,
 $$f(\vx + \vv) = f(\vx) + \nabla f(\vx+ \theta \vv) \cdot \vv$$
 for some $\theta \in (0,1)$\\\\
-\proof Reduce to 1-dimension case \\
+\ti{proof: } Reduce to 1-dimension case \\
 $g(t) := f(\vx+t\vv), t \in \real$ \\
 \begin{align*}
 	g'(t) &= \frac{d}{dt}f(\vx+t\vv) \\
@@ -270,7 +228,7 @@ f(\vx+\vv) &= g(1) \\
 \subsection{1st Order Taylor Approximation in $\real^n$}
 $f \in C^1$ on $\real^n$
 $$f(\vx + \vv) = f(\vx) + \nabla f(\vx) \cdot \vv + o(||\vv||)$$
-\proof \\
+\ti{proof: } \\
 \begin{align*}
 	\underset{||\vv|| \rightarrow 0}{\lim} \frac{[f(\vx + \vv) - f(\vx)] - \nabla f(\vx) \cdot \vv }{||\vv||} 
 	&= \underset{||\vv|| \rightarrow 0}{\lim} \frac{[\nabla f(\vx + \theta \vv) \cdot \vv] - \nabla f(\vx) \cdot \vv}{||\vv||} \\
@@ -294,7 +252,7 @@ The Hessian matrix is \textcolor{blue}{symmetric}. This is sometimes called \und
 \subsection{2nd Order Taylor Approximation in $\real^n$}
 $f \in C^2$ on $\real^n$ \\
 $$f(\vx + \vv) = f(\vx) + \nabla f(\vx) \cdot \vv + \frac{1}{2}\vv^T\nabla^2 f(\vx) \vv + o(||\vv||^2)$$
-\proof \\
+\ti{proof: } \\
 \begin{align*}
 	\underset{||\vv|| \rightarrow 0}{\lim} \frac{[f(\vx + \vv) - f(\vx)] - \nabla f(\vx)\cdot \vv - \frac{1}{2} \vv^T \nabla^2 f(\vx)\vv}{||\vv||^2} 
 	&= \underset{||\vv|| \rightarrow 0}{\lim} \frac{[\frac{1}{2}\vv^T\nabla^2 f(\vx + \theta \vv) \cdot \vv] - \frac{1}{2}\vv^T\nabla^2 f(\vx) \cdot \vv}{||\vv||^2} \tag{By 2nd MVT}\\
@@ -373,7 +331,7 @@ $f$ is convex $\iff$ $f(y) \geq f(x) + \nabla f(x)\cdot(y-x)$
 for all $x,y \in \Omega$
 \paragraph{Remarks}
 Tangent line below the graph.\\\\
-\proof \\
+\ti{proof: } \\
 ($\Rightarrow$) \\
 $f$ is convex, then by definition,
 \begin{align*}
@@ -451,7 +409,7 @@ $f:$ convex $\Omega \subseteq \real^n \rightarrow \real$ is a convex function. \
 Suppose $\Gamma := \{ x \in \Omega | f(x) = \underset{\Omega}{\min} \, f(x)\} \neq \emptyset$\\
 (i.e. minimizer exists) \\
 Then $\Gamma$ is a convex set, and any local minimum of $f$ is a global minimum of $f$. \\
-\proof \\\\
+\ti{proof: } \\\\
 Let $m = \underset{\Omega}{\min} f(x)$.
 $$\Gamma = \{ x \in \Omega | f(x) = m\} = \{ x \in \Omega | f(x) \leq m \}$$
 (sublevel set) \\
@@ -475,7 +433,7 @@ which is a contradiction. \qed
 If $f: \Omega \subseteq \real^n \rightarrow \real$ is a convex function, and $\Omega$ is convex and compact, then $$\underset{\Omega}{\max} f = \underset{\partial \Omega}{\max} f$$
 \paragraph{Remarks}
 Maximum value of $f$ is attained (also) on the boundary of $\Omega$ \\
-\proof \\
+\ti{proof: } \\
 Since $\Omega$ is closed, $\partial \Omega \subseteq \Omega$, so $\underset{\Omega}{\max} f \geq \underset{\partial \Omega}{\max} f$.\\
 Suppose $f(x_0) = \underset{\Omega}{\max} \, f$ for some $x_0 \notin \partial \Omega$.
 Let $L$ be an arbitrary line through $x_0$. \\
@@ -502,7 +460,7 @@ where $p,q > 1$ s.t. $\frac{1}{p} + \frac{1}{q} = 1$.\\
 	\item 
 	$$p=3, q=\frac{3}{2}, |ab| \leq \frac{1}{3}|a|^3 + \frac{2}{3}|b|^{\frac{3}{2}}$$
 \end{enumerate}
-\proof \\
+\ti{proof: } \\
 Since function $f(x) = -\log (x)$ is convex, then
 \begin{align*}
 	(-\log)|ab| &= (-\log)|a| + (-\log)|b| \\
@@ -1426,7 +1384,7 @@ $L_p(x,z,p) = p \implies L_p(x,u(x),u'(x)) = u'(x)$ \\
 $$\frac{\delta F}{\delta u}(u(\cdot)) = -\frac{d}{dx}[u'(x)] + u(x) = -u''(x) + u(x)$$
 If $u^*(\cdot) \in \mc{A}$ is a minimizer, then
 $-u''(x) + u(x) = 0$
-\subsection{Example: min arclength}
+\example[min arclength]
 We will show that the straight line gives the shortest path.\\
 $$\min \, F[u(\cdot)] = \int_a^b(1+u'(x)^2)^\frac{1}{2}\,dx = \text{arclength of $u(\cdot)$}$$
 $$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
@@ -1438,7 +1396,7 @@ $\implies u'(x)^2 = const(1 + u'(x)^2)$ \\
 Then $u'(x) = \alpha$ for some $\alpha \in \real$. \\
 Then $u(x) = \alpha x + \beta $ for some $\beta \in \real$.
 
-\subsection{Example: Surface Area of Revolution}
+\example[Surface Area of Revolution]
 Suppose $u(\cdot) \in C^1$ on $[a,b]$, the surface area of rotating the curve $u$ connecting $a$ and $b$ can be computed as
 $$F[u(\cdot)] = \int_a^b 2\pi u(x) \sqrt{1 + u'(x)} \, dx$$
 For simplicity, assume $u > 0$. 
@@ -1475,5 +1433,167 @@ $$L_p(x,z,p) = 2\pi z \frac{p}{\sqrt{1 + p^2}}$$
 				0 &\text{ otherwise}
 			\end{cases}
 		\end{align}
+
+\subsection{Euler-Lagrange Equations in $\real^n$}
+	\paragraph{Setup}
+	\begin{align}
+		F[u(\cdot)] &= \int_a^b L(x, u(x), u'(x))\ dx \\
+		u &: [a, b] \to \real^n \\
+		L(x, z, p) &: [a, b] \times \real^n \times \real^n \to \real \\
+		\mc{A} &:= \left\{
+			u: [a, b] \to \real^n: u \in C^1, u(a) = \textbf{A}, u(b) = \textbf{B}
+		\right\} 
+	\end{align}
+
+	\begin{theorem}[Euler-Lagrange Equations in Vector Forms]
+		\begin{align}
+			- \frac{d}{dx} \nabla_p L(x, z, p) + \nabla_z L(x, z, p) &= \textbf{0} \in \real^n \quad (\dagger)
+		\end{align} 
+	\end{theorem}
+	
+	\begin{example}[Classical Lagrangian Mechanics]
+		\begin{align}
+			V(x): \real^n \to \real &\text{ potential energy} \\
+			\frac{1}{2} m \norm{v}_2^2 &\text{ kinetic energy} \\
+			L(t, x, v):= \frac{1}{2} m \norm{v}_2^2 - V(x) &\text{ difference between KE and PE}
+		\end{align}
+		Consider a path $x(t)$ in $\real^n$, define objective function as
+		\begin{align}
+			F[x(\cdot)] &= \int_a^b L(t, x(t), x'(t))\ dt \\
+			&= \int_a^b \frac{1}{2} m \norm{\dot{x}(t)}_2^2 - V(x(t))\ dt
+		\end{align}
+		The Euler-Lagrange equation in vector form implies
+		\begin{align}
+			- \frac{d}{dt} \nabla_{(3)} L(t, x(t), \dot{x}(t))
+			+ \nabla_{(2)} L(t, x(t), \dot{x}(t)) &= 0 \\
+			\implies - \frac{d}{dt} m \dot{x}(t) - \nabla V(x(t)) &= 0 \\
+			\implies m \ddot{x}(t) &= \nabla V(x(t))\quad (\dagger \dagger)
+		\end{align}
+	\end{example}
+	
+	\begin{remark}
+		($\dagger \dagger$) is often referred to as \emph{Newtown's second law}: object moves along the path on which the total conversion between kinetic and potential energies is minimized.
+	\end{remark}
+	
+	\begin{example}[3-Dimensional Pendulum]
+		Suppose the pendulum is moving on a path such that the total conversion between kinetic and potential energies is minimized, that is
+		\begin{align}
+			\min \int_a^b L(t)\ dt &= \int_a^b \frac{1}{2} m (\dot{x}(t)^2 + \dot{y}(t)^2 + \dot{z}(t)^2) - m g z(t)\ dt
+		\end{align}
+		with the restriction that $\norm{\textbf{x}(t)} = \ell$, where $\ell$ is the radius of the sphere. \\
+		The restriction can be embodied by framing the problem using spherical coordinates:
+		\begin{align}
+			x &:= \ell \cos \varphi \sin \theta \\
+			y &:= \ell \sin \varphi \sin \theta \\
+			z &:= - \ell \cos \theta
+		\end{align}
+		where the path of motion can be characterized using $(\theta(t), \varphi(t))$. \\
+		The objective function is therefore
+		\begin{align}
+			L\left( t, \begin{pmatrix} \theta(t) \\ \varphi(t)	\end{pmatrix}, \begin{pmatrix} \dot{\theta}(t) \\ \dot{\varphi}(t) \end{pmatrix} \right) &= \frac{1}{2} m \ell^2 (\dot{\theta}^2 + \dot{\varphi}^2 \sin^2 (\theta)) + mg\ell \cos \theta
+		\end{align}
+		So the Euler-Lagrange equation can be written as
+		\begin{align}
+			- \frac{d}{dt} \nabla_{(3)} L \left( t, \begin{pmatrix} \theta(t) \\ \varphi(t)	\end{pmatrix}, \begin{pmatrix} \dot{\theta}(t) \\ \dot{\varphi}(t) \end{pmatrix} \right)
+			+ \nabla_{(2)} L\left( t, \begin{pmatrix} \theta(t) \\ \varphi(t)	\end{pmatrix}, \begin{pmatrix} \dot{\theta}(t) \\ \dot{\varphi}(t) \end{pmatrix} \right)
+			= \textbf{0}
+		\end{align}
+	\end{example}
+	\subsection{Equality constraints}
+	\subsubsection{Isoperimetric constraints}
+	\paragraph{Recall: finite dimensional case}
+	\begin{align}
+		f, g: \real^n \rightarrow \real \\
+		\begin{cases}
+			\underset{x \in \real^n}{\min} &f(x) \\
+			&g(x) = const
+		\end{cases}
+	\end{align}
+	Suppose regular point $x_*$ ($\nabla g(x_*) \neq 0$) is a minimizer.
+	Then $\exists \lambda \in \real$ s.t.
+	$\nabla f(x_*) + \lambda \nabla g(x_*) = 0$ (by Lagrange multipliers)
+	\remark $x_*$ minimizes $f + \lambda g$. The Lagrange multipliers convert the original problem to an unconstrained optimization problem $L(x, \lambda) = f(x) + \lambda g(x)$.
+	\paragraph{Infinite dimensional case}
+	\begin{align}
+		F[u(\cdot)] &= \int_a^b L^F(x, u(x), u'(x))\,dx \\
+		G[u(\cdot)] &= \int_a^b L^G(x, u(x), u'(x))\,dx \\
+	\end{align}
+	$$		\begin{cases}
+			\underset{u(\cdot) \in \mc{A}}{\min} &F[u(\cdot)] \\
+			&G[u(\cdot)] = const
+			\end{cases}$$
+	Suppose regular point $u_*(\cdot)$ ($\frac{\delta G}{\delta u}(u_*) \neq 0$) is a minimizer, then $\exists \lambda \in \real$ s.t.
+	$$\red{\frac{\delta F}{\delta u}(u_*) + \lambda \frac{\delta G}{\delta u}(u_*) \equiv 0} $$
+	\remark $u_*$ minimizes $F + \lambda G$.
+	
+	\example
+	\begin{align}
+		\mc{A} &:= \{u: [-a, a] \rightarrow \real, u \in C^1, u(-a) = u(a) = 0 \}\\
+		F[u(\cdot)] &= \int_a^b u(x) \, dx \\
+		G[u(\cdot)] &= \int_a^b \sqrt{1 + u'(x)} \, dx = l > 0 \quad\text{note that $G$ is arg length}\\
+		&\begin{cases}
+			\underset{u \in \mc{A}}{\min} &(-F)[u(\cdot)] \\
+			&G[u(\cdot)] = l
+		\end{cases}
+	\end{align}
+	Let $u_*(\cdot)$ be a minimizer, then
+	$$\frac{\delta F}{\delta u} = - \frac{d}{dx}L_p^F + L_z^F$$
+	$$\frac{\delta G}{\delta u} = - \frac{d}{dx}L_p^G + L_z^G$$
+	Then Euler-Lagrange equations suggests
+	$$- \frac{d}{dx}L_p^F + L_z^F + \lambda(- \frac{d}{dx}L_p^G + L_z^G) = 0$$
+	$$\implies \lambda^2 \frac{u'_*(x)^2}{1 + u'_*(x)^2} = (C_1 - x)^2 (\dagger)$$
+	\paragraph{Claim:} Solution $u_*(\cdot)$ to ($\dagger$) satisfies
+	$$(x-C_1)^2 + (u_*(x) - C_2)^2 = \lambda^2$$
+	So that the graph of $u_*(\cdot)$ lies on a circle, and our solution is the semi-circle that has length $l$.\\
+	\emph{Check}: 
+		\begin{align}
+			\frac{d}{dx} \left[ 2(x - C_1) + 2(u_*(x) - C_2)u_*'(x) \right] &= 0
+		\end{align}
+		which implies
+		\begin{align}
+			u'_*(x) &= - \frac{x - C_1}{u_*(x) - C_2} \\
+			\implies u'_*(x)^2 &= \frac{(x - C_1)^2}{(u_*(x) - c_2)^2}\quad (\S)
+		\end{align}
+		Also, 
+		\begin{align}
+			(u_*'(x)^2)(u_*(x) - C_2)^2  &= (x - C_1)^2 + (u_*(x) - C_2)^2 = \lambda^2 \\
+			\implies (u_*(x) - C_2)^2 &= \frac{\lambda^2}{1 + u'_*(x)^2}\quad (\S \S)
+		\end{align}
+		Combine $(\S)$ and $(\S \S)$,
+		\begin{align}
+			\frac{\lambda^2}{1 + u_*'(x)^2} u_*'(x)^2 &= (x - C_1)^2
+		\end{align}
+	It is possible to solve for $u$:
+	$$\begin{cases}
+		x=-a, y=0, (-a-C_1)^2 + (0-C_2)^2 = \lambda^2 \\
+		x=+a, y=0, (+a-C)1)^2 + (0-C_2)^2 = \lambda^2 \\
+		\int_{-a}^a \sqrt{1 + u'(x)^2} \, dx = l
+	\end{cases}
+	\subsubsection{Holonomic constraints}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 \end{document}

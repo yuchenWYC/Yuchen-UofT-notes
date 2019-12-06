@@ -1,0 +1,96 @@
+\ProvidesPackage{raina}
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[english]{babel}
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{dsfont}
+\RequirePackage{pifont} % http://ctan.org/pkg/pifont
+
+% ================ General Shortcuts ================
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+\newcommand{\q}[0]{\textcolor{red}{???}}
+\newcommand{\under}[1]{\underline{#1}}
+\renewcommand{\qed}[0]{$\hfill\blacksquare$}
+
+% ================ Mathematics: General ================
+% Absolute Value
+\newcommand{\abs}[1]{\big \vert {#1} \big \vert}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+% Bold symbols for vector.
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
+\newcommand{\vc}[0]{\tb{c}}
+\newcommand{\ve}[0]{\tb{e}}
+\newcommand{\vm}[0]{\tb{m}}
+\newcommand{\vh}[0]{\tb{h}}
+\newcommand{\vf}[0]{\tb{F}}
+\newcommand{\vi}[0]{\tb{i}}
+\newcommand{\vj}[0]{\tb{j}}
+\newcommand{\vk}[0]{\tb{k}}
+\newcommand{\vg}[0]{\tb{G}}
+\newcommand{\vn}[0]{\tb{n}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vv}[0]{\tb{v}}
+\newcommand{\vL}[0]{\tb{L}}
+\newcommand{\ff}[0]{\tb{f}}
+\newcommand{\fg}[0]{\tb{g}}
+\newcommand{\bx}[0]{\mathbf{x}}
+\newcommand{\bv}[0]{\mathbf{v}}
+\newcommand{\bw}[0]{\mathbf{w}}
+
+% ================ Mathematics: Linear Algebra ================
+\newcommand{\inner}[2]{\langle {#1}, {#2} \rangle}
+\newcommand{\norm}[1]{\vert \vert {#1} \vert \vert}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+
+
+% ================ Mathematics: Calculus ================
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\curl}[0]{\text{curl}}
+\newcommand{\grad}[0]{\text{grad}}
+\newcommand{\dive}[0]{\text{div}}
+\newcommand{\tspace}[0]{T_{x_0}}
+\newcommand{\tanspace}[0]{T_{x_0}M}
+\newcommand{\pd}[0]{\partial}
+\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
+
+% ================ Statistics ================
+% Indicator Function
+\newcommand{\id}[1]{\mathds{1}\{{#1}\}}
+% Expectation
+\newcommand{\expect}[1]{\mathbb{E}[{#1}]}
+\newcommand{\var}[1]{\mathbb{V}ar[{#1}]}
+\newcommand{\prob}[1]{\mathbb{P}[{#1}]}
+
+
+% ================ Theorems ================
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{notation}{Notation}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{assumption}{Assumption}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{property}{Property}[section]
+\newtheorem{axiom}{Axiom}[section]
+\newtheorem{rules}{Rule}[section]
