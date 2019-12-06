@@ -605,7 +605,7 @@ Satisfies
 	\item If $P(Y \geq 0|X) = 1$, then $\expect{Y|X} \geq 0$
 	\item $\expect{Y + Z |X} = \expect{Y|X} + \expect{Z|X}$
 	\item for constant random variable 1, $\expect{1|X} = 1$
-	\item for convex function $\phi$, $\expect{\varphi(Y)|X} \geq \varphi(\expect{Y|X})$
+	\item for convex function $\phi$, $\varphi(\expect{Y|X}) \leq \expect{\varphi(Y)|X}$
 \end{enumerate}
 
 \theorem[Law of Total Expectation]
