@@ -1079,9 +1079,9 @@ Let $d_0, d_1, \hdots, d_{n-1}$ be non-zero Q-orthogonal vectors. \\
 Note that they are linearly independent by the previous theorem. \\
 Therefore, they form a basis of $\real^n$. \\
 The global minimum can be represented as 
-$$x^* = \sum_{j=0}^{n-1} \alpha_j d_j \, \alpha_j \in \real$$
+$$x^* = \sum_{j=0}^{n-1} \alpha_j d_j, \, \alpha_j \in \real$$
 For every $j$, the following holds:
-$$d^TQx^* = \alpha_jd_j^TQd_j$$
+$$d_j^TQx^* = \alpha_jd_j^TQd_j$$
 $$\implies \alpha_j = \frac{d_j^TQx^*}{d_j^TQd_j}$$
 \paragraph{Algorithm: Method of Conjugate Directions}
 Let $Q$ be a positive definite symmetric $n \times n$ matrix. and $\{d_j\}_{j=0}^{n-1}$ be a set of non-zero $Q$-orthogonal vectors, note that they form a basis of $\real^n$. \\
@@ -1129,7 +1129,7 @@ $$\nabla f(x_0) \cdot (y - x_0) \geq 0 \, \forall y\in \Omega$$
 \paragraph{Example} Now consider the special case in which $\Omega$ is an affine hyperplane, that is, 
 $$\Omega = \{ x \in \real^n: cx + b = 0\}$$
 where $\dim(\Omega)$ is $n-1$. \\
-Note that for every $y \in \Omega, \nabla f(x_0)\cdot (y - x_0) \geq 0$. For any feasible direction $a$ at point $x_0$, by definition of hyperplane, $-a$ is a feasible direction as well. \\
+Note that for every $y \in \Omega, \nabla f(x_0)\cdot (y - x_0) \geq 0$. For any feasible direction $a:= y - x_0$ at point $x_0$, by definition of hyperplane, $-a$ is a feasible direction as well. \\
 Consequently, $a \cdot \nabla f(x_0) = 0$ for every feasible direction. That is, $\nabla f(x_0) \perp \Omega$.
 \end{proof}
 
@@ -1227,25 +1227,25 @@ We reduce this problem to (many) 1-dimensional problems. \\
 Fix $v(\cdot) \in C^1$ on $[0,1]$ s.t. $v(0) = 0 = v(1)$. \\
 Suppose $u^*(\cdot) \in \mc{A}$ is a minimizer. \\
 Notice that $u^*(\cdot) + sv(\cdot) \in \mc{A}\, \forall s \in \real$. \\
-Let $f: \real \rightarrow \real$ s.t. $f(s) := F(u^*(\cdot) + sv(\cdot)$. \\
+Let $f: \real \rightarrow \real$ s.t. $f(s) := F(u^*(\cdot) + sv(\cdot))$. \\
 If $u^*(\cdot)$ minimizes $F$, then $s=0$ minimizes $f$, then $f'(0) = 0$. \\
 Then $f(0) = F[u^*(\cdot)] \leq F[u^*(\cdot) + sv(\cdot)] = f(s)$ \\
 \begin{align}
-	f'(0) &= \frac{d}{ds}|_{s=0} \underbrace{F[u*(\cdot) + sv(\cdot)]}_{f(s)} \\
+	f'(0) &= \frac{d}{ds}|_{s=0} \underbrace{F[u^*(\cdot) + sv(\cdot)]}_{f(s)} \\
 	&= \frac{d}{ds}|_{s=0} \frac{1}{2} \int_0^1 \{ [u^*(x) + sv(x)]^2 + [u^{*'}(x) + sv'(x)]^2\} \, dx \\
 	&= \frac{1}{2}\frac{d}{ds}|_{s=0} \int_0^1 \{ u^*(x)^2 + u^{*'}(x)^2\} \, dx + \frac{d}{ds}|_{s=0} s \int_0^1 \{u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx + \frac{d}{ds}|_{s=0} \frac{s^2}{2} \int_0^1 \{v(x)^2 + v'(x)^2\} \, dx \\
 	&= \int_0^1 \{u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx
 \end{align}
 So far, if $u^*(\cdot)$ is a minimizer of $F$ over $\mc{A}$, then
-$$\int_0^1 \{u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx = 0 \quad (\heartsuit)$$
+$$\int_0^1 \{u^*(x)v(x) + u'^{*}(x)v'(x)\} \, dx = 0 \quad (\heartsuit)$$
 for all $v(\cdot) \in C^1$ on $[0,1]$ and $v(0) = 0 = v(1)$.
 We call this a ``primitive form of 1st order condition", and call $v(\cdot)$ the test functions. \\
 Recall Integration by parts:
 $$\int_0^1 w(x)v'(x) \, dx = w(x)v(x)|_0^1 - \int_0^1 w'(x)v(x) \, dx$$
 \begin{align}
-	(\heartsuit) &= \int_0^1 u^*(x) v(x) \, dx + \int_0^1 u^{*'}(x) v'(x) \, dx \\
-	&=  \int_0^1 u^*(x) v(x) \, dx + \underbrace{u^{*'}(x)v(x)|_0^1}_{=0 \, (v(0) = v(1) = 0)} - \int_0^1 u^{*''}(x)v(x) \, dx \\
-	&= \int_0^1 \left(u^*(x) - u^{*''}(x)\right) v(x) \, dx \\
+	(\heartsuit) &= \int_0^1 u^*(x) v(x) \, dx + \int_0^1 u'^{*}(x) v'(x) \, dx \\
+	&=  \int_0^1 u^*(x) v(x) \, dx + \underbrace{u'^{*}(x)v(x)|_0^1}_{=0 \, (v(0) = v(1) = 0)} - \int_0^1 u''^{*}(x)v(x) \, dx \\
+	&= \int_0^1 \left(u^*(x) - u''^{*}(x)\right) v(x) \, dx \\
 	&= 0
 \end{align}
 For all test functions $v(\cdot)$.\\
@@ -1254,11 +1254,11 @@ For all test functions $v(\cdot)$.\\
 Suppose $g$ is continuous function on interval $[a,b]$. If
 $$\int_a^b g(x)v(x) \, dx = 0$$ for all test functions $v(\cdot)$, then \\
 $g(x) \equiv 0$ on $[a,b]$.\\
-Then by Fundamental Lemma of Calculus of Variations, $(\heartsuit) \implies u^*(x) - u^{*''}(x) \equiv 0$, which is the 1st order necessary condition for $u^*(\cdot)$. \\
+Then by Fundamental Lemma of Calculus of Variations, $(\heartsuit) \implies u^*(x) - u''^{*}(x) \equiv 0$, which is the 1st order necessary condition for $u^*(\cdot)$. \\
 \tb{Step 2:} Find a function $u^*(\cdot)$ satisfying these conditions
 \begin{align}
 \begin{cases}
-	u^*(x) = u^{*''}(x) \\
+	u^*(x) = u''^{*}(x) \\
 	u^*(0) = u^*(1) = 1
 \end{cases} &\implies u^*(x) = c_1e^x + c_2e^{-x} \\
 \begin{cases}
@@ -1269,14 +1269,14 @@ Then by Fundamental Lemma of Calculus of Variations, $(\heartsuit) \implies u^*(
 \end{align}
 \tb{Step 3:} check $u^*(\cdot)$ is in fact a global minimizer. \\
 We derived that 
-$$F[u^*(\cdot) + sv(\cdot)] = F[u*(\cdot)] + \underbrace{s\int_0^1 \{ u^*(x)v(x) + u^{*'}(x)v'(x)\} \, dx}_{=0} + \underbrace{\frac{s^2}{2} \int_0^1 \{ v(x)^2 + v'(x)^2 \} \, dx}_{\geq 0}$$
-$$F[u*(\cdot)] \leq F[u*(\cdot) + sv(\cdot)]$$
-for all test functions $v(\cdot)$ and all $s \in real$. In particular, let $s = 1$, then\\
-$$F[u*(\cdot)] \leq F[u^*(x) + v(\cdot)]$$
+$$F[u^*(\cdot) + sv(\cdot)] = F[u^*(\cdot)] + \underbrace{s\int_0^1 \{ u^*(x)v(x) + u'^{*}(x)v'(x)\} \, dx}_{=0} + \underbrace{\frac{s^2}{2} \int_0^1 \{ v(x)^2 + v'(x)^2 \} \, dx}_{\geq 0}$$
+$$F[u^*(\cdot)] \leq F[u^*(\cdot) + sv(\cdot)]$$
+for all test functions $v(\cdot)$ and all $s \in \real$. In particular, let $s = 1$, then\\
+$$F[u^*(\cdot)] \leq F[u^*(x) + v(\cdot)]$$
 for all test functions $v(\cdot)$. In particular, let $v(\cdot) = u(\cdot) - u^*(\cdot)$, then
-$$F[u*(\cdot)] \leq F[u(\cdot)]$$ for all $u(\cdot) \in \mc{A}$. \\
+$$F[u^*(\cdot)] \leq F[u(\cdot)]$$ for all $u(\cdot) \in \mc{A}$. \\
 \textcolor{red}{Note: The space of $v(\cdot)$ is a vector space, but $\mc{A}$ is not a vector space (since $u(\cdot) \neq 0$). It is a translate of a vector space.}
-\paragraph{Lemma: Fundamental Lemma of Calculus of Variations}
+\paragraph{\blue{Lemma: Fundamental Lemma of Calculus of Variations}}
 Suppose $g$ is continuous function on interval $[a,b]$. If
 $$\int_a^b g(x)v(x) \, dx = 0$$ for all test functions $v(\cdot)$, then \\
 $g(x) \equiv 0$ on $[a,b]$.\\
@@ -1362,17 +1362,13 @@ $$\frac{d}{dx}\left(\int_{a(x)}^{b(x)} f(x,t) \, dt\right) = f(x, b(x))\cdot \fr
 Note that if $a(x)$ and $b(x)$ are constants rather than functions of $x$, we have a special case of Leibniz's rule:
 $$\frac{d}{dx} \left( \int_a^b f(x,t)\, dt\right) = \int_a^b \frac{\partial}{\partial x} f(x,t)\, dt$$
 
-\paragraph{Theorem: Euler-Langrange Equation}
+\paragraph{Theorem}
 $$\mc{A} = \{ u: [a,b] \rightarrow \real | u \in C^1, u(a) = A, u(b) = B\}$$
 $$F[u(\cdot)] = \int_a^b L(x,u(x),u'(x))\, dx$$
 where $L \in C^2$. \\
 Then if $u(\cdot) \in C^1$, then
 $\frac{\delta F}{\delta u}(u)(\cdot)$ exists, is continuous, and
 $$\frac{\delta F}{\delta u}(u)(x) = -\frac{d}{dx}[L_p(x,u(x),u'(x))] + L_z(x,u(x),u'(x))$$
-Then the Euler-Lagrange equation is given by
-\textcolor{red}{$$-\frac{d}{dx}[L_p(x,u(x),u'(x))] + L_z(x,u(x),u'(x)) = 0$$}\\
-\ti{\under{Note:}} The Euler-Lagrange equation is a second-order PDE whose solutions are the functions for which a given functional is stationary. Because a differentiable functional is stationary at its local maxima and minima, the Euler-Lagrange equation is useful for solving optimization problems in which, given some functional, one seeks the function minimizing or maximizing it. This is analogous to Fermat's Theorem in Calculus, stating that at any point where a differentiable function attains a local extremum its derivative is zero. \\
-\begin{proof}
 	Let $v$ be a test function ($v(a) = v(b) = 0$)
 	\begin{align}
 		\frac{d}{ds} |_{s=0} F[u(\cdot) + sv(\cdot)] 
@@ -1386,7 +1382,6 @@ Then the Euler-Lagrange equation is given by
 	By the definition of variational derivative, it follows that 
 	$$\frac{\delta F}{\delta u}(u)(x) = -\frac{d}{dx}[L_p(x,u(x),u'(x))] + L_z(x,u(x),u'(x))$$
 	Furthermore, since $L(\cdot) \in C^2, -\frac{d}{dx}L_p(\cdot)$ and $L_z(\cdot)$ are  continuous. Moreover, $u(\cdot)$ and $u'(\cdot)$ are continuous, so is the composite function. Hence the variational derivative is continuous. 
-\end{proof}
 \paragraph{Model example}
 $L(x, z, p) = \frac{z^2 + p^2}{2}, \quad F[u(\cdot)] = \int_0^1 \frac{u(x)^2 + u'(x)^2}{2} \, dx$\\
 $L_z(x,z,p) = z \implies L_z(x,u(x),u'(x)) = u(x)$ \\
@@ -1482,7 +1477,7 @@ $$L_p(x,z,p) = 2\pi z \frac{p}{\sqrt{1 + p^2}}$$
 	\end{example}
 	
 	\begin{remark}
-		($\dagger \dagger$) is often referred to as \emph{Newtown's second law}: object moves along the path on which the total conversion between kinetic and potential energies is minimized.
+		($\dagger \dagger$) is often referred to as \emph{Newton's second law}: object moves along the path on which the total conversion between kinetic and potential energies is minimized.
 	\end{remark}
 	
 	\begin{example}[3-Dimensional Pendulum]
@@ -1579,7 +1574,30 @@ $$L_p(x,z,p) = 2\pi z \frac{p}{\sqrt{1 + p^2}}$$
 		x=+a, y=0, (+a-C)1)^2 + (0-C_2)^2 = \lambda^2 \\
 		\int_{-a}^a \sqrt{1 + u'(x)^2} \, dx = l
 	\end{cases}$$
-	\subsubsection{Holonomic constraints}
+\subsubsection{Holonomic constraints}
+\paragraph{Setup(3-Dim Special Case)}
+Minimize
+$$F[x(\cdot), y(\cdot), z(\cdot)] = \int_a^b L(t, x(t), y(t), z(t), \dot{x}(t), \dot{y}(t), \dot{z}(t))\, dt$$
+with constraint
+$$H(x(t), y(t), z(t)) \equiv 0$$
+\theorem[Euler-Lagrange Equations]
+Let $\vx_*(t) := \begin{pmatrix}
+	x_*(t) \\
+	y_*(t) \\
+	z_*(t)
+\end{pmatrix}$ be the minimizer subject to the constraint, then
+$$\begin{pmatrix}
+	\frac{\delta F}{\delta x}[x_*(\cdot), y_*(\cdot), z_*(\cdot)](t) \\
+	\frac{\delta F}{\delta y}[x_*(\cdot), y_*(\cdot), z_*(\cdot)](t) \\
+	\frac{\delta F}{\delta z}[x_*(\cdot), y_*(\cdot), z_*(\cdot)](t) \\
+\end{pmatrix} + \lambda(t)
+\begin{pmatrix}
+	H_x[x_*(\cdot), y_*(\cdot), z_*(\cdot)](t)\\
+	H_y[x_*(\cdot), y_*(\cdot), z_*(\cdot)](t)\\
+	H_z[x_*(\cdot), y_*(\cdot), z_*(\cdot)](t)\\
+\end{pmatrix} = 0 \quad \forall t\in \real
+$$
+where $\lambda: [a,b] \rightarrow \real$ is a function.
 	
 	
 	

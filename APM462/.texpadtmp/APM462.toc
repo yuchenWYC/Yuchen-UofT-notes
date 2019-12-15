@@ -145,7 +145,7 @@
 \contentsline {subsection}{\numberline {8.1}Example}{31}{subsection.8.1}% 
 \contentsline {paragraph}{Plan}{31}{section*.143}% 
 \contentsline {paragraph}{Lemma: Fundamental Lemma of Calculus of Variations}{32}{section*.144}% 
-\contentsline {paragraph}{Lemma: Fundamental Lemma of Calculus of Variations}{33}{section*.145}% 
+\contentsline {paragraph}{\leavevmode {\color {blue}Lemma: Fundamental Lemma of Calculus of Variations}}{33}{section*.145}% 
 \contentsline {subsection}{\numberline {8.2}Classical Problem: the Brachistochrone}{33}{subsection.8.2}% 
 \contentsline {subsection}{\numberline {8.3}General class of problems in Calculus of Variations}{33}{subsection.8.3}% 
 \contentsline {paragraph}{Model example}{33}{section*.146}% 
@@ -154,13 +154,14 @@
 \contentsline {paragraph}{Model example}{34}{section*.153}% 
 \contentsline {paragraph}{Lemma}{34}{section*.154}% 
 \contentsline {paragraph}{Theorem: Leibniz Integral Rule}{34}{section*.159}% 
-\contentsline {paragraph}{Theorem: Euler-Langrange Equation}{35}{section*.160}% 
+\contentsline {paragraph}{Theorem}{35}{section*.160}% 
 \contentsline {paragraph}{Model example}{35}{section*.165}% 
-\contentsline {subsection}{\numberline {8.4}Euler-Lagrange Equations in $\mathbb {R}^n$}{37}{subsection.8.4}% 
-\contentsline {paragraph}{Setup}{37}{section*.166}% 
+\contentsline {subsection}{\numberline {8.4}Euler-Lagrange Equations in $\mathbb {R}^n$}{36}{subsection.8.4}% 
+\contentsline {paragraph}{Setup}{36}{section*.166}% 
 \contentsline {subsection}{\numberline {8.5}Equality constraints}{38}{subsection.8.5}% 
 \contentsline {subsubsection}{\numberline {8.5.1}Isoperimetric constraints}{38}{subsubsection.8.5.1}% 
 \contentsline {paragraph}{Recall: finite dimensional case}{38}{section*.167}% 
 \contentsline {paragraph}{Infinite dimensional case}{38}{section*.168}% 
 \contentsline {paragraph}{Claim:}{39}{section*.169}% 
 \contentsline {subsubsection}{\numberline {8.5.2}Holonomic constraints}{39}{subsubsection.8.5.2}% 
+\contentsline {paragraph}{Setup(3-Dim Special Case)}{39}{section*.170}% 
