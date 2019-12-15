@@ -114,7 +114,7 @@
 \contentsline {paragraph}{Fact: algorithm is descending}{23}{section*.103}% 
 \contentsline {paragraph}{Fact: the method of steepest descent moves perpendicular steps}{23}{section*.104}% 
 \contentsline {paragraph}{Note}{23}{section*.105}% 
-\contentsline {paragraph}{Theorem (Convergence of Steepest Descent)}{23}{section*.106}% 
+\contentsline {paragraph}{Theorem (Convergence of Steepest Descent)}{24}{section*.106}% 
 \contentsline {paragraph}{Steepest descent: Quadratic case}{24}{section*.107}% 
 \contentsline {paragraph}{Kantorovich Inequality}{25}{section*.112}% 
 \contentsline {paragraph}{Theorem: Steepest Descent in Quadratic Case}{25}{section*.113}% 
@@ -124,7 +124,7 @@
 \contentsline {paragraph}{Definition: Q-orthogonality}{26}{section*.116}% 
 \contentsline {paragraph}{Example 1}{26}{section*.117}% 
 \contentsline {paragraph}{Example 2}{26}{section*.118}% 
-\contentsline {paragraph}{Example 3}{26}{section*.119}% 
+\contentsline {paragraph}{Example 3}{27}{section*.119}% 
 \contentsline {paragraph}{Proposition}{27}{section*.120}% 
 \contentsline {paragraph}{Lemma (Theorems covered so far)}{27}{section*.121}% 
 \contentsline {paragraph}{Example 4}{27}{section*.122}% 
@@ -163,3 +163,4 @@
 \contentsline {paragraph}{Recall: finite dimensional case}{38}{section*.167}% 
 \contentsline {paragraph}{Infinite dimensional case}{38}{section*.168}% 
 \contentsline {paragraph}{Claim:}{39}{section*.169}% 
+\contentsline {subsubsection}{\numberline {8.5.2}Holonomic constraints}{39}{subsubsection.8.5.2}% 

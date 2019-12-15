@@ -10,6 +10,7 @@
 \usepackage{fancyhdr}
 \usepackage{perpage}
 \usepackage{float}
+\usepackage{../raina}
 
 % Property settings.
 \MakePerPage{footnote}
@@ -17,26 +18,6 @@
 \lhead{Notes by Y.W.}
 
 % Commands
-\newcommand{\ti}[1]{\textit{#1}}
-\newcommand{\tb}[1]{\textbf{#1}}
-\newcommand{\mb}[1]{\mathbb{#1}}
-\newcommand{\under}[1]{\underline{#1}}
-\newcommand{\proof}[0]{\textit{\underline{proof: }}}
-\newcommand{\real}[0]{\mathbb{R}}
-\newcommand{\mc}[0]{\mathbb{C}}
-\newcommand{\vi}[0]{\tb{i}}
-\newcommand{\vj}[0]{\tb{j}}
-\newcommand{\vk}[0]{\tb{k}}
-\newcommand{\vx}[0]{\tb{x}}
-\newcommand{\vy}[0]{\tb{y}}
-\newcommand{\vz}[0]{\tb{z}}
-\newcommand{\vo}[0]{\tb{0}}
-\newcommand{\vu}[0]{\tb{u}}
-\newcommand{\vw}[0]{\tb{w}}
-\newcommand{\vv}[0]{\tb{v}}
-\newcommand{\va}[0]{\tb{a}}
-\newcommand{\vb}[0]{\tb{b}}
-\newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
 
 % Attr.
 \title{Math Notes}
@@ -107,14 +88,21 @@ $$\tb{a} \times \tb{b} = \begin{pmatrix}a_2b_3 - a_3b_2\\ a_3b_1-a_1b_3\\a_1b_2-
 \end{enumerate}
 
 \section{Common Taylor Series}
+\definition[Taylor Series]
+The Taylor series of a real or complex-valued function $f(x)$ that is infinitely differentiable at a real or complex number $a$ is the power series
+$$f(x) = f(a) + \frac{f'(a)}{1!}(x - a) + \frac{f''(a)}{2!}(x-a)^2 + \frac{f'''(a)}{3!}(x-a)^3 + \hdots$$
+Or equivalently,
+$$f(x) = \sum_{n=0}^\infty \frac{f^{(n)}(a)}{n!}(x - a)^n$$
+
+\axiom
 \begin{align}
 	e^x &= \sum_{n=0}^{\infty}\frac{x^n}{n!}\\
 	\sin{x} &= \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n+1}}{(2n+1)!}\\
 	\cos{x} &= \sum_{n=0}^{\infty}(-1)^n\frac{x^{2n}}{(2n)!}\\
 	\frac{1}{1-x} &= \sum_{n=0}^{\infty}x^n
 \end{align}
-\paragraph{Remark}
-Take the primitive of (4) to get the Taylor polynomial of $\ln(1-x)$.
+\remark
+Take the anti-derivative of (4) to get the Taylor polynomial of $\ln(1-x)$.
 \section{$\varepsilon$ definition of supremum and infimum}
 \paragraph{Definition} Let S be a nonempty subset of the real numbers that is bounded above. The upper bound $u$ is said to be the supremum of S iff $$\forall \varepsilon >0, \exists x \in S, u - \varepsilon < x$$
 \paragraph{Definition} Let S be a nonempty subset of the real numbers that is bounded below. The lower bound $w$ is said to be the infimum of S iff $$\forall \varepsilon >0, \exists x \in S, x < w + \varepsilon$$
@@ -136,7 +124,7 @@ In other words, when we hold the first entry of the bilinear map fixed while let
 \section{Euler's Formula}
 $$e^{i\theta} = \cos \theta + i\sin \theta$$
     Notice that in a special case of $\theta = \pi$, the above identity is a.k.a Euler's 
-    Identity($e^{i\pi}+1=0$). Considering any $z\in \mc$, to derive the above identity, we have the following
+    Identity($e^{i\pi}+1=0$). Considering any $z\in \mb{C}$, to derive the above identity, we have the following
     \begin{align*}
     	z &= |z|e^{i\theta}\\
         z^n &= |z|^n\left(e^{i\theta}\right)^n\\
@@ -145,7 +133,7 @@ $$e^{i\theta} = \cos \theta + i\sin \theta$$
     \end{align*}
     notice that we can now interchange, as we please, $\cos \theta + i\sin \theta$ with $e^{i\theta}$.
 \subsection{$n$-th Roots of Unity}
-Suppose $a \in \mc$ and $t^n = a$
+Suppose $a \in \mb{C}$ and $t^n = a$
 Then 
 \begin{align*}
 	t^n &= a\\
@@ -154,4 +142,25 @@ Then
 	k &= 0, 1, 2, \hdots, n-1
 \end{align*}
 We can form these roots into equal partitions of the unit circle.
+
+
+\section{Definition of Natural Number}
+\definition
+$$e:= \underset{n \rightarrow \infty}{\lim} (1 + \frac{1}{n})^n$$
+\definition
+$$e^k:= \underset{n \rightarrow \infty}{\lim} (1 + \frac{k}{n})^n$$
+
+\section{Common Integrals}
+\begin{align}
+	\int_{-\infty}^\infty e^{-(\frac{x-b}{a})^2} \, dx = a\sqrt{\pi}
+\end{align}
+
+
+
+
+
+
+
+
+
 \end{document}

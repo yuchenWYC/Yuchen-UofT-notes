@@ -1,3 +1,4 @@
+\babel@toc {english}{}
 \contentsline {section}{\numberline {1}Lecture 9 - k-Means and EM Algorithm}{2}{section.1}% 
 \contentsline {subsection}{\numberline {1.1}Latent variable models}{2}{subsection.1.1}% 
 \contentsline {subsection}{\numberline {1.2}Clustering}{2}{subsection.1.2}% 
@@ -32,7 +33,7 @@
 \contentsline {paragraph}{Notes}{7}{section*.21}% 
 \contentsline {subsection}{\numberline {2.2}Bellman Equation}{7}{subsection.2.2}% 
 \contentsline {paragraph}{Key observation}{7}{section*.22}% 
-\contentsline {paragraph}{Notes}{7}{section*.23}% 
+\contentsline {paragraph}{Notes}{8}{section*.23}% 
 \contentsline {paragraph}{Greedy policy}{8}{section*.24}% 
 \contentsline {subsection}{\numberline {2.3}Finding the Value Function (Policy Evaluation Problem)}{8}{subsection.2.3}% 
 \contentsline {paragraph}{the Value Iteration method}{8}{section*.25}% 

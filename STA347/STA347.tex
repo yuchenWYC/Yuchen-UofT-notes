@@ -60,7 +60,7 @@
    	\item Axiom \(2 \quad P(S)=1\)
    	\item Axiom 3 (countable additivity) For every sequence of disjoint events \(E_{1}, E_{2}, \ldots \in \mathcal{F}\)
 $$
-P\left(\stackrel{\infty}{\cup} E_{i}\right)=\sum_{i=1}^{\infty} P\left(E_{i}\right)
+P\left(\cup_{i=1}^\infty E_{i}\right)=\sum_{i=1}^{\infty} P\left(E_{i}\right)
 $$
    \end{itemize}
    \definition[probability] Any function $P$ on a sample space $S$ satisfying Axioms 1-3 is called a \tb{probability}.
@@ -301,16 +301,15 @@ for \(-\infty<x<\infty\).
 Let \(F\) be a distribution function. Then\\
 (a) \(F\) is nondecreasing,\\
 (b) \(\lim _{x \rightarrow \infty} F(x)=1\) and \(\lim _{x \rightarrow-\infty} F(x)=0\),\\
-(c) \(F\) is right continuous, that is, \(\lim _{y} \searrow F(y)=F(x),\)\\
-(d) \(F(x-):=\lim _{y}, \gamma F(y)=P(X<x)\)\\
+(c) \(F\) is right continuous, that is, \(\lim _{y \searrow x}F(y)=F(x),\)\\
+(d) \(F(x-):=\lim_{y \nearrow x} F(y) =P(X<x)\)\\
 (e) \(P(X=x)=F(x)-F(x-)\)
 
 \theorem
 If a real function $F$ satisfies (a)-(c) in the above properties, then it is a distribution function of a random variable.
 
 \definition[$p$-quantile]
-The $p$-quantile of a random variable $X$ is $x$ such that $P(X \leq x) \geq p$ and 
-$P(X \geq x) \geq p$ and $P(X \geq x) \geq 1-p$.
+The $p$-quantile of a random variable $X$ is $x$ such that $P(X \leq x) \geq p$ and $P(X \geq x) \geq 1-p$.
 
 \definition
  The median, lower quartile, upper quartile are 0.5-, 0.25-, 0.75-quantile. The inter quartile range (IQR) is the difference between upper and lower quartile.

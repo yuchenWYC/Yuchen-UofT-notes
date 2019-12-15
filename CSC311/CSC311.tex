@@ -11,55 +11,12 @@
 \usepackage{float}
 \usepackage{esint}
 \usepackage[margin=1.5cm]{geometry}
+\usepackage{../raina}
 
 % Property settings.
 \MakePerPage{footnote}
 \pagestyle{headings}
 
-% Commands
-\newcommand{\ti}[1]{\textit{#1}}
-\newcommand{\tb}[1]{\textbf{#1}}
-\newcommand{\mb}[1]{\mathbb{#1}}
-\newcommand{\mc}[1]{\mathcal{#1}}
-\newcommand{\bx}[0]{\mathbf{x}}
-\newcommand{\bv}[0]{\mathbf{v}}
-\newcommand{\bw}[0]{\mathbf{w}}
-\newcommand{\real}[0]{\mathbb{R}}
-\newcommand{\under}[1]{\underline{#1}}
-\newcommand{\proof}[0]{\textit{\underline{proof:} }}
-\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
-\newcommand{\vx}[0]{\tb{x}}
-\newcommand{\vy}[0]{\tb{y}}
-\newcommand{\vz}[0]{\tb{z}}
-\newcommand{\vo}[0]{\tb{0}}
-\newcommand{\va}[0]{\tb{a}}
-\newcommand{\vb}[0]{\tb{b}}
-\newcommand{\vc}[0]{\tb{c}}
-\newcommand{\ve}[0]{\tb{e}}
-\newcommand{\vm}[0]{\tb{m}}
-\newcommand{\vh}[0]{\tb{h}}
-\newcommand{\vf}[0]{\tb{F}}
-\newcommand{\vi}[0]{\tb{i}}
-\newcommand{\vj}[0]{\tb{j}}
-\newcommand{\vk}[0]{\tb{k}}
-\newcommand{\vr}[0]{\tb{r}}
-\newcommand{\vg}[0]{\tb{G}}
-\newcommand{\vn}[0]{\tb{n}}
-\newcommand{\vu}[0]{\tb{u}}
-\newcommand{\vv}[0]{\tb{v}}
-\newcommand{\vL}[0]{\tb{L}}
-\newcommand{\ff}[0]{\tb{f}}
-\newcommand{\fg}[0]{\tb{g}}
-\newcommand{\p}[0]{\partial}
-\newcommand{\qed}[0]{$\hfill\blacksquare$}
-\newcommand{\qerat}{\tag*{$\blacksquare$}}
-\newcommand{\lima}{\underset{\vx \rightarrow \va}{\lim}}
-\usepackage{amsmath}% http://ctan.org/pkg/amsmath
-\newcommand{\notimplies}{%
-  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
-\newcommand{\q}[0]{\textcolor{red}{???}}
-\newcommand{\tspace}[0]{T_{x_0}}
-\newcommand{\tanspace}[0]{T_{x_0}M}
 % Attr.
 \title{CSC311 \\ Lecture Notes}
 \author{Yuchen Wang}
@@ -138,7 +95,7 @@ As $\beta \rightarrow \infty$, soft k-Means converges to hard k-Means.
 
 \subsection{A Generative View of Clustering}
 Imagine that the data was produced by a generative model, then adjust the model parameters using MLE, i.e., maximize the probability that it would product exactly the data we observed. \\
-Assume a datapoint $\vx$ is generated as followw:
+Assume a datapoint $\vx$ is generated as follow:
 \begin{enumerate}
 	\item Choose a cluster $z$ from $\{1,\hdots, K\}$ such that $p(z=k) = \pi_k$
 	\item Given $z$, sample $\vx$ from a Gaussian distribution $\mc{N}(\vx|\mu_z, I)$
@@ -146,7 +103,8 @@ Assume a datapoint $\vx$ is generated as followw:
 Can also be written:
 $$p(z=k) = \pi_k$$
 $$p(\vx|z=k) = \mc{N}(\vx|\mu_k, I)$$
-This defines joint distribution $p(z, \vx) = p(z)p(\vx|z)$ with parameters $\{\pi_k, \mu_k\}_{k=1}^K$, and the marginal of $\vx$ is given by $p(\vx) = \sum_z p(z,x)$. $p(z = k | \vx)$ can be computed using Bayes rule.
+This defines joint distribution $p(z, \vx) = p(z)p(\vx|z)$ with parameters $\{\pi_k, \mu_k\}_{k=1}^K$, and the marginal of $\vx$ is given by $p(\vx) = \sum_z p(z,x)$. \\
+$p(z = k | \vx)$ can be computed using Bayes rule.
 
 \begin{align} p(z=k | \mathbf{x}) &=\frac{p(z=k) p(\mathbf{x} | z=k)}{p(\mathbf{x})} \\ &=\frac{p(z=k) p(\mathbf{x} | z=k)}{\sum_{j=1}^{K} p(z=j) p(\mathbf{x} | z=j)} \\ &=\frac{\pi_{k} \mathcal{N}\left(\mathbf{x} | \boldsymbol{\mu}_{k}, \mathbf{I}\right)}{\sum_{j=1}^{K} \pi_{j} \mathcal{N}\left(\mathbf{x} | \boldsymbol{\mu}_{j}, \mathbf{I}\right)} \end{align}
 This tells us the probability $\vx$ came from the $k$th cluster
@@ -156,7 +114,7 @@ Choose parameters to maximize likelihood of observed data. Given data $\mc{D} = 
 $$\log p(\mc{D}) = \sum_{n=1}^N \log p(\vx^{(n)})$$
 Find $p(\vx)$ by marginalizing out $z$:
 $$p(\vx) = \sum_{k=1}^Kp(z=k, \vx) = \sum_{k=1}^Kp(z=k)p(\vx|z=k) = \sum_{k=1}^K\pi_k\mc{N}(\vx|\mu_k, I)$$
-which is an example of \under{Gaussian Mixture Model (GMM)}, and $pi_k$ are known as the \under{mixing coefficients}.
+which is an example of \under{Gaussian Mixture Model (GMM)}, and $\pi_k$ are known as the \under{mixing coefficients}.
 \paragraph{Note}
 If we allow arbitrary covariance matrices, GMMs are \under{universal approximators of densities} (if you have enough Gaussians). Even diagonal GMMs are universal approximators.
 
@@ -258,8 +216,10 @@ Write $R_t = R(S_t, A_t)$ and $r(s,a) := \mb{E}_\pi[R(s,a)]$.\\
 The value function satisfies the following recursive relationship:
 \begin{align}
 	Q^\pi(s, a) &= \mb{E}_\pi\left[ \sum_{t=0}^\infty \gamma^tR_t|S_0 = S, A_0 = a\right] \\
-	&= \mb{E}_\pi\left[ R(S_0, A_0) + \gamma\sum_{t=0}^\infty\gamma^tR_{t+1}|S_0=s, A_0=a\right]\\
-	&= \mb{E}_\pi\left[ R(S_0, A_0) + \gamma Q^\pi(S_1, \pi(S_1))|S_0 = s, A_0 = a\right] \\
+	Q^\pi(s, a) &= \mb{E}_\pi\left[R(S_0, A_0) + \sum_{t=1}^\infty \gamma^tR_t|S_0 = S, A_0 = a\right] \\
+	&= \mb{E}_\pi\left[ R(S_0, A_0) \right] + \expect{\gamma\sum_{t=0}^\infty\gamma^tR_{t+1}|S_0=s, A_0=a}\\
+	&= \mb{E}_\pi\left[ R(S_0, A_0) \right] + \gamma\expect{\sum_{t=0}^\infty\gamma^tR_{t+1}|S_0=s, A_0=a}\\
+	&= r(s,a) + \gamma  Q^\pi(S_1, \pi(S_1)) \\
 	&= r(s,a) + \gamma \int_S Q^\pi(s', \pi(s'))\mc{P}(s'|s,a)\,ds'
 \end{align}
 Or for countable state spaces:
@@ -348,7 +308,7 @@ Notice that
 	&= Q_{k+1}(S_i, A_i)
 \end{align}
 So we can treat the problem of estimating $Q_{k+1}$ as a regression problem with noisy data. We minimize the squared error:
-$$Q_{k+1} \leftarrow \underset{Q \in \mc{F}}{argmin} \, \frac{1}{N} \sum_{i=1}^N \left | \underbrace{Q(S_i, A_i)}_{\text{current Q}} - (\underbrace{R_i + \gamma \underset{a' \in \mc{A}}{\max} \, Q_k(S'_i, a))}_{\text{true Q}}\right |$$
+$$Q_{k+1} \leftarrow \underset{Q \in \mc{F}}{argmin} \, \frac{1}{N} \sum_{i=1}^N \left | \underbrace{Q(S_i, A_i)}_{\text{current Q}} - (\underbrace{R_i + \gamma \underset{a' \in \mc{A}}{\max} \, Q_k(S'_i, a))}_{\text{true Q}}\right |^2$$
 We run this procedure $K$-times. \\
 
 \subsection{Q-Learning}
