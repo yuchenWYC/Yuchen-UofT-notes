@@ -1146,13 +1146,14 @@ Let $d_0, d_1, \hdots, d_{n-1}$ be a set of non-zero $Q$-orthogonal vectors in $
 The sequence $\{x_k\}$ generated from $x_0 \in \real^n$ by conjugate directions method has the property that $x_k$ minimizes $f(x) = \frac{1}{2}x^TQx - b^Tx$ on the affine hyperplane $x_0 + B_k$. \\
 \begin{proof}
 	Recall that $x_k$ is the minimizer of $f(x)$ on $x_0 + B_k \iff \nabla f(x_k) \perp x_0 + B_k$ \\
-	\textcolor{red}{Enough to prove that $\nabla f(x_k) \perp B_k$.} \\
+	\textcolor{red}{Enough to prove that $\nabla f(x_k) \perp B_k$.} \\\\
+	\ti{Remarks: $x_0$ here is like a bias which shifts the subspace by a ``constant". Also, ``$\nabla f(x_k) \perp B_k$" here means that $\nabla f(x_k)$ is perpendicular to every basis vector of $B_k$.} \\\\
 	We prove this by induction on $k$. \\
 	\under{Notation:} $\nabla f(x_k) = Q x_k - b =: g_k$. \\
 	\tb{Base case: k = 0} $B_0 = \{0\} \implies g_0 \perp B_0$ \\
 	\tb{Inductive Step: } Assume that $g_k \perp B_k$, show $g_{k+1} \perp B_{k+1}$ \\
 	Since $$x_{k+1} = x_k + \alpha_k d_k$$
-	then $$\underbrace{Q_{k+1} - b}_{g_{k+1}} = \underbrace{Q_{x_k} - b}_{g_k} + \alpha_k Q d_k$$
+	then $$\underbrace{Q_{x_{k+1}} - b}_{g_{k+1}} = \underbrace{Q_{x_k} - b}_{g_k} + \alpha_k Q d_k$$
 \begin{align}
 	g_{k+1}^TB_k &= \langle d_0, \hdots, d_{k-1} \rangle \\
 	g_{k+1}^Td_k &= (\underbrace{g_k + \alpha_k Q d_k^T d_k}_{g_{k+1}})^Td_k \\

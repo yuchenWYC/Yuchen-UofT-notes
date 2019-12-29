@@ -139,8 +139,8 @@
 \contentsline {paragraph}{Corollary}{30}{section*.134}% 
 \contentsline {paragraph}{Corollary}{30}{section*.135}% 
 \contentsline {section}{\numberline {8}Calculus of Variations}{30}{section.8}% 
-\contentsline {paragraph}{Comparison with finite dimensions}{30}{section*.140}% 
-\contentsline {paragraph}{Model model}{30}{section*.141}% 
+\contentsline {paragraph}{Comparison with finite dimensions}{31}{section*.140}% 
+\contentsline {paragraph}{Model model}{31}{section*.141}% 
 \contentsline {paragraph}{Notation}{31}{section*.142}% 
 \contentsline {subsection}{\numberline {8.1}Example}{31}{subsection.8.1}% 
 \contentsline {paragraph}{Plan}{31}{section*.143}% 
