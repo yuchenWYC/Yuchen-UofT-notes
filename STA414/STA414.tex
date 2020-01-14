@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+\usepackage{esint}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{../raina}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Attr.
+\title{STA414\\ Lecture Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+
+\section{Introduction}
+\section{Introduction to Probabilistic Models}
+\subsection{Overview of probabilistic models}
+In general, we have random variables $X = (X_1, \hdots, X_N)$ that are either \ti{observed} or \ti{unobserved}. Need a model that captures the relationship between these variables. The approach of probabilistic generative models is to relate all variables by a learned joint probability distribution $p_\theta(X_1, \hdots, X_N)$. We assume there is a true joint $p_*$, which we are trying to learn with a model $p_\theta$. \\
+Assume we have the joint probability $p(X,C,Y)$
+\paragraph{Regression}
+$$p(Y|X) = \frac{p(X,Y)}{p(X)} = \frac{p(X,Y)}{\int p(X,Y)\, dY}$$
+
+\paragraph{Classification / Clustering}
+$$p(C|X) = \frac{p(X,C)}{\sum_C p(X,C)}$$
+Assigning the class label:
+\begin{enumerate}
+	\item $c^* = \arg \max_c p(C=c|X)$
+	\item Sample the class assignment from our distribution, $c^* \sim p(C|X)$
+	\item Output the class assignment along with its density under our distribution $(c^*, p(C=c^*|X))$. \red{Can inform us of the model's uncertainty or confidence of the prediction.}
+\end{enumerate}
+
+\paragraph{Latent/hidden Variables}
+Variables which are never observed in the dataset.
+
+\paragraph{Operations on Probabilistic Models}
+\begin{itemize}
+	\item \tb{Generate Data}
+	\item \tb{Estimate Likelihood}
+	\item \tb{Inference}: Compute expected value of some variables given others which are either observed or marginalized.
+	\item \tb{Learning}: Set the parameters of the joint distribution given some observed data to maximize the probability of the observed data.
+\end{itemize}
+
+\paragraph{Goals of joint distributions}
+\begin{enumerate}
+	\item Facilitate \tb{efficient computation} of marginal and conditional distributions
+	\item Have compact representation so the size of the parameterization scales well for joint distributions over many variables.
+\end{enumerate}
+
+\paragraph{Joint Dimensionality}
+Suppose $n$ is our number of variables and $k$ our states. The dimensionality of our parameters then becomes $k^n$
+
+\subsection{Sufficient statistics}
+\definition[Statistic and Sufficient statistic]
+A \under{statistic} is a (possibly vector valued) deterministic function of a (set of) random variable(s). A \under{sufficient statistic} is a statistic that conveys exactly the same information about the data generating process that created the data as the entire data itself. Formally, we say that $T(X)$ is a sufficient statistic for $X$ if
+$$T(x^{(1)}) = T(x^{(2)}) \implies L(\theta; x^{(1)}) = L(\theta; x^{(2}) \quad \forall \theta$$
+where $L$ is the likelihood function. \\
+Alternatively,
+$$P(\theta | T(X)) = P(\theta|X)$$
+\red{Equivalently (by the Neyman factorization theorem) we can write
+\[
+P(\theta | T(X))=h(x, T(x)) g(T(x), \theta)
+\]
+An example is the exponential family
+\[
+p(x | \eta)=h(x) \exp \left\{\eta^{T} T(x)-g(\eta)\right\}
+\]
+or, equivalently
+\[
+p(x | \eta)=h(x) g(\eta) \exp \left\{\eta^{T} T(x)\right\}
+\]}
+
+\example[Bernoulli Trials]
+We observe $N$ iid coin flips. \\
+Model: $p(H) = \theta, P(T) = 1 - \theta$\\
+Likelihood: $l(\theta; D) = \log \theta \sum_n x^{(n)} + \log (1-\theta) \sum_n (1 - x^{(n)})$\\
+Notice that our likelihood depends on $\sum_n x^{(n)}$. \\
+$\implies$ If we know this summary statistic $T(x) = \sum_n x^{(n)}$, then we know everything that is useful from our sample todo inference.\\
+$$l(\theta; D) = T(X)\log \theta + (N - T(X)) \log (1 - \theta)$$
+Then we take the derivative and set it to 0 to find the maximum
+\[
+\begin{aligned}
+\Rightarrow \frac{\partial \ell}{\partial \theta}=& \frac{T(X)}{\theta}-\frac{N-T(X)}{1-\theta} \\
+& \Rightarrow \hat{\theta}=\frac{T(X)}{N}
+\end{aligned}
+\]
+This is our maximum likelihood estimation of the parameters \(\theta, \theta_{M L E}^{\star}\).
+
+\example[Multinomial]
+We observe $M$ iid die rolls ($K$-sided). \\
+Model: $p(k) = \theta_k, \sum_k \theta_k = 1$ \\
+Likelihood: $l(\theta; D) = \sum_k N_k \log \theta_k$ 
+
+Take derivatives and set to zero (enforcing \(\sum \theta_{k}=1\) ):
+\[
+\begin{aligned}
+\frac{\partial \ell}{\partial \theta_{k}}=& \frac{N_{k}}{\theta_{k}}-M \\
+ \Rightarrow \theta_{k}^{*}&=\frac{N_{k}}{M}
+\end{aligned}
+\]
+\blue{sufficient statistics: number of each type}
+
+\remark[Sufficient statistics are sums]
+For all exponential family models, sufficient statistics are the average natural parameters.
+
+\section{Directed Graphical Models}
+\notation
+The joint distribution of \(N\) random variables can be computed by the chain rule
+\[
+p\left(x_{1, \ldots, N}\right)=p\left(x_{1}\right) p\left(x_{2} | x_{1}\right) p\left(x_{3} | x_{2}, x_{1}\right) \ldots p\left(x_{n} | x_{n-1: 1}\right)
+\]
+this is true for any joint distribution over any random variables (assuming full dependence between variables).
+More formally, in probability the chain rule for two random variables is
+\[
+p(x, y)=p(x | y) p(y)
+\]
+and for \(N\) random variables
+\[
+p\left(\cap_{i=1}^{N} x_{i}\right)=\prod_{j=1}^{N} p\left(x_{j} | \bigcap_{k=1}^{j-1} x_{k}\right)
+\]
+We can represent a model $p(x_i, x_{\pi_i}) = p(x_{\pi_i})p(x_i|x_{\pi_i})$ as a graph where nodes represent random variables and arrows mean ``conditioned on".\\
+We can simplify the model by building in our assumptions about the conditional probabilities.
+
+\subsection{Directed acyclic graphical models (DAGM)}
+\definition
+A \under{directed acyclic graphical model} over $N$ random variables looks like
+$$p(x_{1, \hdots, N}) = \Pi_i^N p(x_i|x_{\pi_i})$$
+where $x)i$ is a random variable or a node in the graphical model and $x_{\pi_i}$ are the parents of this node. \\
+In other words, the joint distribution factors into a product of conditional distributions. \\
+\blue{Missing edges imply conditional independente.}
+\remark
+We are conditioning on parent nodes as opposed to every node. Therefore, the model that represents this distribution is exponential in the fan-in of each node (the number of nodes in the parent set), instead of in $N$.
+
+\definition[D-Separation]
+\under{D-separation}, or \under{directed-separation} is a notion of connectedness in DAGMs in which two (sets of) variables may or may not connected conditioned on a third (set of) variable(s). \\
+$D$-connection implies conditional dependence and d-separation implies conditional independence.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+

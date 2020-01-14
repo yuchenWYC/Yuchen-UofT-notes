@@ -1,0 +1,8 @@
+\BOOKMARK [1][-]{section.1}{Probability}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Variance and Covariance}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{1D Gaussian Densities}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Calculus}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Manual Differentiation}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Auto Differentiation \(AD\)}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Create Toy Data}{subsection.2.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Automatic Differentiation}{subsection.2.2}% 8

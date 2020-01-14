@@ -1,0 +1,9 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Chapter 1: Real Numbers}{2}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}Discussion: The Irrationality of $\sqrt {2}$}{2}{subsection.1.1}% 
+\contentsline {subsection}{\numberline {1.2}Preliminaries}{2}{subsection.1.2}% 
+\contentsline {subsection}{\numberline {1.3}The axiom of completeness}{3}{subsection.1.3}% 
+\contentsline {subsection}{\numberline {1.4}Consequences of Completeness}{4}{subsection.1.4}% 
+\contentsline {subsection}{\numberline {1.5}Cardinality}{4}{subsection.1.5}% 
+\contentsline {subsubsection}{\numberline {1.5.1}1-1 Correspondence}{5}{subsubsection.1.5.1}% 
+\contentsline {subsubsection}{\numberline {1.5.2}Countable Sets}{5}{subsubsection.1.5.2}% 

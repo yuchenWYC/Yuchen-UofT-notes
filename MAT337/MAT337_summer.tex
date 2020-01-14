@@ -1,0 +1,184 @@
+\documentclass[11pt]{article}
+
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{float}
+\usepackage{esint}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Commands
+\newcommand{\ti}[1]{\textit{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\bx}[0]{\mathbf{x}}
+\newcommand{\bv}[0]{\mathbf{v}}
+\newcommand{\bw}[0]{\mathbf{w}}
+\newcommand{\real}[0]{\mathbb{R}}
+\newcommand{\under}[1]{\underline{#1}}
+\newcommand{\proof}[0]{\textit{\underline{proof:} }}
+\newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
+\newcommand{\vx}[0]{\tb{x}}
+\newcommand{\vy}[0]{\tb{y}}
+\newcommand{\vz}[0]{\tb{z}}
+\newcommand{\vo}[0]{\tb{0}}
+\newcommand{\va}[0]{\tb{a}}
+\newcommand{\vb}[0]{\tb{b}}
+\newcommand{\vc}[0]{\tb{c}}
+\newcommand{\ve}[0]{\tb{e}}
+\newcommand{\vm}[0]{\tb{m}}
+\newcommand{\vh}[0]{\tb{h}}
+\newcommand{\vf}[0]{\tb{F}}
+\newcommand{\vi}[0]{\tb{i}}
+\newcommand{\vj}[0]{\tb{j}}
+\newcommand{\vk}[0]{\tb{k}}
+\newcommand{\vg}[0]{\tb{G}}
+\newcommand{\vn}[0]{\tb{n}}
+\newcommand{\vu}[0]{\tb{u}}
+\newcommand{\vL}[0]{\tb{L}}
+\newcommand{\ff}[0]{\tb{f}}
+\newcommand{\fg}[0]{\tb{g}}
+\newcommand{\rational}[0]{\mathbb{Q}}
+\newcommand{\p}[0]{\partial}
+\newcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\qerat}{\tag*{$\blacksquare$}}
+\newcommand{\lima}{\underset{\vx \rightarrow \va}{\lim}}
+\usepackage{amsmath}% http://ctan.org/pkg/amsmath
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
+
+% Attr.
+\title{Introduction to Real Analysis \\ -- MAT337 Course Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+\section{Construction of Real Numbers}
+\subsection{Decimal Expansion}
+\paragraph{Definition 1.1.1}
+Let $r \in \real^{+}$. Then r is called
+\begin{enumerate}
+	\item \under{Terminating DE} if $r = q.d_1\hdots d_n 0$
+	\item \under{Repeating DE} if $r = q.d_1\hdots d_k d_{k+1}\hdots d_nd_{k+1}\hdots d_nd_{k+1}\hdots$
+\end{enumerate}
+\paragraph{Proposition 1.1.2} $x = \frac{l}{m}$ is \under{rational} if $x$ has a DE that is either terminating or repeating. \\
+\proof\\
+Let $x \in \real^+$. \\
+$\Rightarrow$: \\
+1.Assume $x$ has a DE that is terminating, then
+$$x = q.d_1\hdots d_n 0 = q + \sum_{m=1}^n \frac{d_m}{10^m} \in \mathbb{Q}$$
+2.Assume $x$ has a DE that is repeating, then
+\begin{align*}
+	x &= q.d_1\hdots d_k \overline{d_{k+1}\hdots d_n} \\
+	&= q.d_1 \hdots d_k 0 + 0.0\hdots0 \overline{d_{k+1}\hdots d_n}
+\end{align*}
+We know that the former number $\in \mathbb{Q}$, so we only need to show the rationality of the latter number.
+\begin{align*}
+	0.0\hdots0 \overline{d_{k+1}\hdots d_n} &= 10^{-k}(\sum_{m=1}^n\sum_{l=0}^{\infty} \frac{d'_m}{10^{nl+m}}) \tag{denote $d'_0, \hdots, d'_n$ be the repeated digits}\\
+	&= 10^{-k}\sum_{m=1}^n d'_m 10^{-m}(\sum_{l=0}^{\infty}10^{nl+m}) \tag{decompose}\\
+	&= 10^{-k} \sum_{m=1}^n d'_m 10^{-m}(1-10^{-n})^{-1} \tag{geometric series} \\
+	&= \sum_{m=1}^n \frac{d'_m 10^n}{10^{m+k}(10^n - 1)} \tag{make it look nicer} \\
+	&\in \mathbb{Q}
+\end{align*}
+$\Leftarrow$: Assume $x \in \rational$, we'll show that its DE is either terminating or repeating. \\
+\textbf{\under{Idea}} \\
+By \textcolor{blue}{Euclidean division} we write
+$$l = qm + r_0$$
+where $r_0 < m$. \\
+$\rightarrow \frac{l}{m} = q + \frac{r_0}{m}$\\
+$\rightarrow q \leq \frac{l}{m} < q+1$ \\\\
+Again by ED,
+$$10r_0 = d_1m + r_1$$
+$\rightarrow \frac{r_0}{m} = \frac{d_1}{10} + \frac{r_1}{10m}$
+$\rightarrow \frac{l}{m} = q + \frac{r_0}{m} = q + \frac{d_1}{10} + \frac{r_1}{10m}$\\\\
+Repeat this using induction.\\
+\textbf{\under{Base Case:}} \\
+$\frac{l}{m} = q + \frac{d_1}{10} + \frac{r_1}{10m}$ \\\\
+\textbf{\under{Inductive Step:}} \\
+Assume $\frac{l}{m} = q + \frac{d_1}{10} + \hdots + \frac{r_n}{10^nm}$. \\
+By ED, $$10r_n = d_{n+1} m + r_{n+1}$$
+$\rightarrow \frac{r_n}{m10^n} = \frac{d_{n+1}}{10^{n+1}} + \frac{r_{n+1}}{10^{n+1}m}$ \\
+$\rightarrow \frac{l}{m} = q + \frac{d_1}{10} + \hdots + \frac{r_{n+1}}{10^{n+1}m}$ \\
+\textbf{\under{Case 1}} $r_h = 0$ for some $h > 0 \Rightarrow$ then DE is terminating \\
+\textbf{\under{Case 2}} $r_h > 0 \, \forall l > 0$ \\
+WTS DE is repeating. \\
+$r_h \in \{0, \hdots, m-1\} \, \forall h > 0$ \\
+Fix $h$, then $\exists n$ s.t. $r_n = r_h$ for $n > h$ \\
+Then
+$\begin{cases}
+	10 r_n = d_{n+1}m + r_{n+1} \implies d_{n+1} = d_{h+1}\\
+	10 r_h = d_{h+1}m + r_{h+1} \quad\quad\,\,\,\,\, r_{n+1} = r_{h+1}
+\end{cases}$
+(by uniqueness of ED)
+$\implies$ ED is repeating. \qed
+\paragraph{Definition 1.1.3} $x \in \real$ is called \under{irrational} if $\nexists \frac{l}{m}$ such that $x = \frac{l}{m}$. Denote as $x \in \rational^C$.
+\paragraph{Proposition 1.1.4} $x \in \rational^C \iff$ the decimal expansion of $x$ neither terminates nor repeats.
+\paragraph{Fact 1.1.5} $\real = \rational \cup \rational^C$.
+\subsection{Properties of Supremum and Infimum}
+\paragraph{Proposition 1.2.1} Every nonempty bounded above set $S$ has a supremum. \\\\
+\proof\\
+Since $S$ is bounded above, $\exists M \in \real, \exists m_0, m_1 \in \mathbb{N}, M = m_0.m_1, M \geq s \,\, \forall s \in S$.\\
+Pick $s' = s_0.s_1 \in S$. Since $M \geq s'$, then $m_0 + 1 > s_0$. \\
+Find the smallest integer $a_0 \in \{s_0, s_0 + 1, \hdots, m_0 + 1\}$ that $a_0+ 1$ is an upper bound for $S$. \\
+Let $x_0 \in S$ s.t. $a_0 - 1 < x_0$.\\
+Let $y_1 = a_0 + \frac{a_1}{10}$ where $a_1 \in \{0,1,\hdots,9\}$ is the smallest integer s.t. $y_1$ is an upper bound for $S$. \\
+Let $x_1 \in S$ s.t. $a_0.a_1 - 0.1 \leq x_1 \leq a_0.a_1$\\
+Let $y_2 = a_0 + \frac{a_1}{10} + \frac{a_2}{10^2}$ where $a_2 \in \{0,1,\hdots,9\}$ is the smallest integer s.t. $y_2$ an upper bound for $S$. \\
+Let $x_2 \in S$ s.t. $a_0.a_1a_2 - 0.01 \leq x_2 \leq a_0.a_1a_2$\\
+$\hdots$ \\
+Let $y_n = a_0 + \frac{a_1}{10} + \hdots +  \frac{a_n}{10^n}$ where $a_n \in \{0,1,\hdots,9\}$ is the smallest integer s.t. $y_n$ an upper bound for $S$. \\
+Let $x_n \in S$ s.t. $a_0.a_1\hdots a_n - \frac{1}{10^n} \leq x_n \leq y_n$\\\\
+\textbf{Claim}: $L = a_0.a_1a_2\hdots$ is the supremum for $S$. \\
+\proof \\
+prove upper bound:
+Let $s = s_0.s_1\hdots \in S$. 
+There are 3 cases:
+\begin{enumerate}
+	\item $s_i = a_i \,\forall i$ so that $s = L$
+	\item $\exists k \in \mathbb{N}, \forall i < k, s_i = a_i$ but $s_k > a_k$
+	\begin{align*}
+		y_k &= a_0.a_1\hdots a_{k-1}a_k0\\
+		&< a_0.a_1\hdots a_{k-1}s_k0 \\
+		&= s_0.s_1\hdots s_{k-1}s_k 0\\
+		&\leq s_0.s_1\hdots s_{k-1}s_ks_{k+1}\\
+		&= s \in S
+	\end{align*}
+	Since $y_k$ is an upper bound for $S$, this cannot happen.
+	\item $s_i = a_i \,\,\forall i < k$ but $s_k < a_k$\\
+	$\implies y_k > s \implies L > y_k> s$
+\end{enumerate}
+prove subsequence property: $\forall \epsilon >0$, WTS $\exists s_\epsilon \in S$ s.t. $L - \epsilon \leq s_\epsilon \leq L$\\
+Let $\epsilon >0$. Pick $n > 0$ s.t. $\frac{1}{10^n} < \epsilon$, so then
+$$L - \epsilon \leq L - \frac{1}{10^n} \leq x_n \leq y_n < L$$
+Choose $s_\epsilon = x_n$.\qed
+
+
+\paragraph{Proposition 1.2.2} Supremum is unique. \\\\
+\proof\\
+Assume for a set $S \in \real$, there are two supremums $u,v \in \real$. \\
+Let $\epsilon = u - v > 0$.
+Then by definition of supremum, $\exists s_\epsilon \in S $ s.t. $u - \epsilon = v < s_\epsilon$\\
+$\implies$ contradiction: v is not a supremum of $S$. \qed
+\paragraph{Proposition 1.2.3} For bounded above set $A$ and $c \geq 0$, $$\sup(cA) = c\sup(A)$$
+\proof \\
+Let $M = \sup(A)$.\\
+Upper bound property: $\forall s \in cA, s/c \in A \implies s/c \leq M \implies s \leq cM$ \\
+Subsequence property: Let $\epsilon > 0$, then take $\epsilon* = \frac{\epsilon}{c}$.\\
+By the definition of $\sup(A)$, $\exists s_{\epsilon*} \in A, M - \epsilon* \leq s_{\epsilon*}$\\
+Choose $s_\epsilon = cs_{\epsilon*}$, then \\
+$M - \epsilon* \leq s_{\epsilon*} \implies cM - \epsilon \leq s_\epsilon$ as wanted. \qed
+
+\end{document}
