@@ -1,0 +1,10 @@
+\BOOKMARK [1][-]{section.1}{Markov Chain Probabilities}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Markov Chain examples}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Elementary Computations}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{Recurrence and Transience}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Communicating States and Irreducibility}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{Markov Chain Convergence}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{Stationary Distributions}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Searching for Stationary}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Obstacles to Convergence}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Convergence Theorem}{section.2}% 10

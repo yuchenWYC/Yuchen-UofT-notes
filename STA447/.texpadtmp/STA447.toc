@@ -1,0 +1,12 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Markov Chain Probabilities}{2}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}Markov Chain examples}{2}{subsection.1.1}% 
+\contentsline {subsection}{\numberline {1.2}Elementary Computations}{3}{subsection.1.2}% 
+\contentsline {subsection}{\numberline {1.3}Recurrence and Transience}{4}{subsection.1.3}% 
+\contentsline {subsection}{\numberline {1.4}Communicating States and Irreducibility}{6}{subsection.1.4}% 
+\contentsline {section}{\numberline {2}Markov Chain Convergence}{9}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Stationary Distributions}{9}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Searching for Stationary}{10}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Obstacles to Convergence}{11}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.4}Convergence Theorem}{12}{subsection.2.4}% 
+\contentsline {paragraph}{Proof of Markov Chain Convergence Theorem}{12}{section*.35}% 

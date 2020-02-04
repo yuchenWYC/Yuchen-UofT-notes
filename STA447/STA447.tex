@@ -1,0 +1,573 @@
+\documentclass[11pt]{article}
+% Libraries.
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage{dsfont}
+\usepackage{float}
+\usepackage{esint}
+\usepackage{todonotes}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{../raina}
+\newcommand{\limit}[1]{\underset{{#1} \rightarrow \infty}{\lim}}
+\newcommand{\ur}[2]{{#1}^{({#2})}}
+\newcommand{\dur}[3]{{#1}_{#2}^{({#3})}}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Attr.
+\title{STA447\\ Lecture Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+    
+    \section{Markov Chain Probabilities}
+    \notation
+    $$P(X_{n+1} = j | X_n = i) = p_{ij}$$
+    \definition[Markov chain] A (discrete time, discrete space, time homogeneous) \under{Markov chain} is specified by three ingredients:
+    \begin{itemize}
+    	\item A \under{state space} $S$, any non-empty finite or countable set.
+    	\item \under{Initial probabilities} $\{v_i\}_{i \in S}$, where $v_i$ is the probability of starting at $i$ (at time 0). (So $v_i \geq 0$ and $\sum_i v_i = 1$)
+    	\item \under{Transition probabilities} $\{p_{ij}\}_{i, j\in S}$, where $p_{ij}$ is the probability of jumping to $j$ if you start at $i$. (So $p_{ij} \geq 0$, and $\sum_j p_{ij} = 1$ for all $i$)
+    \end{itemize}
+    
+    \remark[Markov property]
+    $$P(X_{n+1} = j | X_0 = i_0, X_1 = i_1, X_2 = i_2, \hdots, X_n = i_n) = P(X_{n+1} = j | X_n = i_n) = p_{i_nj}$$
+    i.e. The probabilities at time $n+1$ depend only on the state at time $n$.
+    
+    \remark
+    $$P(X_0 = i_0, X_1 = i_1, \hdots, X_n = i_n) = v_{i_0}p_{i_0i_1}p_{i_1i_2} \hdots p_{i_{n-1}i_n}$$
+    
+    \subsection{Markov Chain examples}
+    \example[the Frog Walk]
+    Let $X_n :=$ pad index the frog is at after $n$ steps.
+    \begin{align*}
+    	S &= \{1, 2, 3, \hdots, 20\}\\
+    	v_{20} &= 1, v_i = 0 \, \forall i \neq 20 \\
+    	p_{ij} &= \begin{cases}
+    		\frac{1}{3}, \quad &|j - i| \leq 1 \text{ or } |j - i| = 19\\
+    	0, \quad &\text{ otherwise }
+    	\end{cases}
+    \end{align*}
+    
+    \example[Bernoulli process]
+    \begin{align*}
+    	S &= \{1, 2, 3, \hdots \}\\
+    	v_{0} &= 1, v_i = 0 \, \forall i \neq 0 \\
+    	p_{ij} &= \begin{cases}
+    		p, \quad  &j = i + 1\\
+    		1 - p, \quad &j = i \\
+    		0, \quad &\text{ otherwise }
+    	\end{cases}
+    \end{align*}
+    where $0 < p < 1$.
+    
+    \example[Simple random walk (s.r.w.)]
+    Let $X_n :=$ net gain (in dollars) after $n$ bets
+    \begin{align*}
+    	S &= \{0, 1, 2, 3, \hdots \}\\
+    	v_{a} &= 1, v_i = 0 \, \forall i \neq a \\
+    	p_{ij} &= \begin{cases}
+    		p, \quad  &j = i + 1\\
+    		1 - p, \quad &j = i - 1 \\
+    		0, \quad &\text{ otherwise }
+    	\end{cases}
+    \end{align*}
+    where $0 < p < 1, a \in \mb{Z}$. \\
+    \tb{Special case:} When $p = 1/2$, call it \under{simple symmetric random walk}.
+    
+    \example[Ehrenfest's Urn]
+    Let $X_n:= \#$ balls in Urn 1 at time $n$.\\
+    We have $d$ balls in total, divided into two urns. At each time, we choose one of the $d$ balls uniformly at random, and move it to the other urn.\\ 
+    \begin{align*}
+    	S &= \{1, 2, 3, \hdots, d \}\\
+    	v_{a} &= 1, v_i = 0 \, \forall i \neq a \\
+    	p_{ij} &= \begin{cases}
+    		(d - i) / d, \quad  &j = i + 1\\
+    		i / d, \quad &j = i - 1 \\
+    		0, \quad &\text{ otherwise }
+    	\end{cases}
+    \end{align*}
+    
+    \subsection{Elementary Computations}
+    \notation
+     $$\mu_i^{(n)} := P(X_n = i)$$ 
+    \notation
+    \begin{align*}
+    	m &:= |S| \tag{the number of elements in S, could be infinity} \\
+   		\mu^{(n)} &= (\mu_1^{(n)}, \mu_2^{(n)}, \mu_3^{(n)}, \hdots) \tag{$m \times 1$}\\
+   		v &= (v_1, v_2, v_3, \hdots) \tag{$m \times 1$}\\
+   		P &= (p_{ij}) = \begin{pmatrix}
+   			p_{11} & p_{12} & \hdots & p_{1m}\\
+   			p_{21} & p_{22} & \hdots & \\
+   			& \ddots & &\\
+   			p_{m1} & \hdots & & p_{mm}
+   		\end{pmatrix} \tag{$m \times m$ matrix} \\
+    \end{align*}
+    
+    \fact
+    \begin{align*}
+    	\mu^{(1)} &= vP = \ur{\mu}{0}P \\
+    	\mu^{(n)} &= vP^n = \ur{\mu}{0}P^n \\
+    \end{align*}
+    
+    \notation
+    \begin{equation}
+    	\dur{p}{ij}{n} := P(X_n = j, X_0 = i) = P(X_{m+n} = j | X_m = i) \tag{for any $m \in \mb{N}$}    	
+    \end{equation}
+    
+    \fact
+    \begin{align*}
+    	\sum_{j\in S} \dur{p}{ij}{n} &= 1 \\
+    	\dur{p}{ij}{1} &= p_{ij} \\
+    	\ur{P}{n} &= P^n \tag{for all $n \in \mb{N}$}
+    \end{align*}
+    
+    \notation
+    \begin{align*}
+    	 P^0 &:= I \\
+    	 \ur{P}{0} &:= I \\
+    	 \dur{p}{ij}{0} &= \begin{cases}
+    	 	1 & i = j\\
+    	 	0 & \text{otherwise}
+    	 \end{cases}
+    \end{align*}
+    
+    
+
+    
+    \theorem[Chapman-Kolmogorov equations] 
+    \begin{align*}
+    	p_{ij}^{(m+n)} &= \sum_{k \in S} p_{ik}^{(m)}p_{kj}^{(n)} \\
+    	P_{ij}^{(m + s +n)} &= \sum_{k \in S}\sum_{l \in S} p_{ik}^{(m)} p_{kl}^{(s)}p_{lj}^{(n)}
+    \end{align*}
+    Matrix form:
+	\begin{align*}
+		P^{(m + n)} &= P^{(m)}P^{(n)} \\
+		P^{(m + s +n)} &= P^{(m)}P^{(s)}P^{(n)}
+	\end{align*}
+    
+    \theorem[Chapman-Kolmogorov Inequality]
+    \begin{align*}
+    	p_{ij}^{(m+n)} &\geq p_{ik}^{(m)}p_{kj}^{(n)} \tag{for all $k \in S$} \\
+    	P_{ij}^{(m + s +n)} &\geq  p_{ik}^{(m)} p_{kl}^{(s)}p_{lj}^{(n)} \tag{for any $k, l \in S$}
+    \end{align*}
+    
+    \subsection{Recurrence and Transience}
+    \notation
+    \begin{align*}
+    	P_i(\hdots) &\equiv P(\hdots | X_0 = i) \\
+    	E_i(\hdots) &\equiv E(\hdots | X_0 = i) \\
+    	N(i) &= \#\{n \geq 1: X_n = i\} \tag{total number of times that the chain hits $i$, not counting time 0} \\
+    \end{align*}
+    \definition[\red{return probability}]
+    Let $f_{ij}$ be the \under{return probability} from $i$ to $j$.
+    \begin{align*}
+    	 f_{ij} := P_i(X_n = j \text{ for some } n \geq 1) \equiv P_i(N(j) \geq 1)
+    \end{align*}
+    
+    \fact
+    \begin{align}
+    	1 - f_{ij} &= P_i(X_n \neq j \text{ for all } n \geq 1) \\
+    	P_i(N(i) \geq k) &= (f_{ii})^k \\
+    	P_i(N(j) \geq k) &= f_{ij}(f_{jj})^{k-1} \\
+    	f_{ik} &\geq f_{ij}f_{jk}
+    \end{align}
+    
+    \fact
+    $f_{ij} > 0$ iff $\exists m \geq 1$ with $\dur{p}{ij}{m} > 0$, i.e., there is some time $m$ for which it is possible to get from $i$ to $j$ in $m$ steps.
+    
+    \definition[\red{recurrent and transient states}]
+    A state $i$ of a Markov chain is \under{recurrent} if $f_{ii} = 1$. Otherwise, $i$ is \under{transient} if $f_{ii} < 1$.
+    
+    \proposition
+    If $Z$ is a non-negative integer, then
+    $$E(Z) = \sum_{k=1}^\infty P(Z \geq k)$$
+    
+    \theorem[\red{Recurrent State Theorem}] As follows
+    \begin{itemize}
+    	\item  State $i$ is recurrent $\iff P_i(N(i) = \infty) = 1 \iff \sum_{n=1}^\infty p_{ii}^{(n)} = \infty$
+    	\item State $i$ is transient $\iff P_i(N(i) = \infty) = 0 \iff \sum_{n=1}^\infty p_{ii}^{(n)} < \infty$ 
+    \end{itemize}
+    \begin{proof}
+    	\begin{align*}
+    		P_i(N(i) = \infty) &= \limit{k} P_i(N(i) \geq k) \tag{by continuity of probabilities} \\
+    		&= \limit{k} (f_{ii})^k \tag{$P_i(N(i) \geq k) = (f_{ii})^k$}\\
+    		&= \begin{cases}
+    			1, & f_{ii} = 1 \\
+    			0, & f_{ii} < 1
+    		\end{cases}
+    	\end{align*}
+    \end{proof}
+    Therefore,
+    \begin{align*}
+    	\sum_{n=1}^\infty \dur{p}{ii}{n} &= \sum_{n=1}^\infty P_i(X_n = i) \\ 
+    	&= \sum_{n=1}^\infty E_i(\id{X_n = i}) \\
+    	&= E_i(\sum_{n=1}^\infty \id{X_n = i}) \\
+    	&= E_i(N(i)) \\
+    	&= \sum_{k=1}^\infty P_i(N(i) \geq k) \tag{by proposition 1.1}\\
+    	&= \sum_{k=1}^\infty (f_{ii})^k \\
+    	&= \begin{cases}
+    		\infty, & f_{ii} = 1\\
+    		\frac{f_{ii}}{1 - f_{ii}} < \infty, & f_{ii} < 1
+    	\end{cases}
+    \end{align*}
+    
+    \example[simple random walk]
+    If $p = 1/2$ then $\forall i, f_{ii} = 1$. If $p \neq 1/2$, then $\forall i, f_{ii} < 1$ 
+    \begin{proof}
+   	\todo{prove}
+    \end{proof}
+    
+    \theorem[f-Expansion]
+    $$f_{ij} = p_{ij} + \sum_{k \in S, k \neq j} p_{ik}f_{kj}$$
+    \begin{proof}
+    	\begin{align*}
+    		f_{ij} &= P_i(\exists n \geq 1: X_n = j) \\
+    		&= \sum_{k \in S} P_i(X_1 = k, \exists n \geq 1: X_n = j) \\
+    		&= P_i(X_1 = j, \exists n \geq 1: X_n = j) + \sum_{k \neq j} P_i(X_1 = k, \exists n \geq 1: X_n = j) \\
+    		&= P_i(X_1 = j)P_i(\exists n \geq 1: X_n = j | X_1 = j) + \sum_{k \neq j} P_i(X_1 = k)P_i( \exists n \geq 1: X_n = j | X_1 = k) \\
+    		&= p_{ij}(1) + \sum_{k \neq j}p_{ik}(f_{kj})
+    	\end{align*}
+    \end{proof}
+    
+    \remark
+    The f-Expansion shows that $f_{ij} \geq p_{ij}$.
+    
+    \remark
+    It essentially follows from logical reasoning: from $i$, to get to $j$ eventually, we have to either jump to $j$ immediately (with probability $p_{ij}$), or jump to some other state $k$ (with probability $p_{ik}$) and then get to $j$ eventually (with probability $p_{kj}$)
+    \subsection{Communicating States and Irreducibility}
+    \definition[communicating states] State $i$ \under{communicates} with state $j$, written $i \rightarrow j$, if $f_{ij} > 0$.
+    \remark
+    i.e. if it is possible to get from $i$ to $j$.
+    \notation
+    Write $i \leftrightarrow j$ if both $i \rightarrow j$ and $j \rightarrow i$.
+    
+    \definition[irreducibility] A Markov chain is \under{irreducible} if $i \rightarrow j$ for all $i, j \in S$, i.e., if $f_{ij} > 0$ for all $i, j \in S$. Otherwise, the chain is \under{reducible}.
+    
+    \lemma[Sum Lemma]
+    If $i \rightarrow k$, and $l \rightarrow j$, and $\sum_{n=1}^\infty p_{kl}^{(n)} = \infty$, then $\sum_{n=1}^\infty p_{ij}^{(n)} = \infty$
+    \begin{proof}
+    	Since $i \rightarrow k$, and $l \rightarrow j$, there exists $m, r \geq 1$ s.t. $\dur{p}{ik}{m} > 0$ and $\dur{p}{lj}{r} > 0$. \\
+    	By the Chapman-Kolmogorov inequality, $$\dur{p}{ij}{m+s+r} \geq \dur{p}{ij}{m}\dur{p}{kl}{s}\dur{p}{lj}{r}$$
+    	Hence
+    	\begin{align*}
+    		\sum_{n=1}^{\infty} \dur{p}{ij}{n} &\geq \sum_{n = m + r + 1}^{\infty} \dur{p}{ij}{n} \\
+    		&= \sum_{s=1}^\infty \dur{p}{ij}{m + s + r} \tag{$s = n - m -r$}\\
+    		&\geq \sum_{s=1}^\infty \dur{p}{ij}{m}\dur{p}{kl}{s}\dur{p}{lj}{r} \\
+    		&= \underbrace{\dur{p}{ij}{m}}_{+}\underbrace{\dur{p}{lj}{r}}_{+}\underbrace{\sum_{s=1}^{\infty}\dur{p}{kl}{s}}_{=\infty}\\
+    		&= \infty
+    	\end{align*}
+
+    \end{proof}
+    \corollary[Sum Corollary] If \blue{$i \leftrightarrow k$}, then $i$ is recurrent iff $k$ is recurrent.
+    \begin{proof}
+    	Setting $j = i$ and $l = k$ in the Sum Lemma: If $i \leftrightarrow k$, then $\sum_{n=1}^\infty \dur{p}{ii}{n} = \infty \iff \sum_{n=1}^\infty \dur{p}{kk}{n} = \infty$.
+    \end{proof}
+    
+    \theorem[Cases Theorem]
+    For an \blue{irreducible} Markov chain, either
+    \begin{itemize}
+    	\item (a) $\sum_{n=1}^\infty p_{ij}^{(n)} = \infty$ for all $i, j \in S$, and all states are recurrent (\under{recurrent Markov chain}); or
+    	\item (b) $\sum_{n=1}^\infty p_{ij}^{(n)} < \infty$ for all $i, j \in S$, and all states are transient (\under{transient Markov chain}).
+    \end{itemize}
+    
+    \theorem[Finite Space Theorem] An irreducible Markov chain on a \blue{finite} state space always falls into case (a), i.e., $\sum_{n=1}^\infty p_{ij}^{(n)} = \infty$ for all $i, j \in S$, and all states are recurrent.
+    \begin{proof}
+    	Choose any state $i \in S$. We have
+    	\begin{align*}
+    		\sum_{j \in S}\sum_{n=1}^\infty \dur{p}{ij}{n} &= \sum_{n=1}^\infty\sum_{j \in S} \dur{p}{ij}{n} \tag{exchanging the sums} \\
+    		& = \sum_{n=1}^\infty 1 \\
+    		&= \infty
+    	\end{align*}
+    	Then if $S$ is finite, it follows that there must exist at least one $j \in S$ with $\sum_{n=1}^\infty p_{ij}^{(n)} = \infty$. So we must be in case (a).
+    	
+    \end{proof}
+    \notation
+    For $i \neq j$, let $H_{ij}$ be the event that the chain hits the state $i$ before returning to $j$, i.e.,
+    $$H_{ij} = \{ \exists n \in \mb{N}: X_n = i, \text{ but } X_m \neq j \text{ for } 1 \leq m \leq n - 1\}$$
+    \lemma[Hit Lemma] If \blue{$j \rightarrow i$ with $j \neq i$}, then $P_j(H_{ij}) > 0$.
+    
+    \begin{proof}
+    	Since $j \rightarrow i$, there is some possible path from $j$ to $i$. i.e., there is $m \in \mb{N}$ and $x_0, x_1, \hdots, x_m$ with $x_0 = j$ and $x_m = i$ and $p_{x_rx_{r+1}} > 0$ for all $0 \leq r \leq m - 1$. \\
+    	Let $S = \max\{r: x_r = j\}$ be the last time this path hits $j$. \\
+    	Then $x_S, x_{S+1}, \hdots, x_m$ is a possible path which goes from $j$ to $i$ without first returning to $j$. \\
+    	Hence $P_j(H_{ij}) \geq P(x_0, x_1, \hdots, x_m) = p_{x_Sx_{S+1}}p_{x_{S+1}x_{S+2}}\hdots p_{x_{m-1}x_m} > 0$
+    	
+    	
+    \end{proof}
+  
+  	\remark
+  	If it is possible to get from $j$ to $i$ at all, then it is possible to get from $j$ to $i$ without first returning to $j$. \\
+  	Intuitively obvious: If there is some path from $j$ to $i$, then the final part of the path (starting with the last time it visits $i$) is a possible path from $j$ to $i$ which does not return to $j$.
+  	\lemma[f-Lemma] If \blue{$j \rightarrow i$ and $f_{jj} = 1$}, then $f_{ij} = 1$
+  	\begin{proof}
+  		If $i = j$ it is trivial, so assume $i \neq j$. \\
+  		Since $j \rightarrow i$, we have $P_j(H_{ij}) > 0$ by the Hit Lemma.\\
+  		But one way to never return to $j$ is to first hit $i$ and then from $i$ never return to $j$:
+  		$$P_j(\text{never return to $j$}) \geq P_j(H_{ij})P_i(\text{never return to $j$})$$
+  		Therefore
+  		$$1 - f_{jj} \geq P_j(H_{ij})(1 - f_{ij})$$
+  		Since $f_{jj} = 1$, then $\underbrace{P_j(H_{ij})}_{>0}(1 - f_{ij}) = 0$\\
+  		Hence $f_{ij} = 1$.
+  		
+  	\end{proof}
+    
+    \lemma[Infinite Returns Lemma] For an \blue{irreducible} Markov chain, if it is \blue{recurrent}, then $$P_i(N(j) = \infty) = 1$$ for all $i, j \in S$. \\
+    But if it \blue{transient}, then $P_i(N(j) = \infty) = 0$ for all $i, j \in S$.
+    \begin{proof}
+    	Let $i, j \in S$. If the chain is recurrent, then $f_{ij} = f_{jj} = 1$ by the f-Lemma.\\
+    	Then
+    	\begin{align*}
+    		P_i(N(j) = \infty) &= \limit{k}P_i(N(j) \geq k) \\
+    		&= \limit{k} f_{ij}(f_{jj})^{k-1} \\
+    		&= \limit{k} (1)(1)^{k-1} \\
+    		&= 1
+    	\end{align*}
+    	If the chain is transient, then $f_{jj} < 1$, then
+    	 \begin{align*}
+    		P_i(N(j) = \infty) &= \limit{k}P_i(N(j) \geq k) \\
+    		&= \limit{k} f_{ij}(f_{jj})^{k-1} \\
+    		&= \limit{k} (1)(f_{jj})^{k-1} \\
+    		&= 0
+    	\end{align*}
+    	
+    \end{proof}
+    
+    
+    \theorem[\red{Recurrence Equivalence Theorem}]
+    If a chain is \blue{irreducible}, then the following are equivalent (and all correspond to case (a)):
+    \begin{enumerate}
+    	\item There are $k, l \in S$ with $\sum_{n=1}^\infty p_{kl}^{(n)} = \infty$.
+    	\item For all $i, j \in S$, we have $\sum_{n=1}^\infty p_{ij}^{(n)} = \infty$.
+    	\item There is $k \in S$ with $f_{kk} = 1$, i.e. $k$ is recurrent.
+    	\item For all $j \in S$, we have $f_{jj} = 1$, i.e. all states are recurrent.
+    	\item For all $i, j \in S$, we have $f_{ij} = 1$.
+    	\item There are $k, l \in S$ with $P_k(N(l) = \infty) = 1$.
+    	\item For all $i, j \in S$, we have $P_i(N(j) = \infty) = 1$.
+    \end{enumerate}
+    \begin{proof}
+    Follow from results that we have already proven
+    	\begin{itemize}
+    		\item $1 \implies 2$: Sum Lemma.
+    		\item $2 \implies 4$: Recurrent State Theorem (with $i = j$).
+    		\item $4 \implies 5$: f-Lemma.
+    		\item $5 \implies 3$: immediate.
+    		\item $3 \implies 1$: Recurrent State Theorem (with $l = k$).
+    		\item $4 \implies 7$: Infinite Returns Lemma.
+    		\item $7 \implies 6$: Immediate.
+    		\item $6 \implies 3$: Recurrent State Theorem (with $l = k$).
+    	\end{itemize}
+    	
+    	
+    \end{proof}
+    \theorem[\red{Transience Equivalence Theorem}]
+    If a chain is \blue{irreducible}, then the following are equivalent (and all correspond to case (b)):
+    \begin{enumerate}
+    	\item There are $k, l \in S$ with $\sum_{n=1}^\infty p_{kl}^{(n)} < \infty$.
+    	\item For all $i, j \in S$, we have $\sum_{n=1}^\infty p_{ij}^{(n)} < \infty$.
+    	\item For all $k \in S$, we have $f_{kk} < 1$, i.e. $k$ is transient.
+    	\item There is $j \in S$ with $f_{jj} < 1$, i.e. some state is recurrent.
+    	\item There are $i, j \in S$ with $f_{ij} < 1$.
+    	\item For all $k, l \in S, P_k(N(l) = \infty) = 0$.
+    	\item There are $i, j \in S$ with $P_i(N(j) = \infty) = 0$.
+    \end{enumerate}    
+    \remark[closed subset note]
+    Suppose a chain is reducible, but it has a closed subset $C \subseteq S$ (i.e. $p_{ij} = 0$ for $i \in C$ and $j \notin C$) on which it is irreducible (i.e. $i \rightarrow j$ for all $i, j \in C$). Then, the Recurrence Equivalence Theorem and other results about irreducible chains still apply to the chain when \blue{restricted} to $C$.
+    
+    \proposition
+    For simple random walk with $p > 1/2, f_{ij} = 1$ whenever $j > i$. (Similarly, if $p < 1/2$ and $j < i$, then $f_{ij} = 1$.)
+    \begin{proof}
+    	Let $X_0 = 0$, and $Z_n = X_n -X_{n-1}$ for $n = 1, 2, \hdots$, so that $X_n = \sum_{i=1}^n Z_i$. \\
+    	Since $Z_n$s iid with $P(Z_n = 1) = p$ and $P(Z_n = -1) = 1- p$, then by Law of Large Numbers,
+    	$$\limit{n} \frac{1}{n}(Z_1 + Z_2 + \hdots + Z_n) \overset{p}{=} E(Z_1) = p(1) + (1 - p)(-1) = 2p - 1 > 0$$
+    	\begin{align*}
+    		\implies \infty &= \limit{n}(Z_1 + Z_2 + \hdots + Z_n)\\
+    		 &= \limit{n} X_n - X_0 \\
+    		 &= \limit{n} X_n
+    	\end{align*}
+    	But if $i < j$, then to go from $i$ to $\infty$, the chain must pass through $j$, so $f_{ij} = 1$.
+    \end{proof}
+    
+    \section{Markov Chain Convergence}
+    \subsection{Stationary Distributions}
+    \definition[stationary distributions]
+    If $\pi$ is a probability distribution on $S$ (i.e. $\pi_i \geq 0$ for all $i \in S$, and $\sum_{i \in S} \pi_i = 1$), then $\pi$ is \under{stationary} for a Markov chain with transition probabilities $(p_{ij})$ if $\sum_{i \in S} \pi_ip_{ij} = \pi_j$ for all $j \in S$ (or $\pi P = \pi$, in matrix notation).
+    \remark
+    Intuitively, $\pi$ being stationary means if the chain starts with probabilities $\{\pi_i\}$, then it will keep the same probabilities one time unit later.
+    
+    \definition[doubly stochastic]
+    A Markov Chain is \under{doubly stochastic} if in addition to the usual condition that $\sum_{j \in S}p_{ij} = 1$ for all $i \in S$, $\sum_{i \in S}p_{ij} = 1$ for all $j \in S$.
+    \remark
+    This holds for the Frog Example.
+    
+    \proposition
+    If a Markov chain with states $S$ satisfies \blue{$|S| < \infty$ and is doubly stochastic}, then the uniform distribution on $S$ is a stationary distribution.
+    \begin{proof}
+    	Let $\{\pi_i\}$ be a distribution such that $\pi_i = \frac{1}{|S|}$. \\
+    	Then
+    	\begin{align*}
+    		\sum_{i \in S}\pi_i p_{ij} &= \sum_{i \in S} \frac{1}{|S|}p_{ij} \\
+    		&= \frac{1}{|S|}\sum_{i \in S} p_{ij} \\
+    		&= \frac{1}{|S|}(1) \tag{doubly stochastic}\\
+    		&= \frac{1}{|S|} \\
+    		&= \pi_j
+    	\end{align*}
+    Then $\{\pi_i\}$ is stationary.
+    \end{proof}
+    
+    \subsection{Searching for Stationary}
+    \definition[reversibility]
+    A Markov chain is \under{reversible} (or time reversible, or satisfies detailed balance) with respect to a probability distribution $\{\pi_i\}$ if $\pi_ip_{ij} = \pi_jp_{ji}$ for all $i, j \in S$.
+    
+    \proposition If a chain is reversible with respect to $\pi$, then $\pi$ is a stationary distribution.
+    \begin{proof}
+    	Reversibility means $\pi_ip_{ij} = \pi_jp_{ji}$, so then for $j \in S$, $$\sum_{i \in S}\pi_ip_{ij} = \sum_{i\in S}\pi_jp_{ji} = \pi_j\sum_{i\in S}p_{ji} = \pi_j(1) = \pi_j$$
+    \end{proof}
+    \lemma[M-test]
+    Let $\{x_{nk}\}_{n, k\in \mb{N}}$ be a collection of real numbers. Suppose that $\limit{n} x_{nk}$ exists for each fixed $k \in \mb{N}$. Suppose further that $\sum_{k=1}^\infty \underset{n}{\sup} \,|x_{nk}| < \infty$. Then $\limit{n}\sum_{k=1}^\infty x_{nk} = \sum_{k=1}^\infty\limit{n}x_{nk}$.
+    \proposition[Vanishing Probabilities Proposition]
+    If a Markov chain's transition probabilities satisfy that \blue{$\underset{n \rightarrow \infty}{\lim} p_{ij}^{(n)} = 0$ for all $i, j \in S$}, then the chain does \red{not} have a stationary distribution.
+    \begin{proof}
+    	Suppose for contradiction that there is a stationary distribution $\pi$. Then we would have $\pi_j = \sum_{i \in S} \pi_i\dur{p}{ij}{n}$ for any $n$, so
+    	$$\pi_j = \limit{n}\pi_j = \limit{n}\sum_{i \in S}\pi_i \dur{p}{ij}{n}$$
+    	\begin{align*}
+    		\pi_j &= \limit{n}\pi_j \\
+    			  &= \limit{n}\sum_{i \in S}\pi_i \dur{p}{ij}{n} \\
+    			  &= \sum_{i \in S}\limit{n}\pi_i \dur{p}{ij}{n} \tag{exchange the sum and the limit, which is valid by M-test}\\
+    			  &= \sum_{i \in S}\pi_i\limit{n} \dur{p}{ij}{n} \\
+    			  &=	 \sum_{i \in S} 0 \\
+    			  &= 0
+    	\end{align*}
+    	So we would have $\pi_j = 0$ for all $j$. But this means that $\sum_j \pi_j = 0$, which is a contradiction.\\
+    	
+    \end{proof}
+    \lemma[Vanishing Lemma] If a Markov chain has some $k, l \in S$ with $\limit{n}{p_{kl}^{(n)}} = 0$, then for any $i, j \in S$ with $k \rightarrow i$ and $j \rightarrow l$, $\limit{n}{p_{ij}^{(n)}}= 0$.
+    \begin{proof}
+    Since $k\rightarrow i$ and $j \rightarrow l$, we can find $r, s\in\mb{N}$ with $\dur{p}{ki}{r} > 0$ and $\dur{p}{jl}{s} > 0$. Then by the Chapman-Kolmogorov Inequality,
+    $$\dur{p}{kl}{r+n+s} \geq \dur{p}{ki}{r}\dur{p}{ij}{n}\dur{p}{jl}{s}$$
+    Hence
+    $$\dur{p}{ij}{n} \leq \dur{p}{kl}{r+n+s}/\dur{p}{ki}{r}\dur{p}{jl}{s}$$
+    But the assumptions imply that 
+    $$\limit{n} \left[ \dur{p}{kl}{r+n+s}/\dur{p}{ki}{r}\dur{p}{jl}{s} \right] =0$$
+    Hence
+    $$0 \leq \limit{n}{p_{ij}^{(n)}} \leq 0$$
+    $$\implies \limit{n}{p_{ij}^{(n)}}= 0$$
+    	
+    \end{proof}
+    
+    \corollary[Vanishing Together Corollary] For an \blue{irreducible} Markov chain, either
+    \begin{enumerate}
+    	\item $\limit{n} p_{ij}^{(n)} = 0$ for all $i, j \in S$, or
+    	\item $\limit{n} p_{ij}^{(n)} \neq 0$ for all $i, j \in S$
+    \end{enumerate}
+    
+	\corollary[Vanishing Probabilities Corollary] If an \blue{irreducible} Markov chain's transition probabilities satisfy that $\limit{n} p_{kl}^{(n)} = 0$ for some $k, l 
+	\in S$, then the chain does not have a stationary distribution.  
+    
+    \lemma If the $x_n$s are non-negative, and $\sum_{n=1}^\infty x_n < \infty$, then $\limit{n} x_n = 0$.
+    \corollary[Transient Not Stationary Corollary] A Markov chain which is \blue{irreducible and transient} cannot have a stationary distribution.
+    \begin{proof}
+    	If a chain is irreducible and transient, then by the Transience Equivalence Theorem,
+    	$\sum_{n=1}^\infty < \infty$ for all $i, j \in S$. Hence $\limit{n}\dur{p}{ij}{n} = 0$ for all $i, j \in S$. \\
+    	Thus by the Vanishing Probabilities Corollary, there is no stationary distribution.
+    	
+    	
+    	
+    \end{proof}
+    \subsection{Obstacles to Convergence}
+    \definition[period] The \under{period} of a state $i$ is the greatest common divisor (gcd) of the set $\{n \geq 1: p_{ii}^{(n)} > 0\}$, i.e. the largest number $m$ such that all the values of $n$ with $p_{ii}^{(n)} > 0$ are all integer multiples of $m$. If the period of each state is 1, we say the chain is \under{aperiodic}; otherwise we say the chain is \under{periodic}.
+    
+    \remark
+    Intuitively, the period of a state $i$ is the pattern of returning to $i$ from $i$. e.g. If the period of $i$ is 2, then it is only possible to get from $i$ to $i$ in an even numbers of steps.
+    
+    \fact
+    If state $i$ has period $t$, and $\dur{p}{ii}{m} > 0$, then $m$ is an integer multiple of $t$, i.e., $t$ divides $m$.
+    
+    \fact
+    If $p_{ii} >0$, then the period of state $i$ is 1.
+    
+    \fact
+    If $\dur{p}{ii}{n} > 0$ and $\dur{p}{ii}{n+1} > 0$, then the period of state $i$ is 1.
+    
+    \lemma[Equal Periods Lemma] If $i \leftrightarrow j$, then the periods of $i$ and of $j$ are equal.
+    \begin{proof}
+    	Let the periods of $i$ and $j$ be $t_i$ and $t_j$. Since $i \leftrightarrow j$, we can find $r, s\in \mb{N}$ with $\dur{p}{ij}{r} > 0$ and $\dur{p}{ji}{s} > 0$. Then
+    	$$\dur{p}{ii}{r+s} \geq \dur{p}{ij}{r}\dur{p}{ji}{s} > 0$$
+    	Therefore by Fact 2.1, $t_i$ divides $r + s$.\\
+    	Suppose now that $\dur{p}{jj}{n} > 0$. Then
+    	$$\dur{p}{ii}{r + n +s} \geq \dur{p}{ij}{r}\dur{p}{jj}{n} \dur{p}{ji}{s} > 0$$
+    	So $t_i$ divides $r + n +s$. \\
+    	Since $t_i$ divides both $r + n +s$ and $r + s$, then it must divide $n$ as well. \\
+    	Since this is true for any $n$ with $\dur{p}{jj}{n} > 0$, it follows that $t_i$ is a common divisor of $\{n \in \mb{N}: \dur{p}{jj}{n} > 0\}$.\\
+    	But $t_j$ is the \blue{greatest} such common divisor, so $t_j \geq t_i$.\\
+    	Similarly we can show that $t_i \geq t_j$, so we have $t_i = t_j$.
+  
+    	
+    \end{proof} 
+    
+    \corollary[Equal Periods Corollary]If a chain is \blue{irreducible}, then all states have the same period.
+    
+    \corollary If a chain is \blue{irreducible and $p_{ii} > 0$ for some state $i$}, then the chain is \red{aperiodic}.
+    
+    \subsection{Convergence Theorem}
+    \theorem[Markov Chain Convergence Theorem] If a Markov chain is \blue{irreducible, aperiodic, and has a stationary distribution $\{\pi_i\}$}, then $\limit{n} p_{ij}^{(n)} = \pi_j$ for all $i, j \in S$, and $\limit{n} P(X_n = j) = \pi_j$ for any initial probabilities $\{v_i\}$.
+    
+    \theorem[Stationary Recurrence Theorem] If chain \blue{irreducible and has a stationary distribution}, then it is \red{recurrent}.
+    \begin{proof}
+    	The Transient Not Stationary Corollary says that a chain cannot be irreducible, transient and have a stationary distribution. \\
+    	Therefore, if a chain is irreducible and has a stationary distribution, then it cannot be transient, i.e. it must be recurrent.
+    \end{proof}
+    
+    \lemma[Number Theory Lemma] If a set $A$ of positive integers is non-empty, and satisfies additivity, and $gcd(A) = 1$, then there is some $n_0 \in \mb{N}$ s.t. for all $n \geq n_0$ we have $n \in A$ i.e. the set $A$ includes all of the integers $n_0, n_0 + 1, n_0 + 2, \hdots$
+    \proposition If a state $i$ \blue{has $f_{ii} > 0$ and is aperiodic}, then there is $n_0(i) \in \mb{N}$ such that $p_{ii}^{(n)} > 0$ for all $n \geq n_0(i)$
+    \begin{proof}
+    	Let $A = \{ n \geq 1: \dur{p}{ii}{n} > 0\}$. Since $f_{ii} > 0$, then $A$ is not empty.\\
+    	If $m, n \in A$, then $$\dur{p}{ii}{m+n} \geq \dur{p}{ii}{m} \dur{p}{ii}{n} > 0$$
+    	So $m+n \in A$, which shows that $A$ satisfies additivity. Also $gcd(A) = 1$ since the state $i$ is aperiodic. Hence from the Number Theory Lemma, there is $n_0 \in \mb{N}$ such that for all $n \geq n_0$, we have $n \in A$ i.e. $\dur{p}{ii}{n} > 0$.
+    	
+    \end{proof}
+    
+    \corollary If a chain is \blue{irreducible and aperiodic}, then for any states $i, j \in S$, there is $n_0(i,j) \in \mb{N}$ s.t. $p_{ij}^{(n)} > 0$ for all $n \geq n_0(i, j)$
+    \begin{proof}
+    	Find $n_0(i)$ as in Proposition 2.3, and find $m \in \mb{N}$ with $p_{ij}^{(m)} > 0$.\\
+    	Then let $n_0(i,j) = n_0(i) + m$ \\
+    	Then if $n \geq n_0(i,j)$, then $n - m \geq n_0(i)$, so $\dur{p}{ij}{n} \geq \dur{p}{ii}{n-m}\dur{p}{ij}{m} > 0$.
+    \end{proof}
+    
+    \lemma[Markov Forgetting Lemma] If a Markov chain is \blue{irreducible and aperiodic, and has stationary distribution $\{\pi_i\}$}, then for all $i, j, k \in S$, 
+    $$\limit{n} \left| \dur{p}{ik}{n} - \dur{p}{jk}{n} \right | = 0$$
+    \remark
+    Intuitively, after a long time $n$, the chain ``forgets" whether it started from state $i$ or from state $j$.
+    \begin{proof}
+    \todo{long}
+    \end{proof}
+    \paragraph{Proof of Markov Chain Convergence Theorem}
+    \todo{long}
+    \corollary If a chain is \blue{irreducible}, then it has at most \red{one} stationary distribution.
+    \begin{proof}
+    	By Markov Chain Convergence Theorem, any stationary distribution that ie has must be equal to $\limit{n} P(X_n = j)$, so it is unique.
+    \end{proof}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+\end{document}

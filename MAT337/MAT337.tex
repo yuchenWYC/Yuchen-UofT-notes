@@ -10,8 +10,11 @@
 \usepackage{perpage}
 \usepackage{float}
 \usepackage{esint}
-\usepackage[margin=1.5cm]{geometry}
+\usepackage[margin=2cm]{geometry}
 \usepackage{../raina}
+\usepackage{setspace}
+\linespread{1.15}
+
 
 % Property settings.
 \MakePerPage{footnote}
@@ -179,13 +182,24 @@ Pick $r = \frac{m}{n}$ and we are done.
 \end{proof}
 
 \subsection{Cardinality}
-"The size of a set``
+``The size of a set"
 \subsubsection{1-1 Correspondence}
 \definition[one-to-one and onto] A function $f: A \rightarrow B$ is \under{one-to-one (1-1)} if $a_1 \neq a_2$ in $A$ implies that $f(a_1) \neq f(a_2)$ in $B$. The function $f$ is \under{onto} if, given any $b \in B$, it is possible to find an element $a \in A$ for which $f(a) = b$.
+
+\proposition
+If $f: A \rightarrow B$ and $g: B \rightarrow C$ is 1-1, then $g \circ f: A \rightarrow C$ is 1-1.
+
+
 \remark
 If a function $f: A \rightarrow B$ is both 1-1 and onto, then there is a 1-1 correspondence between two sets.
 
 \definition[the same cardinality] The set $A$ \under{has the same cardinality as $B$} if there exists $f: A \rightarrow B$ that is $1-1$ and onto. In this case, we write $A \sim B$.
+
+\proposition
+If $A \sim B, B \sim C$, then $A \sim C$
+
+\proposition
+If $Card(A) \leq Card(B) \leq Card(C)$, then $Card(A) \leq Card(C)$
 
 \subsubsection{Countable Sets} 
 A set $A$ is \under{countable} if $\mb{N} \sim A$. An infinite set that is not countable is called an \under{uncountable} set.
@@ -228,20 +242,293 @@ The set $\real$ is uncountable.
 
 \theorem 
 (i) If $A_1, A_2, \hdots, A_m$ are countable sets, then the union $A_1 \cup A_2 \cup \hdots \cup A_m$ is countable. \\
-(ii) If $A_n$ is a countable set for each $n \in \mb{N}$, then $\cup_{n=1}^\infty$ is countable.
+(ii) If $A_n$ is a countable set for each $n \in \mb{N}$, then $\cup_{n=1}^\infty A_n$ is countable.
 
-\subsection{Cantor's Theorem}
 \theorem The open interval $(0,1) = \{x \in \real: 0 < x <1\}$ is uncountable.
 
+\subsection{Cantor's Theorem}
 \notation
 Given a set $A$, the power set $P(A)$ refers to the collection of all subsets of $A$.
 
 \theorem[Cantor's Theorem]
 Given any set $A$, there does not exist a function $f: A \rightarrow P(A)$ that is onto.
+\begin{proof}
+	Assume, for contradiction, that $f: A \rightarrow P(A)$ is onto. For each element $a \in A$, $f(a)$ is a particular subset of $A$. The assumption that $f$ is onto means that every subset of $A$ appears as $f(a)$ for some $a \in A$. To arrive at a contradiction, we will produce a subset $B \subseteq A$ that is not equal to $f(a)$ for any $a \in A$.\\
+	Construct $B$ using the following rule. For each element $a \in A$, consider the subset $f(a)$. This subset of $A$ may contain the element $a$ or it may not. This depends on the function $f$. If $f(a)$ does not contain $a$, then we include $a$ in our set $B$: Let 
+	$$B = \{a \in A: a \notin f(a)\}$$
+	Since we have assumed that our function $f: A \rightarrow P(A)$ is onto, it must be that $B = f(a')$ for some $a' \in A$.\\
+	\tb{Case 1} $a' \in B$ \\
+	Then $a' \notin f(a') = B$, a contradiction. \\
+	\tb{Case 2} $a' \notin B$ \\
+	Then $a' \in f(a') = B$, a contradiction.
+\end{proof}
 
 
 \theorem[Schr\"oder-Bernstein Theorem]
-Assume there are 1-1 maps from $A$ to $B$ and from $B$ to $A$. Then there is a bijection from $A$ to $B$.
+If there are 1-1 functions $f: A \rightarrow B$ and $h: B \rightarrow A$, then there is a bijection $g: A \rightarrow B$.
+
+\begin{proof}
+	\tb{Claim:} the statement of the theorem is equivalent to the following:\\
+	If $B \subseteq A$ and $f: A \rightarrow B$ is $1-1$, then there is a bijection $g: A \rightarrow B$. \quad (*) \\\\
+	\tb{proof of claim:}
+	theorem $\implies$ (*): \\
+	Take $h: X \rightarrow Y$ with $h(x) = x$, then $X \subseteq Y$. \\
+	(*) $\implies$ theorem: \\
+	Let $f: A \rightarrow B$ and $h: B \rightarrow A$ be 1-1 functions, as in the theorem. We need to show that there is bijection $g: A \rightarrow B$. \\
+	Notice that $A \subseteq h(B)$ and $h \circ f: A \rightarrow h(B) $ is a 1-1 function. So by (*), there is a bijection $g_0: A \rightarrow h(B)$. \\
+	But $h: B \rightarrow h(B)$ is also a bijection. So $g = h^{-1} \circ g_0: A \rightarrow B$ is a bijection (using the fact that bijections are closed under compositions). \\\\
+	Now it suffices to prove (*). \\
+	Assume set $X \subseteq Y$ and $f: Y \rightarrow X$. Let $W = \bigcup_{n=0}^\infty f^n(Y \setminus X)$.\\
+	Define $g: Y \rightarrow X$ by:
+	\begin{itemize}
+		\item If $y \in W$, then $g(y) = f(y)$
+		\item If $y \in Z:= Y \setminus W$, then $g(y) = y$
+	\end{itemize}
+	We need to show that $g: Y \rightarrow X$ is a well-defined bijection. \\
+	Since $f$ is 1-1, for all $m < n$, $f^m(Y \setminus X) \cap f^n(Y \setminus X) = \emptyset$\\
+	Note that 
+	\begin{align*}
+		Y \setminus W &= Y \setminus \bigcup_{n=0}^\infty f^n(Y \setminus X) \\
+		&= [Y \setminus (Y \setminus X)] \setminus \bigcup_{n=1}^\infty f^n(Y \setminus X) \\
+		&= X \setminus \bigcup_{n=1}^\infty f^n(Y \setminus X)
+	\end{align*}
+	Therefore for all $y \in Y, g(y) \in X$. \\
+	(Show $g$ is 1-1) Now assume $y_1, y_2 \in Y$ and $g(y_1) = g(y_2)$. We show that $y_1 = y_2$. \\
+	\tb{Case 1} $y_1, y_2 \in W$ \\
+	Then $g(y_1) = g(y_2) \implies f(y_1) = f(y_2) \implies y_1 = y_2$. \\
+	\tb{Case 2} $y_1 \in W$ but $y_2 \in Y\setminus W$ \\
+	Then $g(y_1) = g(y_2) \implies f(y_1) = y_2$ \\
+	Note that if $y_1 \in W$, then for some $n \geq 0, y_1 \in f^n(Y \setminus X)$ \\
+	Then $y_2 \in f^{n+1}(Y \setminus X) \subseteq W$ \\
+	So $y_2 \in W$, which leads to a contradiction. \\
+	\tb{Case 3} $y_1, y_2$ are both in $Z:= Y \setminus W$\\
+	Then $g(y_1) = g(y_2) \implies y_1 = y_2$. \\
+	Therefore by case 1,2,3, $g$ is 1-1.\\
+	(Show $g$ is onto) Let $x \in X$. We need to find $y \in Y$ s.t. $g(y) = X$. \\
+	If $x \in Z$, take $y = x$. \\
+	If $x \in \bigcup_{n=1}^\infty f^n(Y \setminus X)$, then fix $n \in \mb{N}$ s.t. $x \in f^n(Y \setminus X)$. \\
+	But $f^n(Y \setminus X) = f(f^{n-1}(Y \setminus X))$ \\
+	Pick $y \in f^{n-1}(Y \setminus X)$ s.t. $f(y) = x$. \\
+	Then $y \in W$ and $g(y) = x$. Therefore $g$ is onto. 
+\end{proof}
+
+\section{Sequences and Series}
+\subsection{The Limit of a Sequence}
+\definition[sequence]
+A \under{sequence} is a function whose domain is $\mb{N}$
+
+\section{Metric Spaces and the Baire Category Theorem}
+\definition[metric and metric space] Given a set $X$, a function $d: X \times X \rightarrow \real$ is a \under{metric} on $X$ if for all $x, y \in X$:
+\begin{enumerate}
+	\item $d(x,y) \geq 0$ with $d(x,y) = 0$ if and only if $x = y$;
+	\item $d(x,y) = d(y,x)$;
+	\item for all $z \in X, d(x, y) \leq d(x,z) + d(z,y)$
+\end{enumerate}
+A \under{metric space} is a set $X$ together with a metric $d$.
+
+\example
+The set $\real$ considered with $d: \real^2 \rightarrow [0, \infty), (x,y) \mapsto |x - y|$ is a metric space.
+
+\example
+In general, $\real^n$ considered with the Euclidean distance is a metric space.
+$$d(\vx, \vy) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$$
+
+\example
+Let $x$ be a set. The \under{discrete metric} $d$ on $X$ is defined by
+$$d(x,y) = \begin{cases}
+	0 \quad x = y \\
+	1 \quad x \neq y
+\end{cases}$$
+
+\paragraph{Fact} If $(X, d)$ is a metric space, $d'(x,y) = \max\{1, d(x,y)\}$ for all $x, y \in X$, then $(X, d')$ is also a metric space.
+
+\example
+Let $X = \{f: A \rightarrow \real\}$ \\
+$$d(f,g) = \sup\{|f(x) - g(x)|: x \in A\}$$ if the supremum exists.
+
+\subsection{Basic Definitions}
+\definition
+Let $(X, d)$ be a metric space. A sequence $(X_n) \subseteq X$ \under{converges} to an element $x \in X$ if $\forall \epsilon > 0, \exists N \in \mb{N}, n \geq N \implies d(x_n, x) < \epsilon$. \\\\
+\tb{Key property: } If $\underset{n \rightarrow \infty}{\lim} x_n = x, \underset{n \rightarrow \infty}{\lim} x_n = y$, then $x = y$.
+\begin{proof}
+	WTS $d(x,y) = 0$ \\
+	Let $\epsilon > 0$. We will show that $d(x,y) < \epsilon$. \\
+	Since $\underset{n \rightarrow \infty}{\lim} x_n = x$, then $\exists N_1, \forall n \geq N_1, d(x_n, x) < \frac{\epsilon}{2}$ \\
+	Since $\underset{n \rightarrow \infty}{\lim} x_n = y$, then $\exists N_2, \forall n \geq N_2, d(x_n, y) < \frac{\epsilon}{2}$ \\
+	Take $n \geq \max(N_1, N_2)$, then $d(x,y) \leq d(x_n, x) + d(x_n, y) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$.
+\end{proof}
+
+\proposition Suppose $(X, d)$ is a metric space, $(X, \tau)$ is a topological space, and $F \subseteq X$. If $\underset{n \rightarrow \infty}{\lim} x_n = x$, $(x_n) \subseteq F$ and $F$ is closed, then $x \in F$.
+\begin{proof}
+	Suppose $x \notin F$, i.e., $x \in X \setminus F$. \\
+	Since $F$ is closed, then $X \setminus F$ is open, so there is $\epsilon > 0$ s.t. $B_\epsilon(x) \subseteq X \setminus F$. \\
+	Let $N$ be such that $\forall n \geq N, d(x_n, x) < \epsilon$.\\
+	 Then $x_n \in B_\epsilon(x)$, which implies that $(x_n) \subseteq X \setminus F$, a contradiction.
+\end{proof}
+
+\proposition Suppose $(X, d)$ is a metric space and $F \subseteq X$. If $F$ is not closed, then there exists $(x_n) \subseteq F$ and $x \notin F$ s.t. $\underset{n \rightarrow \infty}{\lim} x_n = x$.
+
+\begin{proof}
+	If $F$ is not closed, then $X \setminus F$ is not open, so there is $x \in X \setminus F$ s.t. $B_\epsilon(x) \not \subseteq X \setminus F$ for all $\epsilon > 0$. \\
+	Take $x_n \in B_{1/n}(x) \setminus (X \setminus F)= B_{1/n}(x) \cap F$ for each $n \in \mb{N}$, then $(x_n) \subseteq F$ and $\underset{n \rightarrow \infty}{\lim} x_n = x$.
+\end{proof}
+
+\definition[Cauchy sequence]
+ A sequence $(x_n)$ in a metric space $(x_n)$ in a metric space $(X, d)$ is a \under{Cauchy sequence} if $\forall \epsilon >0, \exists N \in \mb{N}, m, n \geq N \implies d(x_m, x_n) < \epsilon$.
+ 
+\proposition
+A convergent sequence is Cauchy. 
+\begin{proof}
+	Let $(x_n)$ be a convergent sequence, so that $\underset{n \rightarrow \infty}{\lim} x_n = x$. To check $(x_n)$ is Cauchy, let $\epsilon > 0$. We need to find $N$ s.t. $\forall m, n \geq N, d(x_n, x_m) < \epsilon$.\\
+	Apply $\underset{n \rightarrow \infty}{\lim} x_n = x$ to $\frac{\epsilon}{2}$, we get $N$ s.t. $\forall n \geq N, d(x, x_n) < \frac{\epsilon}{2}$. \\
+	Notice that $N$ works for Cauchy: \\
+	Take $m, n \geq N$, then $$d(x_n, x_m) \leq d(x_n, x) + d(x, x_m) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$$
+\remark
+When $X = \real$ with the usual metric, A Cauchy sequence is convergent (the converse is true). \\
+In general not true. For example, $X = \real \setminus \{0\}, d(x,y) = |x - y|, (x_n) = \frac{1}{n}$.
+
+\end{proof}
+
+\definition[completeness of metric spaces]
+A metric space $(X, d)$ is \under{complete} if every Cauchy sequence in $X$ converges to an element of $X$.
+
+\example
+$\real, d(x,y) = |x - y|$
+\example
+$(X, d), d$ discrete metric.
+\example 
+$C[0,1], d(f,g) = \underset{x \in [0, 1]}{\sup} |f(x) - g(x)| = ||f - g||_{\infty}$
+\example
+$(\mb{N}^{\mb{N}}, d), d((x_n), (y_n)) = \frac{1}{\min\{n: x_n \neq y_n\}}$
+\\
+where $\mb{N}^{\mb{N}} = \{x: \mb{N} \rightarrow \mb{N}\}$.
+
+\definition
+Let $(X, d_1)$ and $(Y, d_2)$ be metric spaces. A function $f: X \rightarrow Y$ is \under{continuous at $x \in X$} if $\forall \epsilon > 0, \exists \delta > 0, d_1(x,y) < \delta \implies d_2(f(x), f(y)) < \epsilon$.
+
+\subsection{Topology on Metric Spaces}
+\definition[$\epsilon$-neighbourhood]
+Given $\epsilon > 0$ and an element $x$ in the metric space $(X, d)$, the \under{$\epsilon$-neighbourhood} of $x$ is the set $V_\epsilon(x) = \{y \in X: d(x, y) < \epsilon\}$
+
+\definition[compactness]
+A subset $K$ of a metric space $(X, d)$ is \under{compact} if every sequence in $K$ has a convergent subsequence that converges to a limit in $K$.
+
+\definition[closure and interior]
+Given a subset $E$ of a metric space $(X, d)$, the \under{closure} $\bar{E}$ is the union of $E$ together with its limit points. The \under{interior} of $E$ is denoted by $E^\circ$ and is defined as
+$$E^\circ = \{x \in E: \exists V_\epsilon(x) \subseteq E\}$$
+
+\remark
+$(X, \tau), \tau \subseteq P(X), E \subseteq X$
+\begin{enumerate}
+	\item $\bar{E}$ = minimal closed superset of $E$ = $\bigcap\{H: H \text{ closed }, H \supseteq E\}$
+	\item $E^\circ$ = maximal open subset of $E$ = $\bigcup\{U: U \text{ open }, U \subseteq E\}$
+\end{enumerate}
+
+\example $(X, d)$ is a metric space, $\tau_d$ is the topology determined by $d$: $U \in \tau_d$ iff $\forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$ \\
+$ F \subseteq X$
+
+\begin{align}
+	\bar{F} &= \{ x \in X: \forall \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} \\
+	&= \bigcap \{ H: H \text{ closed } H \supseteq F\} \\
+	&= \{ \underset{n \rightarrow \infty}{\lim} x_n:  (x_n) \subseteq F, \underset{n \rightarrow \infty}{\lim} x_n \text{ exists } \}
+\end{align}
+
+%TODO: I really, really cannot understand professor's proof...
+
+
+
+%\begin{proof}
+%\tb{Claim 1: } $$\bar{F} = \{ x \in X: \forall \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} := H$$
+%%Note that $H$ is closed and $\supseteq F$ \\
+%%Then $U = X \setminus H$ is open. Take $y \in X \setminus H$. \\
+%%We need to find $\epsilon > 0$ s.t. $B_\epsilon(y) \subseteq X \setminus H$\\
+%%Note that for a given $\epsilon > 0$, $$B_\epsilon(y) \cap F \neq \emptyset \equiv B_\epsilon(y) \cap \bar{F} \neq \emptyset$$
+%%Note that $X \setminus B_\epsilon(y) \supseteq F$ is a closed superset of $F$.\\
+%Suppose for contradiction that $H$ is not the minimal superset of $F$, so there is a closed set $H \subsetneq H$ s.t. $H' \supseteq F$. \\ 
+%Notice that $V = X \setminus H'$ is open. \\
+%Then take $y \in H \setminus H' \subseteq V$. So there is $\epsilon > 0, B_\epsilon(y) \subseteq V$. But then $B_\epsilon(y) \cap H' = \emptyset, B_\epsilon(y) \cap F = \emptyset, y \notin H \implies $ contradiction.
+%
+%
+%\end{proof}
+
+
+\begin{align}
+	F^\circ &= \{ x \in X: \exists \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} \\
+	&= \bigcup \{B_\epsilon(x): \epsilon > 0, x \in F, B_\epsilon(x) \subseteq F \} \\
+\end{align}
+
+
+
+
+
+
+\definition[density]
+A set $A \subseteq X$ is \under{dense} in the metric space $(X, d)$ if $\bar{A} = X$. A subset $E$ of a metric space $(X, d)$ is \under{nowhere-dense} in $X$ if $\bar{E}^\circ$ is empty.
+
+\subsection{Baire's Theorem}
+\definition[nowhere-dense]
+A set $E$ is \under{nowhere-dense} if $\bar{E}$ contains no nonempty open intervals.
+\theorem[Baire's Theorem]
+The set of real numbers $\real$ cannot be written as the countable union of nowhere-dense sets.
+
+
+\subsection{The Baire Category Theorem}
+\theorem Let $(X, d)$ be a complete metric space, and let $\{O_n\}$ be a countable collection of dense, open subsets of $X$. Then, $\bigcap_{n=1}^\infty\{O_n\}$ is not empty.
+\begin{proof}
+	
+\end{proof}
+\theorem[Baire Category Theorem]
+A complete metric space is not the union of a countable collection of nowhere-dense sets.
+\begin{proof}
+	
+\end{proof}
+
+\theorem
+The set
+$$D = \{f \in C[0,1]: f'(x) \text{ exists for some } x \in [0, 1]\}$$ is a set of first category in $C[0,1]$.
+
+\subsection{Topology of $(X, d)$}
+\definition[topological space] A \under{topological space} is a pair $(X, \tau)$, where $X$ is a set and $\tau$ a subset of the power set of $X$ which we call open such that
+\begin{enumerate}
+	\item $\emptyset, X \in \tau$
+	\item $U_1, \hdots, U_n \in \tau \implies \bigcap_{i=1}^n U_i \in \tau$
+	\item $U_1, \hdots, U_n \in \tau \implies \bigcup_{i=1}^n U_i \in \tau$
+\end{enumerate}
+
+\example
+$(X, \{\emptyset, X \})$
+
+%\example
+%Given $(X, d)$ a metric space, define $\tau_d: U \in \tau_d \iff \forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$. Then $\tau_d$ is a topology.
+
+\definition
+$(X, \tau)$ is a discrete topological space iff $\tau = P(X)$.
+
+\definition
+A subset $F$ of a topological space $(X, \tau)$ is closed if $X \setminus F$ is open. \\
+\tb{Properties: }
+\begin{enumerate}
+	\item $\emptyset, X$ are closed
+	\item If $F_1, \hdots, F_n$ are closed, then $\bigcup_{i=1}^n F_i$ is closed
+	\item If $F_1, \hdots, F_n$ are closed, then $\bigcap_{i=1}^n F_i$ is closed
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
