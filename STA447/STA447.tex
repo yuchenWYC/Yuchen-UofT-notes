@@ -227,7 +227,32 @@
     \example[simple random walk]
     If $p = 1/2$ then $\forall i, f_{ii} = 1$. If $p \neq 1/2$, then $\forall i, f_{ii} < 1$ 
     \begin{proof}
-   	\todo{prove}
+   	Consider state 0. We need to check if $\sum_{n=1}^\infty \dur{p}{00}{n} = \infty$. \\
+   	If $n$ is odd, then $\dur{p}{00}{n} = 0$.\\
+   	If $n$ is even, $\dur{p}{00}{n} = P(\frac{n}{2} \text{ heads and } \frac{n}{2} \text{ tails on first } n \text{ tosses})$.\\ This is a Binomial$(n,p)$ distribution, so
+   	\begin{align*}
+   		\dur{p}{00}{n} &= {n \choose n/2} p^{n/2}(1-p)^{n/2} \\
+   					   &= \frac{n!}{[(n/2)!]^2}p^{n/2}(1-p)^{n/2} \\
+   					   &= \frac{(n/e)^n\sqrt{2\pi n}}{[(n/2e)^{n/2}\sqrt{2\pi n/ 2}]^2}p^{n/2}(1-p)^{n/2} \tag{Sirling's approximation}\\
+   					   &= [4p(1-p)]^{n/2}\sqrt{2/\pi n} 
+   	\end{align*}
+   	\tb{Case 1:} If $p = 1/2$, then $4p(1-p) = 1$, so
+   	\begin{align*}
+   		\sum_{n=1}\infty \dur{p}{00}{n} &= \sum_{n=2,4,6,\hdots} \sqrt{2/\pi n} \\
+   		&= \sqrt{2/\pi}\sum_{n=2,4,6,\hdots} n^{-1/2} \\
+   		&= \sqrt{2/\pi}\sum_{n=1}^\infty 2k^{-1/2} \\
+   		&= \infty
+   	\end{align*} 
+   	Therefore, state 0 is recurrent. \\
+   	\tb{Case 2:} If $p \neq 1/2$, then $4p(1-p) < 1$, so
+   	\begin{align*}
+   		\sum_{n=1}\infty \dur{p}{00}{n} &= \sum_{n=2,4,6,\hdots} [4p(1-p)]^{n/2}\sqrt{2/\pi n} \\
+   		&< \sum_{n=2,4,6,\hdots} [4p(1-p)]^{n/2} \tag{Geometric Series} \\
+   		&= \frac{4p(1-p)}{1-4p(1-p)} \\
+   		&< \infty
+   	\end{align*} 
+   	Therefore, the state 0 is transient.\\
+   	The same exact calculation applies to any other state $i$.
     \end{proof}
     
     \theorem[f-Expansion]
