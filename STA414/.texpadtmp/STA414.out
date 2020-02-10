@@ -3,4 +3,25 @@
 \BOOKMARK [2][-]{subsection.2.1}{Overview of probabilistic models}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Sufficient statistics}{section.2}% 4
 \BOOKMARK [1][-]{section.3}{Directed Graphical Models}{}% 5
-\BOOKMARK [2][-]{subsection.3.1}{Directed acyclic graphical models \(DAGM\)}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Decision Theory}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Joint Distributions}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Number of parameters in a joint distribution}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Conditional Independence}{subsection.3.2}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Directed acyclic graphical models \(DAGM\)}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Conditional Independence in DAGM}{subsection.3.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Example of a DAGM: Markov Chain}{subsection.3.3}% 12
+\BOOKMARK [3][-]{subsubsection.3.3.3}{Plates}{subsection.3.3}% 13
+\BOOKMARK [3][-]{subsubsection.3.3.4}{Unobserved Variables}{subsection.3.3}% 14
+\BOOKMARK [1][-]{section.4}{Exact Inference}{}% 15
+\BOOKMARK [2][-]{subsection.4.1}{Inference as Conditional Distribution}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.2}{Variable elimination}{section.4}% 17
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Sum-Product Inference}{subsection.4.2}% 18
+\BOOKMARK [1][-]{section.5}{Message passing, Hidden Markov Models, and Sampling}{}% 19
+\BOOKMARK [2][-]{subsection.5.1}{Message Passing \046 Belief Propagation}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.2}{Hidden Markov models}{section.5}% 21
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Sequential data}{subsection.5.2}% 22
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Hidden Markov Models}{subsection.5.2}% 23
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Inference in HMMs}{subsection.5.2}% 24
+\BOOKMARK [2][-]{subsection.5.3}{Sampling}{section.5}% 25
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Ancestral Sampling}{subsection.5.3}% 26
+\BOOKMARK [2][-]{subsection.5.4}{Simple Monto Carlo}{section.5}% 27

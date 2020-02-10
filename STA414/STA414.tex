@@ -1,18 +1,35 @@
 \documentclass[11pt]{article}
 % Libraries.
+
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{pgfplots}
+\usepackage{esint}
+\usepackage[margin=3cm]{geometry}
+%\usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{perpage}
+\usepackage[dvipsnames, pdftex]{xcolor}
 \usepackage{float}
-\usepackage{esint}
-\usepackage[margin=1.5cm]{geometry}
+\usepackage{xargs}
+%\usepackage[textsize=tiny]{todonotes}
 \usepackage{../raina}
+\usepackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
+\newcommandx{\note}[2][1=]{\todo[linecolor=Thistle,backgroundcolor=Thistle!25,bordercolor=Thistle,#1]{#2}}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 
+
+
+\usepackage{../raina}
 % Property settings.
 \MakePerPage{footnote}
 \pagestyle{headings}
@@ -21,6 +38,8 @@
 \title{STA414\\ Lecture Notes}
 \author{Yuchen Wang}
 \date{\today}
+
+
 
 \begin{document}
     \maketitle
@@ -37,11 +56,11 @@ $$p(Y|X) = \frac{p(X,Y)}{p(X)} = \frac{p(X,Y)}{\int p(X,Y)\, dY}$$
 
 \paragraph{Classification / Clustering}
 $$p(C|X) = \frac{p(X,C)}{\sum_C p(X,C)}$$
-Assigning the class label:
+Now that we have a distribution over class labels, we have a choice for how to assign the class label:
 \begin{enumerate}
 	\item $c^* = \arg \max_c p(C=c|X)$
 	\item Sample the class assignment from our distribution, $c^* \sim p(C|X)$
-	\item Output the class assignment along with its density under our distribution $(c^*, p(C=c^*|X))$. \red{Can inform us of the model's uncertainty or confidence of the prediction.}
+	\item Output the class assignment (however we chose it) along with its density under our distribution $(c^*, p(C=c^*|X))$. \red{Can inform us of the model's uncertainty or confidence of the prediction.}
 \end{enumerate}
 
 \paragraph{Latent/hidden Variables}
@@ -49,47 +68,50 @@ Variables which are never observed in the dataset.
 
 \paragraph{Operations on Probabilistic Models}
 \begin{itemize}
-	\item \tb{Generate Data}
-	\item \tb{Estimate Likelihood}
-	\item \tb{Inference}: Compute expected value of some variables given others which are either observed or marginalized.
-	\item \tb{Learning}: Set the parameters of the joint distribution given some observed data to maximize the probability of the observed data.
+	\item \tb{Generate Data} For this we will need to know how to \blue{sample} from the model
+	\item \tb{Estimate Likelihood} When all variables are either observed or marginalized, the result is a single real number which is the \blue{probability} of all variables taking on whose specific values.
+	\item \tb{Inference}: Compute \blue{expected value} of some variables given others which are either observed or marginalized.
+	\item \tb{Learning}: Set the parameters of the joint distribution given some observed data to \blue{maximize} the probability of the observed data.
 \end{itemize}
 
 \paragraph{Goals of joint distributions}
 \begin{enumerate}
 	\item Facilitate \tb{efficient computation} of marginal and conditional distributions
-	\item Have compact representation so the size of the parameterization scales well for joint distributions over many variables.
+	\item Have \tb{compact representation} so the size of the parameterization scales well for joint distributions over many variables.
 \end{enumerate}
 
 \paragraph{Joint Dimensionality}
-Suppose $n$ is our number of variables and $k$ our states. The dimensionality of our parameters then becomes $k^n$
+Suppose $n$ is the number of variables and $k$ is the number of states of each variable. Then  dimensionality of our parameters is $k^n$.
+
+
 
 \subsection{Sufficient statistics}
+\theorem[Fisher-Neyman factorization theorem]
+If $f_\theta(x)$ is a pdf, then $T$ is sufficient for $\theta$ if and only if \blue{nonnegative} functions $g$ and $h$ can be found such that
+$$f_\theta(x) = h(x)g_\theta(T(x))$$
+i.e. the density $f$ can be factored into a product such that one factor $h$ does not depend on $\theta$ and the other factor, which does depend on $\theta$, depends on $x$ only through $T(x)$.
 \definition[Statistic and Sufficient statistic]
 A \under{statistic} is a (possibly vector valued) deterministic function of a (set of) random variable(s). A \under{sufficient statistic} is a statistic that conveys exactly the same information about the data generating process that created the data as the entire data itself. Formally, we say that $T(X)$ is a sufficient statistic for $X$ if
-$$T(x^{(1)}) = T(x^{(2)}) \implies L(\theta; x^{(1)}) = L(\theta; x^{(2}) \quad \forall \theta$$
+$$T(x^{(1)}) = T(x^{(2)}) \implies L(\theta; x^{(1)}) = L(\theta; x^{(2)}) \quad \forall \theta$$
 where $L$ is the likelihood function. \\
 Alternatively,
 $$P(\theta | T(X)) = P(\theta|X)$$
-\red{Equivalently (by the Neyman factorization theorem) we can write
+\blue{Equivalently (by the Neyman factorization theorem) we can write
 \[
 P(\theta | T(X))=h(x, T(x)) g(T(x), \theta)
 \]
-An example is the exponential family
-\[
-p(x | \eta)=h(x) \exp \left\{\eta^{T} T(x)-g(\eta)\right\}
-\]
-or, equivalently
-\[
-p(x | \eta)=h(x) g(\eta) \exp \left\{\eta^{T} T(x)\right\}
-\]}
+}
 
 \example[Bernoulli Trials]
 We observe $N$ iid coin flips. \\
 Model: $p(H) = \theta, P(T) = 1 - \theta$\\
 Likelihood: $l(\theta; D) = \log \theta \sum_n x^{(n)} + \log (1-\theta) \sum_n (1 - x^{(n)})$\\
-Notice that our likelihood depends on $\sum_n x^{(n)}$. \\
-$\implies$ If we know this summary statistic $T(x) = \sum_n x^{(n)}$, then we know everything that is useful from our sample todo inference.\\
+\begin{align*}
+	l(\theta; D) &= \log \theta \sum_n x^{(n)} + \log (1-\theta) \sum_n (1 - x^{(n)})\\
+	&= \log \theta N_H + \log(1-\theta)N_T
+\end{align*}
+Notice that our likelihood depends on $N_H = \sum_n x^{(n)}$ (and $N_T$).\\
+$\implies$ If we know this summary statistic $T(x) = \sum_n x^{(n)}$, then we know everything that is useful from our sample to do inference.\\
 $$l(\theta; D) = T(X)\log \theta + (N - T(X)) \log (1 - \theta)$$
 Then we take the derivative and set it to 0 to find the maximum
 \[
@@ -98,13 +120,13 @@ Then we take the derivative and set it to 0 to find the maximum
 & \Rightarrow \hat{\theta}=\frac{T(X)}{N}
 \end{aligned}
 \]
-This is our maximum likelihood estimation of the parameters \(\theta, \theta_{M L E}^{\star}\).
+This is our maximum likelihood estimation of the parameters \(\theta, \theta_{M L E}^{\star}\).\\
+\blue{sufficient statistics: counts}
 
 \example[Multinomial]
 We observe $M$ iid die rolls ($K$-sided). \\
 Model: $p(k) = \theta_k, \sum_k \theta_k = 1$ \\
-Likelihood: $l(\theta; D) = \sum_k N_k \log \theta_k$ 
-
+Likelihood: $l(\theta; D) = \sum_k N_k \log \theta_k$ \\
 Take derivatives and set to zero (enforcing \(\sum \theta_{k}=1\) ):
 \[
 \begin{aligned}
@@ -112,43 +134,520 @@ Take derivatives and set to zero (enforcing \(\sum \theta_{k}=1\) ):
  \Rightarrow \theta_{k}^{*}&=\frac{N_{k}}{M}
 \end{aligned}
 \]
-\blue{sufficient statistics: number of each type}
+\blue{sufficient statistics: counts}
+\example[exponential family of distributions]
+The result of the previous example distributions show that the MLE are just normalized counts. However, the simplicity of the sufficient statistics and MLE are due to those being members of the exponential family.
+In general, exponential family members have simple sufficient statistics and MLE for the natural statistics $\eta$
+\[
+p(x | \eta)=h(x) \exp \left\{\eta^{T} T(x)-A(\eta)\right\}
+\]
+where:
+\begin{itemize}
+	\item $\eta$ are the parameters
+	\item $T(x)$ are the sufficient statistics
+	\item $h(x)$ is the base measure
+	\item $A(\eta)$ is the normalizing constant
+\end{itemize}
+with log-likelihood
+\begin{align*}
+	l(\eta; D) &= \log p(D;\eta)\\
+	&= (\sum_n\log h(x_n)) - NA(\eta) + (\eta^T\sum_n T(x_n))
+\end{align*}
+Finding the derivative and setting to zero, we get
+$$\eta_{MLE} = \frac{1}{N}\sum_n T(x_n)$$
+which is the normalized counts of the data.
 
-\remark[Sufficient statistics are sums]
-For all exponential family models, sufficient statistics are the average natural parameters.
+\example{univariate normal}
+We have $N$ i.i.d. samples $\{x_i\}_1^N$\\
+Model: $p(x|\theta) = \frac{1}{\sqrt{2\pi\sigma}}\exp{-\frac{1}{2\sigma^2}(x - \mu)^2}$\\
+Gaussian distribution is a member of the exponential family, so we can put it into a natural form
+$$p(x|\theta) = \frac{1}{\sqrt{2\pi\sigma}}\exp\{-\frac{1}{2\sigma^2}\mu^2\}\exp\{\begin{bmatrix}
+	\frac{\mu}{\sigma^2} & \frac{-1}{2\sigma^2}\end{bmatrix}\begin{bmatrix}
+	x \\ x^2
+\end{bmatrix}\}$$
+From here, it is clear that the natural parameters and the sufficient statistics are
+\begin{itemize}
+	\item $\eta = \begin{bmatrix}
+		\frac{\mu}{\sigma^2} \\
+		\frac{-1}{2\sigma^2}
+	\end{bmatrix}$
+	\item $T(x) = \begin{bmatrix}
+		x \\ x^2
+	\end{bmatrix}$
+\end{itemize}
+re-writing in terms of \(\eta\)
+$$p(x | \eta)=(\sqrt{2 \pi})^{-\frac{1}{2}} \cdot\left(-2 \eta_{2}\right)^{\frac{1}{2}} \cdot \exp \left\{\frac{\eta_{1}^{2}}{4 \eta_{2}}\right\} \cdot \exp \left\{\eta^{T} T(x)\right\}$$
+noting that\\
+\begin{itemize}
+	\item \(h(x)=(\sqrt{2 \pi})^{-\frac{1}{2}}\)
+	\item \(A(\eta)=\left(-2 \eta_{2}\right)^{\frac{1}{2}} \cdot \exp \left\{\frac{\eta_{1}^{2}}{\eta_{2}}\right\}\)
+\end{itemize}
+
 
 \section{Directed Graphical Models}
-\notation
+\subsection{Decision Theory}
+We care about probabilities because they help us make decisions.\\
+Denote action by $a$, state by $s$, value function by $V(s)$, utility function by $u(a)$, then
+$$a^* = \underset{a}{argmax}\, \underbrace{E_{p(s|a, knowledge)}[V(s)]}_{u(a)}$$
+
+
+\subsection{Joint Distributions}
+\theorem[chain rule of probability]
 The joint distribution of \(N\) random variables can be computed by the chain rule
 \[
 p\left(x_{1, \ldots, N}\right)=p\left(x_{1}\right) p\left(x_{2} | x_{1}\right) p\left(x_{3} | x_{2}, x_{1}\right) \ldots p\left(x_{n} | x_{n-1: 1}\right)
 \]
-this is true for any joint distribution over any random variables (assuming full dependence between variables).
+This is true for any joint distribution over any random variables (assuming full dependence between variables).
 More formally, in probability the chain rule for two random variables is
 \[
 p(x, y)=p(x | y) p(y)
 \]
 and for \(N\) random variables
-\[
-p\left(\cap_{i=1}^{N} x_{i}\right)=\prod_{j=1}^{N} p\left(x_{j} | \bigcap_{k=1}^{j-1} x_{k}\right)
-\]
-We can represent a model $p(x_i, x_{\pi_i}) = p(x_{\pi_i})p(x_i|x_{\pi_i})$ as a graph where nodes represent random variables and arrows mean ``conditioned on".\\
-We can simplify the model by building in our assumptions about the conditional probabilities.
+$$p(x_1, x_2, \hdots, x_N) = \prod_{j=1}^N p(x_j|x_1,x_2,\hdots,x_{j-1})$$
+for any ordering of the variables.
+
+\subsubsection{Number of parameters in a joint distribution}
+$$p(x_1, \hdots, x_A | y_1, \hdots, y_B)$$
+$\#$ parameters = \{($\#$ possible states of $x_{1:A}$) - 1\} $\times$ ($\#$ possible states of $y_{1:B}$)\\
+binary: $(2^A - 1)\times 2^B$.
+
+\subsubsection{Conditional Independence}
+\definition[conditionally independence]
+Two random variables $A, B$ are conditionally independent given a third variable $C$, denoted
+$$X_A \perp X_B | X_C$$
+if 
+\begin{align*}
+	&\iff p(X_A, X_B | X_C) = p(X_A|X_C)p(X_B|X_C) \\
+	&\iff p(X_A|X_B,X_C) = p(X_A|X_C)\\
+	&\iff p(X_B|X_A,X_C) = p(X_B|X_C)
+\end{align*}
+for all $X_C$.
+
 
 \subsection{Directed acyclic graphical models (DAGM)}
-\definition
-A \under{directed acyclic graphical model} over $N$ random variables looks like
-$$p(x_{1, \hdots, N}) = \Pi_i^N p(x_i|x_{\pi_i})$$
-where $x)i$ is a random variable or a node in the graphical model and $x_{\pi_i}$ are the parents of this node. \\
-In other words, the joint distribution factors into a product of conditional distributions. \\
-\blue{Missing edges imply conditional independente.}
+\paragraph{Graphical models}
+Probabilistic graphical models are a concise way to specify and reason about conditional independencies, without worrying about the detailed form of the distribution. There are three flavours:
+\begin{itemize}
+	\item Undirected
+	\item Factor graphs
+	\item Directed
+\end{itemize}
+
+\definition[directed acyclic graphical model]
+A \under{directed acyclic graphical model} implies a restricted factorization of the joint distribution. In a DAG, variables are represented by nodes, and dependence are represented by edges. \\
+Recall that for \(N\) random variables,
+$$p(x_1, x_2, \hdots, x_N) = \prod_{j=1}^N p(x_j|x_1,x_2,\hdots,x_{j-1})$$
+for any ordering of the variables. \\
+In the context of DAG, we can write
+$$p(x_1, x_2, \hdots, x_N) = \prod_{i=1}^N p(x_i |parents(x_i))$$
+where $parents(x_i)$ is the set of nodes with edges pointing to $x_i$.\\\\
+In other words, the joint distribution of a DAGM factors into a product of local conditional distributions, where each node (a random variable) is conditionally dependent on its parent  nodes(s), which could be empty.
 \remark
 We are conditioning on parent nodes as opposed to every node. Therefore, the model that represents this distribution is exponential in the fan-in of each node (the number of nodes in the parent set), instead of in $N$.
 
-\definition[D-Separation]
-\under{D-separation}, or \under{directed-separation} is a notion of connectedness in DAGMs in which two (sets of) variables may or may not connected conditioned on a third (set of) variable(s). \\
-$D$-connection implies conditional dependence and d-separation implies conditional independence.
+\paragraph{Grouping variables}
+We can always group variables together into one bigger variable:
+$$p(x_i, x_{\pi_i}) = p(x_{\pi_i})p(x_i|x_{\pi_i})$$
 
+\subsubsection{Conditional Independence in DAGM}
+The simplest conditional independence relationship encoded in a Bayesian network can be stated as follows: \blue{a node is independent of its ancestors given its parents}:
+$$x_i \perp x_{\tilde{\pi_i}} | x_{\pi_i}$$
+In general, missing edges imply conditional independence.
+
+\definition[D-Separation]
+\under{D-separation}, or \under{directed-separation} is a notion of connectedness in DAGMs in which two (sets of) variables may or may not be connected conditioned on a third (set of) variable(s). \\
+$D$-connection implies conditional dependence and d-separation implies conditional independence. \\
+In particular, we say that
+$$x_A \perp x_B | x_C$$
+if every variable in $A$ is d-separated from every variable in $B$ conditioned on all the variables in $C$.\\
+To check if an independence is true, we can cycle through each node in $A$, do a depth-first search to read every node in $B$, and examine the path between them. If all of the paths are d-separated(i.e. conditionally independent), then
+$$x_A \perp x_B | x_C$$
+\example{Chain}
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{p3.png}
+\end{figure}
+\noindent Question: When we condition on $y$, are $x$ and $z$ independent? \\
+Answer: \\
+From the graph, we get
+$$P(x,y,z) = P(x)P(y|x)P(z|y)$$
+Then
+\begin{align*}
+	P(z|x,y) &= \frac{P(x,y,z)}{P(x,y)} \\
+	&= \frac{P(x)P(y|x)P(z|y)}{P(x)P(y|x)} \\
+	&= P(z|y)
+\end{align*}
+which implies $x \perp z|y$. 
+\example{Common Cause}
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{p4.png}
+\end{figure}
+\noindent Where we think of $y$ as the ``common cause" of the two independent effects $x$ and $z$. \\
+Question: When we condition on $y$, are $x$ and $z$ independent? \\
+Answer:
+From the graph, we get
+$$P(x,y,z) = P(y)P(x|y)P(z|y)$$
+which implies
+\begin{align*}
+	P(x,z|y) &= \frac{P(x,y,z)}{P(y)} \\
+	&= \frac{P(y)P(x|y)P(z|y)}{P(y)} \\
+	&= P(x|y)P(z|y)
+\end{align*}
+which implies $x\perp z |y$. 
+\example{Explaining Away}
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{p5.png}
+\end{figure}
+\noindent Question: $x \perp z$? \\
+Answer: \\
+\begin{align*}
+	P(x,z) &= \sum_y P(x,y,z) \\
+	&= \sum_y P(x)P(z)P(y|x,z) \\
+	&= P(x)P(z)\sum_y P(y|x,z) \\
+	&= P(x)P(z)
+\end{align*}
+which implies that $x\perp z$.\\
+Question: $x \perp z | y$? \\
+Answer: 
+\begin{align*}
+	p(z|x,y) &= \frac{p(x)p(z)p(y|x,z)}{p(x)p(y|x)}\\
+	&= \frac{p(z)p(y|x,z)}{p(y|x)} \\
+	&= p(z|y)
+\end{align*}
+which implies $x \not \perp | y$.\\
+\red{In fact, $x$ and $z$ are marginally independent, but given $y$ they are conditionally dependent.} This important effect is called \under{explaining away}.
+\theorem[Bayes-Balls Algorithm]
+In general, the algorithm works as follows:
+\begin{enumerate}
+	\item Shades all nodes $x_C$
+	\item Place ``balls" at each node in $x_A$ (or $x_B$)
+	\item Let the ``balls" ``bounce" around according to some rules
+	\item If any of the balls reach any of the nodes in $x_B$ from $x_A$ (or $x_A$ from $x_B$), then $x_A \not \perp x_B | x_C$; otherwise $x_A \perp x_B | x_C$.
+\end{enumerate}
+The rules are as follows:
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{p6.png}
+	\includegraphics[scale=0.3]{p7.png}
+\end{figure}
+\noindent where arrows indicate paths the balls can travel, and arrows with bars indicate paths the balls cannot travel.
+\subsubsection{Example of a DAGM: Markov Chain}
+\under{Markov chains} are a stochastic model describing a sequence of possible events in which the probability of each event depends only on the state attained in the previous event.\\
+i.e. Conditional on the present state of the system, its future and past states are independent.
+
+
+\subsubsection{Plates}
+Because Bayesian methods treat parameters as random variables, we would like to include them in the graphical model. One way to do this is to \blue{repeat all the iid observations explicitly and show the parameter only once}. A better way is to use \under{plates}, in which repeated quantities that are iid are put in a box.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.3]{p8.png}
+\end{figure}
+The rules of plates:
+\begin{enumerate}
+	\item Repeat every structure in a box a number of times given by the integer in the corner of the box, updating the plate index variable as you go. Duplicate every arrow going into the plate and every arrow leaving the plate by connecting the arrows to each copy of the structure.
+	\item Plates can be nested, in which case their arrows get duplicated also.
+	\item Plates can also intersect, in which case the nodes at the intersection have multiple indices and get duplicated a number of times equal to the product of the duplication numbers on all the plates containing them.
+\end{enumerate}
+
+
+\subsubsection{Unobserved Variables}
+Certain variables in our models may be unobserved, either some of the time or always, at training time or at test time.
+\paragraph{Partially unobserved variables}
+If variables are \tb{occasionally unobserved} then they are \under{missing data}, e.g. undefined inputs, missing class labels, erroneous target values. In this case, we can still model the joint distribution, but we marginalize the missing values:
+$l(\theta; D) = \sum_{complete} \log p(x^c, y^c |\theta) + \sum_{missing} \log p(x^m|\theta)$
+\begin{align*}
+	l(\theta; D) &= \sum_{complete} \log p(x^c, y^c |\theta) + \sum_{missing} \log p(x^m|\theta) \\
+	&= \sum_{complete} \log p(x^c,y^c|\theta) + \sum_{missing} \log \sum_{y} p(x^m, y|\theta)
+\end{align*}
+
+\paragraph{Latent variables}
+What to do when a variable $z$ is always unobserved? \\
+Depends on where it appears in our model. If we never condition on it when computing the probability of the variables we do observe, then we can just forget about it and integrate it out.\\
+\paragraph{Mixture models}
+What if the class is unobserved? Then we sum it out
+$$p(x|\theta) = \sum_{k=1}^K p(z=k|\theta_z)p(x|z=k,\theta_k)$$
+We can use the Bayes' rule to compute the posterior probability of the mixture component given some data:
+
+\paragraph{Hidden Markov Models (HMMs)}
+\under{Hidden Markov Model (HMM)} is a statistical Markov model in which the system being modelled is assumed to be a Markov process with unobserved (i.e. hidden) states. It is a very popular type of latent variable model.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p2.png}
+\end{figure}
+where 
+\begin{itemize}
+	\item $Z_t$ are hidden states taking on one of $K$ discrete values
+	\item $X_t$ are observed variables taking on values in any space
+\end{itemize}
+The joint probability represented by the graph factorizes according to
+$$p(X_{1:T}, Z_{1:T}) = p(Z_{1:T})p(X_{1:T}|Z_{1:T}) = p(Z_1)\prod_{t=2}^Tp(Z_t|Z_{t-1})\prod_{t=1}^T p(X_T|Z_t)$$
+
+\section{Exact Inference}
+\subsection{Inference as Conditional Distribution}
+\notation
+\begin{align*}
+	X_E &= \text{ the observed evidence} \\
+	X_F &= \text{ the unobserved variable we want to infer} \\
+	X_R &= X - \{X_F, X_E\} = \text{ Remaining variables, extraneous to query }
+\end{align*}
+where $X_R$ is the set of random variables in our model that are neither part of the query nor the evidence.
+\definition[exact inference]
+The \under{exact inference} task is defined as:
+Given a fully parameterized DAG model over variables $\chi$, $X_F \subseteq \chi, X_E\subseteq \chi$ s.t. $X_E \cap X_F  = \emptyset$ and $\ve \in val(X_E)$:
+$$\text{compute } P(X_F|X_E = \ve)$$
+$X_E$ can be empty in which case we're after $P(X_F)$.
+
+\subsection{Variable elimination}
+Variable elimination is a simple and general exact inference algorithm in any probabilistic graphical model.
+
+\paragraph{Simple Example: Chain}
+$$ A \rightarrow B \rightarrow C \rightarrow D$$
+where we want to compute $P(D)$, with no observations for other variables. \\
+We have
+$$X_F = \{D\}, X_E = \{\}, X_R = \{A,B,C\}$$
+This graphical model describes the factorization of the joint distribution as:
+$$P(A,B,C,D) = p(A)p(B|A)p(C|B)p(D|C)$$
+If the goal is to compute the marginal distribution $p(D)$ with no observed variables, then we marginalize over all variables but $D$:
+$$p(D) = \sum_{A,B,C} p(A,B,C,D)$$
+\tb{Sum naively: $\mc{O}(k^n)$}
+\begin{align*}
+	p(D) &= \sum_{A,B,C} p(A,B,C,D) \\
+	&= \sum_C \sum_B \sum_A p(A)p(B|A)p(C|B)p(D|C)
+\end{align*}
+\tb{Elimination ordering: $\mc{O}(nk^2)$}
+\begin{align*}
+	p(D) &= \sum_{A,B,C} p(A,B,C,D) \\
+	&= \sum_C p(D|C)\sum_B p(C|B) \sum_A p(A)p(B|A)\\
+	&= \sum_C p(D|C)\sum_B p(C|B)P(B)\\
+	&= \sum_C p(D|C)p(C)
+\end{align*}
+\remark
+Computing the joint is NP-hard. We can catch up computations that are otherwise computed exponentially many times, but this depends on having a good variable elimination ordering.
+
+\subsubsection{Sum-Product Inference}
+Sum-product inference algorithm can be used to compute $P(Y)$ for directed and undirected models: $\forall Y$,
+$$\tau(Y) = \sum_z \prod_{\phi \in \Phi} \phi(scope[\phi]\cap Z, scope[\phi]\cap Y)$$
+\note{We want to marginalize out variables in $Z$ since they are extraneous} 
+\note{e.g. for $\phi(A,B,C)$, scope$[\phi] = \{A, B, C\}$}
+where $\Phi$ is a set of potentials or factors.
+\paragraph{Directed models}
+$\Phi$ is given by the conditional probability distributions for all variables
+$$\Phi = \{\phi_{x_i}\}_{i=1}^N = \{p(x_i|parents(x_i))\}_{i=1}^N$$
+\note{For DAG, we have $\phi = p$}
+where the sum is over the set $Z = X - X_F$. The resulting term $\tau(Y)$ will automatically be normalized.
+\paragraph{Undirected models}
+$\Phi$ is given by the set of unormalized potentials. Therefore, we must normalize the resulting $\tau(Y)$ by $\sum_Y \tau(y)$.
+
+\example[Directed Graph]
+ \begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p1.png}
+\end{figure}
+$$p(C, D, I, G, S, L, H, J) = p(C)p(D|C)p(I)p(G|D,I)p(L|G)p(S|I)p(J|S,L)p(H|J,G)$$
+We can write the conditional distributions as factors
+$$\Phi = \{\phi(C), \phi(C, D), \phi(I), \phi(G,D,I), \phi(L,G), \phi(S, I), \phi(J, S, L), \phi(H, J, G)$$
+If we are interested in inferring the probability of getting a job, $p(J)$, we can perform exact inference on the joint distribution by marginalizing according to a specific variable elimination ordering: $    \prec \{C, D, I, H, G, S, L\}$
+\begin{align*}
+	p(J) &=\sum_{L}\sum_{S} \phi(J,L,S) \sum_{G} \phi(L, G) \sum_{H}\phi(H,G,J)\sum_I \phi(S, I)\phi(I)\sum_D\phi(G,D,I)\underbrace{\sum_C\phi(C)\phi(C,D)}_{\tau{(D)}} \\
+		 &=\sum_{L}\sum_{S} \phi(J,L,S) \sum_{G} \phi(L, G) \sum_{H}\phi(H,G,J)\sum_I \phi(S, I)\phi(I)\underbrace{\sum_D\phi(G,D,I)\tau(D)}_{\tau (G, I)} \\
+		&=\sum_{L}\sum_{S} \phi(J,L,S) \sum_{G} \phi(L, G) \sum_{H}\phi(H,G,J)\sum_I \underbrace{\phi(S, I)\phi(I)\tau(G,I)}_{\tau(S,G)} \\
+		&=\sum_{L}\sum_{S} \phi(J,L,S) \sum_{G} \phi(L, G)\blue{\tau(S,G)}\underbrace{\sum_{H}\phi(H,G,J)}_{\tau(G,J)}\\
+		&=\sum_{L}\sum_{S} \phi(J,L,S) \underbrace{\sum_{G} \phi(L, G)\tau(S,G)\tau(G,J)}_{\tau(J,L,S)}\\		
+		&=\sum_{L}\underbrace{\sum_{S} \phi(J,L,S)\tau(J,L,S)}_{\tau(J,L)}\\
+		&=\underbrace{\sum_L \tau(J,L)}_{\tau(J)} \\
+		&= \tau(J)
+\end{align*}
+
+\fact[Complexity of variable elimination ordering]
+The complexity of the VE algorithm is
+$$\mc{O}(mk^{N_{max}})$$
+\begin{itemize}
+	\item $m$ is the number of initial factors $ = |\Phi|$
+	\item $k$ is the number of states each random variable takes (assumed to be equal here)
+	\item $N_i$ is the number of random variables inside each sum $\sum_i$
+	\item $N_{max} = argmax_i N_i$ is the number of random variables inside the largest sum. 
+\end{itemize}
+
+\section{Message passing, Hidden Markov Models, and Sampling}
+\paragraph{Inference in Trees}
+Tree is a general family of graphs for which the optimal elimination ordering is trivial to find, and which has linear cost in the number of nodes.
+\subsection{Message Passing \& Belief Propagation}
+What if we want to compute the marginal of every variable in a graph: $p(x_i) \, \forall x_i \in X$? \\
+Run variable elimination separately for each variable $x_i$ is computationally expensive. \\
+\paragraph{Joint distribution for undirected graph models}
+For an undirected graph $G = (V, E)$,
+$$P(X_{1:n}) = \frac{1}{Z} \prod_i \phi(x_i) \prod_{(j, k) \in E} \phi_{j, k}(x_j, x_k)$$
+\paragraph{Message-passing}
+Belief propagation is based on message-passing of ``message" between neighboring vertices of the graph. The message sent from variable $j$ to $i \in N(j)$ is
+$$m_{j \rightarrow i}(x_i) = \sum_{x_j} \phi_j(x_j)\phi_{ij}(x_i, x_j) \prod_{k \in N(j) \neq i} m_{k \rightarrow j}(x_j)$$
+
+\theorem[Belief propagation algorithm]
+As follows:
+\begin{enumerate}
+	\item Choose root $r$ arbitrarily
+	\item Pass messages from leaves to $r$
+	\item Pass messages from $r$ to leaves
+	\item Compute $\red{p(x_i) \propto \phi_i(x_i) \prod_{j \in N(i)} m_{j \rightarrow i}(x_i), \, \forall i}$
+\end{enumerate}
+
+\subsection{Hidden Markov models}
+\subsubsection{Sequential data}
+$$x_{1:T} = \{x_1, \hdots, x_T\}$$
+Recall the general joint factorization via the chain rule
+$$p(x_{1:T}) = \prod_{t=1}^T p(x_t|x_{t-1}, \hdots, x_1)$$
+\paragraph{First order Markov chain}
+$$p(x_t | x_{1:t-1}) = p(x_t | x_{t-1})$$
+This assumption greatly simplifies the factors in the joint distribution
+$$p(x_{1:T}) = \prod_{t=1}^T p(x_t|x_{t-1})$$
+
+\definition[stationary/time-homogenous Markov chain]
+As follows
+\begin{itemize}
+	\item \tb{Stationary Markov chain: }the distribution generating the data does not change through time:
+	$$p(x_t|x_{t-1}) = p(x_{t+k}|x_{t-1+k})\quad \forall t, k$$
+	\item \tb{Non-stationary Markov chain: }the distribution generating the data is a function of time.
+\end{itemize}
+
+\paragraph{Higher-order Markov chains}
+second order:
+$$p(x_t|x_{1:t-1}) = p(x_t|x_{t-1},x_{t-2})$$
+$m$-order:
+$$p(x_t|x_{1:t-1}) = p(x_t|x_{t-m:t-1})$$
+\paragraph{Parameterization}
+How does the order of temporal dependence affect the number of parameters in our model?\\
+Assume $x$ is a discrete random variable with $k$ states. 
+\begin{enumerate}
+	\item $x_t: k - 1$, as the last state is implicit.
+	\item first-order chain: $k(k-1)$, as we need $k$ numbers of parameters for each parameter of $x_t$
+	\item $m$-order chain: $k^m(k-1)$, as we need $k^m$ number of parameters for each parameter of $x_t$
+\end{enumerate}
+
+\subsubsection{Hidden Markov Models}
+\under{Hidden Markov Model (HMM)} hide the temporal dependence by keeping it in the \blue{unobserved} state. For each observation $x_t$, we associate a corresponding unobserved hidden/latent variable $z_t$
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p2.png}
+\end{figure}
+The joint probability represented by the graph factorizes according to
+$$p(X_{1:T}, Z_{1:T}) = p(Z_{1:T})p(X_{1:T}|Z_{1:T}) = p(Z_1)\prod_{t=2}^Tp(Z_t|Z_{t-1})\prod_{t=1}^T p(X_T|Z_t)$$
+\blue{Unlike simple Markov chains, the observations are not limited by a Markov assumption of any order, i.e. $x_t$ isn't necessarily independent of any other observation, no matter how many other observations we make.}
+\definition[Parameterization of a hidden Markov model]
+Assuming we have a homogeneous model, we only have to learn three distributions
+\begin{enumerate}
+	\item \tb{Initial distribution:} $\pi(i) = p(z_1 = i)$. The probability of the first hidden variable being in state $i$ (often denoted by $\pi$.)
+	\item \tb{Transition distribution: } $T(i,j) = p(z_{t+1} = j|z_t = i), \, i \in \{1, \hdots, k\}$. The probability of moving from hidden state $i$ to hidden state $j$.
+	\item \tb{Emission probability: } $\epsilon_i(x_t) = p(x_t|z_t=i)$. The probability of an observed random variable $x_t$ given the state of the hidden variable that ``emitted" it.
+\end{enumerate}
+
+\subsubsection{Inference in HMMs}
+HMMs are just tree-structured DAGs, meaning that inference in them is linear in the number of time steps. We can do exact inference in them.
+
+\paragraph{Main tasks we perform with HMMs}
+\begin{enumerate}
+	\item Compute the probability of a latent sequence given an observation sequence. (e.g. compute $p(z_i|x_{1:t}) \forall i$ with the \under{Forward-Backward algorithm})
+	\item Compute the marginal likelihood $p(x_1, x_2, \hdots, x_T)$ in order to fit parameters
+	\item Infer the most likely sequence of hidden states (i.e. compute $Z^* = \underset{z_{1:T}}{arg max} \, p(z_{1:T}|x_{1:T})$ using the Viterbi algorithm)
+\end{enumerate}
+Assuming that we know the initial $p(z_1)$, transition $p(z_t|z_{t-1})$, and emission $p(x_t|z_t) \forall t\in [1, T]$
+This task of hidden state inference breaks down into the following:
+\begin{itemize}
+	\item \tb{Filtering: }compute posterior over current hidden state, $p(z_t|x_{1:t})$
+	\item \tb{Prediction: }compute posterior over future hidden state, $p(z_{t+k}|x_{1:t})$
+	\item \tb{Smoothing: }compute posterior over past hidden state, $p(z_n | x_{1:t})\quad 1 < n < t$
+\end{itemize}
+\paragraph{Prediction}
+Let's first take a look at the example where $k = 2$, then
+\begin{align*}
+	p(z_{t+2}|x_{1:t}) &= \sum_{z_{t+1}}\sum_{z_t}p(z_t,z_{t+1},z_{t+2}|x_{1:t}) \\
+	&= \sum_{z_{t+1}}\sum_{z_t}p(z_t|x_{1:t})p(z_{t+1}|z_t, x_{1:t})p(z_{t+2}|z_{t+1},z_t,x_{1:t})\\
+	&= \sum_{z_{t+1}}\sum_{z_t}p(z_t|x_{1:t})p(z_{t+1}|z_t)p(z_{t+2}|z_{t+1})
+\end{align*}
+\theorem[Forward-backward algorithm]
+The Forward-backward algorithm is used to efficiently estimate the \blue{latent} sequence given an \blue{observation} sequence under a HMM. That is, we want to compute $$p(z_t|x_{1:T}) \quad \forall t \in [1,T]$$
+It is computed in two parts, and then multiplied together:
+\begin{itemize}
+	\item \tb{Forward Filtering: }computes $p(z_t, x_{1:t})$
+	\item \tb{Backward Filtering: }computes $p(x_{1+t:T}|z_t)$
+\end{itemize} 
+Note that
+\begin{align*}
+	p(z_t|x_{1:T}) &\propto p(z_t, x_{1:T}) \\
+	&= p(z_t, x_{1:t})p(x_{t+1:T}|z_t, x_{1:t}) \\
+	&= \underbrace{p(z_t, x_{1:t})}_{forward\, recursion}\underbrace{p(x_{t+1:T}|z_t)}_{backward\,recursion}
+\end{align*}
+
+
+\paragraph{Forward Filtering}
+\begin{align*}
+	p(z_t, x_{1:t}) &= \sum_{z_{t-1} = 1}^k p(z_{t-1}, z_t, x_{1:t}) \\
+	&= \sum_{z_{t-1} = 1}^k p(x_t|z_{t-1}, z_t, x_{1:t-1})p(z_t|z_{t-1}, x_{1:t-1})p(z_{t-1}, x_{1:t-1})
+\end{align*}
+Define $\alpha_t(z_t):= p(z_t, x_{1:t})$, then
+$$\alpha_t(z_t) = p(x_t|z_t)\sum_{z_{t-1} = 1}^k p(z_t|z_{t-1})\alpha_{t-1}(z_{t-1})$$
+If we recurse all the way down to $\alpha_1(z_1)$, we get
+$$\alpha_1(z_1) = p(z_1, x_1) = p(z_1)p(x_1|z_1)$$
+\paragraph{Backward Filtering}
+\begin{align*}
+	p(x_{t+1:T}|z_t) &= \sum_{z_{t+1} = 1}^k p(z_{t+1}, x_{t+1:T} |z_t)\\
+	&= \sum_{z_{t+1} = 1}^k p(x_{t+2:T}|z_{t+1}, z_t,x_{t+1})p(x_{t+1}|z_{t+1}, z_t)p(z_{t+1}|z_t) \\
+	&=\sum_{z_{t+1} = 1}^k p(x_{t+2:T}|z_{t+1})p(x_{t+1}|z_{t+1})p(z_{t+1}|z_t) 
+\end{align*}
+Define $\beta_t(z_t):= p(x_{1 + t:T}|z_t)$, then
+$$\beta_t (z_t) = \sum_{z_{t+1}}^k \beta_{t+1}(z_{t+1})p(x_{t+1}|z_{t+1})p(z_{t+1}|z_t)$$
+If we recurse all the way down to $\beta_1(z_1)$, we get 
+$$\beta_1(z_1) = p(x_{3:T}|z_2)p(x_2|z_2)p(z_2|z_1)$$
+
+\subsection{Sampling}
+A sample form a distribution $p(x)$ is a single realization $x$ whose probability distribution is $p(x)$. This contrasts with the alternative usage in statistics, where sample refers to a collection of realization x.
+
+\paragraph{The problems to be solved}
+The aims of Monte Carlo methods are to solve one or both of the following problems
+\begin{enumerate}
+	\item To generate samples $\{x^{(r)}\}_{r=1}^R$ from a given probability distribution $p(x)$.
+	\item To estimate expectations of functions, $f(x)$, under distribution $p(x)$: $$E = E_{x\sim p(x)}[f(x)] = \int f(x)p(x)\,dx$$
+\end{enumerate}
+
+\subsubsection{Ancestral Sampling}
+``Sampling in a topological order"\\
+i.e. at each step, sample from any conditional distribution that you haven't visited yet, whose parents have all been sampled. This procedure will always start with the nodes that have no parents.\\
+\example
+In a chain or HMM, you would always start with $z_1$ and move to the right. In a tree, you would always start from the root.
+
+\paragraph{Generating marginal samples}
+If you are only interested in sampling a particular set of nodes, you can simply sample from all the nodes jointly, then ignore the nodes you don't need.
+
+\paragraph{Generating conditional samples}
+If you want to sample a variable conditional on a node with no parents, that is also easy - you can simple do ancestral sampling starting from the nodes you have.\\
+However, to sample from a DAG conditional on leaf nodes is hard. Finding ways to do this approximately is what a lot of the rest of the course will be about.
+\subsection{Simple Monto Carlo}
+\definition[simple Monte Carlo]
+Given $\{x^{(r)}\}_{r=1}^R \sim p(x)$, we estimate the expectation $\mb{E}_{x\sim p(x)}[f(x)]$ using the average sum, and call it estimator $\hat{E}$:
+$$E = \mb{E}_{x\sim p(x)}[f(x)] \sim \frac{1}{R}\sum_{r=1}^R f(x^{(r)}) = \hat{E}$$
+\property
+If the vectors $\{x^{(r)}\}_{r=1}^R$ are generated from $p(x)$ then the expectation of $\hat{E}$ is E. In fact, $\hat{E}$ is an unbiased estimator of $E$.
+\begin{proof}
+\begin{align*}
+	\expect{\hat{E}}_{x\sim p(\{x^{(r)}\}_{r=1}^R)} &= \expect{\frac{1}{R}\sum_{r=1}^R f(x^{(r)})}\\
+	&= \frac{1}{R}\sum_{r=1}^R \expect{f(x^{(r)})} \\
+	&= \frac{1}{R} \sum_{r=1}^R \underset{x \sim p(x)}{\mb{E}}[f(x)]\\
+	&= \frac{R}{R}  \underset{x \sim p(x)}{\mb{E}}[f(x)]\\
+	&= E
+\end{align*}
+\end{proof}
+\property
+As the number of samples of $R$ increases, the variance of $\hat{E}$ will decrease proportional to $\frac{1}{R}$.
+\begin{proof}
+	\begin{align*}
+		Var[\hat{E}] &= Var\left[\frac{1}{R} \sum_{r=1}^R f(x^{(r)})\right] \\
+		&= \frac{1}{R^2}Var\left[\sum_{r=1}^R f(x^{(r)})\right]\\
+		&= \frac{1}{R^2}\sum_{r=1}^R Var\left[ f(x^{(r)}) \right] \tag{by i.i.d. assumption}\\
+		&= \frac{R}{R^2} Var[f(x)] \\
+		&= \frac{1}{R} Var[f(x)]
+	\end{align*}
+\end{proof} 
 
 
 
@@ -165,6 +664,3 @@ $D$-connection implies conditional dependence and d-separation implies condition
 
 
 \end{document}
-
-
-
