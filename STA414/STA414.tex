@@ -368,7 +368,7 @@ What to do when a variable $z$ is always unobserved? \\
 Depends on where it appears in our model. If we never condition on it when computing the probability of the variables we do observe, then we can just forget about it and integrate it out.\\
 \paragraph{Mixture models}
 What if the class is unobserved? Then we sum it out
-$$p(x|\theta) = \sum_{k=1}^K p(z=k|\theta_z)p(x|z=k,\theta_k)$$
+$$p(x;\theta) = \sum_{k=1}^K p(z=k;\theta_z)p(x|z=k;\theta_k)$$
 We can use the Bayes' rule to compute the posterior probability of the mixture component given some data:
 
 \paragraph{Hidden Markov Models (HMMs)}
