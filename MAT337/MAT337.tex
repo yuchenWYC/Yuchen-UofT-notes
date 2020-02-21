@@ -1,19 +1,25 @@
 \documentclass[11pt]{article}
 % Libraries.
+
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{pgfplots}
+\usepackage{esint}
+\usepackage[margin=3cm]{geometry}
+%\usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{perpage}
+\usepackage[dvipsnames, pdftex]{xcolor}
 \usepackage{float}
-\usepackage{esint}
-\usepackage[margin=2cm]{geometry}
-\usepackage{../raina}
-\usepackage{setspace}
-\linespread{1.15}
+\usepackage{xargs}
+\usepackage{/Users/raina/Desktop/uoft-notes/raina}
+\usepackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
 
 
 % Property settings.
@@ -30,7 +36,7 @@
     \tableofcontents
     \newpage
 
-\section{Chapter 1: Real Numbers}
+\section{Real Numbers}
 \subsection{Discussion: The Irrationality of $\sqrt{2}$}
 If we make natural numbers $\mb{N}$ closed under subtraction, we obtain 
 $$\mb{Z} = \{ \hdots, -1, 0, 1, \hdots \}$$
@@ -312,10 +318,7 @@ If there are 1-1 functions $f: A \rightarrow B$ and $h: B \rightarrow A$, then t
 	Then $y \in W$ and $g(y) = x$. Therefore $g$ is onto. 
 \end{proof}
 
-\section{Sequences and Series}
-\subsection{The Limit of a Sequence}
-\definition[sequence]
-A \under{sequence} is a function whose domain is $\mb{N}$
+
 
 \section{Metric Spaces and the Baire Category Theorem}
 \definition[metric and metric space] Given a set $X$, a function $d: X \times X \rightarrow \real$ is a \under{metric} on $X$ if for all $x, y \in X$:
@@ -488,6 +491,21 @@ The set
 $$D = \{f \in C[0,1]: f'(x) \text{ exists for some } x \in [0, 1]\}$$ is a set of first category in $C[0,1]$.
 
 \subsection{Topology of $(X, d)$}
+\definition[open ball]
+An \under{open ball} with radius $r$ and center $x$ is
+$$B_r(x) = \{y \in X: d(x, y) < r\}$$
+
+\definition[open set]
+A set $U \subseteq X$ is \under{open} iff
+$$\forall x \in U, \exists \epsilon > 0 \text{ s.t. } B_\epsilon(x) \subseteq U$$
+
+\example $B_\epsilon(x)$ is open.
+\begin{proof}
+	Fix $x \in X$ and $\epsilon > 0$. We want to show: $\forall y \in B_\epsilon(x), \exists \delta > 0$ s.t. $B_\delta(y) \subseteq B_\epsilon(x)$. \\
+	Take $y \in B_\epsilon(x)$, then $d(x,y) < \epsilon$. Take $\delta = \epsilon - d(x,y) > 0$. Take any $z \in B_\delta(y)$, we have
+	$$d(x,z) \leq d(x,y) + d(y,z) < d(x,y) + \epsilon - d(x,y) = \epsilon$$
+	Thus $z \in B_\epsilon(x)$ so $B_\delta(y) \subseteq B_\epsilon(x)$.
+\end{proof}
 \definition[topological space] A \under{topological space} is a pair $(X, \tau)$, where $X$ is a set and $\tau$ a subset of the power set of $X$ which we call open such that
 \begin{enumerate}
 	\item $\emptyset, X \in \tau$
@@ -498,22 +516,51 @@ $$D = \{f \in C[0,1]: f'(x) \text{ exists for some } x \in [0, 1]\}$$ is a set o
 \example
 $(X, \{\emptyset, X \})$
 
-%\example
-%Given $(X, d)$ a metric space, define $\tau_d: U \in \tau_d \iff \forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$. Then $\tau_d$ is a topology.
+\example
+$(X, P(X))$ is a \under{discrete topological space}, where $P(X)$ is the power set of $X$.
+\example
+Given $(X, d)$ a metric space, define $\tau_d: $ a set $U \in \tau_d \iff \forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$. Then $\tau_d$ is a topology.
+\begin{proof}
+	(1) First, $\emptyset, X \in \tau_d$ since $\forall x \in \emptyset, B_1(x) \subseteq \emptyset$ and $\forall x \in X, B_1(x) \subseteq X$.\\
+	Then suppose $U_1, \hdots, U_n \in \tau_d$.\\
+	(2) we want to show:
+	$$U = \bigcap_{i=1}^n U_i \in \tau_d \iff \forall x \in U, \exists \epsilon > 0 \text{ s.t. } B_\epsilon(x) \subseteq U$$
+	Since $x \in U$, then $\forall i = 1, \hdots, n, x \in U_i: \exists \epsilon_i > 0$ s.t. $B_{\epsilon_i}(x) \subseteq U_i$. \\
+	Take $\epsilon = \underset{1 \leq i \leq n}{\min} \epsilon_i$, thus $B_\epsilon(x) \subseteq U_i \, \forall i$. Hence $B_\epsilon(x) \subseteq U_i \subseteq U$. \\
+	(3) We also want to show:
+	$$\bigcup_{i=1}^n U_i \in \tau_d \iff \forall x \in U, \exists \epsilon > 0 \text{ s.t. } B_\epsilon(x) \subseteq U$$
+	Let $x \in U$, then there is some $U_i$ s.t. $x \in U_i$. Since $U_i \in \tau_d$, then $\exists \epsilon >0$ s.t. $B_\epsilon(x) \subseteq U_i \subseteq U$.\\
+	Therefore, $\tau_d$ is a topology.
+\end{proof}
 
 \definition
-$(X, \tau)$ is a discrete topological space iff $\tau = P(X)$.
-
-\definition
-A subset $F$ of a topological space $(X, \tau)$ is closed if $X \setminus F$ is open. \\
-\tb{Properties: }
+A \blue{subset} $F$ of a topological space $(X, \tau)$ is \under{closed} if $X \setminus F$ is open. \\
+\property Given a topological space $(X, \tau)$ and a subset $F$ of it, we have: 
 \begin{enumerate}
 	\item $\emptyset, X$ are closed
 	\item If $F_1, \hdots, F_n$ are closed, then $\bigcup_{i=1}^n F_i$ is closed
 	\item If $F_1, \hdots, F_n$ are closed, then $\bigcap_{i=1}^n F_i$ is closed
 \end{enumerate}
 
+\definition[topological closure and interior]
+Given a topological space $(X, \tau)$, where $\tau \subseteq P(X)$, and a set $F \subseteq X$, the \under{topological closure} of $F$ is the minimal closed superset of $F$, i.e.,
+$$\bar{F} = \bigcap \{H: H \text{ is closed}, H \supseteq F\}$$
+The \under{interior} of $F$ is the maximal open subset of $F$, i.e.,
+$$F^\circ = \bigcap \{U: U \text{ is open}, U \subseteq F\}$$
 
+\example
+Given $(X, d)$ a metric space, define $\tau_d: $ a set $U \in \tau_d \iff \forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$. Suppose $F \subseteq X$, then
+$$\bar{F} = \{x \in X: \forall \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} = \{\limit x_n: (x_n) \subseteq F, \limit x_n \text{ exists}\}$$
+
+
+
+
+
+
+\section{Sequences and Series}
+\subsection{The Limit of a Sequence}
+\definition[sequence]
+A \under{sequence} is a function whose domain is $\mb{N}$
 
 
 

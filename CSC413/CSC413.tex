@@ -1,0 +1,298 @@
+\documentclass[11pt]{article}
+% Libraries.
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{esint}
+\usepackage[margin=3cm]{geometry}
+%\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage[dvipsnames, pdftex]{xcolor}
+\usepackage{float}
+\usepackage{xargs}
+%\usepackage[textsize=tiny]{todonotes}
+\usepackage{../raina}
+\usepackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
+\newcommandx{\note}[2][1=]{\todo[linecolor=Thistle,backgroundcolor=Thistle!25,bordercolor=Thistle,#1]{#2}}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+
+
+
+\usepackage{../raina}
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Attr.
+\title{CSC413\\ Lecture Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+\section{Introduction \& Linear Models}
+\section{Multilayer Perceptrons \& Backpropagation}
+\fact
+XOR is not linearly separable.
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=1]{p3.png}
+	\end{figure}
+\begin{proof}
+	Note that half-spaces are convex.\\
+	Suppose there is a plane that cut the input space into positive half-space and negative half-space. \\
+	Then the green line segment must be in the positive half-space, and the red line segment must be within the negative half-space.\\
+	But the intersection cannot lie in both half-spaces, which leads to a contradiction.
+\end{proof}
+
+\definition[feature]
+A weight vector we learned in a neural network is called a \under{feature}.
+
+
+
+\section{Automatic Differentiation \& Distributed Representations}
+\definition{Finite Differences}
+One-side version:
+$$\frac{\partial }{\partial x_i}f(x_1, \hdots, x_N) \approx \frac{f(x_1, \hdots, x_i + h, \hdots, x_N) - f(x_1, \hdots, x_i, \hdots, x_N)}{h}$$
+Two-sided version:
+$$\frac{\partial }{\partial x_i}f(x_1, \hdots, x_N) \approx \frac{f(x_1, \hdots, x_i + h, \hdots, x_N) - f(x_1, \hdots, x_i - h, \hdots, x_N)}{2h}$$
+\remark
+We often use finite differences to check our gradient calculations.
+\paragraph{Autodiff v.s. finite differences}
+\begin{enumerate}
+	\item Autodiff computes \red{exact gradients}, whereas finite differences only computes an approximation.
+	\item Autodiff only requires a single forward pass and a single backward pass, and the backward pass is only a constant factor more expensive than the forward pass. Finite differences requires a separate forward pass for \red{every entry} of the gradient.
+\end{enumerate}
+
+\paragraph{autograd.numpy.sum}
+\blue{The functions in \texttt{autograd.numpy.sum} are reponsible for building the computation graph data structure to be used in backprop. The nodes in the graph are stored as \texttt{Node} instances, and the \texttt{Node}s have attributes for the value, the function that was executed, and the arguments to the function (parents in the computation graph). The function \texttt{autograd.numpy.sum} retrieves the values from its \texttt{Node} arguments, feeds them to \texttt{numpy.sum}, and packages the result into a \texttt{Node} class.}
+
+
+
+\section{Optimization}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.6]{p2.png}
+	\end{figure}
+
+\subsection{Bad critical points}
+\definition[saddle points]
+A \under{saddle point} is a point where:
+\begin{itemize}
+	\item $\nabla \mc{J}(\theta) = \vo$
+	\item $H(\theta)$ has some positive and some negative eigenvalues
+\end{itemize}
+\remark
+If we're exactly on the saddle point, then we're stuck.
+
+\definition[plateaux]
+A flat region is called a \under{plateau}.
+
+\example
+As follows:
+\begin{itemize}
+	\item 0-1 loss
+	\item hard threshold activations
+	\item logistic activation with least squares
+\end{itemize}
+\definition[permutation symmetry]
+We can re-order the hidden units in a way that preserves the function computed by the network.
+
+\fact
+Training a multilayer perceptron is non-convex.
+\begin{proof}
+	Assume for contradiction that there is a convex loss function for a multilayer perceptron.\\
+	Suppose we are given a layer which has parameters $\theta_1$ and $|\theta_1| = K$.\\
+	By definition, if a function $\mc{J}$ is convex, then for any set of points $\theta_1, \hdots, \theta_N$ in its domain,
+	$$\mc{J}(\lambda_1 \theta_1 + \hdots + \lambda_N \theta_N) \leq \lambda_1\mc{J}(\theta_1) + \hdots + \lambda_N \mc{J}(\theta_N)$$ for $\lambda_i \geq 0, \sum_i \lambda_i = 1$.\\
+	Because of permutation symmetry, there are $K!$ permutations of the hidden units such that $$\mc{J}(\theta_i) = \mc{J}(\theta_1) \quad s.t. 2\leq i \leq K!$$
+	If we take the average of the $N:= K!$ permutations $\frac{1}{N}\sum_{i=1}^N \theta_i$, we get a degenerate network where all the hidden units are identical, which should have a higher cost. \\
+	However, by convexity we have
+	\begin{align*}
+		\mc{J}(\frac{1}{N} \sum_{i=1}^N \theta_i) &\leq \sum_{i=1}^N \frac{1}{N}J(\theta_i) \\
+		&= \frac{1}{N}\sum_{i=1}^N \mc{J}(\theta_i) \\
+		&= J(\theta_1)
+	\end{align*}
+	Meaning that this solution would have to be better than $\theta_1$ for any arbitrary choice of $\theta_1$, which leads to a contradiction.
+	
+\end{proof}
+
+\definition[saturated unit]
+A unit whose input $z_i$ is in the flat region of its activation function.
+
+\definition[dead unit]
+If there is a ReLU unit whose input $z_i$ is always negative, the weight derivatives will be exactly 0. We call this a \under{dead unit}.
+
+
+
+\subsection{Ill-conditioned curvature}
+	\definition[ill-conditioned curvature]
+    Suppose the Hessian matrix $H$ has some large positive eigenvalues (i.e. high-curvature directions) and some eigenvalues close to 0 (i.e. low-curvature directions), then gradient descent would bounce back and forth in high curvature directions and make slow progress in low curvature directions. (the gradient is perpendicular to the contours). This is known as \under{ill-conditioned curvature}, which is very common in neural network training.
+    \subsubsection{Gradient descent dynamics}
+    Consider a convex quadratic objective
+    $$\mc{J}(\theta) = \frac{1}{2}\theta^TA\theta$$
+    where $A$ is a PSD symmetric matrix.\\
+    Then we would update $\theta$ using gradient descent:
+    \begin{align*}
+    	\theta_{k+1} &\leftarrow \theta_k - \alpha \nabla \mc{J}(\theta_k)\\
+    	&= \theta_k - \alpha A \theta_k \\
+    	&= (I - \alpha A) \theta_k\\
+    	\implies \theta_k &= (I - \alpha A)^k \theta_0\\
+    	&= (I-\alpha Q\Lambda Q^T)^k \theta_0 \tag{by Spectral Decomposition}\\
+    	&= [Q(I - \alpha \Lambda) Q^T]^k \theta_0\\
+    	&= Q(I - \alpha \Lambda)^k Q^T \theta_0 \tag{Q orthogonal $\implies Q^TQ = I$}
+    \end{align*}
+    Hence, in the $Q$ basis, each coordinate gets multiplied by $(1 - \alpha \lambda_i)^k$ where the $\lambda_i$ are the eigenvalues of $A$.\\
+    Cases:
+    \begin{itemize}
+    	\item $0 < \alpha \lambda_i \leq 1$: decays to 0 at a rate that depends on $\alpha \lambda_i$
+    	\item $1 < \alpha \lambda_i \leq 2$: oscillates
+    	\item $\alpha \lambda_i > 2$: unstable (diverges)
+    \end{itemize}
+    (the proof is omitted here)\\
+    Hence we need to set $\alpha < \frac{2}{\lambda_{max}}$, and this bounds the rate of progress by
+    $$\alpha \lambda_i < \frac{2\lambda_i}{\lambda_{max}}$$
+    \paragraph{Generalization}
+    The toy problem
+    $$\mc{J}(\theta) = \frac{1}{2}\theta^TA\theta$$
+    can be easily generalized to a quadratic not centered at zero 
+    $$\mc{J}(\theta) = \frac{1}{2}\theta^TA\theta + b^T\theta + c$$
+    since the gradient descent dynamics are invariant to translation.\\\\
+    \blue{Since a twice-differentiable cost function is well approximated by a convex quadratic (though second-order Taylor approximation) in the vicinity of a (local) optimum, this analysis is a good description of the behaviour of gradient descent near a (local) optimum.}\\
+    Therefore, in the case of ill-conditioned curvature, the convergence rate is slower since $\frac{2\lambda_i}{\lambda_{max}}$ is small for some of the $\lambda_i$s, so that it makes slow progress towards the optimum.
+    \subsubsection{Normalization}
+    To avoid these problems, it's a good idea to center your inputs to zero mean and unit variance.
+    $$\tilde{x}_j  = \frac{x_j - \mu_j}{\sigma_j}$$
+    Hidden units may have non-centered activations, in this case, we can replace logistic units (which range from 0 to 1) with tanh units (which range from -1 to 1).
+    
+    \subsection{Momentum}
+	Even with normalization tricks, we still need algorithms to better deal with ill-conditioned curvature.\\
+	\definition[Momentum]
+	\begin{align*}
+		\tb{p} &\leftarrow \mu \tb{p}  - \alpha \frac{\partial \mc{J}}{\partial \theta}\\
+		\theta &\leftarrow \theta + \tb{p}
+	\end{align*}
+	where
+	\begin{itemize}
+		\item $\alpha$ is the learning rate, just like in gradient descent
+		\item $\mu$ is the \red{damping parameter}. It should be slightly less than 1 (e.g. 0.9 or 0.99), or otherwise the ancient history would not decay and would affect the new gradient as much as the latest ones.
+	\end{itemize}
+	The effects:
+	\begin{itemize}
+		\item In the high curvature directions, the gradients cancel each other out, so momentum dampens the oscillations.
+		\item In the low curvature directions, the gradients point in the same direction, allowing the parameters to pick up speed.
+	\end{itemize}
+	\remark
+	If the gradient is constant (i.e. the cost surface is a plane), the parameters will reach a terminal velocity of 
+	$$- \frac{\alpha}{1- \mu} \cdot \frac{\partial \mc{J}}{\partial \theta}$$
+	This suggests if you increase $\mu$, you should lower $\alpha$ to compensate.
+	\subsection{Adam}
+	Even with momentum and normalization tricks, narrow ravines are still one of the biggest obstacles in optimizing neural networks.\\
+	There is an optimization procedure called \under{Adam} which uses just a little bit of curvature information and often works much better than gradient descent.
+	\subsection{Stochastic Gradient Descent}
+	\definition[batch training]
+	Computing the gradient requires summing over all of the training examples. This is known as \under{batch training}:
+	$$\nabla \mc{J}(\theta) = \frac{1}{N}\sum_{i=1}^N \nabla J^{(i)}(\theta)$$
+	\remark
+	Batch training is impractical if you have a large dataset (e.g. millions of training examples)
+	\definition[mini-batch]
+	Compute the gradients on a medium-sized set of training examples, called a \under{mini-batch}.
+	\definition[epoch]
+	Each entire pass over the dataset is called an \under{epoch}.
+
+
+
+\section{Convolutional Neural Networks \& Image Classification}
+\subsection{Different layers of CNN}
+Each layer consists of several \under{feature maps / channels}, each of which is an array. If the input layer represents a grayscale image, it consists of one channel. If it represents a color image, it consists of three channels.
+\subsubsection{Convolution layer}
+\definition[convolution - 1D]
+If $a$ and $b$ are two arrays,
+$$(a * b)_t = \sum_{\tau} a_{\tau}b_{t-\tau}$$
+\definition[convolution - 2D]
+If $A$ and $B$ are two $2D$ arrays, then:
+$$(A * B)_{ij} = \sum_s\sum_t A_{st}B_{i-s,j-t}$$
+\property
+Some properties of convolution:
+\begin{enumerate}
+	\item Commutativity $$a * b = b * a$$
+	\item Linearity $$a * (\lambda_1 b + \lambda_2 c) = \lambda_1 a * b + \lambda_2 a * c$$
+\end{enumerate}
+\definition[convolutional layers]
+The convolution layer has a set of filters. Its output is a set of feature maps, each one obtained by convolving the image with a filter.\\
+It's common to apply a linear rectification nonlinearity: $$y_i = \max(z_i, 0)$$
+
+\remark
+Why do we need activation functions?
+\begin{itemize}
+	\item Convolution is a linear operation. Therefore, we need a nonlinearity, otherwise 2 convolution layers would be no more powerful than 1.
+	\item If not applying activation functions, then two edges in opposite directions may cancel each other out.
+\end{itemize}
+\subsubsection{Pooling layers}
+\definition[pooling layers]
+\under{Pooling layers} reduce the size of the representation and build in in variance to small transformations.
+\definition[max-pooling]
+\under{Max-pooling} computes the maximum value of the units in a pooling group:
+$$y_i = \underset{\text{$j$ in pooling group}}{\max} z_j$$
+
+\remark
+Because of pooling, higher-layer filters can cover a larger region of the input than equal-sized filters in the lower layers.
+
+\subsection{Size of a CNN}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p1.png}
+\end{figure}
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+  & fc layer & conv layer \\ 
+   \hline
+ $\#$ output units & $WHI$ & $WHI$ \\ 
+  \hline
+ $\#$ weights & $W^2H^2IJ$ & $K^2IJ$ \\ 
+  \hline
+ $\#$ connections & $W^2H^2IJ$ & $WHK^2IJ$\\
+ \hline
+\end{tabular}
+\end{center}
+\remark
+Rules of thumb:
+\begin{itemize}
+	\item Most of the units and connections are in the convolution layers.
+	\item Most of the weights are in the fully connected layers.
+\end{itemize}
+
+\subsection{Equivariance and Invariance}
+\definition[equivariant]
+A layer is \under{equivariant to translation} if you translate the inputs, the outputs are translated by the same amount.
+\example
+Convolution layers are equivariant.
+\definition[invariant]
+A layer is \under{invariant to translation} if you translate the inputs, the prediction should not change.
+\example
+Pooling layers provide invariance to small translations.
+
+\subsection{Supervised Pre-training \& Transfer Learning}
+\note[inline]{I have no idea why raina didnhbgtgg't read documentation gh}
+
+\end{document}
+
+
+
+

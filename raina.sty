@@ -5,6 +5,13 @@
 \RequirePackage{amsthm}
 \RequirePackage{amsmath}
 \RequirePackage{amssymb}
+\RequirePackage[dvipsnames, pdftex]{xcolor}
+\RequirePackage{xargs}
+\RequirePackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
 % \RequirePackage{dsfont}
 % \RequirePackage{pifont} % http://ctan.org/pkg/pifont
 
@@ -71,6 +78,7 @@
 \newcommand{\tanspace}[0]{T_{x_0}M}
 \newcommand{\pd}[0]{\partial}
 \newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
+\newcommand{\limit}[0]{\underset{n \rightarrow \infty}{\lim}}
 
 % ================ Statistics ================
 % Indicator Function
@@ -97,3 +105,10 @@
 \newtheorem{axiom}{Axiom}[section]
 \newtheorem{rules}{Rule}[section]
 \newtheorem{fact}{Fact}[section]
+
+% =============== todonotes ==================
+\newcommandx{\note}[2][1=]{\todo[linecolor=Thistle,backgroundcolor=Thistle!25,bordercolor=Thistle,#1]{#2}}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}

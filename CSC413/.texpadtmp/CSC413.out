@@ -1,0 +1,18 @@
+\BOOKMARK [1][-]{section.1}{Introduction \046 Linear Models}{}% 1
+\BOOKMARK [1][-]{section.2}{Multilayer Perceptrons \046 Backpropagation}{}% 2
+\BOOKMARK [1][-]{section.3}{Automatic Differentiation \046 Distributed Representations}{}% 3
+\BOOKMARK [1][-]{section.4}{Optimization}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Bad critical points}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Ill-conditioned curvature}{section.4}% 6
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Gradient descent dynamics}{subsection.4.2}% 7
+\BOOKMARK [3][-]{subsubsection.4.2.2}{Normalization}{subsection.4.2}% 8
+\BOOKMARK [2][-]{subsection.4.3}{Momentum}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.4}{Adam}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.5}{Stochastic Gradient Descent}{section.4}% 11
+\BOOKMARK [1][-]{section.5}{Convolutional Neural Networks \046 Image Classification}{}% 12
+\BOOKMARK [2][-]{subsection.5.1}{Different layers of CNN}{section.5}% 13
+\BOOKMARK [3][-]{subsubsection.5.1.1}{Convolution layer}{subsection.5.1}% 14
+\BOOKMARK [3][-]{subsubsection.5.1.2}{Pooling layers}{subsection.5.1}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Size of a CNN}{section.5}% 16
+\BOOKMARK [2][-]{subsection.5.3}{Equivariance and Invariance}{section.5}% 17
+\BOOKMARK [2][-]{subsection.5.4}{Supervised Pre-training \046 Transfer Learning}{section.5}% 18
