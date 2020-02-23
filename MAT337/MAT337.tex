@@ -27,7 +27,7 @@
 \pagestyle{headings}
 
 % Attr.
-\title{STA414\\ Lecture Notes}
+\title{MAT337\\ Lecture Notes}
 \author{Yuchen Wang}
 \date{\today}
 
@@ -118,11 +118,6 @@ $X \subseteq \mb{Q}$ is said to be an \under{initial segment} if
 
 \definition[real numbers]
 $\real = \{\sup(X): X$ is an initial segment of $\mb{Q}\}$ \\
-Properties of $\real$:
-\begin{enumerate}
-	\item $\real$ is an \red{ordered field}
-	\item \q
-\end{enumerate}
 
 \lemma[supremum] Suppose $A \subseteq \real$ and $s \in \real$ is an upper bound for $A$. If $\forall \epsilon > 0, \exists a \in A, a + \epsilon > s$, then $s = \sup(A)$
 \begin{proof}
@@ -321,6 +316,7 @@ If there are 1-1 functions $f: A \rightarrow B$ and $h: B \rightarrow A$, then t
 
 
 \section{Metric Spaces and the Baire Category Theorem}
+\subsection{Basic Definitions}
 \definition[metric and metric space] Given a set $X$, a function $d: X \times X \rightarrow \real$ is a \under{metric} on $X$ if for all $x, y \in X$:
 \begin{enumerate}
 	\item $d(x,y) \geq 0$ with $d(x,y) = 0$ if and only if $x = y$;
@@ -349,92 +345,26 @@ $$d(x,y) = \begin{cases}
 Let $X = \{f: A \rightarrow \real\}$ \\
 $$d(f,g) = \sup\{|f(x) - g(x)|: x \in A\}$$ if the supremum exists.
 
-\subsection{Basic Definitions}
-\definition
-Let $(X, d)$ be a metric space. A sequence $(X_n) \subseteq X$ \under{converges} to an element $x \in X$ if $\forall \epsilon > 0, \exists N \in \mb{N}, n \geq N \implies d(x_n, x) < \epsilon$. \\\\
-\tb{Key property: } If $\underset{n \rightarrow \infty}{\lim} x_n = x, \underset{n \rightarrow \infty}{\lim} x_n = y$, then $x = y$.
-\begin{proof}
-	WTS $d(x,y) = 0$ \\
-	Let $\epsilon > 0$. We will show that $d(x,y) < \epsilon$. \\
-	Since $\underset{n \rightarrow \infty}{\lim} x_n = x$, then $\exists N_1, \forall n \geq N_1, d(x_n, x) < \frac{\epsilon}{2}$ \\
-	Since $\underset{n \rightarrow \infty}{\lim} x_n = y$, then $\exists N_2, \forall n \geq N_2, d(x_n, y) < \frac{\epsilon}{2}$ \\
-	Take $n \geq \max(N_1, N_2)$, then $d(x,y) \leq d(x_n, x) + d(x_n, y) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$.
-\end{proof}
-
-\proposition Suppose $(X, d)$ is a metric space, $(X, \tau)$ is a topological space, and $F \subseteq X$. If $\underset{n \rightarrow \infty}{\lim} x_n = x$, $(x_n) \subseteq F$ and $F$ is closed, then $x \in F$.
-\begin{proof}
-	Suppose $x \notin F$, i.e., $x \in X \setminus F$. \\
-	Since $F$ is closed, then $X \setminus F$ is open, so there is $\epsilon > 0$ s.t. $B_\epsilon(x) \subseteq X \setminus F$. \\
-	Let $N$ be such that $\forall n \geq N, d(x_n, x) < \epsilon$.\\
-	 Then $x_n \in B_\epsilon(x)$, which implies that $(x_n) \subseteq X \setminus F$, a contradiction.
-\end{proof}
-
-\proposition Suppose $(X, d)$ is a metric space and $F \subseteq X$. If $F$ is not closed, then there exists $(x_n) \subseteq F$ and $x \notin F$ s.t. $\underset{n \rightarrow \infty}{\lim} x_n = x$.
-
-\begin{proof}
-	If $F$ is not closed, then $X \setminus F$ is not open, so there is $x \in X \setminus F$ s.t. $B_\epsilon(x) \not \subseteq X \setminus F$ for all $\epsilon > 0$. \\
-	Take $x_n \in B_{1/n}(x) \setminus (X \setminus F)= B_{1/n}(x) \cap F$ for each $n \in \mb{N}$, then $(x_n) \subseteq F$ and $\underset{n \rightarrow \infty}{\lim} x_n = x$.
-\end{proof}
-
-\definition[Cauchy sequence]
- A sequence $(x_n)$ in a metric space $(x_n)$ in a metric space $(X, d)$ is a \under{Cauchy sequence} if $\forall \epsilon >0, \exists N \in \mb{N}, m, n \geq N \implies d(x_m, x_n) < \epsilon$.
- 
-\proposition
-A convergent sequence is Cauchy. 
-\begin{proof}
-	Let $(x_n)$ be a convergent sequence, so that $\underset{n \rightarrow \infty}{\lim} x_n = x$. To check $(x_n)$ is Cauchy, let $\epsilon > 0$. We need to find $N$ s.t. $\forall m, n \geq N, d(x_n, x_m) < \epsilon$.\\
-	Apply $\underset{n \rightarrow \infty}{\lim} x_n = x$ to $\frac{\epsilon}{2}$, we get $N$ s.t. $\forall n \geq N, d(x, x_n) < \frac{\epsilon}{2}$. \\
-	Notice that $N$ works for Cauchy: \\
-	Take $m, n \geq N$, then $$d(x_n, x_m) \leq d(x_n, x) + d(x, x_m) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$$
-\remark
-When $X = \real$ with the usual metric, A Cauchy sequence is convergent (the converse is true). \\
-In general not true. For example, $X = \real \setminus \{0\}, d(x,y) = |x - y|, (x_n) = \frac{1}{n}$.
-
-\end{proof}
-
-\definition[completeness of metric spaces]
-A metric space $(X, d)$ is \under{complete} if every Cauchy sequence in $X$ converges to an element of $X$.
-
-\example
-$\real, d(x,y) = |x - y|$
-\example
-$(X, d), d$ discrete metric.
-\example 
-$C[0,1], d(f,g) = \underset{x \in [0, 1]}{\sup} |f(x) - g(x)| = ||f - g||_{\infty}$
-\example
-$(\mb{N}^{\mb{N}}, d), d((x_n), (y_n)) = \frac{1}{\min\{n: x_n \neq y_n\}}$
-\\
-where $\mb{N}^{\mb{N}} = \{x: \mb{N} \rightarrow \mb{N}\}$.
-
 \definition
 Let $(X, d_1)$ and $(Y, d_2)$ be metric spaces. A function $f: X \rightarrow Y$ is \under{continuous at $x \in X$} if $\forall \epsilon > 0, \exists \delta > 0, d_1(x,y) < \delta \implies d_2(f(x), f(y)) < \epsilon$.
 
 \subsection{Topology on Metric Spaces}
-\definition[$\epsilon$-neighbourhood]
-Given $\epsilon > 0$ and an element $x$ in the metric space $(X, d)$, the \under{$\epsilon$-neighbourhood} of $x$ is the set $V_\epsilon(x) = \{y \in X: d(x, y) < \epsilon\}$
 
-\definition[compactness]
-A subset $K$ of a metric space $(X, d)$ is \under{compact} if every sequence in $K$ has a convergent subsequence that converges to a limit in $K$.
-
-\definition[closure and interior]
-Given a subset $E$ of a metric space $(X, d)$, the \under{closure} $\bar{E}$ is the union of $E$ together with its limit points. The \under{interior} of $E$ is denoted by $E^\circ$ and is defined as
-$$E^\circ = \{x \in E: \exists V_\epsilon(x) \subseteq E\}$$
-
-\remark
-$(X, \tau), \tau \subseteq P(X), E \subseteq X$
-\begin{enumerate}
-	\item $\bar{E}$ = minimal closed superset of $E$ = $\bigcap\{H: H \text{ closed }, H \supseteq E\}$
-	\item $E^\circ$ = maximal open subset of $E$ = $\bigcup\{U: U \text{ open }, U \subseteq E\}$
-\end{enumerate}
-
-\example $(X, d)$ is a metric space, $\tau_d$ is the topology determined by $d$: $U \in \tau_d$ iff $\forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$ \\
-$ F \subseteq X$
-
-\begin{align}
-	\bar{F} &= \{ x \in X: \forall \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} \\
-	&= \bigcap \{ H: H \text{ closed } H \supseteq F\} \\
-	&= \{ \underset{n \rightarrow \infty}{\lim} x_n:  (x_n) \subseteq F, \underset{n \rightarrow \infty}{\lim} x_n \text{ exists } \}
-\end{align}
+%\remark
+%$(X, \tau), \tau \subseteq P(X), E \subseteq X$
+%\begin{enumerate}
+%	\item $\bar{E}$ = minimal closed superset of $E$ = $\bigcap\{H: H \text{ closed }, H \supseteq E\}$
+%	\item $E^\circ$ = maximal open subset of $E$ = $\bigcup\{U: U \text{ open }, U \subseteq E\}$
+%\end{enumerate}
+%
+%\example $(X, d)$ is a metric space, $\tau_d$ is the topology determined by $d$: $U \in \tau_d$ iff $\forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$ \\
+%$ F \subseteq X$
+%
+%\begin{align}
+%	\bar{F} &= \{ x \in X: \forall \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} \\
+%	&= \bigcap \{ H: H \text{ closed } H \supseteq F\} \\
+%	&= \{ \underset{n \rightarrow \infty}{\lim} x_n:  (x_n) \subseteq F, \underset{n \rightarrow \infty}{\lim} x_n \text{ exists } \}
+%\end{align}
 
 %TODO: I really, really cannot understand professor's proof...
 
@@ -454,45 +384,16 @@ $ F \subseteq X$
 %
 %\end{proof}
 
-
-\begin{align}
-	F^\circ &= \{ x \in X: \exists \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} \\
-	&= \bigcup \{B_\epsilon(x): \epsilon > 0, x \in F, B_\epsilon(x) \subseteq F \} \\
-\end{align}
-
-
+%
+%\begin{align}
+%	F^\circ &= \{ x \in X: \exists \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} \\
+%	&= \bigcup \{B_\epsilon(x): \epsilon > 0, x \in F, B_\epsilon(x) \subseteq F \} \\
+%\end{align}
 
 
 
-
-\definition[density]
-A set $A \subseteq X$ is \under{dense} in the metric space $(X, d)$ if $\bar{A} = X$. A subset $E$ of a metric space $(X, d)$ is \under{nowhere-dense} in $X$ if $\bar{E}^\circ$ is empty.
-
-\subsection{Baire's Theorem}
-\definition[nowhere-dense]
-A set $E$ is \under{nowhere-dense} if $\bar{E}$ contains no nonempty open intervals.
-\theorem[Baire's Theorem]
-The set of real numbers $\real$ cannot be written as the countable union of nowhere-dense sets.
-
-
-\subsection{The Baire Category Theorem}
-\theorem Let $(X, d)$ be a complete metric space, and let $\{O_n\}$ be a countable collection of dense, open subsets of $X$. Then, $\bigcap_{n=1}^\infty\{O_n\}$ is not empty.
-\begin{proof}
-	
-\end{proof}
-\theorem[Baire Category Theorem]
-A complete metric space is not the union of a countable collection of nowhere-dense sets.
-\begin{proof}
-	
-\end{proof}
-
-\theorem
-The set
-$$D = \{f \in C[0,1]: f'(x) \text{ exists for some } x \in [0, 1]\}$$ is a set of first category in $C[0,1]$.
-
-\subsection{Topology of $(X, d)$}
 \definition[open ball]
-An \under{open ball} with radius $r$ and center $x$ is
+An \under{open ball} (or \under{$\epsilon$-neighbourhood}) with radius $r$ and center $x$ is
 $$B_r(x) = \{y \in X: d(x, y) < r\}$$
 
 \definition[open set]
@@ -551,24 +452,417 @@ $$F^\circ = \bigcap \{U: U \text{ is open}, U \subseteq F\}$$
 \example
 Given $(X, d)$ a metric space, define $\tau_d: $ a set $U \in \tau_d \iff \forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$. Suppose $F \subseteq X$, then
 $$\bar{F} = \{x \in X: \forall \epsilon > 0, B_\epsilon(x) \cap F \neq \emptyset\} = \{\limit x_n: (x_n) \subseteq F, \limit x_n \text{ exists}\}$$
+and
+$$F^\circ = \{x \in X: \exists\epsilon >0, B_\epsilon(x)\subseteq F\} = \bigcup \{B_\epsilon(x): \epsilon >0, x \in F, B_\epsilon(x) \subseteq F\}$$
+
+\subsection{Compactness and Bolzano-Weierstrass Theorem}
+\definition[compactness]
+A subset $K$ of a metric space $(X, d)$ is \under{compact} if every sequence in $K$ has a convergent subsequence that converges to a limit in $K$.
+
+\example
+$(\real, |x - y|)$ is not compact (e.g. $(x_n) = n$)
+
+\example
+$([0,1], |x-y|)$ is compact.
+
+\property If $(X, d)$ is compact, then it is bounded, i.e. $\exists M$ s.t. $x, y \in X, d(x,y) \leq M$.
+\property If $Y \subseteq X, (X, d)$ is a metric space, and $(Y, d)$ is compact, then $Y$ is closed in $X$.
+
+\property If $K_1 \supseteq K_2 \supseteq \hdots$ are compact and nonempty subsets of $X$, then $K = \bigcap_{n=1}^\infty K_n$ is compact and nonempty.
+
+\theorem[Bolzano-Weierstrass theorem] A subset $Y$ of $\real$ is \blue{compact} iff \blue{closed and bounded}.
+\remark The theorem is true for $\real^n$ but is false for infinite dimension.
+
+\theorem[Heine-Borel Theorem] A subset $Y$ of a metric space $(X, d)$ is compact if \blue{every open cover $Y \subseteq \bigcup_{i\in I} U_i$ has a finite subcover $Y \subseteq \bigcup_{l=1}^n U_{i_l}$.}
 
 
+\subsection{Perfect Sets}
+\definition[perfect set]
+Let $(X,d)$ be a metric space. $P \subseteq X$ is \under{perfect} if it is closed, nonempty, and for every open $U \subseteq X, U \cap P$ is not empty and has at least two elements.
+
+\example
+$S = [0,1] \cup \{\frac{3}{2}\} \cup [2,3]$ is not perfect.
+
+\property Perfect subsets $P$ of a complete metric space are not countable.
+
+\example[Cantor set] Let $C_0$ be the closed interval $[0,1]$, and define $C_1$ to be the set that results when the open middle third is removed; that is,
+$$C_1 = C_0 \setminus (\frac{1}{3}, \frac{2}{3}) = [0, \frac{1}{3}] \cup [\frac{2}{3}, 1]$$
+Now construct $C_2$ in a similar way by removing the open middle third of each of the two components of $C_1$:
+$$C_2 = ([0, \frac{1}{9}] \cup [\frac{2}{9}, \frac{1}{3}]) \cup ([\frac{2}{3}, \frac{7}{9}] \cup [\frac{8}{9}, 1])$$
+Continue this process inductively. For each $n = 0,1,2,\hdots$, we get a set $C_n$ consisting of $2^n$ closed intervals each having length $(\frac{1}{3})^n$. Finally, we define the \under{Cantor set} C to be the intersection
+$$C = \bigcap_{n=0}^\infty C_n$$
+
+\remark
+\begin{itemize}
+	\item Since we are always removing open middle thirds, then at each stage, endpoints are never removed. Thus, C at least contains the endpoints of all of the intervals that make up each of the sets $C_n$.
+	\item The Cantor set has zero length.
+	\item The Cantor set is uncountable, with cardinality equal to the cardinality of $\real$.
+\end{itemize}
+
+\subsection{Separated and Connected Sets}
+\definition[separated sets]
+Let $(X,d)$ be a metric space, $A \neq \emptyset, B \subseteq X$. $A$ and $B$ are \under{separated} if $\bar{A} \cap B = \bar{B} \cap A = \emptyset$.
+
+\definition[connected sets]
+A set $C \subseteq X$ is \under{connected} if for every decomposition $C = A \cup B$ s.t. $A, B \neq \emptyset$, $A$ and $B$ are not separated, i.e. $\bar{A} \cap B \neq \emptyset$ or $\bar{B} \cap A \neq \emptyset$.
+
+\property
+$C \subseteq \real$ is connected iff $$\forall a,b \in C, [a,b] \subseteq C$$
+\begin{proof}
+	Let $C = A \cup B, a_0 \in A, b_0 \in B, a_0 < b_0$. We define $I_0 = [a_0, b_0], c_0 = \frac{a_0 + b_0}{2}$. Define $I_1 = [a_0, c_0], \hdots$. We
+	have $x \in \bar{A} \cap B$ or $\bar{B} \cap A$. 
+	\todo{Is this complete?} 
+\end{proof}
 
 
+\subsection{Baire's Theorem}
+
+\definition[density]
+A set $A \subseteq X$ is \under{dense} in the metric space $(X, d)$ if $\bar{A} = X$. A subset $E$ of a metric space $(X, d)$ is \under{nowhere-dense} in $X$ if $\bar{E}^\circ$ is empty.
+\theorem[Baire's Theorem]
+The set of real numbers $\real$ cannot be written as the countable union of nowhere-dense sets.
+
+
+\subsection{The Baire Category Theorem}
+\theorem Let $(X, d)$ be a complete metric space, and let $\{O_n\}$ be a countable collection of dense, open subsets of $X$. Then, $\bigcap_{n=1}^\infty\{O_n\}$ is not empty.
+\begin{proof}
+	
+\end{proof}
+\theorem[Baire Category Theorem]
+A complete metric space is not the union of a countable collection of nowhere-dense sets.
+\begin{proof}
+	
+\end{proof}
+
+\theorem
+The set
+$$D = \{f \in C[0,1]: f'(x) \text{ exists for some } x \in [0, 1]\}$$ is a set of first category in $C[0,1]$.
 
 
 \section{Sequences and Series}
 \subsection{The Limit of a Sequence}
 \definition[sequence]
-A \under{sequence} is a function whose domain is $\mb{N}$
+A \under{sequence} is a function whose domain is $\mb{N}$.
 
 
+\definition
+Let $(X, d)$ be a metric space. A sequence $(X_n) \subseteq X$ \under{converges} to an element $x \in X$ if $\forall \epsilon > 0, \exists N \in \mb{N}, n \geq N \implies d(x_n, x) < \epsilon$. \\\\
+\tb{Key property: } If $\underset{n \rightarrow \infty}{\lim} x_n = x, \underset{n \rightarrow \infty}{\lim} x_n = y$, then $x = y$.
+\begin{proof}
+	WTS $d(x,y) = 0$ \\
+	Let $\epsilon > 0$. We will show that $d(x,y) < \epsilon$. \\
+	Since $\underset{n \rightarrow \infty}{\lim} x_n = x$, then $\exists N_1, \forall n \geq N_1, d(x_n, x) < \frac{\epsilon}{2}$ \\
+	Since $\underset{n \rightarrow \infty}{\lim} x_n = y$, then $\exists N_2, \forall n \geq N_2, d(x_n, y) < \frac{\epsilon}{2}$ \\
+	Take $n \geq \max(N_1, N_2)$, then $d(x,y) \leq d(x_n, x) + d(x_n, y) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$.
+\end{proof}
 
+\proposition Suppose $(X, d)$ is a metric space, $(X, \tau)$ is a topological space, and $F \subseteq X$. If $\underset{n \rightarrow \infty}{\lim} x_n = x$, $(x_n) \subseteq F$ and $F$ is closed, then $x \in F$.
+\begin{proof}
+	Suppose $x \notin F$, i.e., $x \in X \setminus F$. \\
+	Since $F$ is closed, then $X \setminus F$ is open, so there is $\epsilon > 0$ s.t. $B_\epsilon(x) \subseteq X \setminus F$. \\
+	Let $N$ be such that $\forall n \geq N, d(x_n, x) < \epsilon$.\\
+	 Then $x_n \in B_\epsilon(x)$, which implies that $(x_n) \subseteq X \setminus F$, a contradiction.
+\end{proof}
 
+\proposition Suppose $(X, d)$ is a metric space and $F \subseteq X$. If $F$ is not closed, then there exists $(x_n) \subseteq F$ and $x \notin F$ s.t. $\underset{n \rightarrow \infty}{\lim} x_n = x$.
 
+\begin{proof}
+	If $F$ is not closed, then $X \setminus F$ is not open, so there is $x \in X \setminus F$ s.t. $B_\epsilon(x) \not \subseteq X \setminus F$ for all $\epsilon > 0$. \\
+	Take $x_n \in B_{1/n}(x) \setminus (X \setminus F)= B_{1/n}(x) \cap F$ for each $n \in \mb{N}$, then $(x_n) \subseteq F$ and $\underset{n \rightarrow \infty}{\lim} x_n = x$.
+\end{proof}
 
+\definition[Cauchy sequence]
+ A sequence $(x_n)$ in a metric space $(x_n)$ in a metric space $(X, d)$ is a \under{Cauchy sequence} if $\forall \epsilon >0, \exists N \in \mb{N}, m, n \geq N \implies d(x_m, x_n) < \epsilon$.
+ 
+\proposition
+A convergent sequence is Cauchy. 
+\begin{proof}
+	Let $(x_n)$ be a convergent sequence, so that $\underset{n \rightarrow \infty}{\lim} x_n = x$. To check $(x_n)$ is Cauchy, let $\epsilon > 0$. We need to find $N$ s.t. $\forall m, n \geq N, d(x_n, x_m) < \epsilon$.\\
+	Apply $\underset{n \rightarrow \infty}{\lim} x_n = x$ to $\frac{\epsilon}{2}$, we get $N$ s.t. $\forall n \geq N, d(x, x_n) < \frac{\epsilon}{2}$. \\
+	Notice that $N$ works for Cauchy: \\
+	Take $m, n \geq N$, then $$d(x_n, x_m) \leq d(x_n, x) + d(x, x_m) < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon$$
+\remark
+When $X = \real$ with the usual metric, A Cauchy sequence is convergent (the converse is true). \\
+In general not true. For example, $X = \real \setminus \{0\}, d(x,y) = |x - y|, (x_n) = \frac{1}{n}$.
 
+\end{proof}
 
+\definition[completeness of metric spaces]
+A metric space $(X, d)$ is \under{complete} if every Cauchy sequence in $X$ converges to an element of $X$.
+
+\example
+$\real, d(x,y) = |x - y|$
+\example
+$(X, d), d$ discrete metric.
+\example 
+$C[0,1], d(f,g) = \underset{x \in [0, 1]}{\sup} |f(x) - g(x)| = ||f - g||_{\infty}$
+\example
+$(\mb{N}^{\mb{N}}, d), d((x_n), (y_n)) = \frac{1}{\min\{n: x_n \neq y_n\}}$
+\\
+where $\mb{N}^{\mb{N}} = \{x: \mb{N} \rightarrow \mb{N}\}$.
+
+\definition[monotone sequence]
+$(x_n) \subseteq \real$ is \under{monotone} if either $x_n \leq x_m, n \leq m$, or $x_n \geq x_m, n \leq m$.
+
+\theorem[Monotone Subsequence Theorem]
+Every sequence $(x_n) \subseteq \real$ has a monotone subsequence.
+\todo{prove this}
+
+\fact If $a_n \leq b_n$ for all $n$, $a = \limit a_n, b = \limit b_n$, then 
+$$a \leq b$$
+
+\begin{proof}
+	Suppose for contradiction that $a > b$. Let $\epsilon = \frac{a - b}{2}$.\\
+	We know $\exists N_1$ s.t. $a_n \in B_\epsilon(a)$ for $n \geq N_1$ and $\exists N_2$ s.t. $b_n \in B_\epsilon(b)$ for $n \geq N_2$. Take $n > \max(N_1, N_2)$, then we have
+	$$b_n < \frac{a+b}{2} < a_n$$
+	which is a contradiction.
+\end{proof}
+
+\theorem[Algebraic limit theorem] Suppose $a = \limit a_n, b = \limit b_n$, then:
+\begin{enumerate}
+	\item $a + b = \limit (a_n + b_n)$
+	\item $ab = \limit a_nb_n$
+	\item $\frac{a}{b} = \limit \frac{a_n}{b_n}$, and $b \neq 0$.
+\end{enumerate}
+
+\fact Monotone bounded sequence $(x_n)$ converges to its supremum or infimum.
+\begin{proof}
+	We only prove the supremum case. \\
+	Fix $\epsilon > 0$, let $s = \sup\{x_n: n \in \mb{N}\}$. We have 
+	$s - \epsilon < s$ and thus $s - \epsilon$ is not an upper bound of $(x_n)$. Therefore, there is $N$ s.t. $x_N > s-\epsilon$. \\
+	Take $n \geq N$, then we have
+	$$x_n \geq x_N > s-\epsilon$$
+	Therefore, we have $|x_n - s| < \epsilon$.
+\end{proof}
+
+\definition[limit supremum]
+We define
+$$\underset{n \rightarrow \infty}{\lim \sup}\, x_n = \inf\{y_m:m \in \mb{N}\}$$
+where $y_m = \sup\{x_n: n\geq m\}$. \\
+Alternatively,
+$$\underset{n \rightarrow \infty}{\lim \sup}\, x_n = \underset{m \rightarrow \infty}{\lim} \underset{n \geq m}{\sup} x_n$$
+\definition[limit infimum]
+$$\underset{n \rightarrow \infty}{\lim \inf}\, x_n = \sup\{z_m:m \in \mb{N}\}$$
+where $z_m = \inf\{x_n: n\geq m\}$.\\
+Alternatively,
+$$\underset{n \rightarrow \infty}{\lim \inf}\, x_n = \underset{m \rightarrow \infty}{\lim} \underset{n \geq m}{\inf} x_n$$
+
+\subsection{Series}
+\definition 
+We define
+$$S_n = \sum_{k=1}^n a_k, \quad \limit S_n = \sum_{k=1}^\infty a_k$$
+We call $\sum_{k=1}^\infty a_k$ a \under{summable series} if the limit exists,
+ i.e.,
+ $$\exists A, \forall \epsilon > 0, \exists N s.t. \forall n \geq N, |S_n - A| < \epsilon$$
+
+\property[Cauchy criterion for series] $\sum_{k=1}^\infty$ is \under{summable} iff 
+$$\forall \epsilon > 0, \exists N \text{ s.t. } \forall n \geq m \geq N, |S_n - S_m| = \left|\sum_{k=m+1}^n a_k \right |< \epsilon $$
+
+\corollary If $\sum_{k=1}^\infty a_k$ is summable, then $|a_k| \rightarrow 0$.
+\begin{proof}
+	We have $|a_k| = |s_k - s_{k-1}| < \epsilon$ for $k > N$.
+\end{proof}
+
+\example
+$\sum_{k=1}^\infty \frac{1}{k^2}$ is summable.
+\begin{proof}
+	\begin{align*}
+		S_m &= 1 + \frac{1}{4} + \frac{1}{9} + \hdots + \frac{1}{m^2} \\
+		&< 1 + \frac{1}{2\cdot1} + \frac{1}{3\cdot 2} + \hdots + \frac{1}{m(m-1)} \\
+		&= 1 + (1-\frac{1}{2}) + (\frac{1}{2} - \frac{1}{3}) + \hdots + (\frac{1}{m-1} - \frac{1}{m}) \\
+		&= 1 + 1 - \frac{1}{m} \\
+		&< 2
+	\end{align*}
+\end{proof}
+
+\example
+$\sum_{k=1}^\infty \frac{1}{k} = \infty$
+\begin{proof}
+	We have
+	\begin{align*}
+		\sum_{k=1}^\infty \frac{1}{k} &= (1/2) + (1/3 + 1/4) + (1/5 + 1/6 + 1/7 + 1/8) + \hdots \\
+		&= 1 + (1/2) + (1/4 + 1/4) + (1/8 + 1/8 + 1/8 + 1/8) + \hdots \\
+		&= 1 + 1/2 + 1/2 + 1/2 + \hdots \\
+		\rightarrow \infty
+	\end{align*}
+\end{proof}
+
+\theorem[Algebraic limit theorem for series] Suppose $\sum_{k=1}^\infty a_k = A, \sum_{k=1}^\infty b_k = B, c \in \real$, then
+\begin{enumerate}
+	\item $\sum_{k=1}^\infty ca_k = cA$
+	\item $\sum_{k=1}^\infty (a_k + b_k) = A + B$
+\end{enumerate}
+
+\begin{proof}
+	(1) We want to show $\forall \epsilon > 0, \exists N$ s.t. $\forall n \geq N, \left | \sum_{k=1}^\infty ca_k - cA\right | < \epsilon$. \\
+	We know $\forall \epsilon_0 > 0, \exists N_{\epsilon_0}$ s.t. $\forall n \geq N_{\epsilon_0}, \bignorm{\sum_{k=1}^\infty a_k - A} < \epsilon_0$.\\
+	Take $\epsilon_0 = \frac{\epsilon}{|c|}$, then we have
+	$$\bignorm{\sum_{k=1}^\infty ca_k - cA} = |c|\bignorm{\sum_{k=1}^\infty a_k - A} < |c|\cdot\frac{\epsilon}{|c|} = \epsilon$$
+\end{proof}
+
+\property[Order comparison test] Suppose $b_k \geq a_k \geq 0, \forall k$.\\
+\begin{enumerate}
+	\item If $\sum_{k=1}^\infty b_k < \infty$ , then $\sum_{k=1}^\infty a_k < \infty$.
+	\item If $\sum_{k=1}^\infty a_k = \infty$ , then $\sum_{k=1}^\infty b_k = \infty$.
+\end{enumerate}
+
+\definition[geometric series]
+We call a series a \under{geometric series} if it is of the form
+$$\sum_{k=1}^\infty ar^k$$
+Note that the geometric series converges to $\frac{a}{1-r}$ whenever $r^m \rightarrow 0$ iff $|r| < 1$.
+
+\definition[absolutely convergence]
+$\sum_{k=1}^\infty a_k$ is \under{absolutely convergent} if $\sum_{k=1}^\infty |a_k| < \infty$. 
+
+ \definition[conditionally convergence]
+$\sum_{k=1}^\infty a_k$ is \under{conditionally convergent} if $\sum_{k=1}^\infty a_k < \infty$, but $\sum_{k=1}^\infty |a_k| = \infty$
+
+\example[alternating series]
+$\sum_{k=1}^\infty \frac{(-1)^{k+1}}{k} < \infty$ but $\sum_{k=1}^\infty \bignorm{\frac{(-1)^{k+1}}{k}} = \sum_{k=1}^\infty \frac{1}{k} = \infty$
+
+\property[Absolute convergence test]
+If $\sum_{k=1}^\infty |a_k| < \infty$, then $\sum_{k=1}^\infty a_k < \infty$.
+
+\begin{proof}
+	We use Cauchy criterion for $\sum_{k=1}^\infty a_k$: we want to show
+	$$\forall \epsilon > 0, \exists N \text{ s.t. } \forall n \geq m\geq N, \bignorm{\sum_{k = m+1}^n a_k} < \epsilon$$
+	Let $\epsilon > 0$.\\
+	Since $\sum_{k=1}^\infty |a_k| < \infty$, then we know that $\exists N$ s.t. $\forall n \geq m \geq N$,
+	$$\bignorm{\sum_{k=1}^n|a_k| - \sum_{k=1}^m|a_k|} < \epsilon$$
+	Then
+	\begin{align*}
+		\bignorm{\sum_{k = m+1}^n a_k} &= \bignorm{\sum_{k=1}^na_k - \sum_{k=1}^ma_k}\\
+		&\leq \sum_{k=1}^n|a_k| - \sum_{k=1}^m|a_k| \\
+		&\leq \bignorm{\sum_{k=1}^n|a_k| - \sum_{k=1}^m|a_k|}\\
+		&< \epsilon
+	\end{align*}
+\end{proof}
+
+\property[Alternating series test] Suppose $a_1 \geq a_2 \geq \hdots \geq 0$, $\underset{k \rightarrow \infty}{\lim}a_k = 0$, then $\sum_{k=1}^\infty (-1)^{k+1} a_k < \infty$.
+
+\begin{proof}
+	We want to show $\{S_n\} = \{\sum_{k=1}^n (-1)^{k+1}a_k\}$ is Cauchy:
+	$$\forall \epsilon > 0, \exists N \text{ s.t. } \forall m, n \geq N, |S_n - S_m| < \epsilon$$
+	Let $\epsilon > 0$.\\
+	Suppose $n > m$, then $|S_n - S_m| = |a_{m+1} - a_{m+2} + \hdots + (-1)^{n-m+1}a_n|$. \\
+	Since $(a_n)$ is a non-negative decreasing sequence, then
+	\begin{align*}
+		a_{m+1} - a_{m+2} + \hdots + (-1)^{n-m-1}a_n &= a_{m+1} - (a_{m+2} - a_{m+3}) - (a_{m+4} - a_{m+5}) - \hdots \\
+		&\leq a_{m+1}
+	\end{align*}
+	Since $\underset{k \rightarrow \infty}{\lim}a_k = 0, \exists N$ s.t. $\forall m + 1 \geq N, a_{m+1} < \epsilon$. \\
+	Thus $0 \leq |S_n - S_m| \leq a_{m+1} < \epsilon$.	
+	
+\end{proof}
+
+\property[Ratio test] Given $\sum_{k=1}^\infty a_k$ s.t. $a_k \neq 0$ for all $k$. \\
+If $\limit \bignorm{\frac{a_{n+1}}{a_n}} = r < 1$, then $\sum_{k=1}^\infty |a_k|< \infty$ 
+\begin{proof}
+	Define $S := \{ n\in \mb{N}: \bignorm{\frac{a_{n+1}}{a_n}} \geq r'\}$, then S contains finitely many elements of $\mb{N}$. (If $S$ were to be infinite set, if we take $\epsilon = r' - r$, then $\bignorm{\frac{a_{n+1}}{a_n}} - r \geq r' - r$ for infinitely many terms which contradicts that $r$ is the point of convergence.\\
+	Therefore, $S' = \{n \in \mb{N}: \bignorm{\frac{a_{n+1}}{a_n} < r'}$ contains all but finitely many elements of $\mb{N}$. Let $N = 1 + \max S$, then $\forall n \geq N,\bignorm{\frac{a_{n+1}}{a_n} < r'} < r' \implies |a_{n+1}| < r'|a_n|$. \\
+	Since $0 < r' < 1, \sum_{n=1}^\infty (r')^n$ converges which implies $|a_N|\sum_{n=1}^\infty (r')^n$ converges. 
+	We have $\sum_{n=1}^\infty |a_n| = \sum_{n=1}^N |a_n| + \sum_{n = N+1}^\infty |a_n| < C + |a_N|\sum_{n=N+1}^\infty (r')^{n-N}$ converges, by comparison test. Hence $\sum_{n=1}^\infty |a_n|$ converges.
+\end{proof}
+\todo{understand the last two lines of the proof}
+
+\definition[rearrangement] Let $\sum_{k=1}^\infty a_k$ be a series. A series $\sum_{k=1}^\infty b_k$ is called a \under{rearrangement} of $\sum_{k=1}^\infty a_k$ if $\forall n, !\exists k$ s.t. $b_k = a_n$.
+
+\section{Functional Limits and Continuity}
+\subsection{Functional Limits}
+\definition Let $A \subseteq \real, a \in \overline{A \setminus \{a\}}$ ($a$ is an accumulation point of $A$). Let $f: A \rightarrow \real$, define $\underset{x \rightarrow a}{\lim} f(x) = L$ iff
+$$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } 0 < |x - a| < \delta \implies |f(x) - L| < \epsilon$$
+
+\property[Sequential criterion for functional limits]
+$a \in \overline{A \setminus \{a\}}, f:A \rightarrow \real$. The following are equivalent:
+\begin{enumerate}
+	\item $\underset{x \rightarrow a}{\lim} f(x) = L$
+	\item $\forall (x_n) \subseteq A \setminus \{a\}, x_n \rightarrow a \implies f(x_n) \rightarrow L$
+\end{enumerate}
+\begin{proof}
+	We prove $(1) \implies (2)$: \\
+	Assume $\underset{x \rightarrow a}{\lim} f(x) = L$, take arbitrary $(x_n) \subseteq A \setminus \{a\}$ s.t. $x_n \rightarrow a$. \\
+	Let $\epsilon > 0$, then $\exists \delta > 0$ s.t. $0 < |x - a| < \delta \implies |f(x) - L| < \epsilon$. \\
+	Also, $\exists N s.t. n \geq N \implies |x_n - a| < \delta$. \\
+	Therefore, if $|x_n - a| < \delta$, then $|f(x_n) - L| < \epsilon$. 
+\end{proof}
+
+\theorem[Algebraic limit theorem for functional limits]
+Suppose $f, g: A \rightarrow \real, a \in \overline{A \setminus \{a\}}$.\\
+Suppose $\underset{x \rightarrow a}{\lim} f(x) = L, \underset{x \rightarrow a}{\lim} g(x) = M$. Then we have
+\begin{enumerate}
+	\item $\underset{x \rightarrow a}{\lim} cf(x) = cL$
+	\item $\underset{x \rightarrow a}{\lim} (f(x) + g(x)) = L + M$
+	\item $\underset{x \rightarrow a}{\lim} (f(x)g(x)) = LM$
+	\item $\underset{x \rightarrow a}{\lim} (\frac{f(x)}{g(x)}) = \frac{L}{M}$ when $M \neq 0$.
+\end{enumerate}
+
+\property[Divergence criterion] Suppose $f: A \rightarrow \real, a \in \overline{A \setminus \{a\}}$ $\underset{x \rightarrow a}{\lim} f(x)$ does not exist if there are two sequences $(x_n), (y_n) \subseteq A \setminus \{a\}$ s.t. $x_n \rightarrow a, y_n \rightarrow a, \limit f(x_n) = L, \limit f(y_n) = M$ exist but $L \neq M$.
+
+\example
+Let $A = \real^+, a = 0, f(x) = \sin(\frac{1}{x})$> \\
+Let $a_n = \frac{1}{2n\pi}, b_n = \frac{1}{2n\pi + \frac{\pi}{2}}$. \\
+Then we have $a_n, b_n \rightarrow a$. Besides, $\limit f(a_n) = 0, \limit f(b_n) = 1$. Hence $\underset{x \rightarrow 0^+}{\lim} \sin(\frac{1}{x}$ does not exist.
+
+\definition
+Suppose $f: A \rightarrow \real, a \in A \setminus \{a\}$. We define $\underset{x \rightarrow a}{\lim} f(x) = \infty$ iff
+$$\forall M > 0, \exists \delta > 0 \text{ s.t. } 0 < |x - a| < \delta \implies f(x) > M$$
+
+\definition
+We define $\underset{x \rightarrow \infty}{\lim} f(x) = L$ iff
+$$\forall \epsilon > 0, \exists M > 0 \text{ s.t. } x > M \implies |f(x) - L| < \epsilon$$
+\subsection{Continuous Functions}
+\definition[continuity]
+ Suppose $(X, d_X), (Y, d_Y)$ are metric spaces. $f: X \rightarrow Y$ is \under{continuous} at $a \in X$ if 
+ $$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } x \in B_{\delta}^X(a) \implies f(x) \in B_{\epsilon}^Y(f(a))$$
+ \remark
+ Note that for $X = Y = \real, d(x,y) = |x - y|$, so that we can write
+ $$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } |x - a| < \delta \implies |f(x) - f(a)| > \epsilon$$
+ i.e. $$\underset{x \rightarrow a}{\lim} f(x) = f(a)$$
+
+\definition[continuous function]
+$f: X \rightarrow Y$ is \under{continuous} if it is continuous at every point $a \in X$.
+
+\property
+The following are equivalent:
+\begin{enumerate}
+	\item $f$ is continuous at $a$
+	\item $\underset{x \rightarrow a}{\lim} f(x) = f(a)$
+	\item $\forall (x_n) \subseteq A, x_n \rightarrow a \implies f(x_n) \rightarrow f(a)$.
+\end{enumerate}
+
+\corollary $f$ is discontinuous at $a$ if there is a sequence $(x_n) \rightarrow a$ s.t. $\limit f(x_n) \neq f(a)$.
+
+\remark
+\red{Note that we may have $\underset{x \rightarrow a}{\lim} f(x)$ exists but $f$ is discontinuous at $a$.}
+
+\theorem[Algebraic continuous theorem] Suppose $f, g: A \rightarrow \real$ are continuous at $a \in A, c \in \real$. We have
+\begin{enumerate}
+	\item $cf(x)$ is continuous at $a$
+	\item $f(x) \pm g(x)$ is continuous at $a$
+	\item $f(x)g(x)$ is continuous at $a$
+	\item $\frac{f(x)}{g(x)}$ is continuous at $a$ if $g(a) \neq 0$
+\end{enumerate}
+
+\theorem Suppose $f: A \rightarrow B \subseteq \real, g: B \rightarrow \real$. \\
+$(g \circ f)(x) = g(f(x))$ is continuous at $a \in A$ whenever $f$ is continuous at $a$ and $g$ is continuous at $f(a)$.
+
+\theorem Suppose $(X, d_X), (Y, d_Y)$ are metric spaces, $f: X \rightarrow Y$ is continuous. \\
+If $K \subseteq X$ is compact, so is its image $f[K] = \{f(x): x \in K\}$.
+
+\theorem Suppose $(X, d_X), (Y, d_Y)$ are metric spaces. \\
+$f^{-1}(F)$ is closed in $X$ whenever $F \subseteq Y$ is closed in $Y$.
+
+\theorem[Extreme Value Theorem]
+If $f: K \rightarrow \real$ is continuous, $K$ is compact, then $\exists x_1, x_2 \in K$ s.t. $\forall x \in K$,
+$$f(x_1) \leq f(x) \leq f(x_2)$$
+\begin{proof}
+	Let $H = f[K] = \{f(x): x \in K\} \subseteq \real$, which is compact. Since compact subsets of $\real$ are bounded, then let $y_2 = \sup(H)$. \\
+	We have $y \leq y_2$ for all $y \in H$ and $\forall \epsilon > 0, \exists y \in H$ s.t. $y_2 - \epsilon < y \leq y_2$.\\
+	Take $\epsilon = \frac{1}{n}$, then we have some $z_n \in H$ s.t. $y_2 - \frac{1}{n} < z_n \leq y_2$. \\
+	Now we find $a_n \in k$ s.t. $f(a_n) = z_n, n = 1,2,\hdots$ \\
+	\red{By theorem, we have $a_{n_k} \rightarrow x_2$, then $f(x_2) = \underset{k \rightarrow \infty}{\lim}f(a_{n_k}) = y_2$.}
+	\todo{Which theorem?}
+\end{proof}
 
 
 

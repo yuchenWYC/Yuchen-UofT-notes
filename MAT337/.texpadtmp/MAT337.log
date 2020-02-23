@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  21 FEB 2020 18:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 FEB 2020 21:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -664,75 +664,84 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 40.
 
-[2] [3] [4]
-<p1.png, id=177, 586.19pt x 152.57pt>
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+
+ []
+
+[3] [4]
+<p1.png, id=206, 586.19pt x 152.57pt>
 File: p1.png Graphic file (type png)
 <use p1.png>
-Package pdftex.def Info: p1.png  used on input line 223.
+Package pdftex.def Info: p1.png  used on input line 218.
 (pdftex.def)             Requested size: 351.7167pt x 91.5427pt.
- [5] [6 <./p1.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 277--290
+ [5 <./p1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 272--285
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 277--290
+Underfull \hbox (badness 10000) in paragraph at lines 272--285
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 290.
-(/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
+[6]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 285.
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 290.
- [7] [8]
-Underfull \hbox (badness 10000) in paragraph at lines 349--350
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 285.
+ [7]
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 354--357
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 438--439
 
  []
 
 [9] [10]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 493.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 493.
-
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 537--538
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 514.
+ [11]
+Underfull \hbox (badness 10000) in paragraph at lines 549--552
 
  []
 
-[12] [13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 586.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 586.
+[12] [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 703--705
+
+ []
+
+[15]
+Overfull \hbox (8.30077pt too wide) in paragraph at lines 718--719
+[][]\OT1/cmr/bx/n/10.95 Definition 3.11 \OT1/cmr/m/n/10.95 (con-di-tion-ally con-ver-gence)\OT1/cmr/bx/n/10.95 . []$[][] \OML/cmm/m/it/10.95 a[]$ \OT1/cmr/m/n/10.95 is $[]$ if $[][] \OML/cmm/m/it/10.95 a[] <
+ []
+
+[16] [17] [18] [19]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 880.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 880.
  (/Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 586.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 586.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 880.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 880.
 Package rerunfilecheck Info: File `MAT337.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 586.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 880.
  ) 
 Here is how much of TeX's memory you used:
- 18785 strings out of 492616
- 346626 string characters out of 6129482
- 445859 words of memory out of 5000000
- 22199 multiletter control sequences out of 15000+600000
+ 18999 strings out of 492616
+ 350551 string characters out of 6129482
+ 450451 words of memory out of 5000000
+ 22337 multiletter control sequences out of 15000+600000
  12940 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,11n,83p,429b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.pdf (13 pages, 262083 bytes).
+ 69i,10n,83p,429b,1031s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on /Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.pdf (19 pages, 290708 bytes).
 PDF statistics:
- 384 PDF objects out of 1000 (max. 8388607)
- 329 compressed objects within 4 object streams
- 133 named destinations out of 1000 (max. 500000)
- 250 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 514 PDF objects out of 1000 (max. 8388607)
+ 453 compressed objects within 5 object streams
+ 209 named destinations out of 1000 (max. 500000)
+ 298 words of extra memory for PDF output out of 10000 (max. 10000000)
 

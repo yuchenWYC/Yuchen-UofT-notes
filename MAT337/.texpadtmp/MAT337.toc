@@ -9,11 +9,17 @@
 \contentsline {subsubsection}{\numberline {1.5.2}Countable Sets}{5}{subsubsection.1.5.2}% 
 \contentsline {subsection}{\numberline {1.6}Cantor's Theorem}{6}{subsection.1.6}% 
 \contentsline {section}{\numberline {2}Metric Spaces and the Baire Category Theorem}{8}{section.2}% 
-\contentsline {paragraph}{Fact}{9}{section*.2}% 
-\contentsline {subsection}{\numberline {2.1}Basic Definitions}{9}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Topology on Metric Spaces}{10}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Baire's Theorem}{11}{subsection.2.3}% 
-\contentsline {subsection}{\numberline {2.4}The Baire Category Theorem}{11}{subsection.2.4}% 
-\contentsline {subsection}{\numberline {2.5}Topology of $(X, d)$}{12}{subsection.2.5}% 
-\contentsline {section}{\numberline {3}Sequences and Series}{13}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}The Limit of a Sequence}{13}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {2.1}Basic Definitions}{8}{subsection.2.1}% 
+\contentsline {paragraph}{Fact}{8}{section*.2}% 
+\contentsline {subsection}{\numberline {2.2}Topology on Metric Spaces}{9}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Compactness and Bolzano-Weierstrass Theorem}{10}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.4}Perfect Sets}{11}{subsection.2.4}% 
+\contentsline {subsection}{\numberline {2.5}Separated and Connected Sets}{11}{subsection.2.5}% 
+\contentsline {subsection}{\numberline {2.6}Baire's Theorem}{11}{subsection.2.6}% 
+\contentsline {subsection}{\numberline {2.7}The Baire Category Theorem}{12}{subsection.2.7}% 
+\contentsline {section}{\numberline {3}Sequences and Series}{12}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}The Limit of a Sequence}{12}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Series}{14}{subsection.3.2}% 
+\contentsline {section}{\numberline {4}Functional Limits and Continuity}{17}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Functional Limits}{17}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}Continuous Functions}{18}{subsection.4.2}% 

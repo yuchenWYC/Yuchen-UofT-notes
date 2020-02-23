@@ -10,8 +10,14 @@
 \BOOKMARK [1][-]{section.2}{Metric Spaces and the Baire Category Theorem}{}% 10
 \BOOKMARK [2][-]{subsection.2.1}{Basic Definitions}{section.2}% 11
 \BOOKMARK [2][-]{subsection.2.2}{Topology on Metric Spaces}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.3}{Baire's Theorem}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.4}{The Baire Category Theorem}{section.2}% 14
-\BOOKMARK [2][-]{subsection.2.5}{Topology of \(X, d\)}{section.2}% 15
-\BOOKMARK [1][-]{section.3}{Sequences and Series}{}% 16
-\BOOKMARK [2][-]{subsection.3.1}{The Limit of a Sequence}{section.3}% 17
+\BOOKMARK [2][-]{subsection.2.3}{Compactness and Bolzano-Weierstrass Theorem}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.4}{Perfect Sets}{section.2}% 14
+\BOOKMARK [2][-]{subsection.2.5}{Separated and Connected Sets}{section.2}% 15
+\BOOKMARK [2][-]{subsection.2.6}{Baire's Theorem}{section.2}% 16
+\BOOKMARK [2][-]{subsection.2.7}{The Baire Category Theorem}{section.2}% 17
+\BOOKMARK [1][-]{section.3}{Sequences and Series}{}% 18
+\BOOKMARK [2][-]{subsection.3.1}{The Limit of a Sequence}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.2}{Series}{section.3}% 20
+\BOOKMARK [1][-]{section.4}{Functional Limits and Continuity}{}% 21
+\BOOKMARK [2][-]{subsection.4.1}{Functional Limits}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.2}{Continuous Functions}{section.4}% 23
