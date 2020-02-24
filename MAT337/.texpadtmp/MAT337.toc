@@ -15,11 +15,11 @@
 \contentsline {subsection}{\numberline {2.3}Compactness and Bolzano-Weierstrass Theorem}{10}{subsection.2.3}% 
 \contentsline {subsection}{\numberline {2.4}Perfect Sets}{11}{subsection.2.4}% 
 \contentsline {subsection}{\numberline {2.5}Separated and Connected Sets}{11}{subsection.2.5}% 
-\contentsline {subsection}{\numberline {2.6}Baire's Theorem}{11}{subsection.2.6}% 
+\contentsline {subsection}{\numberline {2.6}Baire's Theorem}{12}{subsection.2.6}% 
 \contentsline {subsection}{\numberline {2.7}The Baire Category Theorem}{12}{subsection.2.7}% 
 \contentsline {section}{\numberline {3}Sequences and Series}{12}{section.3}% 
 \contentsline {subsection}{\numberline {3.1}The Limit of a Sequence}{12}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Series}{14}{subsection.3.2}% 
-\contentsline {section}{\numberline {4}Functional Limits and Continuity}{17}{section.4}% 
-\contentsline {subsection}{\numberline {4.1}Functional Limits}{17}{subsection.4.1}% 
-\contentsline {subsection}{\numberline {4.2}Continuous Functions}{18}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {3.2}Series}{15}{subsection.3.2}% 
+\contentsline {section}{\numberline {4}Functional Limits and Continuity}{18}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Functional Limits}{18}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}Continuous Functions}{19}{subsection.4.2}% 
