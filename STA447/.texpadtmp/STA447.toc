@@ -10,3 +10,5 @@
 \contentsline {subsection}{\numberline {2.3}Obstacles to Convergence}{14}{subsection.2.3}% 
 \contentsline {subsection}{\numberline {2.4}Convergence Theorem}{15}{subsection.2.4}% 
 \contentsline {paragraph}{Proof of Markov Chain Convergence Theorem}{16}{section*.38}% 
+\contentsline {subsection}{\numberline {2.5}Periodic Convergence}{17}{subsection.2.5}% 
+\contentsline {subsection}{\numberline {2.6}Application - Random Walks on Graphs}{17}{subsection.2.6}% 

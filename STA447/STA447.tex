@@ -603,12 +603,50 @@
     \definition[strong convergence]
     $$P(\underset{n \rightarrow \infty}{\lim} X_n = X) = 1$$
     \remark This is ``converge almost surely".
-    \remark Strong convergence implies weak convergence.
+    \remark Strong convergence implies weak convergence, and weak convergence implies convergence in distribution.
     
     
-    \proposition If $\{X_n\}$ is a simple symmetric random walk, then the absolute values $|X_n|$ converge weakly to 
+    \proposition If $\{X_n\}$ is a simple symmetric random walk, then the absolute values $|X_n|$ converge weakly to positive infinity.
+    \todo{prove this}
+    
+    \subsection{Periodic Convergence}
+    \theorem[Periodic Convergence Theorem]
+    Suppose a Markov chain is \blue{irreducible}, with \blue{period $b \geq 2$}, and \blue{stationary distribution $\{\pi_i\}$}. Then for all $i, j \in S$,
+    $$\limit{n} \frac{1}{b}[\dur{p}{ij}{n} + \hdots + \dur{p}{ij}{n + b -1}] = \pi_j$$
+    and 
+    $$\limit{n} \frac{1}{b}(P[X_n = j] + P[X_{n+1} = j] + \hdots + P[X_{n+b-1} = j]) = \pi_j$$
+    and also
+    $$\limit{n} \frac{1}{b}P(X_n = j \text{ or } X_{n+1} = j \text{ or } \hdots \text{ or } X_{n+b-1} = j ) = \pi_j$$
+    
+    \theorem[Average Probability Convergence]
+    If a Markov chain is \blue{irreducible} with \blue{stationary distribution $\{\pi_i\}$} (whether periodic or not), then 
+    $$\forall i, j \in S, \limit{n} \frac{1}{n}[\dur{p}{ij}{1} + \dur{p}{ij}{2} + \hdots + \dur{p}{ij}{n}] = \pi_j$$
+    i.e.,
+    $$\limit{n} \frac{1}{n}\sum_{l=1}^n \dur{p}{ij}{l} = \pi_j$$
+    \todo{prove this}
+    
+    \corollary[Unique Stationary Corollary] If Markov chain $P$ is \blue{irreducible} (whether periodic or not), then it has at most \tb{one} stationary distribution.
+    
+    \subsection{Application - Random Walks on Graphs}
+    Let $V$ be a non-empty finite or countable set. Let $w: V \times V \rightarrow [0, \infty)$ be a symmetric weight function so that $w(u,v) = w(v,u)$. (usual unweighted case: $w(u, v) = 1$ if there is an edge between $u$ and $v$, otherwise $w(u,v) = 0$).\\
+    Let $d(u) = \sum_{v \in V} w(u,v)$ be the \under{degree} of the vertex $u$. Assume that $d(u) > 0$ for all $u \in V$ (for example, by giving any isolated point a self-edge).
+    \definition [(simple) random walk on the (undirected) graph]
+    Given a vertex set $V$ with symmetric weights $w$, the \under{(simple) random walk on the (undirected) graph} $(V, w)$ is the Markov chain with state space $S = V$ and transition probabilities $p_{uv} = \frac{w(u,v)}{d(u)}$ for all $u, v \in V$.
+    
+    \remark
+    It follows that 
+    $$\sum_{v \in V} p_{uv} = \frac{\sum_{v \in V}w(u, v)}{\sum_{v \in V}w(u,v)} = 1$$
+    
+    \remark
+    The most common case is where each $w(u,v) = 0$ or $1$, so from $u$, the chain moves to one of the $d(u)$ vertices connected to $u$ with equal probability.
+    
+    \theorem[Graph Stationary Distribution]
+    Consider a random walk on a graph $V$ with degrees $d(u)$. Assume that $Z$ is \blue{finite}. Then if $\pi_u = \frac{d(u)}{Z}$, then $\pi$ is a stationary distribution for this walk. 
     
     
+    
+    
+   
     
     
     
