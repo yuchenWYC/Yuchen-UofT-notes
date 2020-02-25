@@ -1,23 +1,30 @@
 \documentclass[11pt]{article}
 % Libraries.
+
+\usepackage{dsfont}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{pgfplots}
+\usepackage{esint}
+\usepackage[margin=3cm]{geometry}
+%\usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{perpage}
-\usepackage{dsfont}
+\usepackage[dvipsnames, pdftex]{xcolor}
 \usepackage{float}
-\usepackage{esint}
-\usepackage{todonotes}
-\usepackage[margin=1.5cm]{geometry}
-\usepackage{../raina}
-\newcommand{\limit}[1]{\underset{{#1} \rightarrow \infty}{\lim}}
+\usepackage{xargs}
+\usepackage{/Users/raina/Desktop/uoft-notes/raina}
+\usepackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
+
 \newcommand{\ur}[2]{{#1}^{({#2})}}
 \newcommand{\dur}[3]{{#1}_{#2}^{({#3})}}
-
+\renewcommand{\limit}[1]{\underset{{#1} \rightarrow \infty}{\lim}}
 % Property settings.
 \MakePerPage{footnote}
 \pagestyle{headings}
@@ -31,7 +38,8 @@
     \maketitle
     \tableofcontents
     \newpage
-    
+
+
     \section{Markov Chain Probabilities}
     \notation
     $$P(X_{n+1} = j | X_n = i) = p_{ij}$$
@@ -584,6 +592,21 @@
     \begin{proof}
     	By Markov Chain Convergence Theorem, any stationary distribution that ie has must be equal to $\limit{n} P(X_n = j)$, so it is unique.
     \end{proof}
+    
+    \definition[convergence in distribution]
+    $$\forall a < b, \underset{n \rightarrow \infty} P(a < X_n < b) = P(a < X < b)$$
+
+    \definition[weak convergence]
+    $$\forall \epsilon > 0, \underset{n \rightarrow \infty}{\lim} P(|X_n - X| \geq \epsilon) = 0$$
+    \remark This is ``converge in probability".
+    
+    \definition[strong convergence]
+    $$P(\underset{n \rightarrow \infty}{\lim} X_n = X) = 1$$
+    \remark This is ``converge almost surely".
+    \remark Strong convergence implies weak convergence.
+    
+    
+    \proposition If $\{X_n\}$ is a simple symmetric random walk, then the absolute values $|X_n|$ converge weakly to 
     
     
     
