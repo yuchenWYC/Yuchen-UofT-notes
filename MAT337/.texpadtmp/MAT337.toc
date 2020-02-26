@@ -8,18 +8,19 @@
 \contentsline {subsubsection}{\numberline {1.5.1}1-1 Correspondence}{5}{subsubsection.1.5.1}% 
 \contentsline {subsubsection}{\numberline {1.5.2}Countable Sets}{5}{subsubsection.1.5.2}% 
 \contentsline {subsection}{\numberline {1.6}Cantor's Theorem}{6}{subsection.1.6}% 
-\contentsline {section}{\numberline {2}Metric Spaces and the Baire Category Theorem}{8}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Basic Definitions}{8}{subsection.2.1}% 
-\contentsline {paragraph}{Fact}{8}{section*.2}% 
-\contentsline {subsection}{\numberline {2.2}Topology on Metric Spaces}{9}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Compactness and Bolzano-Weierstrass Theorem}{10}{subsection.2.3}% 
-\contentsline {subsection}{\numberline {2.4}Perfect Sets}{11}{subsection.2.4}% 
-\contentsline {subsection}{\numberline {2.5}Separated and Connected Sets}{11}{subsection.2.5}% 
-\contentsline {subsection}{\numberline {2.6}Baire's Theorem}{12}{subsection.2.6}% 
-\contentsline {subsection}{\numberline {2.7}The Baire Category Theorem}{12}{subsection.2.7}% 
-\contentsline {section}{\numberline {3}Sequences and Series}{12}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}The Limit of a Sequence}{12}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Series}{15}{subsection.3.2}% 
+\contentsline {section}{\numberline {2}Sequences and Series}{8}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}The Limit of a Sequence}{8}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Series}{10}{subsection.2.2}% 
+\contentsline {section}{\numberline {3}Metric Spaces and the Baire Category Theorem}{13}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Basic Definitions}{13}{subsection.3.1}% 
+\contentsline {paragraph}{Fact}{14}{section*.4}% 
+\contentsline {subsection}{\numberline {3.2}Topology on Metric Spaces}{14}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Compactness and Bolzano-Weierstrass Theorem}{16}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Completeness of Metric Spaces}{16}{subsection.3.4}% 
+\contentsline {subsection}{\numberline {3.5}Perfect Sets}{16}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Separated and Connected Sets}{17}{subsection.3.6}% 
+\contentsline {subsection}{\numberline {3.7}Baire's Theorem}{17}{subsection.3.7}% 
+\contentsline {subsection}{\numberline {3.8}The Baire Category Theorem}{18}{subsection.3.8}% 
 \contentsline {section}{\numberline {4}Functional Limits and Continuity}{18}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Functional Limits}{18}{subsection.4.1}% 
 \contentsline {subsection}{\numberline {4.2}Continuous Functions}{19}{subsection.4.2}% 
