@@ -1,14 +1,25 @@
 \babel@toc {english}{}
-\contentsline {section}{\numberline {1}Markov Chain Probabilities}{2}{section.1}% 
-\contentsline {subsection}{\numberline {1.1}Markov Chain examples}{2}{subsection.1.1}% 
-\contentsline {subsection}{\numberline {1.2}Elementary Computations}{3}{subsection.1.2}% 
-\contentsline {subsection}{\numberline {1.3}Recurrence and Transience}{4}{subsection.1.3}% 
-\contentsline {subsection}{\numberline {1.4}Communicating States and Irreducibility}{7}{subsection.1.4}% 
-\contentsline {section}{\numberline {2}Markov Chain Convergence}{12}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Stationary Distributions}{12}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Searching for Stationary}{12}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Obstacles to Convergence}{14}{subsection.2.3}% 
-\contentsline {subsection}{\numberline {2.4}Convergence Theorem}{15}{subsection.2.4}% 
+\contentsline {section}{\numberline {1}Preliminary}{2}{section.1}% 
+\contentsline {section}{\numberline {2}Markov Chain Probabilities}{2}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Markov Chain examples}{2}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Elementary Computations}{3}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Recurrence and Transience}{4}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.4}Communicating States and Irreducibility}{7}{subsection.2.4}% 
+\contentsline {section}{\numberline {3}Markov Chain Convergence}{12}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Stationary Distributions}{12}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Searching for Stationary}{12}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Obstacles to Convergence}{14}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Convergence Theorem}{15}{subsection.3.4}% 
 \contentsline {paragraph}{Proof of Markov Chain Convergence Theorem}{16}{section*.38}% 
-\contentsline {subsection}{\numberline {2.5}Periodic Convergence}{17}{subsection.2.5}% 
-\contentsline {subsection}{\numberline {2.6}Application - Random Walks on Graphs}{17}{subsection.2.6}% 
+\contentsline {subsection}{\numberline {3.5}Periodic Convergence}{17}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Application - MCMC Algorithms}{17}{subsection.3.6}% 
+\contentsline {subsection}{\numberline {3.7}Application - Random Walks on Graphs}{17}{subsection.3.7}% 
+\contentsline {subsection}{\numberline {3.8}Application - Gambler's Ruin}{18}{subsection.3.8}% 
+\contentsline {paragraph}{The Gambler's Ruin question}{18}{section*.45}% 
+\contentsline {subsection}{\numberline {3.9}Mean Recurrence Times}{20}{subsection.3.9}% 
+\contentsline {subsection}{\numberline {3.10}Application - Sequence Waiting Times}{21}{subsection.3.10}% 
+\contentsline {paragraph}{Problem}{21}{section*.52}% 
+\contentsline {section}{\numberline {4}Martingales}{21}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Martingale Definitions}{21}{subsection.4.1}% 
+\contentsline {paragraph}{Special case: Markov chain}{22}{section*.53}% 
+\contentsline {subsection}{\numberline {4.2}Stopping Times}{22}{subsection.4.2}% 

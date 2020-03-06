@@ -17,9 +17,9 @@
 \contentsline {subsection}{\numberline {3.2}Topology on Metric Spaces}{14}{subsection.3.2}% 
 \contentsline {subsection}{\numberline {3.3}Compactness and Bolzano-Weierstrass Theorem}{16}{subsection.3.3}% 
 \contentsline {subsection}{\numberline {3.4}Completeness of Metric Spaces}{16}{subsection.3.4}% 
-\contentsline {subsection}{\numberline {3.5}Perfect Sets}{16}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.5}Perfect Sets}{17}{subsection.3.5}% 
 \contentsline {subsection}{\numberline {3.6}Separated and Connected Sets}{17}{subsection.3.6}% 
-\contentsline {subsection}{\numberline {3.7}Baire's Theorem}{17}{subsection.3.7}% 
+\contentsline {subsection}{\numberline {3.7}Baire's Theorem}{18}{subsection.3.7}% 
 \contentsline {subsection}{\numberline {3.8}The Baire Category Theorem}{18}{subsection.3.8}% 
 \contentsline {section}{\numberline {4}Functional Limits and Continuity}{18}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Functional Limits}{18}{subsection.4.1}% 

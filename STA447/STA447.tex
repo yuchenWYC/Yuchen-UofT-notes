@@ -38,6 +38,9 @@
     \maketitle
     \tableofcontents
     \newpage
+    \section{Preliminary}
+    \theorem[\label{Dominated Convergence Theorem}Dominated Convergence Theorem]
+    If $\limit{n} X_n = X$, and there is some random variable $Y$ with $E|Y|<\infty$ and $|X_n| \leq Y$ for all $n$, then $$\limit{n} E(X_n) = E(X)$$
 
 
     \section{Markov Chain Probabilities}
@@ -627,6 +630,9 @@
     
     \corollary[Unique Stationary Corollary] If Markov chain $P$ is \blue{irreducible} (whether periodic or not), then it has at most \tb{one} stationary distribution.
     
+    \subsection{Application - MCMC Algorithms}
+    \improvement[inline]{section missing...}
+    
     \subsection{Application - Random Walks on Graphs}
     Let $V$ be a non-empty finite or countable set. Let $w: V \times V \rightarrow [0, \infty)$ be a symmetric weight function so that $w(u,v) = w(v,u)$. (usual unweighted case: $w(u, v) = 1$ if there is an edge between $u$ and $v$, otherwise $w(u,v) = 0$).\\
     Let $d(u) = \sum_{v \in V} w(u,v)$ be the \under{degree} of the vertex $u$. Assume that $d(u) > 0$ for all $u \in V$ (for example, by giving any isolated point a self-edge).
@@ -643,10 +649,217 @@
     \theorem[Graph Stationary Distribution]
     Consider a random walk on a graph $V$ with degrees $d(u)$. Assume that $Z$ is \blue{finite}. Then if $\pi_u = \frac{d(u)}{Z}$, then $\pi$ is a stationary distribution for this walk. 
     
+    \theorem[Graph Convergence Theorem] For a random walk on a connected non-bipartite graph, if $Z < \infty$, then $\limit{n} \dur{p}{uv}{n} = \frac{d(v)}{Z}$ for all $u, v \in V$, and $\limit{n} P[X_n = v] = \frac{d(v)}{Z}$ (for any initial probabilities).
+    \todo{prove this}
+    
+    \theorem[Graph Average Convergence] For a random walk on any connected graph with $Z < \infty$ (whether bipartite or not), for all $u, v \in V$, 
+    $$\limit{n} \frac{1}{2}[\dur{p}{uv}{n} + \dur{p}{uv}{n+1}] = \frac{d(v)}{Z}$$
+    and
+    $$\limit{n} \frac{1}{n}\sum_{l=1}^n \dur{p}{uv}{l} = \frac{d(v)}{Z}$$
+    \todo{prove this}
+    
+    \subsection{Application - Gambler's Ruin}
+    Consider the following gambling game: \\
+    Let $0 < a < c$ be integers, and let $0 < p < 1$. Suppose player $A$ starts with $a$ dollars, player $B$ starts with $c - a$ dollars, and they repeatedly bet. At each bet, $A$ wins $\$1$ from $B$ with probability $p$, or $B$ wins $\$ 1$ from $A$ with probability $1 - p$.\\
+    If $X_n$ is the amount of money that $A$ has at time $n$, then clearly $X_0 = a$, and $\{X_n\}$ follows a simple random walk.\\
+    Let $T_i = \inf\{n \geq 0: X_n = i\}$ be the first time $A$ has $i$ dollars.
+    \paragraph{The Gambler's Ruin question} What is $P_a(T_c < T_0)$, i.e., what is the probability that $A$ reaches $c$ dollars before losing all their money? \\
+    \ti{Answer: } \blue{Define $s(a) := P_a(T_c < T_0)$}, so that the probability we want to find is a function of the player's initial fortune $a$. Clearly $s(0) = 0$ and $s(c) = 1$.\\
+    For $1 \leq a \leq c - 1$, we have
+    \begin{align*}
+    	s(a) &= P_a(T_c < T_0) \\
+    	&= P_a(T_c < T_0, X_0 + 1) + P_a(T_c < T_0, X_1 = X_0 - 1) \tag{$A$ either wins or loses $\$1$ on the first bet} \\
+    	&= P(X_1 = X_0 + 1)P_a(T_c < T_0 | X_1 = X_0 + 1)+P(X_1 = X_0 - 1)P_a(T_c < T_0 | X_1 = X_0 - 1)\\
+    	&= ps(a+1) + (1-p)s(a-1)
+    \end{align*}
+    This gives $c - 1$ equations for the $c - 1$ unknowns, which can be solved by simple algebra:
+    \begin{align*}
+    	ps(a) + (1-p)s(a) &= ps(a+1) + (1-p)s(a-1) \tag{re-arranging}\\
+    	\implies s(a+1) - s(a) &= \frac{1-p}{p}[s(a) - s(a-1)]\\
+    \end{align*}
+    Suppose $s(1) = x$ for some $x \in \real$, then
+    \begin{align*}
+    	s(1) - s(0) &= x \\
+    	s(2) - s(1) &= \frac{1-p}{p}[s(1) - s(0)] = \frac{1-p}{p}x\\
+    	s(3) - s(2) &= \frac{1-p}{p}[s(2) - s(1)] = \left(\frac{1-p}{p}\right)^2x \\
+    	\implies s(a+1) - s(a) &= \left(\frac{1-p}{p}\right)^ax \quad \tag{for $1 \leq a \leq c$}\\
+    	\implies s(a) &= s(a) - s(0) \\
+    	&= [s(a) - s(a-1)] + [s(a-1) - s(a-2)] + \hdots + [s(1) - s(0)] \\
+    	&= \left[\left(\frac{1-p}{p}\right)^{a-1} + \left(\frac{1-p}{p}\right)^{a-2} + \hdots + \left(\frac{1-p}{p}\right) + 1 \right]x\\
+    	&= \begin{cases}
+    		\left[ \frac{(\frac{1-p}{p})^a - 1}{(\frac{1-p}{p}) - 1} \right] x, \quad &p \neq \frac{1}{2} \\
+    		ax, \quad & p = \frac{1}{2}
+    	\end{cases}
+    \end{align*}
+    Since $s(c) = 1$, we can solve for $x$:
+    $$x = \begin{cases}
+   	\frac{(\frac{1-p}{p}) - 1}{(\frac{1-p}{p})^c - 1}, \quad &p \neq \frac{1}{2}\\
+   	\frac{1}{c}, \quad &p=\frac{1}{2}
+    \end{cases}$$
+	We then obtain our final \tb{Gambler's Ruin formula}:
+	$$\blue{s(a) = \begin{cases}
+    		\frac{(\frac{1-p}{p})^a - 1}{(\frac{1-p}{p})^c - 1} , \quad &p \neq \frac{1}{2} \\
+    		\frac{a}{c}, \quad & p = \frac{1}{2}
+    		\end{cases}}$$
+    \remark
+    We will sometimes write $s(a)$ as $s_{c,p}(a)$, to show the explicit dependence on $c$ and $p$.
+    \example
+    $c = 10,000, a = 9,700, p = 0.5$, then
+    $$s(a) = a/c = 0.97$$
+    \example
+    $c = 10,000, a = 9,700, p = 0.49$, then
+    $$s(a) \approx \frac{1}{163,000}$$
+    
+    \proposition[\label{gb}] Let $T = \min(T_0, T_c)$ be the time when the Gambler's Ruin game ends. Then $P(T > mc) \leq (1-p^c)^m$ where $m \in \mb{Z}^+$ and $P(T = \infty) = 0$, and $\expect{T} < \infty$.
+    \begin{proof}
+    	(1) If the player ever wins $c$ bets in a row, then the game must be over. \\
+    	Then if $T > mc$, then the player has failed to win $c$ bets in a row, despite having $m$ independent attempts to do so.\\
+    	But the probability of winning $c$ bets in a row is $p^c$. So the probability of failing to win $c$ bets in a row is $1 - p^c$. Therefore the probability of failing on $m$ independent attempts is $(1-p^c)^m$, as claimed. \\
+    	(2) Then by continuity of probabilities,
+    	$$P(T = \infty) = \limit{m} P(T>mc) \leq \limit{m}(1-p^c)^m = 0$$
+    	(3) We have
+    	\begin{align*}
+    		E(T) &= \sum_{i=1}^\infty P(T \geq i)\\
+    		&\leq \sum_{i=0}^\infty P(T \geq i)\\
+    		&= P(T \geq 0) + P(T \geq 1) + P(T \geq 2) + P(T \geq 3) + P(T \geq 4) + \hdots \\
+    		&\leq P(T \geq 0) + P(T \geq 0) + \hdots + P(T \geq 0) + P(T \geq c) + P(T \geq c) + \hdots\\
+    		&= \sum_{j=0}^\infty c P(T \geq cj) \\
+    		&\leq \sum_{j=0}^\infty c(1-p^c)^j \\
+    		&= \frac{c}{1-(1-p^c)} \\
+    		&= \frac{c}{p^c} < \infty
+    	\end{align*}
+    \end{proof}
+    
+   \remark This says that, with probability 1 the Gambler's Ruin game must eventually end, and the time it takes to end has finite expected value.
+    
+    \subsection{Mean Recurrence Times}
+    \definition[mean recurrence time] The \under{mean recurrence time} of a state $i$ is
+    $$m_i = E_i(\inf\{n \geq 1: X_n = i\}) = E_i(\tau_i)$$
+    where $\tau_i = \inf\{n \geq 1: X_n = i\}$
+    \remark
+    That is, $m_i$ is the expected value of the time to return from $i$ back to $i$.
+    \definition[positive recurrence and null recurrence]
+    A state is \under{positive recurrent} if $m_i < \infty$. It is \under{null recurrent} if it is \blue{recurrent} but $m_i = \infty$.
+    \theorem[Recurrence Time Theorem] For an irreducible Markov chain, either
+    \begin{enumerate}
+    	\item $m_i < \infty$ for all $i \in S$, and there is a \red{unique} stationary distribution given by $\pi_i = 1/m_i$; or
+    	\item $m_i = \infty$ for all $i \in S$, and there is \red{no} stationary distribution.
+    \end{enumerate}
+    
+    \proposition An irreducible Markov chain on a \blue{finite} state space $S$ always falls into case $(i)$ above:\\
+    $m_i < \infty$ for all $i \in S$, and there is a \red{unique} stationary distribution given by $\pi_i = 1/m_i$.
+    \remark
+    The converse is false: There could be an example that has infinite state space $S = \mb{N}$, but still has a stationary distribution, so it falls into case $(i)$.
+    \subsection{Application - Sequence Waiting Times}
+    \paragraph{Problem}
+    Suppose we repeatedly flip a fair coin and get Heads(H) or Tails(T) independently each time with probability $1/2$ each. Let $\tau$ be the first time the sequence $HTH$ is completed. What is $E[\tau]$?\\
+    To find $E[\tau]$, we can use Markov chains.\\
+    Let $X_n$ be the partial amount of the desired sequence ($HTH$) that the chain has ``achieved so far" after $n$ flips. Then we always have $X_\tau = 3$, since we ``win" upon reaching state 3. Assume we ``start over" right after we win ($X_{\tau + 1} = 1$ if flip ($\tau + 1$) is Heads, otherwise $X_{\tau+1} = 0$). Also, we take $X_0 = 0$, i.e., at the beginning we have not achieved any of the sequence.\\
+    Here, $\{X_n\}$ is a Markov chain with state space $S= \{0, 1, 2, 3\}$ and $P = \begin{pmatrix}
+    	1/2 & 1/2 & 0 & 0\\
+    	0 & 1/2 & 1/2 & 0\\
+    	1/2 & 0 & 0 & 1/2\\
+    	1/2 & 1/2 & 0 & 0
+    \end{pmatrix}$. \blue{The mean waiting time of $HTH$ is thus equal to the mean recurrence time of state $3$.}\\
+    Using the equation $\pi P = \pi$, it can be computed that the stationary distribution is $(0.3, 0.4, 0.2, 0.1)$. Therefore, by the Recurrence Time Theorem, the mean time to return from state 3 to state 3 (has the same probability as going from state 0 to state 3) is $1/\pi_3 = 10$.
+    
+    
+    \section{Martingales}
+    Roughly speaking, martingales are stochastic processes which ``stays the same on average".
+    \subsection{Martingale Definitions}
+    For a formal definition, let $\{X_n\}_{n=0}^\infty$ be a sequence of random variables. We assume throughout that random variables $X_n$ have \tb{finite expectation} (or are \tb{integrable}): $E|X_n| < \infty \quad \forall n$.
+    \definition[Martingale]
+    A sequence $\{X_n\}_{n=0}^\infty$ is a \under{martingale} if for all $n$,
+    $$E(X_{n+1}|X_0, \hdots, X_n) = X_n$$
+    \remark
+    No matter what has happened so far, the average of the next value will be equal to the most recent one. \\
+    \paragraph{Special case: Markov chain}
+    If the sequence $\{X_n\}$ is a Markov chain, then we have
+    \begin{align*}
+    	E[X_{n+1} | X_0 = i_0, \hdots, X_n = i_n] &= \sum_{j \in S}jP[X_{n+1} | X_0 = i_0, \hdots, X_n = i_n]\\
+    	&= \sum_{j}jP[X_{n+1} |X_n = i_n] \\
+    	&= \sum_{j}jp_{i_n,j}
+    \end{align*}
+    To be a martingale, this value must equal $i_n$. That is, a Markov chain (with $E|X_n| < \infty$) is a martingale if
+    $$\sum_{j \in S}jp_{ij} = i$$ for all $i \in S$.
+    \example[simple symmetric random walk]
+    Let $\{X_n\}$ be s.s.r.w. with $p = 1/2$. We always have $|X_n| \leq n$, so $E|X_n| \leq n < \infty$, so there is no problem with finite expectations.\\
+    For all $i \in S$, we compute that $\sum_{j \in S}jp_{ij} = (i+1)(1/2) + (i-1)(1/2) = i$, so s.s.r.w. is indeed a martingale.
+    \proposition If $\{X_n\}$ is a martingale, then by the Law of Total Expectation,
+    $$E(X_{n+1}) = E[E(X_{n+1}|X_0, X_1, \hdots, X_n)] = E(X_n)$$
+    $$\implies E(X_n) = E(X_0) \quad \forall n$$
+    This is not surprising, since martingales stay the same on average. However, this is not a sufficient condition for $\{X_n\}$ to be a martingale.
+    \subsection{Stopping Times}
+    We often want to consider $E(X_T)$ for a random time $T$. We need to prevent the random time $T$ from looking into the future of the process, before deciding whether to stop.
+    \definition[stopping time] A non-negative-integer-valued random variable $T$ is a \under{stopping time} for $\{X_n\}$ if the event $\{T = n\}$ is determined by $X_0, X_1, \hdots, X_n$, i.e. if the indicator function $\id{T=n}$ is a function of $X_0, X_1, \hdots, X_n$.
+    \remark
+    Intuitively, this definition says that a stopping time $T$ must decide whether to stop at time $n$ based solely on what has happened up to time $n$, without first looking into the future.
+    \example
+    valid stopping times:\\
+    $T=5, T=\inf\{n \geq 0: X_n = 5\}, T = \inf \{n \geq 0: X_n = 0 \lor X_n = c\}, T = \inf \{n \geq 2: X_{n-2} = 5\}$
+    not valid stopping time:
+    $T = \inf\{n \geq 0: X_{n+1} = 5\}$ (since it looks into the future)
+    \lemma[Optional Stopping Lemma] If $\{X_n\}$ is a martingale, and $T$ is a stopping time which is \blue{bounded} (i.e., $\exists M < \infty$ with $P(T \leq M) = 1$), then 
+    $$E(X_T) = E(X_0)$$
+    \todo{prove this!}
+    \example
+    Consider s.s.r.w. with $X_0 = 0$, and let
+    $$T = \min\{ 10^{12}, \inf\{ n \geq 0: X_n = -5\}$$
+    Then $T$ is a bounded stopping time. Hence by the Optional Stopping Lemma, 
+    $$E(X_T) = E(X_0) = E(0) = 0$$
+    But near always, we will have $X_T = -5$.\\
+    By the Law of Total Expectation,
+    \begin{align*}
+    	0 &= E(X_T) \\
+    	&= \underbrace{P(X_T = -5)}_{\approx 1}\underbrace{E(X_T|X_T = -5)}_{=-5} + \underbrace{P(X_T \neq -5)}_{\approx 0}\underbrace{E(X_T|X_T \neq -5)}_{huge}
+    \end{align*}
+    \theorem[Optional Stopping Theorem] If $\{X_n\}$ is a martingale with stopping time $T$, and $P(T < \infty) = 1$, and $E|X_T| < \infty$, and $\limit{n} E(X_n \id{T > n}) = 0$, then
+    $$E(X_T) = E(X_0)$$
+    \begin{proof}
+    	For each $m \in \mb{N}$, let $S_m = \min\{T, m\}$, so that $S_m$ is a bounded stopping time. \\
+    	Then by Optional Stopping Lemma, $E(X_{S_m}) = E(X_0)$ (for any $m$). \\
+    	Then for any $m$,
+    	\begin{align*}
+    		X_{S_m} &= X_{\min(T,m)} \\
+    		&= X_T\id{T\leq m} + X_m\id{T>m} \\
+    		&= X_T(1 - \id{T>m}) + X_m\id{T>m} \\
+    		&= X_T - X_T\id{T>m} + X_m\id{T>m} \\
+    		\implies X_T &= X_{S_m} + X_T\id{T>m} - X_m\id{T>m} \\
+    		\implies E(X_T) &= E(X_{S_m}) + E(X_T\id{T>m}) - E(X_m\id{T>m}) \\
+    		&= E(X_0) + E(X_T\id{T>m}) - E(X_m\id{T>m})
+    	\end{align*}
+    	Take $m\rightarrow \infty$. Since $P(T<\infty) = 1$, we have $\id{T>m} \rightarrow 0$.\\
+    	Since $E|X_T| < \infty$ and $\id{T>m} \rightarrow 0$, we have
+    	$$\limit{m} E(X_T\id{T>m}) = 0$$
+    	by the Dominated Convergence Theorem \ref{Dominated Convergence Theorem} \\
+    	Also, $\limit{m}E(X_m\id{T>m}) = 0$ by assumption.\\ 
+    	Hence $E(X_T) \rightarrow E(X_0)$, i.e. $E(X_T) = E(X_0)$.
+    \end{proof}
+    \corollary[\label{Optional Stopping Corollary}Optional Stopping Corollary] If $\{X_n\}$ is a martingale with stopping time $T$, which is ``bounded up to time $T$" (i.e., $\exists M < \infty$ with $P(|X_n|\id{n\leq T} \leq M) = 1$ for all $n$), and $P(T<\infty) = 1$, then 
+    $$E(X_T) = E(X_0)$$
+    \begin{proof}
+    	It follows that, $P(|X_T| \leq M) = 1$.\\
+    	Hence, $E|X_T| \leq M < \infty$.\\
+    	Also, 
+    	\begin{align*}
+    		|E(X_n\id{T>n})| &\leq E(|X_n|\id{T>n})\\
+    		&= E(|X_n|\id{n\leq T}\id{T>n})\\
+    		&\leq E(M\id{T>n}) \\
+    		&= MP(T>n) \rightarrow 0 \tag{Since $P(T<\infty) = 1$}
+    	\end{align*}
+    	Hence the result follows from the Optional Stopping Theorem.
+    \end{proof}
+    
+    \example[Gambler's Ruin problem - $p = 1/2$]
+    Let $T = \inf\{ n \geq 0:X_n \lor X_n = c\}$ be the time when the game ends. Then $P(T<\infty) = 1$ by Proposition \ref{gb}. Also, if the game has not yet ended, i.e. $n \leq T$, then $X_n$ must be between $0$ and $c$. Hence $|X_n|\id{n \leq T}\leq c < \infty$ for all $n \leq T$.\\
+    So by the Optional Stopping Corollary \ref{Optional Stopping Corollary}, $E(X_T) = cs(a) + 0(1-s(a) = E(X_0) = a \implies s(a) = a/c$.
+    \example[Gambler's Ruin problem - $p \neq 1/2$]
     
     
     
-   
+    
+    
+    
     
     
     

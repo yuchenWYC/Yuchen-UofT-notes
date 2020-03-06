@@ -20,13 +20,6 @@
 	prependcaption,
 	textsize=tiny
 ]{todonotes}
-\newcommandx{\note}[2][1=]{\todo[linecolor=Thistle,backgroundcolor=Thistle!25,bordercolor=Thistle,#1]{#2}}
-\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
-\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
-\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
-\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
-
-
 
 \usepackage{../raina}
 % Property settings.
@@ -648,11 +641,130 @@ As the number of samples of $R$ increases, the variance of $\hat{E}$ will decrea
 	\end{align*}
 \end{proof} 
 
+\section{Stochastic Variational Inference}
+\subsection{the TrueSkill latent variable model}
+A player ranking system for competitive games.\\
+Inferring the skill of a set of players in a competitive game, based only on observing who beats who when they play against each other.  We initially don't know anything about anyone's skill, for simplicity we start with an independent Gaussian prior.
 
+\remark
+We never get to observe the player's skill directly, which make this a \ti{latent variable model}. Instead, we observe the outcome of a series of matches between different players.
 
+\paragraph{the model}
+Each player has a fixed level of skill, denoted $z_i$.\\
+For each game, the probability that player $i$ beats player $j$ is given by
+$$\sigma(z_i - z_j)$$
+where sigma is the logistic function $\sigma(y) = \frac{1}{1 + \exp{(-y)}}$. So we have
+$$p(i \text{ beats } j|z_i, z_j) = \frac{1}{1 + \exp{(-(z_i - z_j))}}$$
 
+\remark
+\ti{The exact form of the prior and likelihood aren't particularly important, as long as the higher the skill level, the higher the chance of winning each game.}\\
+We can write the entire joint likelihood of set of players and games as:
+$$p(z_1, z_2, \hdots, z_N, g_1, g_2, \hdots, g_T) = \left[ \prod_{i=1}^N p(z_i)\right] \left[
+ \prod_{player_i, player_j \in g_k} p( i \text{ beats }j |z_i, z_j)\right]$$
+Computing the posterior over two player's skills requires integrating over all the other players' skills
+$$p(z_1, z_2|g_1, g_2, \hdots,g_T) = p(z_1, z_2|x) = \int \hdots \int p(z_1, z_2, \hdots, z_N|x)\,dz_3 \hdots dz_N$$
+where $x$ is a $N \times 2$ matrix and stores $(i, j)$ pairs that $i$ beats $j$.
 
+\subsection{Posterior Inference in Latent Variable Models}
+Consider the probabilistic model $p(x,z)$ where
+\begin{itemize}
+	\item $x_{1:T}$ are the observations
+	\item $z_{1:N}$ are the unobserved latent variables
+\end{itemize}
+The conditional distribution of the unobserved variables given the observed variables (the posterior inference) is
+$$p(z|x) = \frac{p(x|z)}{p(x)} = \frac{p(x|z)p(z)}{\int p(x,z)\,dz}$$
+which we will denote as $p_\theta(x)$.\\
+\blue{Whenever the number of values that $z$ can take is large, the computation $\int p(x,z)\,dz$ is intractable, making the computation of the conditional distribution itself intractable. Thus we have to use approximate inference.}
 
+\subsubsection{Approximating the Posterior Inference with Variational Methods}
+Approximating the Posterior Inference with Variational Methods works as follows:
+\begin{enumerate}
+	\item Introduce a variational family $q_\phi(z)$ with parameters $\phi$.
+	\item Encode some notion of 	``distance" between $p(z|x)$ and $q_\phi(z)$.
+	\item Minimize this distance.
+\end{enumerate}
+
+\remark
+This turns Bayesian Inference into an optimization problem. If enough parts parts of our model are differentiable and well-approximated by simple Monte Carlo, we can use stochastic gradient descent to solve this optimization problem scalably.
+
+\subsubsection{Kullback-Leibler Divergence}
+We will measure the distance between $q_\phi$ and $p$ using Kullback-Leibler divergence:
+
+\begin{align*}
+	D_{KL}(q_\phi(z|x)||p(z_x)) &= \int q_\phi(z|x) \log \frac{q_\phi(z|x)}{p(z|x)} dz\\
+	&= \underset{z \sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(z|x)}
+\end{align*}
+\todo{Ask about notation: how can we expand expectation like this?}
+
+\property
+Properties of the KL Divergence:
+\begin{enumerate}
+	\item $D_{KL}(q_\phi ||p) \geq 0$
+	\item $D_{KL}(q_\phi ||p) = 0 \iff q_\phi = p$
+	\item $D_{KL}(q_\phi ||p) \neq D_{KL}(p||q_\phi)$
+\end{enumerate}
+
+\remark
+The significance of the last property is that $D_{KL}$ is \red{not} a true distance measure.
+
+\paragraph{Variational Objective}
+We want to approximate $p$ by finding a $q_\phi$ s.t.
+$$q_\phi \approx p \implies D_{KL}(q_\phi || p) = 0$$
+In other words, we want to find $\phi^*$ s.t. 
+$$\phi^* = \arg \min_\phi D_{KL}[q_\phi || p]$$
+\remark
+\red{The computation of $D_{KL}(q_\phi||p)$ is intractable, because it contains the term $p(z|x)$.}
+
+\paragraph{Evidence Lower Bound (ELBO)}
+\begin{align*}
+	D_{KL}(q_\phi(z|x)||p(z|x)) &= \underset{z \sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(z|x)} \\
+	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( q_\phi(z|x) \cdot \frac{p(x)}{p(z,x)}\right) \right ] \\
+	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( \frac{q_\phi(z|x)}{p(z,x)}\cdot p(x) \right )\right ] \\
+	&= \underset{z \sim q_\phi}{\mb{E}} \log \frac{q_\phi (z|x)}{p(z,x)} + \underset{z \sim q_\phi}{\mb{E}} \log p(x) \\
+	&= - \underbrace{\mc{L}(\phi;x)}_{ELBO} + \log p(x)
+\end{align*}
+\tb{Claim:} Maximizing the ELBO $\implies$ minimizing $D_{KL}(q_\phi || p)$.
+\begin{proof}
+	Rearranging, we get
+	\begin{align*}
+		D_{KL}(q_\phi(z|x)||p(z|x)) &= -\mc{L}(\phi;x) + \log p(x) \\
+		\implies \mc{L}(\phi;x) + D_{KL}(q_\phi(z|x)||p(z|x)) &= \log p(x)
+	\end{align*}
+	Since $D_{KL}(q_\phi(z|x)||p(z|x)) \geq 0$, we have
+	$$\mc{L}(\phi;x) \leq \log p(x)$$
+	Therefore, maximizing the ELBO $\implies$ minimizing $D_{KL}(q_\phi || p)$.
+\end{proof} 
+\paragraph{Optimizing the ELBO}
+We have
+\begin{align*}
+	\mc{L}(\phi;x) &=  -\underset{z \sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(x,z)}\\
+	&= \underset{z \sim q_\phi}{\mb{E}}\left[ \log p(x,z) - \log q_\phi (z|x)\right]
+\end{align*}
+If we want to optimize this with gradient methods, we will need to compute $\nabla_\phi \mc{L}(\phi)$:
+$$\nabla_\phi \mc{L}(\phi) = \nabla_\phi \underset{z \sim q_\phi(z|x)}{\mb{E}}\left[ \log p(x,z) - \log q_\phi (z|x)\right]$$
+
+\paragraph{Pathwise Gradient}
+In general, we cannot switch the derivative and the expectation (an integral), if the distribution we are taking the expectation over ($q_\phi(z|x)$) depends on the parameter ($\phi$). \\
+So we need to factor out the randomness from $q$ and put it into a parameterless, fixed source of noise $p(\epsilon)$. To do this, we need to find a function $T(\epsilon, \phi)$ such that:
+$$\epsilon \sim p(\epsilon), \, z = T(\epsilon, \phi) \implies z \sim q_\phi(z)$$
+\remark
+\ti{Usually we start with $p(\epsilon)$ being uniform or Normal. It's not always easy to find these functions.}
+\example
+$$\epsilon \sim \mc{N}(0,1),\,z = \sigma \epsilon + \mu \implies z \sim \mc{N}(\mu, \sigma)$$
+Using this trick, we can write our expectation:
+\begin{align*}
+	\nabla_\phi \mc{L}(\phi) &= \nabla_\phi \mb{E}_{z \sim q_\phi(z|x)}\left[ \log p(x,z) - \log q_\phi (z|x)\right] \\
+	&= \nabla_\phi \mb{E}_{\epsilon \sim p(\epsilon)} \left[ \log p(x, T(\phi, \epsilon)) - \log q_\phi (T(\phi, \epsilon |x)\right]\\
+	&= \mb{E}_{\epsilon \sim p(\epsilon)} \nabla_\phi \left[ \log p(x, T(\phi, \epsilon)) - \log q_\phi (T(\phi, \epsilon |x)\right]
+\end{align*}
+Now we have a differentiable function that we can estimate with simple Monte Carlo. 
+
+\remark
+Some notable extensions:
+\begin{enumerate}
+	\item We can make $q_\phi$ arbitrarily expressive, for instance using a mixture of Gaussians, or a normalizing flow.
+	\item We can fit both $\phi$ and parameters of $p(z|x)$ at the same time.
+\end{enumerate}
 
 
 

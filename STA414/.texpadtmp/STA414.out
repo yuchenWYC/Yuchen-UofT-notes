@@ -25,3 +25,8 @@
 \BOOKMARK [2][-]{subsection.5.3}{Sampling}{section.5}% 25
 \BOOKMARK [3][-]{subsubsection.5.3.1}{Ancestral Sampling}{subsection.5.3}% 26
 \BOOKMARK [2][-]{subsection.5.4}{Simple Monto Carlo}{section.5}% 27
+\BOOKMARK [1][-]{section.6}{Stochastic Variational Inference}{}% 28
+\BOOKMARK [2][-]{subsection.6.1}{the TrueSkill latent variable model}{section.6}% 29
+\BOOKMARK [2][-]{subsection.6.2}{Posterior Inference in Latent Variable Models}{section.6}% 30
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Approximating the Posterior Inference with Variational Methods}{subsection.6.2}% 31
+\BOOKMARK [3][-]{subsubsection.6.2.2}{Kullback-Leibler Divergence}{subsection.6.2}% 32

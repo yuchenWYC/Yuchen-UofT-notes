@@ -1,12 +1,20 @@
-\BOOKMARK [1][-]{section.1}{Markov Chain Probabilities}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Markov Chain examples}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{Elementary Computations}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{Recurrence and Transience}{section.1}% 4
-\BOOKMARK [2][-]{subsection.1.4}{Communicating States and Irreducibility}{section.1}% 5
-\BOOKMARK [1][-]{section.2}{Markov Chain Convergence}{}% 6
-\BOOKMARK [2][-]{subsection.2.1}{Stationary Distributions}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.2}{Searching for Stationary}{section.2}% 8
-\BOOKMARK [2][-]{subsection.2.3}{Obstacles to Convergence}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.4}{Convergence Theorem}{section.2}% 10
-\BOOKMARK [2][-]{subsection.2.5}{Periodic Convergence}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.6}{Application - Random Walks on Graphs}{section.2}% 12
+\BOOKMARK [1][-]{section.1}{Preliminary}{}% 1
+\BOOKMARK [1][-]{section.2}{Markov Chain Probabilities}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Markov Chain examples}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Elementary Computations}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Recurrence and Transience}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Communicating States and Irreducibility}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Markov Chain Convergence}{}% 7
+\BOOKMARK [2][-]{subsection.3.1}{Stationary Distributions}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.2}{Searching for Stationary}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Obstacles to Convergence}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.4}{Convergence Theorem}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.5}{Periodic Convergence}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.6}{Application - MCMC Algorithms}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.7}{Application - Random Walks on Graphs}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.8}{Application - Gambler's Ruin}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.9}{Mean Recurrence Times}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.10}{Application - Sequence Waiting Times}{section.3}% 17
+\BOOKMARK [1][-]{section.4}{Martingales}{}% 18
+\BOOKMARK [2][-]{subsection.4.1}{Martingale Definitions}{section.4}% 19
+\BOOKMARK [2][-]{subsection.4.2}{Stopping Times}{section.4}% 20

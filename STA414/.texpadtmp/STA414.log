@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  10 FEB 2020 20:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  29 FEB 2020 16:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -318,20 +318,6 @@ Package: amsthm 2017/10/31 v2.20.4
 \thm@postskip=\skip58
 \thm@headsep=\skip59
 \dth@everypar=\toks35
-)
-\c@definition=\count121
-\c@theorem=\count122
-\c@notation=\count123
-\c@corollary=\count124
-\c@lemma=\count125
-\c@proposition=\count126
-\c@remark=\count127
-\c@assumption=\count128
-\c@example=\count129
-\c@property=\count130
-\c@axiom=\count131
-\c@rules=\count132
-\c@fact=\count133
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/todonotes/todonotes.sty
 Package: todonotes 2019/01/24 v1.1.2 Todonotes source and documentation.
 Package: todonotes 2018/11/22
@@ -367,14 +353,14 @@ Package: pgfsys 2019/04/04 v3.1.2 (3.1.2)
 \pgf@yc=\dimen137
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
-\c@pgf@counta=\count134
-\c@pgf@countb=\count135
-\c@pgf@countc=\count136
-\c@pgf@countd=\count137
+\c@pgf@counta=\count121
+\c@pgf@countb=\count122
+\c@pgf@countc=\count123
+\c@pgf@countd=\count124
 \t@pgf@toka=\toks40
 \t@pgf@tokb=\toks41
 \t@pgf@tokc=\toks42
-\pgf@sys@id@count=\count138
+\pgf@sys@id@count=\count125
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2019/04/04 v3.1.2 (3.1.2)
 )
@@ -385,8 +371,8 @@ File: pgfsys-pdftex.def 2019/04/04 v3.1.2 (3.1.2)
 File: pgfsys-common-pdf.def 2019/04/04 v3.1.2 (3.1.2)
 ))) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2019/04/04 v3.1.2 (3.1.2)
-\pgfsyssoftpath@smallbuffer@items=\count139
-\pgfsyssoftpath@bigbuffer@items=\count140
+\pgfsyssoftpath@smallbuffer@items=\count126
+\pgfsyssoftpath@bigbuffer@items=\count127
 )
 (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
 File: pgfsysprotocol.code.tex 2019/04/04 v3.1.2 (3.1.2)
@@ -394,13 +380,13 @@ File: pgfsysprotocol.code.tex 2019/04/04 v3.1.2 (3.1.2)
 Package: pgfcore 2019/04/04 v3.1.2 (3.1.2)
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen138
-\pgfmath@count=\count141
+\pgfmath@count=\count128
 \pgfmath@box=\box33
 \pgfmath@toks=\toks43
 \pgfmath@stack@operand=\toks44
 \pgfmath@stack@operation=\toks45
 ) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithmetics.code.tex))) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count142
+\c@pgfmathroundto@lastzeros=\count129
 )) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
 File: pgfcorepoints.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \pgf@picminx=\dimen139
@@ -430,7 +416,7 @@ File: pgfcorescopes.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \pgfpic=\box34
 \pgf@hbox=\box35
 \pgf@layerbox@main=\box36
-\pgf@picture@serial@count=\count143
+\pgf@picture@serial@count=\count130
 ) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.tex
 File: pgfcoregraphicstate.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \pgflinewidth=\dimen157
@@ -452,8 +438,8 @@ File: pgfcorearrows.code.tex 2019/04/04 v3.1.2 (3.1.2)
 ) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \pgf@max=\dimen162
-\pgf@sys@shading@range@num=\count144
-\pgf@shadingcount=\count145
+\pgf@sys@shading@range@num=\count131
+\pgf@shadingcount=\count132
 ) (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2019/04/04 v3.1.2 (3.1.2)
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
@@ -489,7 +475,7 @@ Package: pgffor 2019/04/04 v3.1.2 (3.1.2)
 Package: tikz 2019/04/04 v3.1.2 (3.1.2)
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2019/04/04 v3.1.2 (3.1.2)
-\pgf@plot@mark@count=\count146
+\pgf@plot@mark@count=\count133
 \pgfplotmarksize=\dimen167
 )
 \tikz@lastx=\dimen168
@@ -502,17 +488,17 @@ File: pgflibraryplothandlers.code.tex 2019/04/04 v3.1.2 (3.1.2)
 \tikz@figbox@bg=\box40
 \tikz@tempbox=\box41
 \tikz@tempbox@bg=\box42
-\tikztreelevel=\count147
-\tikznumberofchildren=\count148
-\tikznumberofcurrentchild=\count149
-\tikz@fig@count=\count150
+\tikztreelevel=\count134
+\tikznumberofchildren=\count135
+\tikznumberofcurrentchild=\count136
+\tikz@fig@count=\count137
  (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2019/04/04 v3.1.2 (3.1.2)
-\pgfmatrixcurrentrow=\count151
-\pgfmatrixcurrentcolumn=\count152
-\pgf@matrix@numberofcolumns=\count153
+\pgfmatrixcurrentrow=\count138
+\pgfmatrixcurrentcolumn=\count139
+\pgf@matrix@numberofcolumns=\count140
 )
-\tikz@expandcount=\count154
+\tikz@expandcount=\count141
 
 (/usr/local/texlive/2019/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2019/04/04 v3.1.2 (3.1.2)
@@ -526,37 +512,51 @@ File: tikzlibraryfadings.code.tex 2019/04/04 v3.1.2 (3.1.2)
 File: pgflibraryfadings.code.tex 2019/04/04 v3.1.2 (3.1.2)
 ))) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count155
-\calc@Bcount=\count156
+\calc@Acount=\count142
+\calc@Bcount=\count143
 \calc@Adimen=\dimen174
 \calc@Bdimen=\dimen175
 \calc@Askip=\skip60
 \calc@Bskip=\skip61
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count157
+\calc@Ccount=\count144
 \calc@Cskip=\skip62
 )
-\c@@todonotes@numberoftodonotes=\count158
+\c@@todonotes@numberoftodonotes=\count145
+)
+\c@definition=\count146
+\c@theorem=\count147
+\c@notation=\count148
+\c@corollary=\count149
+\c@lemma=\count150
+\c@proposition=\count151
+\c@remark=\count152
+\c@assumption=\count153
+\c@example=\count154
+\c@property=\count155
+\c@axiom=\count156
+\c@rules=\count157
+\c@fact=\count158
 )
 \c@pp@a@footnote=\count159
  (/Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.aux)
 \openout1 = `STA414.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -618,7 +618,7 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \AtBeginShipoutBox=\box44
-Package hyperref Info: Link coloring OFF on input line 44.
+Package hyperref Info: Link coloring OFF on input line 36.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -626,170 +626,170 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count166
 )
-LaTeX Info: Redefining \ref on input line 44.
-LaTeX Info: Redefining \pageref on input line 44.
-LaTeX Info: Redefining \nameref on input line 44.
+LaTeX Info: Redefining \ref on input line 36.
+LaTeX Info: Redefining \pageref on input line 36.
+LaTeX Info: Redefining \nameref on input line 36.
  (/Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.out) (/Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.out)
 \@outlinefile=\write4
 \openout4 = `STA414.out'.
 
  ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for U+msa on input line 46.
+LaTeX Font Info:    Try loading font information for U+msa on input line 38.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 46.
+LaTeX Font Info:    Try loading font information for U+msb on input line 38.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+esint on input line 46.
+LaTeX Font Info:    Try loading font information for U+esint on input line 38.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/esint/uesint.fd
 File: uesint.fd 
-) (/Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.toc)
+) (/Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.toc [1
+
+{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write5
 \openout5 = `STA414.toc'.
 
- [1
-
-{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 71.
+ [2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 63.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 71.
- [2]
-Underfull \hbox (badness 10000) in paragraph at lines 106--109
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 63.
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 98--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--115
+Underfull \hbox (badness 10000) in paragraph at lines 104--107
 
  []
 
-[3] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 179--182
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 242--245
+[4] [5]
+Underfull \hbox (badness 10000) in paragraph at lines 171--174
 
  []
 
 [6]
-<p3.png, id=229, 1192.455pt x 188.705pt>
-File: p3.png Graphic file (type png)
-<use p3.png>
-Package pdftex.def Info: p3.png  used on input line 268.
-(pdftex.def)             Requested size: 357.73926pt x 56.61192pt.
- [7 <./p3.png>]
-<p4.png, id=242, 683.55376pt x 315.1775pt>
-File: p4.png Graphic file (type png)
-<use p4.png>
-Package pdftex.def Info: p4.png  used on input line 284.
-(pdftex.def)             Requested size: 205.0677pt x 94.55397pt.
-<p5.png, id=243, 932.48375pt x 407.5225pt>
-File: p5.png Graphic file (type png)
-<use p5.png>
-Package pdftex.def Info: p5.png  used on input line 301.
-(pdftex.def)             Requested size: 279.74728pt x 122.25769pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 303--305
+Underfull \hbox (badness 10000) in paragraph at lines 234--237
 
  []
 
-[8 <./p4.png> <./p5.png>]
-<p6.png, id=252, 860.21375pt x 1016.79875pt>
+[7]
+<p3.png, id=259, 1192.455pt x 188.705pt>
+File: p3.png Graphic file (type png)
+<use p3.png>
+Package pdftex.def Info: p3.png  used on input line 260.
+(pdftex.def)             Requested size: 357.73926pt x 56.61192pt.
+ [8 <./p3.png>]
+<p4.png, id=271, 683.55376pt x 315.1775pt>
+File: p4.png Graphic file (type png)
+<use p4.png>
+Package pdftex.def Info: p4.png  used on input line 276.
+(pdftex.def)             Requested size: 205.0677pt x 94.55397pt.
+<p5.png, id=272, 932.48375pt x 407.5225pt>
+File: p5.png Graphic file (type png)
+<use p5.png>
+Package pdftex.def Info: p5.png  used on input line 293.
+(pdftex.def)             Requested size: 279.74728pt x 122.25769pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 295--297
+
+ []
+
+[9 <./p4.png> <./p5.png>]
+<p6.png, id=281, 860.21375pt x 1016.79875pt>
 File: p6.png Graphic file (type png)
 <use p6.png>
-Package pdftex.def Info: p6.png  used on input line 332.
+Package pdftex.def Info: p6.png  used on input line 324.
 (pdftex.def)             Requested size: 258.06612pt x 305.04198pt.
-<p7.png, id=253, 1611.01875pt x 155.58125pt>
+<p7.png, id=282, 1611.01875pt x 155.58125pt>
 File: p7.png Graphic file (type png)
 <use p7.png>
-Package pdftex.def Info: p7.png  used on input line 333.
+Package pdftex.def Info: p7.png  used on input line 325.
 (pdftex.def)             Requested size: 483.30936pt x 46.67473pt.
 
-Overfull \hbox (39.73088pt too wide) in paragraph at lines 332--334
+Overfull \hbox (39.73088pt too wide) in paragraph at lines 324--326
  [] 
  []
 
-[9]
-<p8.png, id=263, 812.03375pt x 367.3725pt>
+[10]
+<p8.png, id=292, 812.03375pt x 367.3725pt>
 File: p8.png Graphic file (type png)
 <use p8.png>
-Package pdftex.def Info: p8.png  used on input line 346.
+Package pdftex.def Info: p8.png  used on input line 338.
 (pdftex.def)             Requested size: 243.612pt x 110.21259pt.
- [10 <./p6.png> <./p7.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 367--369
+ [11 <./p6.png> <./p7.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 359--361
 
  []
 
-<p2.png, id=270, 385.30234pt x 136.48706pt>
+<p2.png, id=299, 385.30234pt x 136.48706pt>
 File: p2.png Graphic file (type png)
 <use p2.png>
-Package pdftex.def Info: p2.png  used on input line 378.
+Package pdftex.def Info: p2.png  used on input line 370.
 (pdftex.def)             Requested size: 231.18317pt x 81.89285pt.
-[11 <./p8.png>] [12 <./p2.png>]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 433.
+[12 <./p8.png>] [13 <./p2.png>]
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 425.
 
 
-LaTeX Warning: Marginpar on page 13 moved.
+LaTeX Warning: Marginpar on page 14 moved.
 
 
-LaTeX Warning: Marginpar on page 13 moved.
+LaTeX Warning: Marginpar on page 14 moved.
 
-[13]
-<p1.png, id=300, 260.975pt x 249.93375pt>
+[14]
+<p1.png, id=330, 260.975pt x 249.93375pt>
 File: p1.png Graphic file (type png)
 <use p1.png>
-Package pdftex.def Info: p1.png  used on input line 447.
+Package pdftex.def Info: p1.png  used on input line 439.
 (pdftex.def)             Requested size: 156.5862pt x 149.9614pt.
 
-Overfull \hbox (18.5179pt too wide) detected at line 462
+Overfull \hbox (18.5179pt too wide) detected at line 454
 []
  []
 
-[14 <./p1.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 478--480
+[15 <./p1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 470--472
 
  []
 
-[15] [16]
+[16] [17]
 File: p2.png Graphic file (type png)
 <use p2.png>
-Package pdftex.def Info: p2.png  used on input line 532.
+Package pdftex.def Info: p2.png  used on input line 524.
 (pdftex.def)             Requested size: 231.18317pt x 81.89285pt.
- [17] [18]
-Underfull \hbox (badness 10000) in paragraph at lines 614--616
+ [18] [19]
+Underfull \hbox (badness 10000) in paragraph at lines 606--608
 
  []
 
-[19] [20] [21]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 666.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 666.
+[20] [21] [22] [23] [24] [25]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 777.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 777.
  (/Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 666.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 666.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 777.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 777.
 Package rerunfilecheck Info: File `STA414.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 666.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 777.
  ) 
 Here is how much of TeX's memory you used:
- 18967 strings out of 492616
- 349944 string characters out of 6129482
- 449169 words of memory out of 5000000
- 22368 multiletter control sequences out of 15000+600000
+ 19015 strings out of 492616
+ 350556 string characters out of 6129482
+ 449337 words of memory out of 5000000
+ 22384 multiletter control sequences out of 15000+600000
  13652 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,15n,81p,522b,987s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,15n,83p,457b,987s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.pdf (21 pages, 729295 bytes).
+Output written on /Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.pdf (25 pages, 750915 bytes).
 PDF statistics:
- 471 PDF objects out of 1000 (max. 8388607)
- 393 compressed objects within 4 object streams
- 137 named destinations out of 1000 (max. 500000)
- 365 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 544 PDF objects out of 1000 (max. 8388607)
+ 461 compressed objects within 5 object streams
+ 169 named destinations out of 1000 (max. 500000)
+ 405 words of extra memory for PDF output out of 10000 (max. 10000000)
 

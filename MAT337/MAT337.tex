@@ -692,7 +692,14 @@ $([0,1], |x-y|)$ is compact.
 \tb{Alternative formation: } Every \blue{bounded} subsequence contains a \blue{convergent subsequence.}
 \remark The theorem is true for $\real^n$ but is false for infinite dimension.
 
-\theorem[Heine-Borel Theorem] A subset $Y$ of a metric space $(X, d)$ is compact if \blue{every open cover $Y \subseteq \bigcup_{i\in I} U_i$ has a finite subcover $Y \subseteq \bigcup_{l=1}^n U_{i_l}$.}
+\theorem[Heine-Borel Theorem]
+Let $K$ be a subset of a metric space $(X, d)$. The following statements are equivalent:
+\begin{enumerate}
+	\item $K$ is compact.
+	\item $K$ is closed and bounded.
+	\item \blue{Every open cover $K \subseteq \bigcup_{i\in I} U_i$ for $K$ has a finite subcover $K \subseteq \bigcup_{l=1}^n U_{i_l}$.}
+
+\end{enumerate}
 
 \subsection{Completeness of Metric Spaces}
 \definition[completeness of metric spaces]
@@ -778,7 +785,7 @@ Baire's Theorem asserts that the only way to make $\real$ from a countable union
 \theorem Let $(X, d)$ be a complete metric space, and let $\{O_n\}$ be a countable collection of dense, open subsets of $X$. Then, $\bigcap_{n=1}^\infty\{O_n\}$ is not empty.
 \todo{prove this}
 \theorem[Baire Category Theorem]
-A complete metric space is not the union of a countable collection of nowhere-dense sets.
+A complete metric space cannot be written as the countable union of nowhere-dense sets.
 \todo{prove this}
 
 \remark
@@ -809,11 +816,11 @@ $a \in \overline{A \setminus \{a\}}, f:A \rightarrow \real$. The following are e
 	We prove $(1) \implies (2)$: \\
 	Assume $\underset{x \rightarrow a}{\lim} f(x) = L$, take arbitrary $(x_n) \subseteq A \setminus \{a\}$ s.t. $x_n \rightarrow a$. \\
 	Let $\epsilon > 0$, then $\exists \delta > 0$ s.t. $0 < |x - a| < \delta \implies |f(x) - L| < \epsilon$. \\
-	Also, $\exists N s.t. n \geq N \implies |x_n - a| < \delta$. \\
+	Also, $\exists N$ s.t. $n \geq N \implies |x_n - a| < \delta$. \\
 	Therefore, if $|x_n - a| < \delta$, then $|f(x_n) - L| < \epsilon$. 
 \end{proof}
 
-\theorem[Algebraic limit theorem for functional limits]
+\theorem[Algebraic Limit Theorem for functional limits]
 Suppose $f, g: A \rightarrow \real, a \in \overline{A \setminus \{a\}}$.\\
 Suppose $\underset{x \rightarrow a}{\lim} f(x) = L, \underset{x \rightarrow a}{\lim} g(x) = M$. Then we have
 \begin{enumerate}
@@ -826,24 +833,21 @@ Suppose $\underset{x \rightarrow a}{\lim} f(x) = L, \underset{x \rightarrow a}{\
 \property[Divergence criterion] Suppose $f: A \rightarrow \real, a \in \overline{A \setminus \{a\}}$ $\underset{x \rightarrow a}{\lim} f(x)$ does not exist if there are two sequences $(x_n), (y_n) \subseteq A \setminus \{a\}$ s.t. $x_n \rightarrow a, y_n \rightarrow a, \limit f(x_n) = L, \limit f(y_n) = M$ exist but $L \neq M$.
 
 \example
-Let $A = \real^+, a = 0, f(x) = \sin(\frac{1}{x})$> \\
-Let $a_n = \frac{1}{2n\pi}, b_n = \frac{1}{2n\pi + \frac{\pi}{2}}$. \\
-Then we have $a_n, b_n \rightarrow a$. Besides, $\limit f(a_n) = 0, \limit f(b_n) = 1$. Hence $\underset{x \rightarrow 0^+}{\lim} \sin(\frac{1}{x}$ does not exist.
+Let $A = \real^+, f(x) = \sin(\frac{1}{x})$. Let $a_n = \frac{1}{2n\pi}, b_n = \frac{1}{2n\pi + \frac{\pi}{2}}$. \\
+Then we have $a_n, b_n \rightarrow 0$. Besides, $\limit f(a_n) = 0, \limit f(b_n) = 1$. Hence $\underset{x \rightarrow 0^+}{\lim} \sin(\frac{1}{x})$ does not exist.
 
 \definition
 Suppose $f: A \rightarrow \real, a \in A \setminus \{a\}$. We define $\underset{x \rightarrow a}{\lim} f(x) = \infty$ iff
 $$\forall M > 0, \exists \delta > 0 \text{ s.t. } 0 < |x - a| < \delta \implies f(x) > M$$
 
-\definition
-We define $\underset{x \rightarrow \infty}{\lim} f(x) = L$ iff
-$$\forall \epsilon > 0, \exists M > 0 \text{ s.t. } x > M \implies |f(x) - L| < \epsilon$$
+
 \subsection{Continuous Functions}
 \definition[continuity]
  Suppose $(X, d_X), (Y, d_Y)$ are metric spaces. $f: X \rightarrow Y$ is \under{continuous} at $a \in X$ if 
  $$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } x \in B_{\delta}^X(a) \implies f(x) \in B_{\epsilon}^Y(f(a))$$
  \remark
  Note that for $X = Y = \real, d(x,y) = |x - y|$, so that we can write
- $$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } |x - a| < \delta \implies |f(x) - f(a)| > \epsilon$$
+ $$\forall \epsilon > 0, \exists \delta > 0 \text{ s.t. } |x - a| < \delta \implies |f(x) - f(a)| < \epsilon$$
  i.e. $$\underset{x \rightarrow a}{\lim} f(x) = f(a)$$
 
 \definition[continuous function]
@@ -862,7 +866,7 @@ The following are equivalent:
 \remark
 \red{Note that we may have $\underset{x \rightarrow a}{\lim} f(x)$ exists but $f$ is discontinuous at $a$.}
 
-\theorem[Algebraic continuous theorem] Suppose $f, g: A \rightarrow \real$ are continuous at $a \in A, c \in \real$. We have
+\theorem[Algebraic Continuous Theorem] Suppose $f, g: A \rightarrow \real$ are continuous at $a \in A, c \in \real$. We have
 \begin{enumerate}
 	\item $cf(x)$ is continuous at $a$
 	\item $f(x) \pm g(x)$ is continuous at $a$
@@ -873,11 +877,10 @@ The following are equivalent:
 \theorem Suppose $f: A \rightarrow B \subseteq \real, g: B \rightarrow \real$. \\
 $(g \circ f)(x) = g(f(x))$ is continuous at $a \in A$ whenever $f$ is continuous at $a$ and $g$ is continuous at $f(a)$.
 
-\theorem Suppose $(X, d_X), (Y, d_Y)$ are metric spaces, $f: X \rightarrow Y$ is continuous. \\
-If $K \subseteq X$ is compact, so is its image $f[K] = \{f(x): x \in K\}$.
+\theorem Suppose $(X, d_X), (Y, d_Y)$ are metric spaces and $f: X \rightarrow Y$ is continuous. \\
+If $K \subseteq X$ is compact, then its image $f[K] = \{f(x): x \in K\}$ is compact.
 
-\theorem Suppose $(X, d_X), (Y, d_Y)$ are metric spaces. \\
-$f^{-1}(F)$ is closed in $X$ whenever $F \subseteq Y$ is closed in $Y$.
+\theorem Suppose $(X, d_X), (Y, d_Y)$ are metric spaces. If $F \subseteq Y$ is closed in $Y$, then $f^{-1}(F)$ is closed in $X$.
 
 \theorem[Extreme Value Theorem]
 If $f: K \rightarrow \real$ is continuous, $K$ is compact, then $\exists x_1, x_2 \in K$ s.t. $\forall x \in K$,
