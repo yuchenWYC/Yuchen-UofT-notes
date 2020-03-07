@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 MAR 2020 14:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 MAR 2020 21:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -654,91 +654,95 @@ File: uesint.fd
  [1
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (22.7916pt too wide) in paragraph at lines 49--51
+Overfull \hbox (22.7916pt too wide) in paragraph at lines 62--64
 [][]\OT1/cmr/bx/n/10.95 Definition 2.1 \OT1/cmr/m/n/10.95 (Markov chain)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 A (dis-crete time, dis-crete space, time ho-mo-ge-neous) $[]$
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 51.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 64.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 51.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 64.
  [2]
-Underfull \hbox (badness 10000) in paragraph at lines 102--104
+Underfull \hbox (badness 10000) in paragraph at lines 115--117
 
  []
 
-[3] [4]
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 236.
+[3] [4]pdfTeX warning (ext4): destination with the same identifier (name{equation.2.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.210     \end{align}
+                     
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 249.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
-) [5pdfTeX warning (ext4): destination with the same identifier (name{equation.2.1}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.236     \end{align*}
-                      ]
+) [5]
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 249.
+(amsmath)                 on input line 262.
 
 [6] [7] [8] [9] [10] [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 488--490
+Underfull \hbox (badness 10000) in paragraph at lines 501--503
 
  []
 
 [13] [14] [15]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 590.
+Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 603.
  [16] [17]
-Overfull \hbox (2.25012pt too wide) detected at line 674
+Overfull \hbox (2.25012pt too wide) detected at line 687
 []
  []
 
 [18] [19] [20]
-Overfull \hbox (6.86742pt too wide) in paragraph at lines 755--765
+Overfull \hbox (6.86742pt too wide) in paragraph at lines 768--778
 \OT1/cmr/m/n/10.95 Here, $\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 g$ \OT1/cmr/m/n/10.95 is a Markov chain with state space $\OML/cmm/m/it/10.95 S \OT1/cmr/m/n/10.95 = \OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 2\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 3\OMS/cmsy/m/n/10.95 g$ \OT1/cmr/m/n/10.95 and $\OML/cmm/m/it/10.95 P \OT1/cmr/m/n/10.95 = []$.
  []
 
 
-Overfull \hbox (22.26466pt too wide) in paragraph at lines 755--765
+Overfull \hbox (22.26466pt too wide) in paragraph at lines 768--778
 \OT1/cmr/m/n/10.95 Using the equa-tion $\OML/cmm/m/it/10.95 ^^YP \OT1/cmr/m/n/10.95 = \OML/cmm/m/it/10.95 ^^Y$\OT1/cmr/m/n/10.95 , it can be com-puted that the sta-tion-ary dis-tri-bu-tion is $(0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 3\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 4\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 2\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 1)$.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 775--776
+Underfull \hbox (badness 10000) in paragraph at lines 788--789
 
  []
 
 [21]
-Overfull \hbox (30.43764pt too wide) in paragraph at lines 794--795
+Overfull \hbox (30.43764pt too wide) in paragraph at lines 807--808
 [][]\OT1/cmr/bx/n/10.95 Definition 4.2 \OT1/cmr/m/n/10.95 (stop-ping time)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 A non-negative-integer-valued ran-dom vari-able $\OML/cmm/m/it/10.95 T$ \OT1/cmr/m/n/10.95 is a $[]$
  []
 
-[22] [23] [24]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 872.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 872.
+[22] [23] [24] [25]
+Overfull \hbox (0.56573pt too wide) in paragraph at lines 921--922
+[][]\OT1/cmr/bx/n/10.95 Theorem 4.2 \OT1/cmr/m/n/10.95 (Mar-tin-gale Con-ver-gence The-o-rem)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 Any non-negative mar-tin-gale $\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 g$ \OT1/cmr/m/n/10.95 ($\OML/cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^U
+ []
+
+[26]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 937.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 937.
  (/Users/raina/Desktop/UofT-notes/STA447/.texpadtmp/STA447.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 872.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 872.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 937.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 937.
 Package rerunfilecheck Info: File `STA447.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 872.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 937.
  ) 
 Here is how much of TeX's memory you used:
- 19066 strings out of 492616
- 351812 string characters out of 6129482
- 457259 words of memory out of 5000000
- 22388 multiletter control sequences out of 15000+600000
+ 19117 strings out of 492616
+ 352703 string characters out of 6129482
+ 458829 words of memory out of 5000000
+ 22417 multiletter control sequences out of 15000+600000
  13415 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,16n,83p,429b,1024s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/STA447/.texpadtmp/STA447.pdf (24 pages, 286202 bytes).
+Output written on /Users/raina/Desktop/UofT-notes/STA447/.texpadtmp/STA447.pdf (26 pages, 296696 bytes).
 PDF statistics:
- 538 PDF objects out of 1000 (max. 8388607)
- 472 compressed objects within 5 object streams
- 217 named destinations out of 1000 (max. 500000)
- 269 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 588 PDF objects out of 1000 (max. 8388607)
+ 519 compressed objects within 6 object streams
+ 239 named destinations out of 1000 (max. 500000)
+ 293 words of extra memory for PDF output out of 10000 (max. 10000000)
 

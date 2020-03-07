@@ -41,6 +41,19 @@
     \section{Preliminary}
     \theorem[\label{Dominated Convergence Theorem}Dominated Convergence Theorem]
     If $\limit{n} X_n = X$, and there is some random variable $Y$ with $E|Y|<\infty$ and $|X_n| \leq Y$ for all $n$, then $$\limit{n} E(X_n) = E(X)$$
+    
+    \definition[weak convergence]
+    $X_n$ converge to $X$ weakly if 
+    $$\forall \epsilon > 0, \limit{n}P(|X_n - X| \geq \epsilon) = 0$$
+   
+    \definition[strong convergence]
+    $X_n$ converge to $X$ strongly if 
+    $$P(\limit{n}X_n = X) = 1$$ 
+    
+    
+    \theorem[\label{Law of Large Numbers}Law of Large Numbers]
+    If the sequence $\{X_n\}$ is i.i.d. with common mean $m$, then the sequence $\frac{1}{n}\sum_{i=1}^n X_i$ converges to $m$ (both weakly and strongly), i.e.,
+    $$\limit{n} \frac{1}{n}\sum_{i=1}^nX_i = m \quad w.p. 1$$ 
 
 
     \section{Markov Chain Probabilities}
@@ -813,7 +826,7 @@
     	0 &= E(X_T) \\
     	&= \underbrace{P(X_T = -5)}_{\approx 1}\underbrace{E(X_T|X_T = -5)}_{=-5} + \underbrace{P(X_T \neq -5)}_{\approx 0}\underbrace{E(X_T|X_T \neq -5)}_{huge}
     \end{align*}
-    \theorem[Optional Stopping Theorem] If $\{X_n\}$ is a martingale with stopping time $T$, and $P(T < \infty) = 1$, and $E|X_T| < \infty$, and $\limit{n} E(X_n \id{T > n}) = 0$, then
+    \theorem[\label{Optional Stopping Theorem}Optional Stopping Theorem] If $\{X_n\}$ is a martingale with stopping time $T$, and $P(T < \infty) = 1$, and $E|X_T| < \infty$, and $\limit{n} E(X_n \id{T > n}) = 0$, then
     $$E(X_T) = E(X_0)$$
     \begin{proof}
     	For each $m \in \mb{N}$, let $S_m = \min\{T, m\}$, so that $S_m$ is a bounded stopping time. \\
@@ -854,13 +867,65 @@
     Let $T = \inf\{ n \geq 0:X_n \lor X_n = c\}$ be the time when the game ends. Then $P(T<\infty) = 1$ by Proposition \ref{gb}. Also, if the game has not yet ended, i.e. $n \leq T$, then $X_n$ must be between $0$ and $c$. Hence $|X_n|\id{n \leq T}\leq c < \infty$ for all $n \leq T$.\\
     So by the Optional Stopping Corollary \ref{Optional Stopping Corollary}, $E(X_T) = cs(a) + 0(1-s(a) = E(X_0) = a \implies s(a) = a/c$.
     \example[Gambler's Ruin problem - $p \neq 1/2$]
+    Then $\{X_n\}$ is not a martingale since 
+    $$\sum_{j}jp_{ij} = p(i+1) + (1-p)(i-1) = i + 2p - 1 \neq i$$
+    Instead we use a trick: Let $Y_n := \left( \frac{1-p}{p}  \right)^{X_n}$, then $\{Y_n\}$ is also a Markov chain, and
+    \begin{align*}
+    	E(Y_{n+1}|Y_0, Y_1, \hdots, Y_n) &= p\left( \frac{1-p}{p}\right)^{X_n + 1} + (1-p)\left( \frac{1-p}{p}   \right)^{X_n - 1} \\
+    	&= p\left[ Y_n \left( \frac{1-p}{p}\right) \right] + (1-p)\left[ Y_n / \left( \frac{1-p}{p}\right) \right] \\
+    	&= Y_n (1-p) + Y_n(p) \\
+    	&= Y_n
+    \end{align*}
+    So $\{Y_n\}$ is a martingale.\\
+    Again, $P(T<\infty) = 1$ by Proposition \ref{gb}. \\
+    Also, $|Y_n|\id{n\leq T} \leq \max\left(  \left( \frac{1-p}{p}\right)^0, \left( \frac{1-p}{p}\right)^c \right) := M < \infty$ for all $n$. Hence by the Optional Stopping Corollary \ref{Optional Stopping Corollary}, $$E(Y_T) = s(a)\left( \frac{1-p}{p}\right)^c + [1-s(a)](1) = E(Y_0) = \left( \frac{1-p}{p}\right)^a$$
+    $$\implies s(a) = \frac{\left( \frac{1-p}{p}\right)^a-1}{\left( \frac{1-p}{p}\right)^c - 1}$$
+    \subsection{Wald's Theorem}
+    Suppose $X_n = a + Z_1 + \hdots + Z_n$, where $\{Z_i\}$ are i.i.d. with finite mean $m$. Let $T$ be a stopping time for $\{X_n\}$ which has finite mean, i.e. $E(T) < \infty$. Then
+    $$E(X_T) = a + mE(T)$$
+    \property[Special case: $m = 0$]
+    Then $\{X_n\}$ is a martingale, and Optional Stopping Theorem \ref{Optional Stopping Theorem} says that $E(X_T) = a = E(X_0)$. \\
+    \todo{prove this!}
+    \corollary If $\{X_n\}$ is Gambler's Ruin with $p \neq 1/2$, and $T = \inf\{n \geq 0: X_n = 0 \lor X_n = c\}$, then
+    $$E(T) = \frac{1}{2p-1}\left( c \frac{\left( \frac{1-p}{p}\right)^a - 1}{\left( \frac{1-p}{p}\right)^c - 1}-a\right)$$
     
+    \begin{proof}
+    	We again apply Wald's Theorem:\\
+    	Here $Z_i = +1$ if you win the $i$th bet, otherwise $Z_i = -1$. So $$m = E(Z_i) = p(1) + (1-p)(-1) = 2p-1$$ Also, $E(T) < \infty$ by Proposition \ref{gb}. Then by Wald's Theorem,
+    	\begin{align*}
+    		E(X_T) &= a + mE(T) \\
+    		&= cs(a) + 0(1-s(a)) \\
+    		&= c \frac{\left( \frac{1-p}{p}\right)^a - 1}{\left( \frac{1-p}{p}\right)^c - 1}\\
+    		\implies E(T) &= \frac{1}{m}(E(X_T) - a) \\
+    		&= \frac{1}{2p-1}\left( c \frac{\left( \frac{1-p}{p}\right)^a - 1}{\left( \frac{1-p}{p}\right)^c - 1}-a\right)
+    	\end{align*}
+    \end{proof}
     
+    \lemma Let $X_n = a + Z_1 + \hdots + Z_n$, where $\{Z_i\}$ are i.i.d. with mean 0 and variance $v < \infty$. Let $Y_n = (X_n - a)^2 - nv = (Z_1 + \hdots + Z_n)^2 - nv$. Then $\{Y_n\}$ is a martingale.
+    \todo{prove this!}
+    \corollary If $\{X_n\}$ is Gambler's Ruin with $p = 1/2$, and $T = \inf\{n \geq 0: X_n = 0 \lor X_n = c\}$, then 
+    $$E(T) = Var(X_T) = a(c-a)$$
+    \todo{prove this!}
     
+    \subsection{Application - Sequence Waiting Times}
+    Suppose at each time $n$, a new ``player" appears, and bets $\$ 1$ on heads, then if they win they bet $\$2$ on tails, then if they win again they bet $\$4$ on heads. Each player stops betting as soon as they either lose once (and hence are down a total of $\$1$), or win three bets in a row (and hence are up a total of $\$7$.\\
+    Let $X_n$ be the total amount won by all the betters by time $n$. Then since the bets were fair, $\{X_n\}$ is a martingale with stopping time $\tau$. 
     
-    
-    
-    
+    \subsection{Martingale Convergence Theorem}
+    Suppose $\{X_n\}$ is a martingale. Then $\{X_n\}$ could have infinite fluctuations in both directions, as we have seen for s.s.r.w.; Or $\{X_n\}$ could converge with probability 1 to a fixed (perhaps random) value.
+    \example
+    Let $\{X_n\}$ be Gambler's Ruin with $p = 1/2$, where we \blue{stop} as soon as we either win or lose. Then $X_n \rightarrow X$ with probability 1, where $P(X = c) = a/c$ and $P(X=0) = 1 - a/c$.
+    \example
+    Let $\{X_n\}$ be a Markov chain on $S = \{2^m: m \in \mb{Z}\}$, with $X_0 = 1$, and $p_{i,2i} = 1/2$ and $p_{i, i/2} = 2/3$ for $i \in S$. This is a martingale, since $\sum_{j} jp_{ij} = (2i)(1/3) + (i/2)(2/3) = i$.\\
+    Let $Y_n = \log_2 X_n$. Then $Y_0 = 0$, and $\{Y_n\}$ is s.r.w. with $p = 1/3$, $Y_n \rightarrow -\infty$ w.p. 1 by the Law of Large Numbers \ref{Law of Large Numbers}. Hence, $X_n = 2^{Y_n} \rightarrow 2^{-\infty} = 0$ w.p. 1.
+    \theorem[Martingale Convergence Theorem] Any non-negative martingale $\{X_n\}$ ($X_n \geq 0$) which is bounded below (i.e. $X_n \geq c$ for all $n$, for some finite number $c$), or is bounded above (i.e. $X_n \leq c$ for all $n$, for some finite number $c$), converges w.p. 1 to some random variable $X$.
+    \remark
+    The intuition behind this theorem is:
+    \begin{enumerate}
+    	\item Since the martingale is bounded on one side, it cannot ``spread out" forever.
+    	\item Since it is a martingale, it cannot ``drift" in a positive or negative direction.
+    	\item So it has somewhere to go, and eventually has to stop somewhere.
+    \end{enumerate}
     
     
     

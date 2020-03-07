@@ -1,9 +1,9 @@
 \babel@toc {english}{}
 \contentsline {section}{\numberline {1}Preliminary}{2}{section.1}% 
 \contentsline {section}{\numberline {2}Markov Chain Probabilities}{2}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Markov Chain examples}{2}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.1}Markov Chain examples}{3}{subsection.2.1}% 
 \contentsline {subsection}{\numberline {2.2}Elementary Computations}{3}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Recurrence and Transience}{4}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.3}Recurrence and Transience}{5}{subsection.2.3}% 
 \contentsline {subsection}{\numberline {2.4}Communicating States and Irreducibility}{7}{subsection.2.4}% 
 \contentsline {section}{\numberline {3}Markov Chain Convergence}{12}{section.3}% 
 \contentsline {subsection}{\numberline {3.1}Stationary Distributions}{12}{subsection.3.1}% 
@@ -23,3 +23,6 @@
 \contentsline {subsection}{\numberline {4.1}Martingale Definitions}{21}{subsection.4.1}% 
 \contentsline {paragraph}{Special case: Markov chain}{22}{section*.53}% 
 \contentsline {subsection}{\numberline {4.2}Stopping Times}{22}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.3}Wald's Theorem}{25}{subsection.4.3}% 
+\contentsline {subsection}{\numberline {4.4}Application - Sequence Waiting Times}{26}{subsection.4.4}% 
+\contentsline {subsection}{\numberline {4.5}Martingale Convergence Theorem}{26}{subsection.4.5}% 
