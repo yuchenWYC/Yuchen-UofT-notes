@@ -926,6 +926,14 @@
     	\item Since it is a martingale, it cannot ``drift" in a positive or negative direction.
     	\item So it has somewhere to go, and eventually has to stop somewhere.
     \end{enumerate}
+   	\remark
+   	If $\{X_n\}$ is not non-negative, then if $X_n \geq c$, then $\{X_n - c\}$ is a non-negative martingale, or if $X_n \leq c$, then $\{-X_n + c\}$ is a non-negative martingale, and in either case the non-negative martingale converges iff $\{X_n\}$ converges.
+   	\subsection{Application - Stock Options (Discrete)}
+   	In mathematical finance, it is common to model the price of one share of some stock as a random process.\\
+   	For now, we work in discrete time, and suppose that $X_n$ is the price of one share of the stock at each date $n$. If you buy the stock, then the situation is clear: if $X_n$ increases then you will make a profit, but if $X_n$ decreases then you will suffer a loss.
+   	\definition[stock option]
+   	A \under{stock option} is the option to buy one share of the stock for some fixed strike price $K$ at some fixed future strike date (time) $S > 0$.
+    
     
     
     
