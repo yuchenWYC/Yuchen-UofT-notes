@@ -26,3 +26,6 @@
 \contentsline {subsection}{\numberline {4.3}Wald's Theorem}{25}{subsection.4.3}% 
 \contentsline {subsection}{\numberline {4.4}Application - Sequence Waiting Times}{26}{subsection.4.4}% 
 \contentsline {subsection}{\numberline {4.5}Martingale Convergence Theorem}{26}{subsection.4.5}% 
+\contentsline {subsection}{\numberline {4.6}Application - Branching Processes}{26}{subsection.4.6}% 
+\contentsline {paragraph}{Transition probabilties}{27}{section*.60}% 
+\contentsline {subsection}{\numberline {4.7}Application - Stock Options (Discrete)}{28}{subsection.4.7}% 

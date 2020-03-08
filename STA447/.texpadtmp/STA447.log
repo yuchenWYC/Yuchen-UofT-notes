@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  6 MAR 2020 21:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  8 MAR 2020 00:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -717,32 +717,47 @@ Overfull \hbox (30.43764pt too wide) in paragraph at lines 807--808
 
 [22] [23] [24] [25]
 Overfull \hbox (0.56573pt too wide) in paragraph at lines 921--922
-[][]\OT1/cmr/bx/n/10.95 Theorem 4.2 \OT1/cmr/m/n/10.95 (Mar-tin-gale Con-ver-gence The-o-rem)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 Any non-negative mar-tin-gale $\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 g$ \OT1/cmr/m/n/10.95 ($\OML/cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^U
+[][]\OT1/cmr/bx/n/10.95 Theorem 4.2 \OT1/cmr/m/n/10.95 ([]Mar-tin-gale Con-ver-gence The-o-rem)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 Any non-negative mar-tin-gale $\OMS/cmsy/m/n/10.95 f\OML/cmm/m/it/10.95 X[]\OMS/cmsy/m/n/10.95 g$ \OT1/cmr/m/n/10.95 ($\OML/cmm/m/it/10.95 X[] \OMS/cmsy/m/n/10.95 ^^U
  []
 
-[26]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 937.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 937.
+
+Overfull \hbox (49.46567pt too wide) in paragraph at lines 933--934
+[][]\OT1/cmr/bx/n/10.95 Definition 4.3 \OT1/cmr/m/n/10.95 (off-spring dis-tri-bu-tion)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 Let $\OML/cmm/m/it/10.95 ^^V$ \OT1/cmr/m/n/10.95 be any prob dist on $\OMS/cmsy/m/n/10.95 f\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 1\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 2\OML/cmm/m/it/10.95 ; []\OMS/cmsy/m/n/10.95 g$\OT1/cmr/m/n/10.95 , the $[]$.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 934--936
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 937--938
+
+ []
+
+[26] [27] [28]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 979.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 979.
  (/Users/raina/Desktop/UofT-notes/STA447/.texpadtmp/STA447.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 937.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 937.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 979.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 979.
 Package rerunfilecheck Info: File `STA447.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 937.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 979.
  ) 
 Here is how much of TeX's memory you used:
- 19117 strings out of 492616
- 352703 string characters out of 6129482
- 458829 words of memory out of 5000000
- 22417 multiletter control sequences out of 15000+600000
+ 19133 strings out of 492616
+ 352902 string characters out of 6129482
+ 458885 words of memory out of 5000000
+ 22420 multiletter control sequences out of 15000+600000
  13415 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,16n,83p,429b,1024s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/STA447/.texpadtmp/STA447.pdf (26 pages, 296696 bytes).
+Output written on /Users/raina/Desktop/UofT-notes/STA447/.texpadtmp/STA447.pdf (28 pages, 302854 bytes).
 PDF statistics:
- 588 PDF objects out of 1000 (max. 8388607)
- 519 compressed objects within 6 object streams
- 239 named destinations out of 1000 (max. 500000)
- 293 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 618 PDF objects out of 1000 (max. 8388607)
+ 547 compressed objects within 6 object streams
+ 252 named destinations out of 1000 (max. 500000)
+ 309 words of extra memory for PDF output out of 10000 (max. 10000000)
 

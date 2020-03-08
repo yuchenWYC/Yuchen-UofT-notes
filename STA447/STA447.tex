@@ -918,7 +918,7 @@
     \example
     Let $\{X_n\}$ be a Markov chain on $S = \{2^m: m \in \mb{Z}\}$, with $X_0 = 1$, and $p_{i,2i} = 1/2$ and $p_{i, i/2} = 2/3$ for $i \in S$. This is a martingale, since $\sum_{j} jp_{ij} = (2i)(1/3) + (i/2)(2/3) = i$.\\
     Let $Y_n = \log_2 X_n$. Then $Y_0 = 0$, and $\{Y_n\}$ is s.r.w. with $p = 1/3$, $Y_n \rightarrow -\infty$ w.p. 1 by the Law of Large Numbers \ref{Law of Large Numbers}. Hence, $X_n = 2^{Y_n} \rightarrow 2^{-\infty} = 0$ w.p. 1.
-    \theorem[Martingale Convergence Theorem] Any non-negative martingale $\{X_n\}$ ($X_n \geq 0$) which is bounded below (i.e. $X_n \geq c$ for all $n$, for some finite number $c$), or is bounded above (i.e. $X_n \leq c$ for all $n$, for some finite number $c$), converges w.p. 1 to some random variable $X$.
+    \theorem[\label{Martingale Convergence Theorem}Martingale Convergence Theorem] Any non-negative martingale $\{X_n\}$ ($X_n \geq 0$) which is bounded below (i.e. $X_n \geq c$ for all $n$, for some finite number $c$), or is bounded above (i.e. $X_n \leq c$ for all $n$, for some finite number $c$), converges w.p. 1 to some random variable $X$.
     \remark
     The intuition behind this theorem is:
     \begin{enumerate}
@@ -928,6 +928,40 @@
     \end{enumerate}
    	\remark
    	If $\{X_n\}$ is not non-negative, then if $X_n \geq c$, then $\{X_n - c\}$ is a non-negative martingale, or if $X_n \leq c$, then $\{-X_n + c\}$ is a non-negative martingale, and in either case the non-negative martingale converges iff $\{X_n\}$ converges.
+   	\subsection{Application - Branching Processes}
+   	\definition[offspring distribution]
+   	Let $\mu$ be any prob dist on $\{0, 1, 2, \hdots\}$, the \under{offspring distribution}. Let $X_n$ be the number of individuals at time $n$. Start with $X_0 = a$ individuals. Assume $0 < a < \infty$, $Z_{n,i} \overset{i.i.d.}{\sim} \mu(i)$.\\ (i.e., Each of the $X_n$ individuals at time $n$ has a random number of offspring under the distribution $\mu$). Then 
+   	$$X_{n+1} = Z_{n,1} + Z_{n,2} + \hdots + Z_{n,X_n}$$
+   	Here $\{X_n\}$ is a Markov chain, on the state space $\{0, 1, 2, \hdots\}$.\\
+   	\paragraph{Transition probabilties}
+   	If $X_n$ ever reaches 0, then it stays there forever: $p_{0j} = 0\quad \forall j\geq0$. This is called \under{extinction}.\\ Also, $p_{ij} = (\mu \ast \mu \ast \hdots \ast \mu)(j)$, a \under{convolution} of $i$ copies of $\mu$.\\
+   	\theorem
+   	Let $m = \sum_{i}\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m < 1$, then $E(X_n) \rightarrow 0$, and $P(X_n = 0) \rightarrow 1$.
+   	\begin{proof}
+   		   	Assume $0 < m < \infty$. Then
+   	$$E(X_{n+1}|X_0, \hdots, X_n) = E(Z_{n,1} + Z_{n,2} + \hdots + Z_{n,X_n}|X_0, \hdots, X_n) = mX_n$$
+   	$$\implies E(X_n) = m^nE(X_0) = m^n a < \infty$$
+   	So if $m < 1$, then $E(X_n) = am^n \rightarrow 0$. Then we have
+   	\begin{align*}
+   		E(X_n) &= \sum_{k=0}^\infty kP(X_n = k) \\
+   		&\geq \sum_{k=1}^\infty P(X_n = k) \\
+   		&= P(X_n \geq 1) \\
+   		\implies P(X_n \geq 1) &\leq E(X_n) = am^n \rightarrow 0 \\
+   		\implies P(X_n = 0) &\rightarrow 1
+   	\end{align*}
+   	\end{proof}
+   	\fact   Let $m = \sum_{i}\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m > 1$, then $E(X_n) \rightarrow \infty$, $P(X_n \rightarrow \infty) > 0$ and $P(X_n \rightarrow 0) > 0$, i.e., we have possible extinction but also possible flourishing.
+   	\theorem  Let $m = \sum_{i}\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m = 1$, and $\mu$ is non-degenerate (i.e. $\mu(1) < 1$, so that $\mu$ is not a constant), then $\{X_n\} \rightarrow 0$ w.p. $1$.
+   	\begin{proof}
+   		If $m=1$, then $E(X_n) = E(X_0) = a$ for all $n$. Then $E(X_{n+1}|X_0, \hdots, X_n) = mX_n - X_n$, so $\{X_n\}$ is a non-negative martingale.\\
+   		Hence by the Martingale Convergence Theorem \ref{Martingale Convergence Theorem}, we must have $X_n \rightarrow X$ for some random variable $X$. This could only happen if
+   		\begin{enumerate}
+   			\item $\mu(1) = 1$; or
+   			\item $X = 0$
+   		\end{enumerate}
+   	\end{proof}
+   	
+   	
    	\subsection{Application - Stock Options (Discrete)}
    	In mathematical finance, it is common to model the price of one share of some stock as a random process.\\
    	For now, we work in discrete time, and suppose that $X_n$ is the price of one share of the stock at each date $n$. If you buy the stock, then the situation is clear: if $X_n$ increases then you will make a profit, but if $X_n$ decreases then you will suffer a loss.
