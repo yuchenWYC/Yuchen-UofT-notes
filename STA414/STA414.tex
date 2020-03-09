@@ -615,6 +615,10 @@ If you are only interested in sampling a particular set of nodes, you can simply
 If you want to sample a variable conditional on a node with no parents, that is also easy - you can simple do ancestral sampling starting from the nodes you have.\\
 However, to sample from a DAG conditional on leaf nodes is hard. Finding ways to do this approximately is what a lot of the rest of the course will be about.
 \section{Stochastic Variational Inference}
+\subsection{Motivation}
+In modern machine learning is most often used to infer the conditional distribution over the latent variables given the observations (and parameters). (the posterior distribution) This can be written as
+$$p(z|x,\alpha) = \frac{p(z, x|\alpha)}{\int_z p(z,x|\alpha)}$$
+Since the integral cannot be easily computed analytically, we will use variational inference. The main idea behind this is to choose a family of distributions over the latent variables $z_{1:m}$ with its own set of variational parameters $v$, i.e., $q(z_{1:m}|v)$. Then, we find the setting of the parameters that makes our approximation closest to the posterior distribution (this is where optimization algorithms come in). Then we can use $q$ with the fitted parameters in place of the posterior (e.g. to form predictions about future data, or to investigate the posterior distribution over the hidden variables, find modes, etc).
 \subsection{the TrueSkill latent variable model}
 A player ranking system for competitive games.\\
 Inferring the skill of a set of players in a competitive game, based only on observing who beats who when they play against each other.  We initially don't know anything about anyone's skill, for simplicity we start with an independent Gaussian prior.
@@ -664,11 +668,9 @@ This turns Bayesian Inference into an optimization problem. If enough parts part
 We will measure the distance between $q_\phi$ and $p$ using Kullback-Leibler divergence:
 
 \begin{align*}
-	D_{KL}(q_\phi(z|x)||p(z_x)) &= \int q_\phi(z|x) \log \frac{q_\phi(z|x)}{p(z|x)} dz\\
-	&= \underset{z \sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(z|x)}
+	D_{KL}(q_\phi||p) &= \int q_\phi(z) \log \frac{q_\phi(z)}{p(z|x)} dz\\
+	&= \underset{z \sim q_\phi}{\mb{E}}\left[ \log \frac{q_\phi(z)}{p(z|x)} \right]
 \end{align*}
-\todo{Ask about notation: how can we expand expectation like this?}
-
 \property
 Properties of the KL Divergence:
 \begin{enumerate}
@@ -689,11 +691,13 @@ $$\phi^* = \arg \min_\phi D_{KL}[q_\phi || p]$$
 \red{The computation of $D_{KL}(q_\phi||p)$ is intractable, because it contains the term $p(z|x)$.}
 
 \paragraph{Evidence Lower Bound (ELBO)}
+To do variational inference, we want to minimize the KL divergence between our approximation $q$ and our posterior $p$. However, we cannot actually minimize this quantity directly, but a function that is equal to it up to a constant.
 \begin{align*}
 	D_{KL}(q_\phi(z|x)||p(z|x)) &= \underset{z \sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(z|x)} \\
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( q_\phi(z|x) \cdot \frac{p(x)}{p(z,x)}\right) \right ] \\
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( \frac{q_\phi(z|x)}{p(z,x)}\cdot p(x) \right )\right ] \\
-	&= \underset{z \sim q_\phi}{\mb{E}} \log \frac{q_\phi (z|x)}{p(z,x)} + \underset{z \sim q_\phi}{\mb{E}} \log p(x) \\
+	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \frac{q_\phi (z|x)}{p(z,x)}\right] + \underset{z \sim q_\phi}{\mb{E}} \left[\log p(x)\right] \\
+	&= -\left( \underset{z \sim q_\phi}{\mb{E}} \left[ \log q_\phi (z|x)\right] + \underset{z \sim q_\phi}{\mb{E}} \left[p(z,x)\right] \right) + \underset{z \sim q_\phi}{\mb{E}} \left[ \log p(x) \right]\\
 	&= - \underbrace{\mc{L}(\phi;x)}_{ELBO} + \log p(x)
 \end{align*}
 \tb{Claim:} Maximizing the ELBO $\implies$ minimizing $D_{KL}(q_\phi || p)$.
@@ -790,7 +794,11 @@ $$p(x) = \frac{\tilde{p}(x)}{Z}$$
 We further assume we have a simpler density, $q(x)$ from which it is easy to sample from and easy to evaluate
 $$q(x) = \frac{\tilde{q}(x)}{Z_q}$$
 we call such a density $q(x)$ the \under{sampler density}. \\
-In importance sampling, we generate $R$ samples from $q(x)$
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.23]{p9.png}
+\end{figure}
+\noindent In importance sampling, we generate $R$ samples from $q(x)$
 $$\{x^{(r)}\}_{r=1}^R \sim q(x)$$
 If these points were samples from $p(x)$, then we could estimate $\Phi$ by a simple Monte Carlo estimator:
 $$\Phi = \mb{E}_{x\sim p(x)}[f(x)] \sim \frac{1}{R}\sum_{r=1}^R f(x^{(r)}) = \hat{\Phi}$$
@@ -815,8 +823,63 @@ $\hat \Phi_{iw}$ is biased.
 \subsection{Rejection Sampling}
 We assume that a one-dimensional density $p(x) = \frac{\tilde{p}(x)}{Z}$ is too complicated a function for us to be able to sample from it directly. Also, we have a simpler proposal density $q(x)$ which we can evaluate (within a multiplicative factor $Z_q$), and from which we can generate samples. We further assume that we know the value of a constant $c$ such that
 $$c\tilde{q}(x) > \tilde{p}(x) \quad x$$
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p10.png}
+\end{figure}
+\noindent The procedure is as follows:
+\begin{enumerate}
+	\item Generate two random numbers
+	\begin{itemize}
+		\item $x$ is generated from the proposal density $q(x)$
+		\item $u$ is generated uniformly from the interval $[0, c\tilde{q}(x)]$
+	\end{itemize}
+	\item Evaluate $\tilde{p}(x)$ and accept or reject the sample $x$ by comparing the value of $u$ with the value of $\tilde{p}(x)$
+	\begin{itemize}
+		\item If $u > \tilde{p}(x)$, then $x$ is rejected
+		\item Otherwise $x$ is accepted; $x$ is added to our set of samples $\{x^{(r)}\}$ and the value of $u$ discarded.
+	\end{itemize}
+\end{enumerate}
+\paragraph{Rejection sampling in high dimensions}
+In a high-dimensional problem, it is very likely that the requirement that $c\tilde{q}$ be an upper bound for $\tilde{p}$ will force $c$ to be so huge that acceptances will be very rare indeed. Finding such a value of $c$ may be difficult too, since in many problems we know neither where the modes of $\tilde{p}$ are located nor how high they are.\\
+In general, $c$ grows exponentially with the dimensionality $N$, so the acceptance rate is expected to be exponentially small in $N$.
 
-\subsection{Metropolis-Hastings method}
+\remark
+Importance sampling and rejection sampling work well only if the proposal density $q(x)$ is similar to $p(x)$. In high dimensions, it is hard to find one such $q$.
+
+\subsection{Markov Chain Monte Carlo (MCMC)}
+Construct a Markov chain over the assignments to a probability function $p$; the chain will have a stationary distribution equal to $p$ itself; by running the chain for some number of time, we will thus sample from $p$.
+
+\subsubsection{Metropolis-Hastings method}
+Makes use of a \under{proposal density} $q$ which depends on the current state $x^{(t)}$. The density $q(x'|x^{(t)})$ might be a simple distribution such as a Gaussian centred on the current $x^{(t)}$, but in general can be any fixed density from which we can draw samples.
+\remark
+\ti{In contrast to importance sampling and rejection sampling, it is not necessary $q(x'|x^{(t)})$ look at all similar to $p(x)$ in order for the algorithm to be practically useful. An example of a proposal density with two different states $(x^{(1)}, x^{(2)})$.}\\\\
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p11.png}
+\end{figure}
+\noindent We assume we can evaluate $\tilde{p}(x)$ for any $x$. The procedure is as follows:\\
+A tentative new state $x'$ is generated from the proposal density $q(x'|x^{(t)})$. To decide whether to accept the new state, we compute
+$$a = \frac{\tilde{p}(x')q(x^{(t)}|x')}{\tilde{p}(x^{(t)})q(x'|x^{(t)})}$$
+If $a \geq 1$< then the new state is accepted; Otherwise, the new state is accepted with probability $a$.\\
+If accepted, set $x^{(t+1)} = x'$. Otherwise, set $x^{(t+1)} = x^{(t)}$.
+
+\theorem
+As $t \rightarrow \infty$, $\{x^{(r)}\}_{r=1}^R \rightarrow p(x)$ for any $q(x'|x^{(t)}) \geq 0$.
+
+\remark
+\ti{Just as it was difficult to estimate the variance of an importance sampling estimator, so it is difficult to assess whether a Markov chain Monte Carlo method has `converged’, and to quantify how long one has to wait to obtain samples that are effectively independent samples from $p$.}
+
+\section{Amortized Inference and Variational Auto-Encoders}
+
+
+
+
+
+
+
+
+
 
 
 

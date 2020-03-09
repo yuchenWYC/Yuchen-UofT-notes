@@ -25,12 +25,15 @@
 \BOOKMARK [2][-]{subsection.5.3}{Sampling}{section.5}% 25
 \BOOKMARK [3][-]{subsubsection.5.3.1}{Ancestral Sampling}{subsection.5.3}% 26
 \BOOKMARK [1][-]{section.6}{Stochastic Variational Inference}{}% 27
-\BOOKMARK [2][-]{subsection.6.1}{the TrueSkill latent variable model}{section.6}% 28
-\BOOKMARK [2][-]{subsection.6.2}{Posterior Inference in Latent Variable Models}{section.6}% 29
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Approximating the Posterior Inference with Variational Methods}{subsection.6.2}% 30
-\BOOKMARK [3][-]{subsubsection.6.2.2}{Kullback-Leibler Divergence}{subsection.6.2}% 31
-\BOOKMARK [1][-]{section.7}{Sampling and Monte Carlo Methods}{}% 32
-\BOOKMARK [2][-]{subsection.7.1}{Sampling}{section.7}% 33
-\BOOKMARK [2][-]{subsection.7.2}{Importance Sampling}{section.7}% 34
-\BOOKMARK [2][-]{subsection.7.3}{Rejection Sampling}{section.7}% 35
-\BOOKMARK [2][-]{subsection.7.4}{Metropolis-Hastings method}{section.7}% 36
+\BOOKMARK [2][-]{subsection.6.1}{Motivation}{section.6}% 28
+\BOOKMARK [2][-]{subsection.6.2}{the TrueSkill latent variable model}{section.6}% 29
+\BOOKMARK [2][-]{subsection.6.3}{Posterior Inference in Latent Variable Models}{section.6}% 30
+\BOOKMARK [3][-]{subsubsection.6.3.1}{Approximating the Posterior Inference with Variational Methods}{subsection.6.3}% 31
+\BOOKMARK [3][-]{subsubsection.6.3.2}{Kullback-Leibler Divergence}{subsection.6.3}% 32
+\BOOKMARK [1][-]{section.7}{Sampling and Monte Carlo Methods}{}% 33
+\BOOKMARK [2][-]{subsection.7.1}{Sampling}{section.7}% 34
+\BOOKMARK [2][-]{subsection.7.2}{Importance Sampling}{section.7}% 35
+\BOOKMARK [2][-]{subsection.7.3}{Rejection Sampling}{section.7}% 36
+\BOOKMARK [2][-]{subsection.7.4}{Markov Chain Monte Carlo \(MCMC\)}{section.7}% 37
+\BOOKMARK [3][-]{subsubsection.7.4.1}{Metropolis-Hastings method}{subsection.7.4}% 38
+\BOOKMARK [1][-]{section.8}{Amortized Inference and Variational Auto-Encoders}{}% 39
