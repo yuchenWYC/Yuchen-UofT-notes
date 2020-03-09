@@ -39,6 +39,48 @@
     \tableofcontents
     \newpage
     \section{Preliminary}
+    \proposition If $Z$ is a non-negative-integer-valued random variable, then
+    $$E(Z) = \sum_{k=1}^\infty P(Z \geq k)$$
+    \begin{proof}
+    \begin{align*}
+   	\sum_{k=1}P(Z \geq k) &= \sum_{k=1}^\infty [P(Z= k) + P(Z = k+1) + \hdots] \\
+    	&= [P(Z = 1) + P(Z = 2) + P(Z=3) + \hdots]\\
+    	 &\quad + [P(Z = 2) + P(Z = 3) + P(Z = 4) + \hdots] \\
+    	 &\quad + [P(Z = 3) + P(Z = 4) + P(Z = 5) + \hdots] \\
+    	 &\quad + \hdots \\
+    	&= P(Z=1) + 2P(Z=2) + 3P(Z=3) + \hdots\\
+    	&= \sum_{l=1}^\infty l P(Z=l) \\
+    	&= E(Z)
+    \end{align*}
+    \end{proof}
+    
+    \fact
+    $$\sum_{n=1}^\infty \frac{1}{n^p} = \infty \iff p \leq 1$$
+    
+    \fact If the $x_n$s are non-negative, and $\sum_{n=1}^\infty x_n < \infty$, then $$\limit{n} x_n = 0$$
+    
+    \definition[bounded random variable]
+    $X$ is a \under{bounded random variable} if there is $M < \infty$ with $P(|X| \leq M) = 1$, i.e. if it is always in some interval $[-M, M]$ for some finite number $M$.
+    \definition[finite random variable]
+    $X$ is a \under{finite random variable} if $P(|X| \leq \infty) = 1$, i.e., if $P(|X| = \infty) = 0$, i.e. if it  always takes on finite values.
+    \definition[finite expectation]
+    A random variable $X$ has \under{finite expectation} if $E|X| < \infty$; this is also sometimes called \under{\blue{integrable}}.
+    \fact Bounded $\implies$ finite expectation.
+    \fact Unbounded $\implies$ infinite expectation.
+    \fact Finite expectation $\implies$ finite.
+    \theorem[Law of Total Expectation]
+    If $X$ and $Y$ are discrete random variables, then
+    $$E(X) = \sum_{y}P(Y=y)E(X|Y=y)$$
+    i.e. we can compute $E(X)$ by averaging conditional expectations.
+    \todo{prove this}
+    \theorem[\label{Double-expectation formula} Double-expectation formula]
+    $$E[E(X|Y)] = E(X)$$
+    i.e. the random variable $E(X|Y)$ equals $X$ on average.
+    \begin{proof}
+    Since $E(X|Y)$ is equal to $E(X|Y=y)$ with probability $Y=y$, we compute that 
+    $$E[E(X|Y)] = \sum_{y}P(Y=y)E(X|Y=y) = E(X)$$
+    which the results follows from Double-expectation formula\ref{Double-expectation formula}.
+    \end{proof}
     \theorem[\label{Dominated Convergence Theorem}Dominated Convergence Theorem]
     If $\limit{n} X_n = X$, and there is some random variable $Y$ with $E|Y|<\infty$ and $|X_n| \leq Y$ for all $n$, then $$\limit{n} E(X_n) = E(X)$$
     
@@ -50,11 +92,11 @@
     $X_n$ converge to $X$ strongly if 
     $$P(\limit{n}X_n = X) = 1$$ 
     
-    
     \theorem[\label{Law of Large Numbers}Law of Large Numbers]
     If the sequence $\{X_n\}$ is i.i.d. with common mean $m$, then the sequence $\frac{1}{n}\sum_{i=1}^n X_i$ converges to $m$ (both weakly and strongly), i.e.,
     $$\limit{n} \frac{1}{n}\sum_{i=1}^nX_i = m \quad w.p. 1$$ 
 
+    \info[inline]{If time, please finish reading the preliminary, which I found useful. --Mar 9}
 
     \section{Markov Chain Probabilities}
     \notation
