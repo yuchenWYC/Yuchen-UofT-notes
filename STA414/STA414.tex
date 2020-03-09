@@ -614,33 +614,6 @@ If you are only interested in sampling a particular set of nodes, you can simply
 \paragraph{Generating conditional samples}
 If you want to sample a variable conditional on a node with no parents, that is also easy - you can simple do ancestral sampling starting from the nodes you have.\\
 However, to sample from a DAG conditional on leaf nodes is hard. Finding ways to do this approximately is what a lot of the rest of the course will be about.
-\subsection{Simple Monto Carlo}
-\definition[simple Monte Carlo]
-Given $\{x^{(r)}\}_{r=1}^R \sim p(x)$, we estimate the expectation $\mb{E}_{x\sim p(x)}[f(x)]$ using the average sum, and call it estimator $\hat{E}$:
-$$E = \mb{E}_{x\sim p(x)}[f(x)] \sim \frac{1}{R}\sum_{r=1}^R f(x^{(r)}) = \hat{E}$$
-\property
-If the vectors $\{x^{(r)}\}_{r=1}^R$ are generated from $p(x)$ then the expectation of $\hat{E}$ is E. In fact, $\hat{E}$ is an unbiased estimator of $E$.
-\begin{proof}
-\begin{align*}
-	\expect{\hat{E}}_{x\sim p(\{x^{(r)}\}_{r=1}^R)} &= \expect{\frac{1}{R}\sum_{r=1}^R f(x^{(r)})}\\
-	&= \frac{1}{R}\sum_{r=1}^R \expect{f(x^{(r)})} \\
-	&= \frac{1}{R} \sum_{r=1}^R \underset{x \sim p(x)}{\mb{E}}[f(x)]\\
-	&= \frac{R}{R}  \underset{x \sim p(x)}{\mb{E}}[f(x)]\\
-	&= E
-\end{align*}
-\end{proof}
-\property
-As the number of samples of $R$ increases, the variance of $\hat{E}$ will decrease proportional to $\frac{1}{R}$.
-\begin{proof}
-	\begin{align*}
-		Var[\hat{E}] &= Var\left[\frac{1}{R} \sum_{r=1}^R f(x^{(r)})\right] \\
-		&= \frac{1}{R^2}Var\left[\sum_{r=1}^R f(x^{(r)})\right]\\
-		&= \frac{1}{R^2}\sum_{r=1}^R Var\left[ f(x^{(r)}) \right] \tag{by i.i.d. assumption}\\
-		&= \frac{R}{R^2} Var[f(x)] \\
-		&= \frac{1}{R} Var[f(x)]
-	\end{align*}
-\end{proof} 
-
 \section{Stochastic Variational Inference}
 \subsection{the TrueSkill latent variable model}
 A player ranking system for competitive games.\\
@@ -765,6 +738,85 @@ Some notable extensions:
 	\item We can make $q_\phi$ arbitrarily expressive, for instance using a mixture of Gaussians, or a normalizing flow.
 	\item We can fit both $\phi$ and parameters of $p(z|x)$ at the same time.
 \end{enumerate}
+
+
+\section{Sampling and Monte Carlo Methods}
+\subsection{Sampling}
+\definition[sample]
+A sample from a distribution $p(x)$ is a \red{single} realization $x$ whose probability distribution is $p(x)$.
+
+\paragraph{Problems to be solved}
+Monte Carlo methods are computational techniques that make use of random numbers. The aims are to solve one or both of the following problems
+\begin{enumerate}
+	\item To generate samples $\{x^{(r)}\}_{r=1}^R$ from a given probability distribution $p(x)$.
+	\item To estimate expectations of functions, $\phi(x)$, under the distribution $p(x)$.
+	$$\Phi = \mb{E}_{x \sim p(x)}[\phi(x)] = \int \phi(x)p(x) \, dx$$
+\end{enumerate}
+
+\definition[simple Monte Carlo]
+Given $\{x^{(r)}\}_{r=1}^R \sim p(x)$, we estimate the expectation $\mb{E}_{x\sim p(x)}[f(x)]$ using the average sum, and call it estimator $\hat{\Phi}$:
+$$\Phi = \mb{E}_{x\sim p(x)}[f(x)] \sim \frac{1}{R}\sum_{r=1}^R f(x^{(r)}) = \hat{\Phi}$$
+\property
+If the vectors $\{x^{(r)}\}_{r=1}^R$ are generated from $p(x)$ then the expectation of $\hat{\Phi}$ is $\Phi$. In fact, $\hat{\Phi}$ is an unbiased estimator of $\Phi$.
+\begin{proof}
+\begin{align*}
+	\expect{\hat{\Phi}}_{x\sim p(\{x^{(r)}\}_{r=1}^R)} &= \expect{\frac{1}{R}\sum_{r=1}^R f(x^{(r)})}\\
+	&= \frac{1}{R}\sum_{r=1}^R \expect{f(x^{(r)})} \\
+	&= \frac{1}{R} \sum_{r=1}^R \underset{x \sim p(x)}{\mb{E}}[f(x)]\\
+	&= \frac{R}{R}  \underset{x \sim p(x)}{\mb{E}}[f(x)]\\
+	&= \Phi
+\end{align*}
+\end{proof}
+\property
+As the number of samples of $R$ increases, the variance of $\hat{\Phi}$ will decrease proportional to $\frac{1}{R}$.
+\begin{proof}
+	\begin{align*}
+		Var[\hat{\Phi}] &= Var\left[\frac{1}{R} \sum_{r=1}^R f(x^{(r)})\right] \\
+		&= \frac{1}{R^2}Var\left[\sum_{r=1}^R f(x^{(r)})\right]\\
+		&= \frac{1}{R^2}\sum_{r=1}^R Var\left[ f(x^{(r)}) \right] \tag{by i.i.d. assumption}\\
+		&= \frac{R}{R^2} Var[f(x)] \\
+		&= \frac{1}{R} Var[f(x)]
+	\end{align*}
+\end{proof} 
+
+\remark
+The accuracy of the Monte Carlo estimate depends only on the variance of $\phi$, not on the dimensionality of the $x$. So regardless of the dimensionality of $x$, it may be that as few as a dozen independent samples suffice to estimate $\Phi$ satisfactorily.
+
+\subsection{Importance Sampling}
+A method for estimating the expectation of a function. It can be viewed as a generalization of the uniform sampling method.
+
+Assume the density from which we wish to draw samples, $p(x)$, can be evaluated within a multiplicative constant. That is, we can evaluate a function $\tilde{p}(x)$ such that 
+$$p(x) = \frac{\tilde{p}(x)}{Z}$$
+We further assume we have a simpler density, $q(x)$ from which it is easy to sample from and easy to evaluate
+$$q(x) = \frac{\tilde{q}(x)}{Z_q}$$
+we call such a density $q(x)$ the \under{sampler density}. \\
+In importance sampling, we generate $R$ samples from $q(x)$
+$$\{x^{(r)}\}_{r=1}^R \sim q(x)$$
+If these points were samples from $p(x)$, then we could estimate $\Phi$ by a simple Monte Carlo estimator:
+$$\Phi = \mb{E}_{x\sim p(x)}[f(x)] \sim \frac{1}{R}\sum_{r=1}^R f(x^{(r)}) = \hat{\Phi}$$
+But when we generate samples from $q$, values of $x$ where $q(x)$ is greater than $p(x)$ will be $over-represented$ in this estimator, and points where $q(x)$ is less than $p(x)$ will be $under-represented$. To take into account the fact that we have sampled from the \blue{wrong distribution}, we introduce weights:
+$$\tilde{w}_r = \frac{\tilde{p}(x^{(r)}}{\tilde{q}(x^{(r)}}$$
+Finally, we rewrite our estimator under $q$
+%\begin{aligned}
+%& \Phi=\int \phi(x) p(x) d x \\
+%=& \int \phi(x) \cdot \frac{p(x)}{q(x)} \cdot q(x) d x \\
+%\approx & \frac{1}{R} \sum_{r=1}^{R} \phi\left(x^{(r)}\right) \frac{p\left(x^{(r)}\right)}{q\left(x^{(r)}\right)}
+%\end{aligned}
+\begin{align} 
+ \Phi&=\int \phi(x) p(x) d x \\
+&= \int \phi(x) \cdot \frac{p(x)}{q(x)} \cdot q(x) d x \\
+&\approx  \frac{1}{R} \sum_{r=1}^{R} \phi\left(x^{(r)}\right) \frac{p\left(x^{(r)}\right)}{q\left(x^{(r)}\right)}\\
+	&= \frac{Z_q}{Z_p} \frac{1}{R}\sum_{r=1}^R \phi(x^{(r)}) \cdot \frac{\tilde p(x^{(r)})}{\tilde q(x^{(r)})} \\ &= \frac{Z_q}{Z_p} \frac{1}{R}\sum_{r=1}^R \phi(x^{(r)}) \cdot \tilde w_r \\ &= \frac{\frac{1}{R}\sum_{r=1}^R \phi(x^{(r)}) \cdot \tilde w_r}{\frac{1}{R}\sum_{r=1}^R \tilde w_r} \\ &= \frac{1}{R}\sum_{r=1}^R \phi(x^{(r)}) \cdot w_r \\ &= \hat \Phi_{iw} \end{align}
+where $\frac{Z_p}{Z_q} = \frac{1}{R}\sum_{r=1}^R\tilde{w}_r, w_r = \frac{\tilde{w}_r}{\sum_{r=1}^R \tilde{w}_r}$, and $\hat \Phi_{iw}$ is our importance weighted estimator.
+
+\remark
+$\hat \Phi_{iw}$ is biased.
+
+\subsection{Rejection Sampling}
+We assume that a one-dimensional density $p(x) = \frac{\tilde{p}(x)}{Z}$ is too complicated a function for us to be able to sample from it directly. Also, we have a simpler proposal density $q(x)$ which we can evaluate (within a multiplicative factor $Z_q$), and from which we can generate samples. We further assume that we know the value of a constant $c$ such that
+$$c\tilde{q}(x) > \tilde{p}(x) \quad x$$
+
+\subsection{Metropolis-Hastings method}
 
 
 
