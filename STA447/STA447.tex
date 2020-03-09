@@ -966,9 +966,29 @@
    	In mathematical finance, it is common to model the price of one share of some stock as a random process.\\
    	For now, we work in discrete time, and suppose that $X_n$ is the price of one share of the stock at each date $n$. If you buy the stock, then the situation is clear: if $X_n$ increases then you will make a profit, but if $X_n$ decreases then you will suffer a loss.
    	\definition[stock option]
-   	A \under{stock option} is the option to buy one share of the stock for some fixed strike price $K$ at some fixed future strike date (time) $S > 0$.
+   	A \under{stock option} is the option to buy one share of the stock for some fixed strike price $K$ at some fixed future strike date (time) $S > 0$. If at the strike time $S$, the stock price $X_s$ is less than the strike price $K$, then the option would not be exercised, and would thus be worth exactly zero. If the stock price $X_S$ is more than $K$, then the option would be exercised to obtain a stock worth $X_S$ for a price of just $K$, for a net profit of $X_S - K$. Hence at time $S$, the stock option is worth $\max(0, X_S - K)$.
+   	\remark
+   	At time 0, $X_S$ is an unknown quantity. The fair price of a stock option is defined to be the \under{no-arbitrage price}, i.e., the price for the option which makes it impossible to make a guaranteed profit through any combination of buying or selling the option, and buying and selling the stock.
+   	At time 0, what is the fair price (\under{no-arbitrage price} of the stock option?
+   	
+   	\example[naive example]
+   	Suppose that at time 0, you buy $x$ stock shares (for $\$100$ each), and $y$ option shares (for $\$ c$ each) where $x, y \in \real$ (negative values indicates selling).\\
+   	Then if the stock goes up to $\$130$, you make $\$30$ on each stock share and $\$(20-c)$ on each option share for a total profit of $30x + (20-c) y$.\\
+   	But if the stock goes down to $\$80$, you lose $\$20$ on each stock share and $\$c$ on each option share for a total profit of $-20x - cy$.\\
+   	To attempt to make a guaranteed profit, we could make these two different total profit amounts equal to each other $\implies y = (-5/2)x$, profits $= (5/2)(c-8)x$.\\
+   	If $c > 8$, then you buy $x > 0$ stock shares and $y = (-5/2)x < 0$ option shares and make a guaranteed profit of $(5/2)(c-8)x>0$.\\
+   	If $c < 8$, then you buy $x < 0$ stock shares and $y = (-5/2)x < 0$ option shares and make a guaranteed profit of $(5/2)(c-8)(-x)>0$.\\   	
+   	But if $c=8$, then profits $=0$.\\
+   	In summary, there is no arbitrage iff $c = 8$.
+   	\example
+   	Suppose we assign the new probabilities $P(X_s = 80) = 3/5$ and $P(X_S = 130) = 2/5$. Then the stock price is a martingale since $E(X_S) = (3/5)80 + (2/5)(130) = 100 = $ initial price. The option price is a martingale since $option_value = (3/5)0 + (2/5)(130 - 110) = 8 = c = $ initial price.  \\
+   	Then the fair price is the martingale expected value, 8. 
     
     
+    \theorem[Martingale Pricing Principle] The fair price of an option is equal to its expected value under the \blue{martingale} probabilities.
+    
+    \proposition Suppose a stock price at time 0 equals $X_0 = a$, and at time $S > 0$ equals either $X_s = d$ (down) or $X_s = u$ (up), where $d < a < u$. Then if $d < K < u$ then at time 0, the fair (no-arbitrage) price of an option to buy the stock at time $S$ for $K$ is equal to $(a-d)(u-K)/(u-d)$.
+    \todo{prove this!}
     
     
     
