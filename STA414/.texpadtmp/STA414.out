@@ -30,10 +30,15 @@
 \BOOKMARK [2][-]{subsection.6.3}{Posterior Inference in Latent Variable Models}{section.6}% 30
 \BOOKMARK [3][-]{subsubsection.6.3.1}{Approximating the Posterior Inference with Variational Methods}{subsection.6.3}% 31
 \BOOKMARK [3][-]{subsubsection.6.3.2}{Kullback-Leibler Divergence}{subsection.6.3}% 32
-\BOOKMARK [1][-]{section.7}{Sampling and Monte Carlo Methods}{}% 33
-\BOOKMARK [2][-]{subsection.7.1}{Sampling}{section.7}% 34
-\BOOKMARK [2][-]{subsection.7.2}{Importance Sampling}{section.7}% 35
-\BOOKMARK [2][-]{subsection.7.3}{Rejection Sampling}{section.7}% 36
-\BOOKMARK [2][-]{subsection.7.4}{Markov Chain Monte Carlo \(MCMC\)}{section.7}% 37
-\BOOKMARK [3][-]{subsubsection.7.4.1}{Metropolis-Hastings method}{subsection.7.4}% 38
-\BOOKMARK [1][-]{section.8}{Amortized Inference and Variational Auto-Encoders}{}% 39
+\BOOKMARK [2][-]{subsection.6.4}{Tutorial - Alternative forms of the ELBO}{section.6}% 33
+\BOOKMARK [2][-]{subsection.6.5}{Tutorial - Mean Field Variational Inference}{section.6}% 34
+\BOOKMARK [1][-]{section.7}{Sampling and Monte Carlo Methods}{}% 35
+\BOOKMARK [2][-]{subsection.7.1}{Sampling}{section.7}% 36
+\BOOKMARK [2][-]{subsection.7.2}{Importance Sampling}{section.7}% 37
+\BOOKMARK [2][-]{subsection.7.3}{Rejection Sampling}{section.7}% 38
+\BOOKMARK [2][-]{subsection.7.4}{Markov Chain Monte Carlo \(MCMC\)}{section.7}% 39
+\BOOKMARK [3][-]{subsubsection.7.4.1}{Metropolis-Hastings method}{subsection.7.4}% 40
+\BOOKMARK [1][-]{section.8}{Amortized Inference and Variational Auto-Encoders}{}% 41
+\BOOKMARK [2][-]{subsection.8.1}{the algorithm for amortized inference}{section.8}% 42
+\BOOKMARK [2][-]{subsection.8.2}{Optimizing model parameters}{section.8}% 43
+\BOOKMARK [2][-]{subsection.8.3}{Variational Autoencoder \(VAE\)}{section.8}% 44

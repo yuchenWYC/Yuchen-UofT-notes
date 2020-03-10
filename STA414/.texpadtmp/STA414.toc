@@ -62,14 +62,25 @@
 \contentsline {subsubsection}{\numberline {6.3.2}Kullback-Leibler Divergence}{23}{subsubsection.6.3.2}% 
 \contentsline {paragraph}{Variational Objective}{23}{section*.34}% 
 \contentsline {paragraph}{Evidence Lower Bound (ELBO)}{23}{section*.35}% 
-\contentsline {paragraph}{Optimizing the ELBO}{24}{section*.36}% 
-\contentsline {paragraph}{Pathwise Gradient}{24}{section*.37}% 
-\contentsline {section}{\numberline {7}Sampling and Monte Carlo Methods}{25}{section.7}% 
-\contentsline {subsection}{\numberline {7.1}Sampling}{25}{subsection.7.1}% 
-\contentsline {paragraph}{Problems to be solved}{25}{section*.38}% 
-\contentsline {subsection}{\numberline {7.2}Importance Sampling}{26}{subsection.7.2}% 
-\contentsline {subsection}{\numberline {7.3}Rejection Sampling}{27}{subsection.7.3}% 
-\contentsline {paragraph}{Rejection sampling in high dimensions}{28}{section*.41}% 
-\contentsline {subsection}{\numberline {7.4}Markov Chain Monte Carlo (MCMC)}{28}{subsection.7.4}% 
-\contentsline {subsubsection}{\numberline {7.4.1}Metropolis-Hastings method}{29}{subsubsection.7.4.1}% 
-\contentsline {section}{\numberline {8}Amortized Inference and Variational Auto-Encoders}{30}{section.8}% 
+\contentsline {paragraph}{Optimizing the ELBO}{24}{section*.37}% 
+\contentsline {paragraph}{Pathwise Gradient}{24}{section*.38}% 
+\contentsline {subsection}{\numberline {6.4}Tutorial - Alternative forms of the ELBO}{25}{subsection.6.4}% 
+\contentsline {paragraph}{Form 1}{25}{section*.39}% 
+\contentsline {paragraph}{Form 2}{25}{section*.40}% 
+\contentsline {paragraph}{Form 3}{25}{section*.41}% 
+\contentsline {subsection}{\numberline {6.5}Tutorial - Mean Field Variational Inference}{26}{subsection.6.5}% 
+\contentsline {section}{\numberline {7}Sampling and Monte Carlo Methods}{26}{section.7}% 
+\contentsline {subsection}{\numberline {7.1}Sampling}{26}{subsection.7.1}% 
+\contentsline {paragraph}{Problems to be solved}{26}{section*.43}% 
+\contentsline {subsection}{\numberline {7.2}Importance Sampling}{27}{subsection.7.2}% 
+\contentsline {subsection}{\numberline {7.3}Rejection Sampling}{29}{subsection.7.3}% 
+\contentsline {paragraph}{Rejection sampling in high dimensions}{30}{section*.46}% 
+\contentsline {subsection}{\numberline {7.4}Markov Chain Monte Carlo (MCMC)}{30}{subsection.7.4}% 
+\contentsline {subsubsection}{\numberline {7.4.1}Metropolis-Hastings method}{30}{subsubsection.7.4.1}% 
+\contentsline {section}{\numberline {8}Amortized Inference and Variational Auto-Encoders}{31}{section.8}% 
+\contentsline {subsection}{\numberline {8.1}the algorithm for amortized inference}{32}{subsection.8.1}% 
+\contentsline {subsection}{\numberline {8.2}Optimizing model parameters}{32}{subsection.8.2}% 
+\contentsline {subsection}{\numberline {8.3}Variational Autoencoder (VAE)}{32}{subsection.8.3}% 
+\contentsline {paragraph}{Deterministic Autoencoders}{33}{section*.50}% 
+\contentsline {paragraph}{Problems with Deterministic Autoencoders}{33}{section*.51}% 
+\contentsline {paragraph}{Variational Autoencoders (VAEs)}{34}{section*.52}% 

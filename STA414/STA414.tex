@@ -697,7 +697,7 @@ To do variational inference, we want to minimize the KL divergence between our a
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( q_\phi(z|x) \cdot \frac{p(x)}{p(z,x)}\right) \right ] \\
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( \frac{q_\phi(z|x)}{p(z,x)}\cdot p(x) \right )\right ] \\
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \frac{q_\phi (z|x)}{p(z,x)}\right] + \underset{z \sim q_\phi}{\mb{E}} \left[\log p(x)\right] \\
-	&= -\left( \underset{z \sim q_\phi}{\mb{E}} \left[ \log q_\phi (z|x)\right] + \underset{z \sim q_\phi}{\mb{E}} \left[p(z,x)\right] \right) + \underset{z \sim q_\phi}{\mb{E}} \left[ \log p(x) \right]\\
+	&= -\left(\blue{\underset{z \sim q_\phi}{\mb{E}} \left[p(z,x)\right]  - \underset{z \sim q_\phi}{\mb{E}} \left[ \log q_\phi (z|x)\right] }\right)+ \underset{z \sim q_\phi}{\mb{E}} \left[ \log p(x) \right]\\
 	&= - \underbrace{\mc{L}(\phi;x)}_{ELBO} + \log p(x)
 \end{align*}
 \tb{Claim:} Maximizing the ELBO $\implies$ minimizing $D_{KL}(q_\phi || p)$.
@@ -709,6 +709,7 @@ To do variational inference, we want to minimize the KL divergence between our a
 	\end{align*}
 	Since $D_{KL}(q_\phi(z|x)||p(z|x)) \geq 0$, we have
 	$$\mc{L}(\phi;x) \leq \log p(x)$$
+	\unsure{why this proof?}
 	Therefore, maximizing the ELBO $\implies$ minimizing $D_{KL}(q_\phi || p)$.
 \end{proof} 
 \paragraph{Optimizing the ELBO}
@@ -742,6 +743,42 @@ Some notable extensions:
 	\item We can make $q_\phi$ arbitrarily expressive, for instance using a mixture of Gaussians, or a normalizing flow.
 	\item We can fit both $\phi$ and parameters of $p(z|x)$ at the same time.
 \end{enumerate}
+\subsection{Tutorial - Alternative forms of the ELBO}
+We have that 
+$$L(\phi; x) = ELBO = - \underset{z\sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(x,z)}$$
+\paragraph{Form 1}
+The most general interpretation of the ELBO is given by
+\begin{align*}
+	L(\phi; x) &= - \underset{z\sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(x,z)}\\
+	&= \underset{z\sim q_\phi}{\mb{E}} \log \frac{p(x,z)}{q_\phi(z|x)} \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \log \frac{p(z)p(x|z)}{q_\phi(z|x)} \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \left[ \log p(x|z) + \log p(z) - \log q_\phi(z|x)\right]
+\end{align*}
+
+\paragraph{Form 2}
+\ti{Recall that \under{Entropy} is a measure of expected ``surprise": How uncertain are we of the value of a draw from this distribution?}
+$$H(X) := -\underset{X\sim p}{\mb{E}}[\log p(X)] = -\sum_{x \in X}p(x) \log p(x)$$
+Rewrite Form 1 using entropy
+\begin{align*}
+	L(\phi; x) &= - \underset{z\sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(x,z)}\\
+	&= \underset{z\sim q_\phi}{\mb{E}} \log \frac{p(x,z)}{q_\phi(z|x)} \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \log \frac{p(z)p(x|z)}{q_\phi(z|x)} \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \left[ \log p(x|z) + \log p(z) - \log q_\phi(z|x)\right] \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \left[ \log p(x|z) + \log p(z)\right] H\left[ q_\phi(z|x) \right]
+\end{align*}
+
+\paragraph{Form 3}
+\begin{align*}
+	L(\phi; x) &= - \underset{z\sim q_\phi}{\mb{E}} \log \frac{q_\phi(z|x)}{p(x,z)}\\
+	&= \underset{z\sim q_\phi}{\mb{E}} \log \frac{p(x,z)}{q_\phi(z|x)} \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \log \frac{p(z)p(x|z)}{q_\phi(z|x)} \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \left[ \log p(x|z)\right] -\underset{z\sim q_\phi}{\mb{E}} \left[ \frac{q_\phi(z|x)}{p(z)} \right] \\
+	&= \underset{z\sim q_\phi}{\mb{E}} \left[ \log p(x|z)\right] -D_{KL}(q_\phi(z|x)||p(z))
+\end{align*}
+This frames the ELBO as a tradeoff. The negative of this function is the \blue{loss function we use for training VAEs}. The first term can be thought of as a "reconstruction likelihood", i.e. how probable is $x$ given $z$, which encourages the model to choose the distribution which best reconstructs the data. The second term acts as regularization, by enforcing the idea that our parameterization shouldn't move us too far from the true distribution.
+
+\subsection{Tutorial - Mean Field Variational Inference}
+\todo[inline]{so tired...}
 
 
 \section{Sampling and Monte Carlo Methods}
@@ -871,17 +908,66 @@ As $t \rightarrow \infty$, $\{x^{(r)}\}_{r=1}^R \rightarrow p(x)$ for any $q(x'|
 \ti{Just as it was difficult to estimate the variance of an importance sampling estimator, so it is difficult to assess whether a Markov chain Monte Carlo method has `converged’, and to quantify how long one has to wait to obtain samples that are effectively independent samples from $p$.}
 
 \section{Amortized Inference and Variational Auto-Encoders}
+``Amortize" just means ``spread out a cost over time". Instead of doing SVI from scratch every time we see a new datapoint, we're going to try to gradually learn a function that can look at the data for a person $x_i$, and then output an approximate posterior $q_\phi(z_i|x_i)$. We'll call this a ``recognition model".\\
+Instead of a separate $\phi_i$ for each data example, we'll just have a single global $\phi$ that specifies the parameters of the recognition model. Because the relationship between data and posteriors is complex and hard to specify by hand, we'll do this with a neural network.\\
+\subsection{the algorithm for amortized inference}
+\begin{enumerate}
+	\item Sample a datapoint
+	\item Compute parameters $\phi$ of approximate posterior
+	\item Compute gradient of Monte Carlo estimate of ELBO wrt $\phi$
+	\item Update $\phi$
+\end{enumerate}
 
+\subsection{Optimizing model parameters}
+\unsure{Didn't really understand this section}
 
+\subsection{Variational Autoencoder (VAE)}
+An autoencoder takes some data as input and discovers some latent state representation of the data. The encoder network takes in the input data (such as an image) and outputs a single value for each encoding dimension. The decoder takes this encoding and attempts to recreate the original input. 
+\example{MNIST}
+Let's give an explicit model for MNIST images of handwritten digits.\\
+\info{step 1: insert a prior of each latent variable; step 2: estimate the distribution of the observed variable; step 3: calculate the posterior}
+We will choose our prior on $z$ to be the standard Gaussian $$\mc{N}(0,I)$$
+Our likelihood function is
+$$p_{\theta}(x_i|z_i) = \prod_{d=1}^D Ber(x_{id}|\mu_{\theta}(z_i))$$
+Our approximate posterior is
+$$q_\phi(z|x) = \mc{N}(\mu(x), \sigma(x)I)$$
+Define our encoder and decoder to be\\
+\tb{Encoder}: $g_\phi(x_i) = \phi_i = (\mu_i, \log \sigma_i)$ (learning the distribution of $z$)\\
+\tb{Decoder}: $f_\theta(z_i) = \theta_i$ (reconstructing the distribution of $x$)
+\unsure{what is $\theta$ doing here?}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p12.png}
+\end{figure}
 
+\paragraph{Deterministic Autoencoders}
+An autoencoder takes an input, encodes it into a vector, then decodes to produce something similar to the original data. Or: autoencoders reconstruct their own input using an encoder and a decoder. \\
+\tb{Encoder}: $g(x) \rightarrow z$\\
+\tb{Decoder}: $f(z) \rightarrow \hat{x}$\\
+The encoder, $g(x)$, takes in the input data (such as an image) and outputs a single value for each encoding dimension while the The decoder, $f(z)$ takes this encoding and attempts to recreate the original input.\\
+Our goal is to learn $g, f$ from unlabeled data, and usually we specify $f$ and $g$ with neural networks, and minimize squared reconstruction error.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p13.png}
+\end{figure}
+$z$ is the code the model attempts to compress a representation of the input, $x$, into.
+It is important that the encoder reduces the dimension, for example by learning how to ignore noise (otherwise, we would just learn the identify function). The big idea is that the code contains only the most important features of the input, such that we can reconstruct the input from the code reliably
+$$\tilde{x} = f(g(x)) \approx x$$
 
+\paragraph{Problems with Deterministic Autoencoders}
+\tb{Problem 1: Proximity in data space does not mean proximity in feature space}
+$$x_1 \approx x_2 \notimplies z_1 \approx z_2$$
+\tb{Problem 2: ``White" latent space region}
+If the space has regions where no data gets encoded to, and you sample/generate a variation from there, the decoder will simply generate an unrealistic output, because the decoder has no idea how to deal with that region of the latent space. During training, it never saw encoded vectors coming from that region of latent space.\\
+\tb{Solution: Adding noise to autoencoders}
+\begin{itemize}
+	\item Can add noise to data before encoding, reconstruct original data. But how much noise? 
+	\item Can add noise to latents after encoding, reconstruct original data. But how much noise?
+\end{itemize}
 
-
-
-
-
-
-
+\paragraph{Variational Autoencoders (VAEs)}
+This stochastic generation means, that even for the same input, while the mean and standard deviations remain the same, the actual encoding will somewhat \blue{vary} on every single pass simply due to \blue{sampling}. \\
+The VAE generation model learns to reconstruct its inputs not only from the encoded points but also from the area around them. This allows the generation model to generate new data by sampling from an ``area" instead of only being able to generate already seen data corresponding to the particular fixed encoded points.
 
 
 
