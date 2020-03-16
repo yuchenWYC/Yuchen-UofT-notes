@@ -685,8 +685,30 @@
     
     \corollary[Unique Stationary Corollary] If Markov chain $P$ is \blue{irreducible} (whether periodic or not), then it has at most \tb{one} stationary distribution.
     
-    \subsection{Application - MCMC Algorithms}
-    \improvement[inline]{section missing...}
+    \subsection{Application - Markov Chain Monte Carlo Algorithms}
+    Let $S$ be any contiguous subset of $\mb{Z}$.\\
+    e.g. $S = \{1,2,3\}$, or $S = \{-5, -4, \hdots, 17\}$, or $S = \mb{N}$.\\
+    Let $\{\pi_i\}$ be any probability distribution on $S$. Assume for simplicity that $\pi_i > 0$ for all $i \in S$.\\
+    Suppose we want to sample from $\pi$, i.e., create a random variable $X$ with $P(X=i) \approx \pi_i$ for all $i \in S$.
+    \paragraph{Metropolis Algorithm}
+    Let 
+    $$p_{i,i+1} = \frac{1}{2}\min(1, \frac{\pi_{i+1}}{\pi_i})$$
+    $$p_{i,i-1} = \frac{1}{2}\min(1, \frac{\pi_{i-1}}{\pi_i})$$
+    and
+    $$p_{i,i} = 1 - p_{i, i+1} - p_{i, i-1}$$ 
+    \fact This chain have $\limit{n}\dur{p}{ij}{n} = \pi_j$.
+    \begin{proof}
+    	\begin{align*}
+    		\pi_i p_{i, i+1} &= \pi_i \frac{1}{2}\min(1, \frac{\pi_{i+1}}{\pi_i}) = \frac{1}{2}\min(\pi_i, \pi_{i+1})\\
+    		\pi_{i+1} p_{i+1, i} &= \pi_{i+1} \frac{1}{2}\min(1, \frac{\pi_i}{\pi_{i+1}}) = \frac{1}{2}\min(\pi_{i+1}, \pi_i)\\
+    		\implies \pi_i p_{ij} &= \pi_j p_{ji} \text{ if $j = i+1$, hence for all $i, j \in S$}
+    	\end{align*}
+    	Therefore, the chain is reversible w.r.t. $\{\pi_i\}$. So $\{\pi_i\}$ is stationary.\\
+    	Also, the chain is easily checked to be irreducible and aperiodic.\\
+    	Then by Markov Chain Convergence Theorem, $\limit{n} \dur{p}{ij}{n} = \pi_j$, and $\limit{n} P[X_n = j] = \pi_j$, for all $i, j$ and $v$.
+    \end{proof}
+    \noindent Hence, for ``large enough" $n$, $X_n$ is approximately a sample from $\pi$.
+	
     
     \subsection{Application - Random Walks on Graphs}
     Let $V$ be a non-empty finite or countable set. Let $w: V \times V \rightarrow [0, \infty)$ be a symmetric weight function so that $w(u,v) = w(v,u)$. (usual unweighted case: $w(u, v) = 1$ if there is an edge between $u$ and $v$, otherwise $w(u,v) = 0$).\\
@@ -1027,10 +1049,58 @@
    	Then the fair price is the martingale expected value, 8. 
     
     
-    \theorem[Martingale Pricing Principle] The fair price of an option is equal to its expected value under the \blue{martingale} probabilities.
+    \theorem[Martingale Pricing Principle] The fair price of an option is equal to its expected value (worth) under the \blue{martingale} probabilities.
     
-    \proposition Suppose a stock price at time 0 equals $X_0 = a$, and at time $S > 0$ equals either $X_s = d$ (down) or $X_s = u$ (up), where $d < a < u$. Then if $d < K < u$ then at time 0, the fair (no-arbitrage) price of an option to buy the stock at time $S$ for $K$ is equal to $(a-d)(u-K)/(u-d)$.
+    \proposition Suppose a stock price at time 0 equals $X_0 = a$, and at strike date $S > 0$ equals either $X_s = d$ (down) or $X_s = u$ (up), where $d < a < u$. Then if $d < K < u$ then at time 0, the fair (no-arbitrage) price of an option to buy the stock at time $S$ for strike price $K$ is equal to $(a-d)(u-K)/(u-d)$.
     \todo{prove this!}
+    \begin{proof}\tb{Profit Computation}\\
+    	Suppose you buy $x$ shares of the stock for $\$a$ per stock, plus $y$ shares of the option for $\$c$ per share. \\
+    	Then if the stock goes up to $X_S = u$, your profits is $x(u-a) + y(u-K-c)$.
+    	If the stock goes down to $X_S = d$, your profit is $x(d-a) + y(-c)$.\\
+    	These are equal if $x(d-u) = y(u-K) \iff y = \frac{-x(u-d)}{u-K}$. \\
+    	If there is no arbitrage, then your guaranteed profit is 0, which equals
+    	$$x(d-a) - yc = x(d-a) + \frac{xc(u-d)}{u-K} = 0 \implies c = \frac{(a-d)(u-K)}{u-d}$$
+    \end{proof}
+    \begin{proof}\tb{Martingale Pricing Principle}\\
+    We need to find martingale probabilities $q_1 = P(X_S = d)$ and $q_2 = P(X_S = u)$ to make the stock price a martingale. So we need that
+    \begin{align*}
+    	dq_1 + uq_2 &= a \\
+    	\implies d_1 + u(1-q_1) &= a \\
+    	\implies (d-u)q_1 + u &= a\\
+    	\implies q_1 &= \frac{u-a}{u-d}, \quad q_2 = 1 - q_1 = \frac{a-d}{u-d}
+    \end{align*}
+    Then by the Martingale Pricing Principle, the fair price of the option is the martingale expectation of the option's worth, which equals
+    $$q_1(0) + q_2(u-K) = \frac{(a-d)(u-K)}{u-d}$$
+    \end{proof}
+    
+    \section{Continuous Processes}
+    So far, we have mostly considered discrete processes, where the time is indexed by non-negative integers, and the process takes on a finite or countable number of different values.\\
+    We now consider various generalizations of this to continuous time and/or space. \blue{We begin with a continuous generalization of symmetric simple random walk, called Brownian motion.}
+    \subsection{Brownian Motion}
+    Let $\{X_n\}_{n=0}^\infty$ be a symmetric simple random walk with $X_0 = 0$. \\
+    We have 
+    $$X_n = \begin{cases}Z_1 + Z_2 + \hdots + Z_n = X_n + Z_n, & n \geq 1\\
+ 	0, & n = 0	
+ 	\end{cases}$$
+    where $\{Z_i\}$ are i.i.d. with $P(Z_i = +1) = P(Z_i = -1) = \frac{1}{2}$.\\
+    Let $M$ be a large integer, and let $\{Y_t^{(M)}$ be like $\{X_n\}$, except with time sped up by a factor of $M$, and space shrunk down by a factor of $\sqrt{M}$. We have $\dur{Y}{0}{M} = 0$ and
+    $$\dur{Y}{\frac{i+1}{M}}{M} = \dur{Y}{\frac{i}{M}}{M} + \frac{1}{\sqrt{M}}Z_{i+1}$$
+    Fill in $\{\dur{Y}{t}{M}\}_{t \geq 0}$ by \blue{linear interpolation}.\\
+    \under{Brownian motion} $\{B_t\}_{t\geq 0}$ is (intuitively) the limit as $M \rightarrow \infty$ of $\{\dur{Y}{t}{M}\}$.\\
+    Since $\dur{Y}{0}{M} = 0$ for all $M$, also $B_0 = 0$. Also, note that $\dur{Y}{t}{M} = \frac{1}{\sqrt{M}}(Z_1 + Z_2 + \hdots + Z_{tM})$ (at least if $tM \in \mb{Z}$, otherwise within $\mc{O}(1/\sqrt{M})$, which )    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

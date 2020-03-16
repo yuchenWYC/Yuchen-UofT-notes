@@ -12,20 +12,23 @@
 \contentsline {subsection}{\numberline {3.4}Convergence Theorem}{17}{subsection.3.4}% 
 \contentsline {paragraph}{Proof of Markov Chain Convergence Theorem}{18}{section*.40}% 
 \contentsline {subsection}{\numberline {3.5}Periodic Convergence}{18}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}Application - MCMC Algorithms}{19}{subsection.3.6}% 
+\contentsline {subsection}{\numberline {3.6}Application - Markov Chain Monte Carlo Algorithms}{19}{subsection.3.6}% 
+\contentsline {paragraph}{Metropolis Algorithm}{19}{section*.44}% 
 \contentsline {subsection}{\numberline {3.7}Application - Random Walks on Graphs}{19}{subsection.3.7}% 
-\contentsline {subsection}{\numberline {3.8}Application - Gambler's Ruin}{19}{subsection.3.8}% 
+\contentsline {subsection}{\numberline {3.8}Application - Gambler's Ruin}{20}{subsection.3.8}% 
 \contentsline {paragraph}{The Gambler's Ruin question}{20}{section*.47}% 
 \contentsline {subsection}{\numberline {3.9}Mean Recurrence Times}{22}{subsection.3.9}% 
-\contentsline {subsection}{\numberline {3.10}Application - Sequence Waiting Times}{22}{subsection.3.10}% 
-\contentsline {paragraph}{Problem}{22}{section*.54}% 
-\contentsline {section}{\numberline {4}Martingales}{22}{section.4}% 
+\contentsline {subsection}{\numberline {3.10}Application - Sequence Waiting Times}{23}{subsection.3.10}% 
+\contentsline {paragraph}{Problem}{23}{section*.54}% 
+\contentsline {section}{\numberline {4}Martingales}{23}{section.4}% 
 \contentsline {subsection}{\numberline {4.1}Martingale Definitions}{23}{subsection.4.1}% 
-\contentsline {paragraph}{Special case: Markov chain}{23}{section*.55}% 
-\contentsline {subsection}{\numberline {4.2}Stopping Times}{23}{subsection.4.2}% 
-\contentsline {subsection}{\numberline {4.3}Wald's Theorem}{26}{subsection.4.3}% 
-\contentsline {subsection}{\numberline {4.4}Application - Sequence Waiting Times}{27}{subsection.4.4}% 
-\contentsline {subsection}{\numberline {4.5}Martingale Convergence Theorem}{27}{subsection.4.5}% 
+\contentsline {paragraph}{Special case: Markov chain}{24}{section*.55}% 
+\contentsline {subsection}{\numberline {4.2}Stopping Times}{24}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.3}Wald's Theorem}{27}{subsection.4.3}% 
+\contentsline {subsection}{\numberline {4.4}Application - Sequence Waiting Times}{28}{subsection.4.4}% 
+\contentsline {subsection}{\numberline {4.5}Martingale Convergence Theorem}{28}{subsection.4.5}% 
 \contentsline {subsection}{\numberline {4.6}Application - Branching Processes}{28}{subsection.4.6}% 
-\contentsline {paragraph}{Transition probabilties}{28}{section*.62}% 
-\contentsline {subsection}{\numberline {4.7}Application - Stock Options (Discrete)}{29}{subsection.4.7}% 
+\contentsline {paragraph}{Transition probabilties}{29}{section*.62}% 
+\contentsline {subsection}{\numberline {4.7}Application - Stock Options (Discrete)}{30}{subsection.4.7}% 
+\contentsline {section}{\numberline {5}Continuous Processes}{31}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Brownian Motion}{31}{subsection.5.1}% 

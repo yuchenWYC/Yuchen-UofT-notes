@@ -697,7 +697,7 @@ To do variational inference, we want to minimize the KL divergence between our a
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( q_\phi(z|x) \cdot \frac{p(x)}{p(z,x)}\right) \right ] \\
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \left( \frac{q_\phi(z|x)}{p(z,x)}\cdot p(x) \right )\right ] \\
 	&= \underset{z \sim q_\phi}{\mb{E}} \left[ \log \frac{q_\phi (z|x)}{p(z,x)}\right] + \underset{z \sim q_\phi}{\mb{E}} \left[\log p(x)\right] \\
-	&= -\left(\blue{\underset{z \sim q_\phi}{\mb{E}} \left[p(z,x)\right]  - \underset{z \sim q_\phi}{\mb{E}} \left[ \log q_\phi (z|x)\right] }\right)+ \underset{z \sim q_\phi}{\mb{E}} \left[ \log p(x) \right]\\
+	&= -\left(\blue{\underset{z \sim q_\phi}{\mb{E}} \left[\log p(z,x)\right]  - \underset{z \sim q_\phi}{\mb{E}} \left[ \log q_\phi (z|x)\right] }\right)+ \underset{z \sim q_\phi}{\mb{E}} \left[ \log p(x) \right]\\
 	&= - \underbrace{\mc{L}(\phi;x)}_{ELBO} + \log p(x)
 \end{align*}
 \tb{Claim:} Maximizing the ELBO $\implies$ minimizing $D_{KL}(q_\phi || p)$.

@@ -10,7 +10,7 @@
 \BOOKMARK [2][-]{subsection.3.3}{Obstacles to Convergence}{section.3}% 10
 \BOOKMARK [2][-]{subsection.3.4}{Convergence Theorem}{section.3}% 11
 \BOOKMARK [2][-]{subsection.3.5}{Periodic Convergence}{section.3}% 12
-\BOOKMARK [2][-]{subsection.3.6}{Application - MCMC Algorithms}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.6}{Application - Markov Chain Monte Carlo Algorithms}{section.3}% 13
 \BOOKMARK [2][-]{subsection.3.7}{Application - Random Walks on Graphs}{section.3}% 14
 \BOOKMARK [2][-]{subsection.3.8}{Application - Gambler's Ruin}{section.3}% 15
 \BOOKMARK [2][-]{subsection.3.9}{Mean Recurrence Times}{section.3}% 16
@@ -23,3 +23,5 @@
 \BOOKMARK [2][-]{subsection.4.5}{Martingale Convergence Theorem}{section.4}% 23
 \BOOKMARK [2][-]{subsection.4.6}{Application - Branching Processes}{section.4}% 24
 \BOOKMARK [2][-]{subsection.4.7}{Application - Stock Options \(Discrete\)}{section.4}% 25
+\BOOKMARK [1][-]{section.5}{Continuous Processes}{}% 26
+\BOOKMARK [2][-]{subsection.5.1}{Brownian Motion}{section.5}% 27
