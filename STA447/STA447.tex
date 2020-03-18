@@ -1221,7 +1221,7 @@
    	At time 0, what is the fair price (\under{no-arbitrage price} of the stock option?
    	
    	\example[naive example]
-   	Suppose that at time 0, you buy $x$ stock shares (for $\$100$ each), and $y$ option shares (for $\$ c$ each) where $x, y \in \real$ (negative values indicates selling).\\
+   	Suppose a stock price $X_0$ at time 0 is equal to 100, and at time $S$ the stock price $X_S$ is random with $P(X_S = 80) = 9/10$ and $P(X_S = 130) = 1/10$. Suppose there is an option to buy the stock at time $S$ for $K = 110$. \\Suppose that at time 0, you buy $x$ stock shares (for $\$100$ each), and $y$ option shares (for $\$ c$ each) where $x, y \in \real$ (negative values indicates selling).\\
    	Then if the stock goes up to $\$130$, you make $\$30$ on each stock share and $\$(20-c)$ on each option share for a total profit of $30x + (20-c) y$.\\
    	But if the stock goes down to $\$80$, you lose $\$20$ on each stock share and $\$c$ on each option share for a total profit of $-20x - cy$.\\
    	To attempt to make a guaranteed profit, we could make these two different total profit amounts equal to each other $\implies y = (-5/2)x$, profits $= (5/2)(c-8)x$.\\
@@ -1230,14 +1230,17 @@
    	But if $c=8$, then profits $=0$.\\
    	In summary, there is no arbitrage iff $c = 8$.
    	\example
-   	Suppose we assign the new probabilities $P(X_s = 80) = 3/5$ and $P(X_S = 130) = 2/5$. Then the stock price is a martingale since $E(X_S) = (3/5)80 + (2/5)(130) = 100 = $ initial price. The option price is a martingale since $option_value = (3/5)0 + (2/5)(130 - 110) = 8 = c = $ initial price.  \\
+   	Suppose we assign the new probabilities $P(X_s = 80) = 3/5$ and $P(X_S = 130) = 2/5$. Then the stock price is a martingale since $E(X_S) = (3/5)80 + (2/5)(130) = 100 = $ initial price. The option price is a martingale since $option\_value = (3/5)(0) + (2/5)(130 - 110) = 8 = c = $ initial price.  \\
    	Then the fair price is the martingale expected value, 8. 
     
     
     \theorem[Martingale Pricing Principle] The fair price of an option is equal to its expected value (worth) under the \blue{martingale} probabilities.
+    \example
+    Suppose a stock price at strike data $S > 0$ equals either $X_S = d$ or $X_S = u$ under the martingale probabilities $P(X_S = d) = q_1$ and $P(X_S = u) = q_2$, and there is an option to buy the stock at time $S$ for strike price $K$. \\
+    Then the fair price is 
+    $$c = q_1(0) + q_2(u - K) = q_2(u-K)$$
     
     \proposition Suppose a stock price at time 0 equals $X_0 = a$, and at strike date $S > 0$ equals either $X_s = d$ (down) or $X_s = u$ (up), where $d < a < u$. Then if $d < K < u$ then at time 0, the fair (no-arbitrage) price of an option to buy the stock at time $S$ for strike price $K$ is equal to $(a-d)(u-K)/(u-d)$.
-    \todo{prove this!}
     \begin{proof}\tb{Profit Computation}\\
     	Suppose you buy $x$ shares of the stock for $\$a$ per stock, plus $y$ shares of the option for $\$c$ per share. \\
     	Then if the stock goes up to $X_S = u$, your profits is $x(u-a) + y(u-K-c)$.

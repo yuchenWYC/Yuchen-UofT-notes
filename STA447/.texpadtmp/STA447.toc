@@ -34,4 +34,4 @@
 \contentsline {paragraph}{In summary}{35}{section*.67}% 
 \contentsline {subsection}{\numberline {4.7}Application - Stock Options (Discrete)}{36}{subsection.4.7}% 
 \contentsline {section}{\numberline {5}Continuous Processes}{37}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Brownian Motion}{37}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.1}Brownian Motion}{38}{subsection.5.1}% 
