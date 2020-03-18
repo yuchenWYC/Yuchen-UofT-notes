@@ -73,7 +73,7 @@
     $$E(X) = \sum_{y}P(Y=y)E(X|Y=y)$$
     i.e. we can compute $E(X)$ by averaging conditional expectations.
     \todo{prove this}
-    \theorem[\label{Double-expectation formula} Double-expectation formula]
+    \theorem[\label{Double-expectation formula}Double-expectation formula]
     $$E[E(X|Y)] = E(X)$$
     i.e. the random variable $E(X|Y)$ equals $X$ on average.
     \begin{proof}
@@ -81,8 +81,6 @@
     $$E[E(X|Y)] = \sum_{y}P(Y=y)E(X|Y=y) = E(X)$$
     which the results follows from Double-expectation formula\ref{Double-expectation formula}.
     \end{proof}
-    \theorem[\label{Dominated Convergence Theorem}Dominated Convergence Theorem]
-    If $\limit{n} X_n = X$, and there is some random variable $Y$ with $E|Y|<\infty$ and $|X_n| \leq Y$ for all $n$, then $$\limit{n} E(X_n) = E(X)$$
     
     \definition[weak convergence]
     $X_n$ converge to $X$ weakly if 
@@ -95,6 +93,18 @@
     \theorem[\label{Law of Large Numbers}Law of Large Numbers]
     If the sequence $\{X_n\}$ is i.i.d. with common mean $m$, then the sequence $\frac{1}{n}\sum_{i=1}^n X_i$ converges to $m$ (both weakly and strongly), i.e.,
     $$\limit{n} \frac{1}{n}\sum_{i=1}^nX_i = m \quad w.p. 1$$ 
+    
+  	\theorem [\label{the Limit of Partial Averages Principle}the Limit of Partial Averages Principle]
+  	If $$\limit{n} x_n = r$$then $$\limit{n} \frac{1}{n}\sum_{i=1}^n x_i = r$$
+  	
+  	\theorem[\label{Bounded Convergence Theorem}Bounded Convergence Theorem]
+  	If $\limit{n} X_n = X$, and the $\{X_n\}$ are uniformly bounded (i.e., there is $M < \infty$ with $|X_n| \leq M$ for all $n$), then
+  	$$\limit{n}E(X_n) = E(X)$$
+  	\theorem[\label{Monotone Convergence Theorem}Monotone Convergence Theorem] If $\limit{n}X_n = X$, and $0 \leq X_1 \leq X_2 \leq X_3 \leq \hdots$, then
+  	$$\limit{n}E(X_n) = E(X)$$
+  	
+  	\theorem[\label{Dominated Convergence Theorem}Dominated Convergence Theorem]
+    If $\limit{n} X_n = X$, and there is some random variable $Y$ with $E|Y|<\infty$ and $|X_n| \leq Y$ for all $n$, then $$\limit{n} E(X_n) = E(X)$$
 
     \info[inline]{If time, please finish reading the preliminary, which I found useful. --Mar 9}
 
@@ -522,7 +532,7 @@
     \definition[reversibility]
     A Markov chain is \under{reversible} (or time reversible, or satisfies detailed balance) with respect to a probability distribution $\{\pi_i\}$ if $\pi_ip_{ij} = \pi_jp_{ji}$ for all $i, j \in S$.
     
-    \proposition If a chain is reversible with respect to $\pi$, then $\pi$ is a stationary distribution.
+    \proposition \label{reversible implies stationary} If a chain is reversible with respect to $\pi$, then $\pi$ is a stationary distribution.
     \begin{proof}
     	Reversibility means $\pi_ip_{ij} = \pi_jp_{ji}$, so then for $j \in S$, $$\sum_{i \in S}\pi_ip_{ij} = \sum_{i\in S}\pi_jp_{ji} = \pi_j\sum_{i\in S}p_{ji} = \pi_j(1) = \pi_j$$
     \end{proof}
@@ -613,7 +623,7 @@
     \corollary If a chain is \blue{irreducible and $p_{ii} > 0$ for some state $i$}, then the chain is \red{aperiodic}.
     
     \subsection{Convergence Theorem}
-    \theorem[Markov Chain Convergence Theorem] If a Markov chain is \blue{irreducible, aperiodic, and has a stationary distribution $\{\pi_i\}$}, then $\limit{n} p_{ij}^{(n)} = \pi_j$ for all $i, j \in S$, and $\limit{n} P(X_n = j) = \pi_j$ for any initial probabilities $\{v_i\}$.
+    \theorem[\label{Markov Chain Convergence Theorem}Markov Chain Convergence Theorem] If a Markov chain is \blue{irreducible, aperiodic, and has a stationary distribution $\{\pi_i\}$}, then $\limit{n} p_{ij}^{(n)} = \pi_j$ for all $i, j \in S$, and $\limit{n} P(X_n = j) = \pi_j$ for any initial probabilities $\{v_i\}$.
     
     \theorem[Stationary Recurrence Theorem] If chain \blue{irreducible and has a stationary distribution}, then it is \red{recurrent}.
     \begin{proof}
@@ -664,8 +674,20 @@
     \remark Strong convergence implies weak convergence, and weak convergence implies convergence in distribution.
     
     
-    \proposition If $\{X_n\}$ is a simple symmetric random walk, then the absolute values $|X_n|$ converge weakly to positive infinity.
-    \todo{prove this}
+    \proposition If $\{X_n\}$ is a simple symmetric random walk, then the absolute values $|X_n|$ converge weakly to positive infinity: 
+    $$\forall K > 0, \limit{n}P(|X_n| < L) = 0$$
+    \begin{proof}
+    	We can write that $X_n = \sum_{i=1}^n Z_i$, where $\{Z_i\}$ are i.i.d. $\pm 1$ with probability $1/2$ each, and hence common mean $m = 0$ and variance $v = 1$. Hence, the Central Limit Theorem says that
+    	$$\limit{n} P(-b < \frac{X_n}{\sqrt{n}} < b) = \int_{-b}^b \phi(x)\,dx$$
+    	where $\phi$ is the density function of the standard normal distribution.\\
+    	Hence, $\underset{b \searrow 0}{\lim} P(-b < \frac{X_n}{\sqrt{n}}<b) = 0$. \\
+    	But $P(|X_n| < K) = P(-K < X_n < K) = P(\frac{-K}{\sqrt{n}} < \frac{X_n}{\sqrt{n}} < \frac{K}{\sqrt{n}})$. \\
+    	By monotonicity, for any finite $K$ and any $b > 0$, 
+    	$$P(|X_n| < K) < P(-b < \frac{X_n}{\sqrt{n}} < b)$$
+    	for all sufficiently large $n$. \\
+    	It follows that $\limit{n} P(|X_n| < K) = 0$ for any finite $K$.\\
+    	Therefore, $|X_n|$ converges weakly to positive infinity.
+    \end{proof}
     
     \subsection{Periodic Convergence}
     \theorem[Periodic Convergence Theorem]
@@ -675,19 +697,32 @@
     $$\limit{n} \frac{1}{b}(P[X_n = j] + P[X_{n+1} = j] + \hdots + P[X_{n+b-1} = j]) = \pi_j$$
     and also
     $$\limit{n} \frac{1}{b}P(X_n = j \text{ or } X_{n+1} = j \text{ or } \hdots \text{ or } X_{n+b-1} = j ) = \pi_j$$
+    \example
+    If $b =2$, then $\limit{n} \frac{1}{2}[\dur{p}{ij}{n} + \dur{p}{ij}{n+1}] = \pi_j$ for all $i, j \in S$.
+    \example[Ehrenfest's Urn]
+    Ehrenfest's Urn has period $b=2$, and oscillates between the two subsets $S_0 = \{\text{even } i \in S\}$ and $S_1 = \{\text{odd }i\in S\}$. It satisfies the periodic convergence property that
+    $$\limit{n}\frac{1}{2}[\dur{p}{ij}{n} + \dur{p}{ij}{n+1}] = \pi_j = 2^{-d}{d\choose j}$$
     
     \theorem[Average Probability Convergence]
     If a Markov chain is \blue{irreducible} with \blue{stationary distribution $\{\pi_i\}$} (whether periodic or not), then 
     $$\forall i, j \in S, \limit{n} \frac{1}{n}[\dur{p}{ij}{1} + \dur{p}{ij}{2} + \hdots + \dur{p}{ij}{n}] = \pi_j$$
     i.e.,
     $$\limit{n} \frac{1}{n}\sum_{l=1}^n \dur{p}{ij}{l} = \pi_j$$
-    \todo{prove this}
+    \begin{proof}
+    	This follows from the usual Markov Chain Convergence Theorem by the Limit of Partial Averages Principle \ref{the Limit of Partial Averages Principle}.
+    \end{proof}
+    \remark
+    This is a type of convergence that holds for all irreducible chains with stationary distributions, whether periodic or not.
     
     \corollary[Unique Stationary Corollary] If Markov chain $P$ is \blue{irreducible} (whether periodic or not), then it has at most \tb{one} stationary distribution.
+    \begin{proof}
+    	By Average Probability Convergence, any $\pi_j$ in a stationary distribution $\{\pi_i\}$ which exists must be equal to
+    	$$\limit{n} \frac{1}{n}[\dur{p}{ij}{1} + \dur{p}{ij}{2} + \hdots + \dur{p}{ij}{n}]$$
+    	So if there exists two stationary distributions, then they are equal.
+    \end{proof}
     
     \subsection{Application - Markov Chain Monte Carlo Algorithms}
-    Let $S$ be any contiguous subset of $\mb{Z}$.\\
-    e.g. $S = \{1,2,3\}$, or $S = \{-5, -4, \hdots, 17\}$, or $S = \mb{N}$.\\
+`    e.g. $S = \{1,2,3\}$, or $S = \{-5, -4, \hdots, 17\}$, or $S = \mb{N}$.\\
     Let $\{\pi_i\}$ be any probability distribution on $S$. Assume for simplicity that $\pi_i > 0$ for all $i \in S$.\\
     Suppose we want to sample from $\pi$, i.e., create a random variable $X$ with $P(X=i) \approx \pi_i$ for all $i \in S$.
     \paragraph{Metropolis Algorithm}
@@ -701,8 +736,8 @@
     	\begin{align*}
     		\pi_i p_{i, i+1} &= \pi_i \frac{1}{2}\min(1, \frac{\pi_{i+1}}{\pi_i}) = \frac{1}{2}\min(\pi_i, \pi_{i+1})\\
     		\pi_{i+1} p_{i+1, i} &= \pi_{i+1} \frac{1}{2}\min(1, \frac{\pi_i}{\pi_{i+1}}) = \frac{1}{2}\min(\pi_{i+1}, \pi_i)\\
-    		\implies \pi_i p_{ij} &= \pi_j p_{ji} \text{ if $j = i+1$, hence for all $i, j \in S$}
     	\end{align*}
+    	This implies that $\pi_i p_{ij} = \pi_j p_{ji}$ if $j = i+1$, hence for all $i, j \in S$, since $p_{ij} = 0$ for all other cases.\\
     	Therefore, the chain is reversible w.r.t. $\{\pi_i\}$. So $\{\pi_i\}$ is stationary.\\
     	Also, the chain is easily checked to be irreducible and aperiodic.\\
     	Then by Markov Chain Convergence Theorem, $\limit{n} \dur{p}{ij}{n} = \pi_j$, and $\limit{n} P[X_n = j] = \pi_j$, for all $i, j$ and $v$.
@@ -723,18 +758,54 @@
     \remark
     The most common case is where each $w(u,v) = 0$ or $1$, so from $u$, the chain moves to one of the $d(u)$ vertices connected to $u$ with equal probability.
     
-    \theorem[Graph Stationary Distribution]
-    Consider a random walk on a graph $V$ with degrees $d(u)$. Assume that $Z$ is \blue{finite}. Then if $\pi_u = \frac{d(u)}{Z}$, then $\pi$ is a stationary distribution for this walk. 
+    \example[Ring Graph]
+    Suppose $V = \{1,2,3,4,5\}$, with $w(i, i+1) = w(i+1, i) = 1$ for $i = 1, 2, 3, 4$, and $w(5,1) = w(1,5) = 1$, with $w(i,j) = 0$ otherwise.
     
-    \theorem[Graph Convergence Theorem] For a random walk on a connected non-bipartite graph, if $Z < \infty$, then $\limit{n} \dur{p}{uv}{n} = \frac{d(v)}{Z}$ for all $u, v \in V$, and $\limit{n} P[X_n = v] = \frac{d(v)}{Z}$ (for any initial probabilities).
-    \todo{prove this}
+    \example[Stick Graph]
+    Suppose $V = \{1,2,\hdots,K\}$, with $w(i, i+1) = w(i+1, i) = 1$ for $1 \leq i \leq K-1$, with $w(i,j) = 0$ otherwise.
+    
+    \example[Star Graph]
+    Suppose $V = \{0, 1, 2, \hdots, K\}$, with $w(i, 0) = w(0,i) = 1$ for $i = 1,2,3$, with $w(i,j) = 0$ otherwise.
+    
+    \example[Infinite Graph]
+    Suppose $V = \mb{Z}$, with $w(i, i+1) = w(i+1, i) = 1$ for all $i \in V$, and $w(i, j) = 0$ otherwise. \blue{Random walk on this graph corresponds exactly to simple symmetric random walk.}
+    
+    \example{Frog Graph} Suppose $V = \{1,2,\hdots,K\}$, with $w(i,i) = 1$ for $1 \leq i \leq K$, and $w(i, i+1) = w(i+1, i) = 1$ for $1 \leq i \leq K - 1$, and $w(K, 1) = w(1,K) = 1$, and $w(i,j) = 0$ otherwise.
+    \remark
+    These walks have stationary distributions. \\
+    Let $Z = \sum_{u\in V} d(u) = \sum_{u, v \in V} w(u,v)$. In the unweighted case, $Z$ equals two times the number of edges. (Except that self-edges are only counted once, not twice.) $Z$ might be infinite, if $V$ is infinite. But if $Z < \infty$, then we have a precise formula for a stationary distribution:
+    
+    \theorem[\label{Graph Stationary Distribution Theorem}Graph Stationary Distribution Theorem]
+    Consider a random walk on a graph $V$ with degrees $d(u)$. Assume that $Z$ is \blue{finite}. Then if $\pi_u = \frac{d(u)}{Z}$, then $\pi$ is a stationary distribution for this walk. 
+    \begin{proof}
+    	It is easily checked that $\pi_u \geq 0$, and $\sum_u \pi_u = 1$, so $\pi$ is a probability distribution on $V$.\\
+    	Also, 
+    	\begin{align*}
+    		\pi_u p_{uv} &= \frac{d(u)}{Z} \frac{w(u,v)}{d(u)} = \frac{w(u,v)}{Z} \\
+    		\pi_v p_{vu} &= \frac{d(v)}{Z} \frac{w(v,u)}{d(v)} = \frac{w(v,u)}{Z} = \pi_u p_{uv}
+    	\end{align*}
+    	So the chain is reversible w.r.t. $\pi$. So by Proposition \ref{reversible implies stationary}, $\pi$ is a stationary distribution.
+    \end{proof}
+    
+    \fact[periodicity]
+    The random walk can always return to any vertex $u$ in 2 steps, by moving to any other vertex and then back along the same edge. Therefore, \red{1 and 2 are the only possible periods.} \\
+    \blue{If the graph is a \tb{bipartite} graph (i.e., it can be divided into two subsets such that all the links go from one subset to the other one), then the chain has period 2. But if the chain is not bipartite, then it is aperiodic.}\\
+    Furthermore, any cycle of odd length is not bipartite (therefore aperiodic), any cycle of even length is bipartite.
+    
+    \theorem[Graph Convergence Theorem] For a random walk on a connected non-bipartite graph, if $Z < \infty$, then $\limit{n} \dur{p}{uv}{n} = \frac{d(v)}{Z}$ for all $u, v \in V$, and $\limit{n} P(X_n = v) = \frac{d(v)}{Z}$ (for any initial probabilities).
+    \begin{proof}
+    	If the graph is connected, then the random walk is irreducible. If the graph is non-bipartite, then the random walk is aperiodic. \\
+    	Also, if $Z < \infty$, then $\pi_v = \frac{d(v)}{Z}$ is a stationary distribution, by Graph Stationary Distribution Theorem \ref{Graph Stationary Distribution Theorem}. 
+    	Hence, by the Markov Chain Convergence Theorem \ref{Markov Chain Convergence Theorem}, $\limit{n} \dur{p}{uv}{n} = \frac{d(v)}{Z}$ for all $u, v \in V$, and $\limit{n} P(X_n = v) = \frac{d(v)}{Z}$ (for any initial probabilities). 
+    \end{proof}
     
     \theorem[Graph Average Convergence] For a random walk on any connected graph with $Z < \infty$ (whether bipartite or not), for all $u, v \in V$, 
     $$\limit{n} \frac{1}{2}[\dur{p}{uv}{n} + \dur{p}{uv}{n+1}] = \frac{d(v)}{Z}$$
     and
     $$\limit{n} \frac{1}{n}\sum_{l=1}^n \dur{p}{uv}{l} = \frac{d(v)}{Z}$$
-    \todo{prove this}
-    
+   	\remark
+   	For graphs which are bipartite, since the only possible period is 2, the Periodic Convergence Theorem and Average Probability Convergence leads to the theorem.
+   	
     \subsection{Application - Gambler's Ruin}
     Consider the following gambling game: \\
     Let $0 < a < c$ be integers, and let $0 < p < 1$. Suppose player $A$ starts with $a$ dollars, player $B$ starts with $c - a$ dollars, and they repeatedly bet. At each bet, $A$ wins $\$1$ from $B$ with probability $p$, or $B$ wins $\$ 1$ from $A$ with probability $1 - p$.\\
@@ -745,13 +816,13 @@
     For $1 \leq a \leq c - 1$, we have
     \begin{align*}
     	s(a) &= P_a(T_c < T_0) \\
-    	&= P_a(T_c < T_0, X_0 + 1) + P_a(T_c < T_0, X_1 = X_0 - 1) \tag{$A$ either wins or loses $\$1$ on the first bet} \\
+    	&= P_a(T_c < T_0, X_1 = X_0 + 1) + P_a(T_c < T_0, X_1 = X_0 - 1) \tag{$A$ either wins or loses $\$1$ on the first bet} \\
     	&= P(X_1 = X_0 + 1)P_a(T_c < T_0 | X_1 = X_0 + 1)+P(X_1 = X_0 - 1)P_a(T_c < T_0 | X_1 = X_0 - 1)\\
     	&= ps(a+1) + (1-p)s(a-1)
     \end{align*}
     This gives $c - 1$ equations for the $c - 1$ unknowns, which can be solved by simple algebra:
     \begin{align*}
-    	ps(a) + (1-p)s(a) &= ps(a+1) + (1-p)s(a-1) \tag{re-arranging}\\
+    	s(a) = ps(a) + (1-p)s(a) &= ps(a+1) + (1-p)s(a-1) \tag{re-arranging}\\
     	\implies s(a+1) - s(a) &= \frac{1-p}{p}[s(a) - s(a-1)]\\
     \end{align*}
     Suppose $s(1) = x$ for some $x \in \real$, then
@@ -787,7 +858,7 @@
     $c = 10,000, a = 9,700, p = 0.49$, then
     $$s(a) \approx \frac{1}{163,000}$$
     
-    \proposition[\label{gb}] Let $T = \min(T_0, T_c)$ be the time when the Gambler's Ruin game ends. Then $P(T > mc) \leq (1-p^c)^m$ where $m \in \mb{Z}^+$ and $P(T = \infty) = 0$, and $\expect{T} < \infty$.
+    \proposition \label{gb} Let $T = \min(T_0, T_c)$ be the time when the Gambler's Ruin game ends. Then $P(T > mc) \leq (1-p^c)^m$ where $m \in \mb{Z}^+$ and $P(T = \infty) = 0$, and $\expect{T} < \infty$.
     \begin{proof}
     	(1) If the player ever wins $c$ bets in a row, then the game must be over. \\
     	Then if $T > mc$, then the player has failed to win $c$ bets in a row, despite having $m$ independent attempts to do so.\\
@@ -796,10 +867,10 @@
     	$$P(T = \infty) = \limit{m} P(T>mc) \leq \limit{m}(1-p^c)^m = 0$$
     	(3) We have
     	\begin{align*}
-    		E(T) &= \sum_{i=1}^\infty P(T \geq i)\\
+    		E[T] &= \sum_{i=1}^\infty P(T \geq i)\\
     		&\leq \sum_{i=0}^\infty P(T \geq i)\\
     		&= P(T \geq 0) + P(T \geq 1) + P(T \geq 2) + P(T \geq 3) + P(T \geq 4) + \hdots \\
-    		&\leq P(T \geq 0) + P(T \geq 0) + \hdots + P(T \geq 0) + P(T \geq c) + P(T \geq c) + \hdots\\
+    		&\leq \underbrace{P(T \geq 0) + P(T \geq 0) + \hdots + P(T \geq 0)}_{c \text{ terms}} + \underbrace{P(T \geq c) + P(T \geq c) + \hdots + P(T \geq c)}_{c \text{ terms}} + \hdots\\
     		&= \sum_{j=0}^\infty c P(T \geq cj) \\
     		&\leq \sum_{j=0}^\infty c(1-p^c)^j \\
     		&= \frac{c}{1-(1-p^c)} \\
@@ -822,6 +893,23 @@
     	\item $m_i < \infty$ for all $i \in S$, and there is a \red{unique} stationary distribution given by $\pi_i = 1/m_i$; or
     	\item $m_i = \infty$ for all $i \in S$, and there is \red{no} stationary distribution.
     \end{enumerate}
+    \begin{proof}
+    	Suppose a chain starts at $i$, and $m_i < \infty$. \\
+    	On average, the chain returns to $i$ once every $m_i$ steps. That is, for large $r$, by the Law of Large Numbers, it takes about $rm_i$ steps for the chain to return to $i$ a total of $r$ times. So, in a large number $n \approx rm_i$ of steps, it will return to $i$ about $r = \approx \frac{n}{m_i}$ times, i.e., about $\frac{1}{m_i}$ of the time. Hence, the limiting fraction of time it spends at $i$ is equal to $\frac{1}{m_i}$:
+    	$$\limit{n}\frac{1}{n}\sum_{k=1}^n \id{X_k = i} = \frac{1}{m_i}, \, w.p. \, 1$$
+    	It then follows from the Bounded Convergence Theorem \ref{Bounded Convergence Theorem} that
+    	$$\limit{n} E_i \left( \frac{1}{n}\sum_{k=1}^n \id{X_k = i}\right) = \frac{1}{m_i}$$
+    	However, if the chain is irreducible, with stationary distribution $\pi$, then by finite linearity and Average Probability Convergence,
+    	\begin{align*}
+    		\limit{n} E_i\left( \frac{1}{n}\sum_{k=1}^n \id{X_k = i} \right) &= \limit{n} \frac{1}{n} \sum_{k=1}^n E_i(\id{X_k = i}) \\
+    		&= \limit{n} \frac{1}{n} \sum_{k=1}^n P_i(X_k = i) \\
+    		&= \limit{n} \frac{1}{n} \sum_{k=1}^n \dur{p}{ii}{k}\\
+    		&= \pi_i
+    	\end{align*}
+    	So we must have $\frac{1}{m_i} = \pi_i \implies \sum_{i \in S} \frac{1}{m_i} = 1$.\\
+    	If $m_i = \infty$, then it follows as above that we must have $\pi_i = \frac{1}{m_i} = \frac{1}{\infty} = 0$. Hence if $m_j = \infty$ for all $j$, then we must have $\pi_j = 0$ for all $j$, which contradicts that $\sum_{j \in S} \pi_j = 1$. So in that case, there is no stationary distribution.\\
+    	\ti{It turns out that, if a chain is irreducible, and $m_j < \infty$ for some $j \in S$, then $m_i < \infty$ for all $i \in S$, and $\{\frac{1}{m_i}\}$ is stationary.}
+    \end{proof}
     
     \proposition An irreducible Markov chain on a \blue{finite} state space $S$ always falls into case $(i)$ above:\\
     $m_i < \infty$ for all $i \in S$, and there is a \red{unique} stationary distribution given by $\pi_i = 1/m_i$.
@@ -868,7 +956,7 @@
     This is not surprising, since martingales stay the same on average. However, this is not a sufficient condition for $\{X_n\}$ to be a martingale.
     \subsection{Stopping Times}
     We often want to consider $E(X_T)$ for a random time $T$. We need to prevent the random time $T$ from looking into the future of the process, before deciding whether to stop.
-    \definition[stopping time] A non-negative-integer-valued random variable $T$ is a \under{stopping time} for $\{X_n\}$ if the event $\{T = n\}$ is determined by $X_0, X_1, \hdots, X_n$, i.e. if the indicator function $\id{T=n}$ is a function of $X_0, X_1, \hdots, X_n$.
+    \definition[stopping time] A non-negative and integer-valued random variable $T$ is a \under{stopping time} for $\{X_n\}$ if the event $\{T = n\}$ is determined by $X_0, X_1, \hdots, X_n$, i.e. if the indicator function $\id{T=n}$ is a function of $X_0, X_1, \hdots, X_n$.
     \remark
     Intuitively, this definition says that a stopping time $T$ must decide whether to stop at time $n$ based solely on what has happened up to time $n$, without first looking into the future.
     \example
@@ -878,7 +966,31 @@
     $T = \inf\{n \geq 0: X_{n+1} = 5\}$ (since it looks into the future)
     \lemma[Optional Stopping Lemma] If $\{X_n\}$ is a martingale, and $T$ is a stopping time which is \blue{bounded} (i.e., $\exists M < \infty$ with $P(T \leq M) = 1$), then 
     $$E(X_T) = E(X_0)$$
-    \todo{prove this!}
+    \begin{proof}
+    	We have
+    	\begin{align*}
+    		E(X_T) - E(X_0) &= E(X_T - X_0) \\
+    		&= E\left[ \sum_{k=1}^T (X_k - X_{k-1}) \right)\\
+    		&= E\left[ \sum_{k=1}^M (X_k - X_{k-1})\id{k\leq T}\right] \\
+    		&= \sum_{k=1}^M E[(X_k - X_{k-1})\id{k\leq T}]\\
+    		&= \sum_{k=1}^M E[(X_k - X_{k-1})(1-\id{T\leq k-1})\\
+    		&= \sum_{k=1}^M E\left( E[(X_k - X_{k-1})(1-\id{T\leq k-1}) | X_0,X_1, \hdots, X_{k-1}] \right) \tag{Double-expectation formula}\\
+    		&= \sum_{k=1}^M  E\left( (1-\id{T\leq k-1})E[(X_k - X_{k-1})| X_0,X_1, \hdots, X_{k-1}]\right)
+    	\end{align*}
+    	Since $\{X_n\}$ is a martingale, then
+    	$$E[X_k|X_0, X_1, \hdots, X_{k-1}] = X_{k-1}$$
+    	Since $X_{k-1}$ is a function of $X_0, X_1, \hdots, X_{k-1}$, then
+    	$$E[X_{k-1}|X_0, X_1, \hdots, X_{k-1}] = X_{k-1}$$
+    	Then we have
+    	\begin{align*}
+    		E(X_T) - E(X_0) &= \sum_{k=1}^M E\left( (1-\id{T\leq k-1})(X_{k-1} - X_{k-1})\right)\\
+    		&= \sum_{k=1}^M E\left( (1-\id{T\leq k-1})(0)\right) \\
+    		&= 0
+    	\end{align*}
+    	Therefore, $E(X_T) = E(X_0)$, as wanted.
+    \end{proof}
+
+    
     \example
     Consider s.s.r.w. with $X_0 = 0$, and let
     $$T = \min\{ 10^{12}, \inf\{ n \geq 0: X_n = -5\}$$
@@ -890,7 +1002,7 @@
     	0 &= E(X_T) \\
     	&= \underbrace{P(X_T = -5)}_{\approx 1}\underbrace{E(X_T|X_T = -5)}_{=-5} + \underbrace{P(X_T \neq -5)}_{\approx 0}\underbrace{E(X_T|X_T \neq -5)}_{huge}
     \end{align*}
-    \theorem[\label{Optional Stopping Theorem}Optional Stopping Theorem] If $\{X_n\}$ is a martingale with stopping time $T$, and $P(T < \infty) = 1$, and $E|X_T| < \infty$, and $\limit{n} E(X_n \id{T > n}) = 0$, then
+    \theorem[\label{Optional Stopping Theorem}Optional Stopping Theorem] If $\{X_n\}$ is a martingale with stopping time $T$, and $P(T < \infty) = 1$, and $E|X_T| < \infty$, and \blue{$\limit{n} E(X_n \id{T > n}) = 0$}, then
     $$E(X_T) = E(X_0)$$
     \begin{proof}
     	For each $m \in \mb{N}$, let $S_m = \min\{T, m\}$, so that $S_m$ is a bounded stopping time. \\
@@ -912,6 +1024,9 @@
     	Also, $\limit{m}E(X_m\id{T>m}) = 0$ by assumption.\\ 
     	Hence $E(X_T) \rightarrow E(X_0)$, i.e. $E(X_T) = E(X_0)$.
     \end{proof}
+    \remark
+    This is a more general result than Optional Stopping Lemma, in the sense that $T$ can either be bounded or ``unbounded but still finite" (e.g. the Gambler's Ruin problem).
+    
     \corollary[\label{Optional Stopping Corollary}Optional Stopping Corollary] If $\{X_n\}$ is a martingale with stopping time $T$, which is ``bounded up to time $T$" (i.e., $\exists M < \infty$ with $P(|X_n|\id{n\leq T} \leq M) = 1$ for all $n$), and $P(T<\infty) = 1$, then 
     $$E(X_T) = E(X_0)$$
     \begin{proof}
@@ -919,7 +1034,7 @@
     	Hence, $E|X_T| \leq M < \infty$.\\
     	Also, 
     	\begin{align*}
-    		|E(X_n\id{T>n})| &\leq E(|X_n|\id{T>n})\\
+    		|E(X_n\id{T>n})| &\leq E(|X_n|\id{T>n})\tag{by the property of a Riemman Integral}\\
     		&= E(|X_n|\id{n\leq T}\id{T>n})\\
     		&\leq E(M\id{T>n}) \\
     		&= MP(T>n) \rightarrow 0 \tag{Since $P(T<\infty) = 1$}
@@ -927,7 +1042,7 @@
     	Hence the result follows from the Optional Stopping Theorem.
     \end{proof}
     
-    \example[Gambler's Ruin problem - $p = 1/2$]
+    \example[\label{Gambler's Ruin problem - $p = 1/2$}Gambler's Ruin problem - $p = 1/2$]
     Let $T = \inf\{ n \geq 0:X_n \lor X_n = c\}$ be the time when the game ends. Then $P(T<\infty) = 1$ by Proposition \ref{gb}. Also, if the game has not yet ended, i.e. $n \leq T$, then $X_n$ must be between $0$ and $c$. Hence $|X_n|\id{n \leq T}\leq c < \infty$ for all $n \leq T$.\\
     So by the Optional Stopping Corollary \ref{Optional Stopping Corollary}, $E(X_T) = cs(a) + 0(1-s(a) = E(X_0) = a \implies s(a) = a/c$.
     \example[Gambler's Ruin problem - $p \neq 1/2$]
@@ -942,14 +1057,38 @@
     \end{align*}
     So $\{Y_n\}$ is a martingale.\\
     Again, $P(T<\infty) = 1$ by Proposition \ref{gb}. \\
-    Also, $|Y_n|\id{n\leq T} \leq \max\left(  \left( \frac{1-p}{p}\right)^0, \left( \frac{1-p}{p}\right)^c \right) := M < \infty$ for all $n$. Hence by the Optional Stopping Corollary \ref{Optional Stopping Corollary}, $$E(Y_T) = s(a)\left( \frac{1-p}{p}\right)^c + [1-s(a)](1) = E(Y_0) = \left( \frac{1-p}{p}\right)^a$$
+    Also, $|Y_n|\id{n\leq T} \leq \max\left(  \left( \frac{1-p}{p}\right)^0, \left( \frac{1-p}{p}\right)^c \right) =: M < \infty$ for all $n$. Hence by the Optional Stopping Corollary \ref{Optional Stopping Corollary}, $$E(Y_T) = s(a)\left( \frac{1-p}{p}\right)^c + [1-s(a)](1) = E(Y_0) = \left( \frac{1-p}{p}\right)^a$$
     $$\implies s(a) = \frac{\left( \frac{1-p}{p}\right)^a-1}{\left( \frac{1-p}{p}\right)^c - 1}$$
     \subsection{Wald's Theorem}
-    Suppose $X_n = a + Z_1 + \hdots + Z_n$, where $\{Z_i\}$ are i.i.d. with finite mean $m$. Let $T$ be a stopping time for $\{X_n\}$ which has finite mean, i.e. $E(T) < \infty$. Then
+    \theorem[Wald's Theorem]
+    Suppose $X_n = a + Z_1 + \hdots + Z_n$, where $\{Z_i\}$ are i.i.d. with finite mean $m$. Let $T$ be a \blue{stopping time} for $\{X_n\}$ which has finite mean, i.e. $E(T) < \infty$. Then
     $$E(X_T) = a + mE(T)$$
     \property[Special case: $m = 0$]
     Then $\{X_n\}$ is a martingale, and Optional Stopping Theorem \ref{Optional Stopping Theorem} says that $E(X_T) = a = E(X_0)$. \\
-    \todo{prove this!}
+    \begin{proof}
+    	We compute that
+    	\begin{align*}
+    		E(X_T) - a &= E(X_T - a) \\
+    		&= E(Z_1 + \hdots + Z_T) \\
+    		&= E\left[ \sum_{i=1}^T Z_i\right] \\
+    		&= E\left[ \sum_{i=1}^\infty Z_i \id{T\geq i} \right]\\
+    		&= E\left[ \limit{N}\sum_{i=1}^N Z_i \id{T\geq i} \right] \\
+    		&= \limit{N}E\left[\sum_{i=1}^N Z_i \id{T\geq i} \right]\tag{Assume we can interchange the expectation and limit}\\
+    		&= \limit{N}\sum_{i=1}^N E[Z_i\id{T\geq i}] \\
+    		&= \sum_{i=1}^\infty E[Z_i \id{T\geq i}] \\
+    		&= \sum_{i=1}^\infty E[Z_i] E[\id{T\geq i}] \tag{$Z_i$ is independent of the event $\{T\geq i\}$} \\
+    		&= \sum_{i=1}^\infty m P[T \geq i] = m \sum_{i=1}^\infty P[T \geq i] = mE(T)
+    	\end{align*}
+    	It remains to justify interchanging the above expectation and limit. This follows from the Dominated Convergence Theorem \ref{Dominated Convergence Theorem} with sequence $X_N = \sum_{i=1}^N Z_i\id{T\geq i}$ and limit $X = \sum_{i=1}^\infty Z_i \id{T\geq i}$ and dominator $Y = \sum_{i=1}^\infty |Z_i|\id{T\geq i}$.\\
+    	We can see that $|X_N| \leq Y$ for all $N$, and
+    	\begin{align*}
+    		E(Y) &= E[\sum_{i=1}^\infty |Z_i|\id{T\geq i}] \\
+    		&= \sum_{i=1}^\infty E[|Z_i|\id{T\geq i}] \\
+    		&= \sum_{i=1}^\infty E|Z_i|E[\id{T\geq i}] \\
+    		&= |m| \sum_{i=1}^\infty P[T\geq i] \\
+    		&= |m| E(T) < \infty
+    	\end{align*}
+    \end{proof}
     \corollary If $\{X_n\}$ is Gambler's Ruin with $p \neq 1/2$, and $T = \inf\{n \geq 0: X_n = 0 \lor X_n = c\}$, then
     $$E(T) = \frac{1}{2p-1}\left( c \frac{\left( \frac{1-p}{p}\right)^a - 1}{\left( \frac{1-p}{p}\right)^c - 1}-a\right)$$
     
@@ -966,14 +1105,53 @@
     \end{proof}
     
     \lemma Let $X_n = a + Z_1 + \hdots + Z_n$, where $\{Z_i\}$ are i.i.d. with mean 0 and variance $v < \infty$. Let $Y_n = (X_n - a)^2 - nv = (Z_1 + \hdots + Z_n)^2 - nv$. Then $\{Y_n\}$ is a martingale.
-    \todo{prove this!}
+    \begin{proof}
+    	We first check that $E|Y_n| \leq Var(X_n) + nv = 2nv < \infty$.\\
+    	Then, since $Z_{n+1}$ is independent of $Z_1, \hdots, Z_n, Y_0, \hdots, Y_n$, with $E(Z_{n+1}) = 0$ and $E(Z_{n+1}^2) = v$, we have
+    	\begin{align*}
+    		E[Y_{n+1}|Y_0, Y_1, \hdots, Y_n] &= E[(Z_1 + \hdots + Z_n + Z_{n+1})^2 - (n+1)v|Y_0, Y_1, \hdots, Y_n] \\
+    		&= E[(Z_1 + \hdots + Z_n)^2 + (Z_{n+1})^2 + 2Z_{n+1}(Z_1 + \hdots + Z_n) - nv - v|Y_0, Y_1, \hdots, Y_n]\\
+    		&= E[Y_n + (Z_{n+1})^2 -v + 2Z_{n+1}(Z_1 + \hdots + Z_n) | Y_0, Y_1, \hdots, Y_n]\\
+    		&= Y_n + v - v + 2E(Z_{n+1})E[Z_1 + \hdots + Z_n | Y_0, Y_1, \hdots, Y_n] \\
+    		&= Y_n + v - v + 0 \\
+    		&= Y_n
+    	\end{align*}
+    	Therefore, $\{Y_n\}$ is a martingale as wanted.
+    	
+    \end{proof}
     \corollary If $\{X_n\}$ is Gambler's Ruin with $p = 1/2$, and $T = \inf\{n \geq 0: X_n = 0 \lor X_n = c\}$, then 
     $$E(T) = Var(X_T) = a(c-a)$$
-    \todo{prove this!}
-    
+    \begin{proof}
+    	Let $Y_n = (X_n - a)^2 - n$ (since here $v = \frac{1}{2}(1 - 0)^2 + \frac{1}{2}(-1 - 0)^2 = 1$).
+    	Then $\{Y_n\}$ is a martingale by the above Lemma.\\
+    	Choose $M > 0$, and let $S_M = \min(T, M)$. Then $S_m$ is a stopping time, which is bounded by $M$. Hence by the Optional Stopping Lemma, $E[Y_{S_M}] = E[Y_0] = (a-a)^2 - 0 = 0$.\\
+    	But $Y_{S_M} = (X_{S_M} - a)^2 - S_M$, so $E(S_M) = E[(X_{S_M} - a)^2]$. \\
+    	As $M \rightarrow \infty$, $S_M$ increases monotonically to $T$, so $E(S_M) \rightarrow E(T)$ by the Monotone Convergence Theorem \ref{Monotone Convergence Theorem}.\\
+    	Also, $E[(X_{S_M} - a)^2] \rightarrow E[(X_T - a)^2]$ by the Bounded Convergence Theorem \ref{Bounded Convergence Theorem}, since for any $n$, $(X_{S_M} - a)^2 \leq \max(a^2, (c-a)^2) < \infty$.\\
+    	Hence, letting $M \rightarrow \infty$ gives 
+    	$$E(T) \leftarrow E(S_M) = E[(X_{S_M} - a)^2] \rightarrow E[(X_T - a)^2]$$
+    	\begin{align*}
+    		\implies E(T) &= E[(X_T - a)^2] \\
+    		&= Var(X_T) \\
+    		&= (a/c)(c-a)^2 + (1-a/c)(0-a)^2 \tag{by \ref{Gambler's Ruin problem - $p = 1/2$}, $E(X_T) = E(X_0) = a$}\\
+    		&= a(c-a)
+    	\end{align*}
+    	
+    \end{proof}
     \subsection{Application - Sequence Waiting Times}
-    Suppose at each time $n$, a new ``player" appears, and bets $\$ 1$ on heads, then if they win they bet $\$2$ on tails, then if they win again they bet $\$4$ on heads. Each player stops betting as soon as they either lose once (and hence are down a total of $\$1$), or win three bets in a row (and hence are up a total of $\$7$.\\
-    Let $X_n$ be the total amount won by all the betters by time $n$. Then since the bets were fair, $\{X_n\}$ is a martingale with stopping time $\tau$. 
+    \paragraph{the Problem}
+    Suppose we repeatedly flip a fair coin, and let $\tau$ be the number of flips until we first see the pattern $HTH$. Again we ask, what is the expected time $E(\tau)$?
+    \paragraph{the Martingale approach}
+    Suppose at each time $n$, a new ``player" appears, and bets $\$ 1$ on H, then if they win they bet $\$2$ on T, then if they win again they bet $\$4$ on H. Each player stops betting as soon as they either lose once (and hence are down a total of $\$1$), or win three bets in a row (and hence are up a total of $\$7$.\\
+    \blue{Let $X_n$ be the total amount won by all the betters by time $n$. Then since the bets were fair, $\{X_n\}$ is a martingale with stopping time $\tau$.} \\\\
+    Each of the $\tau - 3$ players (all but the last three) has a net loss of $\$ 1$ (after either one or two or three bets).\\
+    Player $\tau - 2$ wins all three bets, for a gain of $\$ 7$.\\
+    Player $\tau - 1$ bets on ``H" and loses, for a loss of $\$ 1$.\\
+    Player $\tau$ bets on ``H" and wins, for a gain of $\$ 1$.\\
+    Hence $X_{\tau} = (\tau -3)(-1) + (7) + (-1) + (1) = -\tau + 10$.\\\\
+    Let $T_m = \min(\tau, m)$, then $E(X_{T_m} = 0$ by the Optional Stopping Lemma, and $\limit{m} E(X_{T_m}) = E(X_{\tau})$ by the Dominated Convergence Theorem \ref{Dominated Convergence Theorem} with dominator $Y = 7\tau$ since $|X_n - X_{n-1}| \leq 7$ and $E(\tau) < \infty$.\\
+    Hence $$0 = E(X_{\tau}) = -E(\tau) + 10 \implies E(\tau) = 10$$
+     
     
     \subsection{Martingale Convergence Theorem}
     Suppose $\{X_n\}$ is a martingale. Then $\{X_n\}$ could have infinite fluctuations in both directions, as we have seen for s.s.r.w.; Or $\{X_n\}$ could converge with probability 1 to a fixed (perhaps random) value.
@@ -982,7 +1160,7 @@
     \example
     Let $\{X_n\}$ be a Markov chain on $S = \{2^m: m \in \mb{Z}\}$, with $X_0 = 1$, and $p_{i,2i} = 1/2$ and $p_{i, i/2} = 2/3$ for $i \in S$. This is a martingale, since $\sum_{j} jp_{ij} = (2i)(1/3) + (i/2)(2/3) = i$.\\
     Let $Y_n = \log_2 X_n$. Then $Y_0 = 0$, and $\{Y_n\}$ is s.r.w. with $p = 1/3$, $Y_n \rightarrow -\infty$ w.p. 1 by the Law of Large Numbers \ref{Law of Large Numbers}. Hence, $X_n = 2^{Y_n} \rightarrow 2^{-\infty} = 0$ w.p. 1.
-    \theorem[\label{Martingale Convergence Theorem}Martingale Convergence Theorem] Any non-negative martingale $\{X_n\}$ ($X_n \geq 0$) which is bounded below (i.e. $X_n \geq c$ for all $n$, for some finite number $c$), or is bounded above (i.e. $X_n \leq c$ for all $n$, for some finite number $c$), converges w.p. 1 to some random variable $X$.
+    \theorem[\label{Martingale Convergence Theorem}Martingale Convergence Theorem] Any martingale $\{X_n\}$ ($X_n \geq 0$) which is bounded below (i.e. $X_n \geq c$ for all $n$, for some finite number $c$), or is bounded above (i.e. $X_n \leq c$ for all $n$, for some finite number $c$), converges w.p. 1 to some random variable $X$.
     \remark
     The intuition behind this theorem is:
     \begin{enumerate}
@@ -992,6 +1170,10 @@
     \end{enumerate}
    	\remark
    	If $\{X_n\}$ is not non-negative, then if $X_n \geq c$, then $\{X_n - c\}$ is a non-negative martingale, or if $X_n \leq c$, then $\{-X_n + c\}$ is a non-negative martingale, and in either case the non-negative martingale converges iff $\{X_n\}$ converges.
+   	
+   	\example{bounded below s.s.r.w.}
+   	s.s.r.w. is a martingale, but it is not bounded above or below and does not converge.\\
+   	If we modify s.s.r.w. to stop whenever it reaches 0 (after starting at a positive number), then it is still a martingale, and now it is non-negative and hence bounded below. But since $f_{i0 = 1}$ for all $i$, it will eventually reach 0, and hence it converges to $X = 0$.
    	\subsection{Application - Branching Processes}
    	\definition[offspring distribution]
    	Let $\mu$ be any prob dist on $\{0, 1, 2, \hdots\}$, the \under{offspring distribution}. Let $X_n$ be the number of individuals at time $n$. Start with $X_0 = a$ individuals. Assume $0 < a < \infty$, $Z_{n,i} \overset{i.i.d.}{\sim} \mu(i)$.\\ (i.e., Each of the $X_n$ individuals at time $n$ has a random number of offspring under the distribution $\mu$). Then 
@@ -1000,7 +1182,7 @@
    	\paragraph{Transition probabilties}
    	If $X_n$ ever reaches 0, then it stays there forever: $p_{0j} = 0\quad \forall j\geq0$. This is called \under{extinction}.\\ Also, $p_{ij} = (\mu \ast \mu \ast \hdots \ast \mu)(j)$, a \under{convolution} of $i$ copies of $\mu$.\\
    	\theorem
-   	Let $m = \sum_{i}\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m < 1$, then $E(X_n) \rightarrow 0$, and $P(X_n = 0) \rightarrow 1$.
+   	Let $m = \sum_{i}i\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m < 1$, then $E(X_n) \rightarrow 0$, and $P(X_n = 0) \rightarrow 1$.
    	\begin{proof}
    		   	Assume $0 < m < \infty$. Then
    	$$E(X_{n+1}|X_0, \hdots, X_n) = E(Z_{n,1} + Z_{n,2} + \hdots + Z_{n,X_n}|X_0, \hdots, X_n) = mX_n$$
@@ -1014,16 +1196,19 @@
    		\implies P(X_n = 0) &\rightarrow 1
    	\end{align*}
    	\end{proof}
-   	\fact   Let $m = \sum_{i}\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m > 1$, then $E(X_n) \rightarrow \infty$, $P(X_n \rightarrow \infty) > 0$ and $P(X_n \rightarrow 0) > 0$, i.e., we have possible extinction but also possible flourishing.
-   	\theorem  Let $m = \sum_{i}\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m = 1$, and $\mu$ is non-degenerate (i.e. $\mu(1) < 1$, so that $\mu$ is not a constant), then $\{X_n\} \rightarrow 0$ w.p. $1$.
+   	\fact   Let $m = \sum_{i}i\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m > 1$ and $\mu(0) > 0$, then $E(X_n) \rightarrow \infty$, $P(X_n \rightarrow \infty) > 0$ and $P(X_n \rightarrow 0) > 0$, i.e., we have possible extinction but also possible flourishing.
+   	\theorem  Let $m = \sum_{i}i\mu(i)$ be the mean of $\mu$, which is called the \under{reproductive number}. If $m = 1$, and $\mu$ is non-degenerate (i.e. $\mu(1) < 1$, so that $\mu$ is not a constant), then $\{X_n\} \rightarrow 0$ w.p. $1$.
    	\begin{proof}
-   		If $m=1$, then $E(X_n) = E(X_0) = a$ for all $n$. Then $E(X_{n+1}|X_0, \hdots, X_n) = mX_n - X_n$, so $\{X_n\}$ is a non-negative martingale.\\
+   		If $m=1$, then $E(X_{n+1}|X_0, \hdots, X_n) = mX_n = X_n$, so $\{X_n\}$ is a non-negative martingale.\\
    		Hence by the Martingale Convergence Theorem \ref{Martingale Convergence Theorem}, we must have $X_n \rightarrow X$ for some random variable $X$. This could only happen if
    		\begin{enumerate}
    			\item $\mu(1) = 1$; or
    			\item $X = 0$
    		\end{enumerate}
+   		Since $\mu$ is non-degenerate, then $X \equiv 0$. i.e., $\{X_n\} \rightarrow 0$ w.p. 1.
    	\end{proof}
+   	\paragraph{In summary}
+   	Assuming $\mu(0) > 0$, then extinction is certain if $m \leq 1$, but both flourishing and extinction are possible if $m > 1$.
    	
    	
    	\subsection{Application - Stock Options (Discrete)}
