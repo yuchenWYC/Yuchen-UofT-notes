@@ -111,3 +111,5 @@
 \contentsline {subsubsection}{\numberline {9.3.5}Autoregressive Flows}{39}{subsubsection.9.3.5}% 
 \contentsline {paragraph}{Direct autoregressive flows}{40}{section*.67}% 
 \contentsline {paragraph}{Inverse autoregressive flows (IAF)}{40}{section*.68}% 
+\contentsline {subsubsection}{\numberline {9.3.6}Residual Flows}{40}{subsubsection.9.3.6}% 
+\contentsline {subsubsection}{\numberline {9.3.7}Infinitesimal(Continuous) Flows}{41}{subsubsection.9.3.7}% 

@@ -9,7 +9,11 @@
 %\usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{enumitem}
-\usepackage{hyperref}
+\usepackage[
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=black
+]{hyperref}
 \usepackage{fancyhdr}
 \usepackage{perpage}
 \usepackage[dvipsnames, pdftex]{xcolor}
@@ -970,7 +974,7 @@ This stochastic generation means, that even for the same input, while the mean a
 The VAE generation model learns to reconstruct its inputs not only from the encoded points but also from the area around them. This allows the generation model to generate new data by sampling from an ``area" instead of only being able to generate already seen data corresponding to the particular fixed encoded points.
 
 \section{Normalizing Flows}
-Normalizing Flows(NF) are a family of generative models with tractable distributions where both sampling and density evaluation can be efficient and exact.
+Normalizing Flows(NF)\footnote{reference: \url{https://arxiv.org/pdf/1908.09257.pdf}} are a family of generative models with tractable distributions where both sampling and density evaluation can be efficient and exact.
 
 \paragraph{Applications}
 \begin{itemize}
@@ -1149,6 +1153,26 @@ Computation of the IAF is sequential and expensive, but the inverse of IAD (whic
 
 \remark
 One should use IAFs if fast sampling is needed (e.g. for stochastic variational inference), and DAFs if fast density estimation is desirable. However, the two methods are theoretically equivalent and can learn the same distribution.
+
+\subsubsection{Residual Flows}
+Residual networks are compositions of the functions of the form
+$$f(x) = x + F(x)$$
+Such a function is called a \under{residual connection}, and here the \under{residual block} $F(\cdot)$ is a feed-forward neural network of any kind.\\
+The central idea of a reversible network architecture based on residual connections is a variation of additive coupling layers: consider a disjoint partition of $\real^D = \real^d \times \real^{D-d}$ denoted by $x = (x^A, x^B)$ for the input and $y = (y^A, y^B)$ for the output, and define a function:
+$$y^A = x^A + F(x^B)$$
+$$y^B = x^B + G(y^A)$$
+where $F: \real^{D-d} \rightarrow \real^d$ and $G: \real^d \rightarrow \real^{D-d}$ are residual blocks.\\
+This network is invertible but computation of the Jacobian is inefficient.
+\subsubsection{Infinitesimal(Continuous) Flows}
+The residual connections discussed in the previous section can be viewed as discretizations of a first order ordinary differential equation (ODE):
+$$\frac{d}{dt} x(t) = F(x(t), \theta(t))$$
+where $F: \real^D \times \Theta \rightarrow \real^D$ is a function which determines the dynamic (the \under{evolution function}), $\Theta$ is a set of parameters and $\theta: \real \rightarrow \Theta$ is a parameterization. The discretization of this equation (Euler's method) is
+$$x_{n+1} - x_n = \epsilon F(x_n,\theta_n)$$
+and this is equivalent to a residual connection with a residual block $\epsilon F(\cdot, \theta_n)$. \\
+We can consider the case where we do not discretize but try to learn the continuous dynamical system instead. Such flows are called \under{infinitesimal} or \under{continuous}. There are two distinct types: \tb{ODE-based methods} and \tb{SDE-based methods (Langevin flows)}.
+
+
+
 
 
 
