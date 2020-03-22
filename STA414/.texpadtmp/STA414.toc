@@ -84,3 +84,30 @@
 \contentsline {paragraph}{Deterministic Autoencoders}{33}{section*.50}% 
 \contentsline {paragraph}{Problems with Deterministic Autoencoders}{33}{section*.51}% 
 \contentsline {paragraph}{Variational Autoencoders (VAEs)}{34}{section*.52}% 
+\contentsline {section}{\numberline {9}Normalizing Flows}{34}{section.9}% 
+\contentsline {paragraph}{Applications}{34}{section*.53}% 
+\contentsline {subsection}{\numberline {9.1}Basics}{34}{subsection.9.1}% 
+\contentsline {paragraph}{Constructing flows}{35}{section*.54}% 
+\contentsline {subsubsection}{\numberline {9.1.1}More formal construction}{35}{subsubsection.9.1.1}% 
+\contentsline {subsection}{\numberline {9.2}Applications}{36}{subsection.9.2}% 
+\contentsline {subsubsection}{\numberline {9.2.1}Density estimation and sampling}{36}{subsubsection.9.2.1}% 
+\contentsline {subsection}{\numberline {9.3}Methods}{36}{subsection.9.3}% 
+\contentsline {subsubsection}{\numberline {9.3.1}Elementwise bijections}{36}{subsubsection.9.3.1}% 
+\contentsline {paragraph}{Problem}{37}{section*.55}% 
+\contentsline {subsubsection}{\numberline {9.3.2}Linear Flows}{37}{subsubsection.9.3.2}% 
+\contentsline {paragraph}{Problem}{37}{section*.56}% 
+\contentsline {paragraph}{Computing the determinant}{37}{section*.57}% 
+\contentsline {paragraph}{Diagonal}{37}{section*.58}% 
+\contentsline {paragraph}{Triangular}{37}{section*.59}% 
+\contentsline {paragraph}{Permutation and Orthogonal}{37}{section*.60}% 
+\contentsline {paragraph}{Factorizations}{38}{section*.61}% 
+\contentsline {paragraph}{Convolution}{38}{section*.62}% 
+\contentsline {subsubsection}{\numberline {9.3.3}Planar and Radial Flows}{38}{subsubsection.9.3.3}% 
+\contentsline {paragraph}{Planar flows}{38}{section*.63}% 
+\contentsline {paragraph}{Sylvester flows}{38}{section*.64}% 
+\contentsline {paragraph}{Radial flows}{39}{section*.65}% 
+\contentsline {subsubsection}{\numberline {9.3.4}Coupling Flows}{39}{subsubsection.9.3.4}% 
+\contentsline {paragraph}{Coupling flows}{39}{section*.66}% 
+\contentsline {subsubsection}{\numberline {9.3.5}Autoregressive Flows}{39}{subsubsection.9.3.5}% 
+\contentsline {paragraph}{Direct autoregressive flows}{40}{section*.67}% 
+\contentsline {paragraph}{Inverse autoregressive flows (IAF)}{40}{section*.68}% 

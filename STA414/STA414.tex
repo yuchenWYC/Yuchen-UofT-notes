@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 % Libraries.
 
+\usepackage{dsfont}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{esint}
@@ -14,14 +15,13 @@
 \usepackage[dvipsnames, pdftex]{xcolor}
 \usepackage{float}
 \usepackage{xargs}
-\usepackage{../raina}
 \usepackage[
 	colorinlistoftodos,
 	prependcaption,
 	textsize=tiny
 ]{todonotes}
+\usepackage{/Users/raina/Desktop/uoft-notes/raina}
 
-\usepackage{../raina}
 % Property settings.
 \MakePerPage{footnote}
 \pagestyle{headings}
@@ -968,6 +968,190 @@ If the space has regions where no data gets encoded to, and you sample/generate 
 \paragraph{Variational Autoencoders (VAEs)}
 This stochastic generation means, that even for the same input, while the mean and standard deviations remain the same, the actual encoding will somewhat \blue{vary} on every single pass simply due to \blue{sampling}. \\
 The VAE generation model learns to reconstruct its inputs not only from the encoded points but also from the area around them. This allows the generation model to generate new data by sampling from an ``area" instead of only being able to generate already seen data corresponding to the particular fixed encoded points.
+
+\section{Normalizing Flows}
+Normalizing Flows(NF) are a family of generative models with tractable distributions where both sampling and density evaluation can be efficient and exact.
+
+\paragraph{Applications}
+\begin{itemize}
+	\item Image generation
+	\item Video generation
+	\item Audio generation
+	\item Graph generation
+	\item Reinforcement learning
+\end{itemize}
+%We start with some data generative by a true distribution:
+%$$x_i \sim P_{data}$$
+%The goal is to learn a distribution $P_X \approx P_{data}$ s.t.
+%\begin{enumerate}
+%	\item The sampling / generation process $x \sim P_X$ is \tb{tractable}, and $x$ looks like samples from $P_{data}$.
+%	\item Good for density estimation, so that $P_X(x)$ can be evaluated, and is high if $x$ looks like data, low if $x$ does not look like data.
+%\end{enumerate}
+
+\definition
+Normalizing Flows is a learned transformation of a simple distribution (base) to a complex distribution (target) by a sequence of invertible and differentiable mappings.
+
+\subsection{Basics}
+Let $Z \in \real^D$ be a random variable with a known and tractable probability density function $p_Z:\real^D \rightarrow \real$. Let $f$ be an invertible function and $Y = f(Z)$. 
+\definition[generative direction]
+Then using the change of variables formula, one can compute the probability density function of the random variable $Y$:
+\begin{equation}\label{eq1}
+	p_Y(y) = p_Z(g(y))|\det Dg(y)| = p_Z(g(y))|\det Df(g(y))|^{-1}
+\end{equation}
+where $g$ is the inverse of $f$, $Dg(u) = \frac{\partial g}{\partial y}$ is the Jacobian of $G$ and $Df(z) = \frac{\partial f}{\partial z}$ is the Jacobian of $f$. This new density function $p_Y(y)$ is called a \under{pushforward} of the density $p_Z$ by the function $f$ and denoted by $f_{\ast}p_Z$.\\
+In the context of generative models, the above function $f$ (a generator) ``pushes forward" the base density $p_Z$ to a more complex density. This movement from base density to final complicated density is the \under{generative direction}
+\remark
+\ti{To generate a data point $y$, one can sample $z$ from the base distribution, and then apply the generator $y = f(z)$.}
+\definition[normalizing direction]
+The inverse function $g$ moves in the opposite, \under{normalizing direction}: from a complicated and irregular data distribution towards the simpler, more regular or ``normal" form, of the base measure $p_Z$.
+
+\fact
+If the transformation $f$ can be arbitrarily complex, one can generate any distribution $p_Y$ from any base distribution $p_Z$.
+
+\paragraph{Constructing flows}
+Constructing arbitrarily complicated non-linear invertible functions(bijections) can be difficult. Since the composition of invertible functions is itself invertible, and the determinant of its Jacobian has a specific form, we can use a sequence of simple bijections which are convenient to compute, invert, and calculate the determinant of their Jacobian.\\
+In particular, let $f_1, \hdots, f_N$ be a set of $N$ bijective functions and define 
+$f = f_N \circ f_{N-1} \circ \hdots \circ f_1$ to be a composition of the functions. It can be shown that $f$ is also bijective, with inverse 
+$$g = g_1 \circ \hdots \circ g_{N-1} \circ g_N$$
+and the determinant of the Jacobian is
+$$\det Dg(y) = \prod_{i=1}^N \det Dg_i(x_i)$$
+where $x_i = f_i \circ \hdots \circ f_1(z) = g_{i+1} \circ \hdots \circ g_N(y)$ and so $x_N = y$.
+
+\subsubsection{More formal construction}
+\definition If $(Z, \Sigma_Z), (Y, \Sigma_Y)$ are measurable spaces, $f$ is a measurable mapping between them, and $\mu$ is a measure on $Z$, then one can define a measure on $Y$ (called the \under{pushforward measure} and denoted by $f_{\ast}\mu$ by
+$$f_{\ast}\mu(U) = \mu(f^{-1}(U)), \quad \text{for all } U \in \Sigma_Y$$\\
+Data can be understood as a sample from a measured ``data" space $(Y, \Sigma_Y, v)$ which we want to learn. To do that one can introduce a simpler measured space $(Z, \Sigma_Z, \mu$ and find a function $f: Z \rightarrow Y$ s.t. $v = f_{\ast}\mu$. This function $f$ can be interpreted as a ``generator", and $Z$ as a latent space.\\
+Assume $Z = \real^D$, all sigma-algebras are Bore,, and all measures are absolutely continuous with respect to Lebesgue measure(i.e. $\mu = p_Zdz$)
+\definition A function $f: \real^D \rightarrow \real^D$ is called a \under{diffeomorphism}, if it is bijective, differentiable, and its inverse is differentiable as well.\\
+The pushforward of an absolutely continuous measure $p_Zdz$ by a diffeomorphism $f$ is also absolutely continuous with a density function given by (\ref{eq1}).
+
+\subsection{Applications}
+\subsubsection{Density estimation and sampling}
+For simplicity assume that only a single flow, $f$, is used and it is parameterized by the vector $\theta$. Further assume that the base measure $p_Z$ is given and is parameterized by the vector $\phi$.\\
+Given a set of data observed from some complicated distribution, $D = \{y_i\}_{i=1}^M$, we can then perform likelihood-based estimation of the parameters $\Theta = (\theta, \phi)$. The data likelihood in this case simply becomes
+\begin{align*}
+	\log p(D|\Theta) &= \sum_{i=1}^M \log p_Y(y_i|\Theta) \\
+	&= \sum_{i=1}^M \log p_Z(g(y_i|\theta)|\phi) + \log |\det Dg(y_i|\theta)|
+\end{align*}
+\blue{During training, the parameters of the flow ($\theta$) and of the base distribution ($\phi$) are adjusted to maximize the log-likelihood.}
+
+\subsection{Methods}
+Normalizing Flows should satisfy several conditions in order to be practical. They should
+\begin{itemize}
+	\item Be invertible (for estimating the density we need to know their inverse)
+	\item Be expressive enough to model real distributions
+	\item Be computationally efficient: calculation of the Jacobian determinant, sampling from the base distribution, and application of the forward and inverse functions should be tractable.
+\end{itemize}
+In this section, we describe different types of flows and comment on the above properties.
+\subsubsection{Elementwise bijections}
+Let $h: \real \rightarrow \real$ be a scalar valued bijection. Then, if $x = (x_1, x_2, \hdots, x_D)^T$,
+$$f(x) = (h(x_1), h(x_2), \hdots, h(x_D))^T$$
+is also a bijection whose inverse simply requires computing $h^{-1}$ and whose Jacobian is the product of the absolute values of the derivatives of $h$ (since the Jacobian matrix is diagonal).\\
+This can also be generalized by allowing each element to have its own distinct bijective function.
+\paragraph{Problem}
+Elementwise operations cannot express any form of correlation between dimensions.
+\subsubsection{Linear Flows}
+Linear mappings can express correlation between dimensions:
+$$f(x) = Ax + b$$
+where $A \in \real^{D \times D}$ and $b \in \real^D$ are parameters. If $A$ is an invertible matrix, the function is invertible.
+\paragraph{Problem}
+Limited expressiveness.
+\example[Gaussian base distribution]
+$$p_Z(z) = \mc{N}(z, \mu, \Sigma)$$
+After transformation by a linear flow, the distribution remains Gaussian:
+$$p_Y = \mc{N}(y, A\mu+b, A^T\Sigma A)$$
+\blue{More generally, a linear flow of a distribution from the exponential family remains in the exponential family.}\\
+\paragraph{Computing the determinant}
+$$|\det Df(x)| = \det(A)$$
+which can be computed in $\mc{O}(D^3)$, which is expensive for large $D$. By restricting the form of $A$ (at the expense of expressive power) we can avoid the computational costs:
+\paragraph{Diagonal}
+If $A$ is diagonal with nonzero diagonal entries, then complexity of computing inverse or the determinant is $\mc{O}(D)$. However, the result is an elementwise transformation and cannot express correlation between dimensions.
+\remark
+A diagonal linear flow is useful for representing normalization layers, which have become a ubiquitous part of modern neural networks.
+\paragraph{Triangular}
+More expressive form of linear transformation. Taking the determinant costs $\mc{O}(D)$, inversion costs $\mc{O}(D^2)$ (a single pass of back-substitution).
+
+\paragraph{Permutation and Orthogonal}
+The expressiveness of triangular transformations is sensitive to the ordering of dimensions. Reordering the dimensions can be done easily using a permutation matrix (absolute determinant = 1).\\
+However, the permutations cannot be directly optimized.\\
+A more general alternative is orthogonal transformations, whose inverse and absolute determinant are both trivial to compute.
+\paragraph{Factorizations}
+Instead of limiting the form of $A$, one can also use the LU factorization:
+$$f(x) = PLUx + b$$
+where $L$ is lower triangular with ones on the diagonal, $U$ is upper triangular with non-zero diagonal entries, and $P$ is a permutation matrix.\\
+The determinant is the product of the diagonal entries of $U$ which can be computed in $\mc{O}(D)$. The inverse of $f$ can be computed using two passes of backward substitution in $\mc{O}(D^2)$. \\
+However, the discrete permutation $P$ cannot be easily optimized.
+\paragraph{Convolution}
+Easy to compute, but it can be difficult to efficiently calculate the determinant or unsure invertibility.
+\subsubsection{Planar and Radial Flows}
+Relatively simple but inverses aren't easily computed $\implies$ not widely used in practice.\\
+\paragraph{Planar flows}
+Expand and contract the distribution along certain specific directions:
+$$f(x) = x + uh(w^Tx + b)$$
+where $u, w \in \real^D$ and $b \in \real$ are parameters and $h: \real \rightarrow \real$ is a smooth non-linearity. The Jacobian determinant for this transformation is
+\begin{align*}
+	\det \left( \frac{\partial f}{\partial x} \right)&= \det (\id{D} + uh'(w^Tx + b)w^T) \\
+	&= 1 + h'(w^Tx + b)u^Tw
+\end{align*}
+This can be computed in $\mc{O}(D)$ time. \\
+\blue{The inversion of this flow isn't possible in closed form and may not exist for certain choices of $h(\cdot)$ and certain parameter settings.}\\\\
+\paragraph{Sylvester flows}
+A more expressive form of planar flows:
+$$f(x) = x + Uh(W^Tx + b)$$
+where $U, W \in \real^{D \times M}, b \in \real^M, h:\real^M \rightarrow \real^M$ is an elementwise smooth nonlinearity, where $M \leq D$ is a hyperparameter to choose and which can be interpreted as the dimension of a hidden layer. In this case the Jacobian determinant is
+\begin{align*}
+	\det \left( \frac{\partial f}{\partial x} \right) &= \det(\id{D} + U diag(h'(W^Tx + b)) W^T) \\
+	&= \det (\id{M} + diag(h'(W^Tx + b)) WU^T)
+\end{align*}
+This can be computationally efficient if $M$ is small.\\\\
+\paragraph{Radial flows}
+Radial flows instead modify the distribution around a specific point so that
+$$f(x) = x + \frac{\beta}{\alpha + ||x - x_0||}(x - x_0)$$
+where $x_0 \in \real^D$ is the point around which the distribution is distorted, and $\alpha, \beta \in \real$ are parameters, $\alpha > 0$.\\
+The Jacobian determinant can be computed relatively efficiently, but the inverse cannot be given in closed form but does exist under suitable constraints on the parameters.\\
+
+\subsubsection{Coupling Flows}
+One of the most widely used flow architectures.
+\paragraph{Coupling flows}
+Consider a (disjoint) partition of the input $x \in \real^D$ into two subspaces: $(x^A,x^B) \in \real^d \times \real^{D-d}$ and a bijection $\hat{f}(\cdot; \theta): \real^d \rightarrow \real^d$, parametrized by $\theta$. Then one can define a function $f: \real^D \rightarrow \real^D$ by the formula:
+\begin{align*}
+	y^A &= \hat{f}(x^A;\Theta(x^B))\\
+	y^B &= x^B
+\end{align*}
+where the parameters $\theta$ are defined by arbitrary function $\Theta(x^B)$ which only uses $x^B$ as input. This function is called a \under{conditioner}. The function $\hat{f}$ is called a \under{coupling layer}, and the resulting function $f$ is called a \under{coupling flow}.\\
+A coupling flow is invertible if and only if $\hat{f}$ is invertible and has inverse:
+\begin{align*}
+	x^A &= \hat{f}^{-1}(y^A;\Theta(x^B))\\
+	x^B &= y^B
+\end{align*}
+The Jacobian of $f$ is a block triangular matrix where the diagonal blocks are $D\hat{f}$ and the identity matrix respectively. Hence 
+$$\det Df = \det D\hat{f}$$
+Most coupling layers are applied to $x^A$ element-wise:
+$$\hat{f}(x^A;\theta) = (\hat{f}_1(x_1^A;\theta_1),\hdots,\hat{f}_d(x_d^A;\theta_d))$$
+where each $\hat{f}_i(\cdot;\theta_i):\real \rightarrow\real$ is a scalar bijection. In this case a coupling flow is a triangular transformation (i.e., has a triangular Jacobian matrix).\\
+\blue{The power of a coupling flow resides in the ability if a conditioner $\Theta(x^B)$ to be arbitrarily complex. In practice it is usually modelled as a neural network (e.g. a shallow ResNet).}
+
+\subsubsection{Autoregressive Flows}
+One of the most widely used flow architectures.\\
+\paragraph{Direct autoregressive flows}
+Let $\hat{f}(\cdot;\theta): \real \rightarrow \real$ be a bijection parameterized by $\theta$. Then an autoregressive model is a function $f: \real^D \rightarrow \real^D$, which outputs each entry of $y = f(x)$ conditioned on the previous entries of the input:
+$$y_t = \hat{f}(x_t; \Theta_t(x_{1:t-1}))$$
+For each $t = 2, \hdots, D$ we choose arbitrary functions $\Theta_t(\cdot)$ mapping $\real^{t-1}$ to the set of all parameters, and $\Theta_1$ is a constant. The functions $\Theta_t(\cdot)$ are called \under{conditioners}. \\
+The Jacobian matrix of the autoregressive transformation $f$ is triangular. Each output $y_t$ only depends on $x_{1:t}$, and so the determinant is just a product of its diagonal entries:
+$$\det(Df) = \prod_{t=1}^D \frac{\partial \hat{f}}{\partial x_t}$$
+In practice, it is possible to compute all the entires of the direct flow in one pass using a single network with appropriate masks.\\
+However, the computation of the inverse is more challenging (involves recursion, cannot be parallelized)
+
+\paragraph{Inverse autoregressive flows (IAF)}
+Outputs each entry of $y$ conditioned the previous entries of $y$ (w.r.t. the fixed ordering)
+$$y_t = \hat{f}(x_t;\theta_t(y_{1:t-1}))$$
+Computation of the IAF is sequential and expensive, but the inverse of IAD (which is a direct autoregressive flow) can be computed relatively efficiently.
+
+\remark
+One should use IAFs if fast sampling is needed (e.g. for stochastic variational inference), and DAFs if fast density estimation is desirable. However, the two methods are theoretically equivalent and can learn the same distribution.
+
+
+
 
 
 

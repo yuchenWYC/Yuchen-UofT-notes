@@ -42,3 +42,14 @@
 \BOOKMARK [2][-]{subsection.8.1}{the algorithm for amortized inference}{section.8}% 42
 \BOOKMARK [2][-]{subsection.8.2}{Optimizing model parameters}{section.8}% 43
 \BOOKMARK [2][-]{subsection.8.3}{Variational Autoencoder \(VAE\)}{section.8}% 44
+\BOOKMARK [1][-]{section.9}{Normalizing Flows}{}% 45
+\BOOKMARK [2][-]{subsection.9.1}{Basics}{section.9}% 46
+\BOOKMARK [3][-]{subsubsection.9.1.1}{More formal construction}{subsection.9.1}% 47
+\BOOKMARK [2][-]{subsection.9.2}{Applications}{section.9}% 48
+\BOOKMARK [3][-]{subsubsection.9.2.1}{Density estimation and sampling}{subsection.9.2}% 49
+\BOOKMARK [2][-]{subsection.9.3}{Methods}{section.9}% 50
+\BOOKMARK [3][-]{subsubsection.9.3.1}{Elementwise bijections}{subsection.9.3}% 51
+\BOOKMARK [3][-]{subsubsection.9.3.2}{Linear Flows}{subsection.9.3}% 52
+\BOOKMARK [3][-]{subsubsection.9.3.3}{Planar and Radial Flows}{subsection.9.3}% 53
+\BOOKMARK [3][-]{subsubsection.9.3.4}{Coupling Flows}{subsection.9.3}% 54
+\BOOKMARK [3][-]{subsubsection.9.3.5}{Autoregressive Flows}{subsection.9.3}% 55
