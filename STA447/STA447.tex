@@ -1382,8 +1382,62 @@
    	\end{align*}
    	This is the $pdf$ of $Poisson(\lambda)$
    	\paragraph{Construction of Poisson process}
-   	Let $\{Y_n\}_{n=1}^\infty \underset{\sim}{i.i.d.} Exp(\lambda)$ for some $\lambda > 0$.
+   	Let $\{Y_n\}_{n=1}^\infty \overset{i.i.d.}{\sim} Exp(\lambda)$ for some $\lambda > 0$.\\
+   	Let $T_0 = 0$, and $T_n = Y_1 + Y_2 + \hdots + Y_n$ for $n \geq 1$ (``$n$th arrival time").\\
+   	Let $N(t) = \max\{n \geq 0: T_n \leq t\}$ be the number of arrivals up to time $t$.\\
+   	 $N(t)$ is called a \under{counting process}, since it counts number of arrivals.
+   	\proposition $N(t) \sim Poisson(\lambda t)$, so that $\forall m \in \mb{N}$,
+   	$$P(N(t) = m) = \frac{(\lambda t)^m}{m!}e^{-\lambda t}$$
+   	\begin{proof}
+   		$N(t) = m$ iff both $T_m \leq t$ and $T_{m+1} > t$, iff there is $0 \leq s \leq t$ with $T_m = s$ and $T_{m+1} - T_m > t-s$.\\
+   		Recall that $Y_n \sim Exp(\lambda) = Gamma(1, \lambda)$, so 
+   		$$T_m := Y_1 + Y_2 + \hdots + Y_m \sim Gamma(m, \lambda)$$
+   		with density function
+   		$$f_{T_m}(s) = \frac{\lambda^m}{\Gamma(m)}s^{m-1}e^{-\lambda s} = \frac{\lambda^m}{(m-1)!}s^{m-1}e^{-\lambda s}$$
+   		Also, $P(T_{m+1} - T_m > t-s) = P(Y_{m+1} > t-s) = e^{-\lambda(t-s)}$. Then we have
+   		\begin{align*}
+   			P(N(t) = m) &= P(T_m \leq t, T_{m+1} > t) \\
+   			&= P(\exists 0 \leq s \leq t: T_m = s, Y_{m+1} > t-s) \\
+   			&= \int_0^t f_{T_m}(s) P(Y_{m+1} > t-s) \, ds \\
+   			&= \int_0^t \frac{\lambda^m}{(m-1)!}s^{m-1}e^{-\lambda s}e^{-\lambda s}e^{-\lambda(t-s)}\, ds\\
+   			&= \frac{\lambda^m}{(m-1)!}e^{-\lambda t}\int_0^t s^{m-1}\,ds \\
+   			&= \frac{\lambda^m}{(m-1)!}e^{-\lambda t}[\frac{t^m}{m}]\\
+   			&= \frac{(\lambda t)^m}{m!}e^{-\lambda t}
+   		\end{align*}
+   	\end{proof} 
+   	\property
+   	If $0 \leq t_1 \leq s_1 \leq t_2 \leq s_2 \leq \hdots \leq t_k \leq s_k$, then $N(s_i) - N(t_i) \sim Poisson(\lambda(s_i - t_i))$, and $\{N(s_i) - N(t_i)\}_{i=1}^k$ are all independent. This is called \under{``independent Poisson increments"}.
+   	\begin{proof}
+   		Recall the memoryless property of $Exp(\lambda)$ distribution: for $a, b >0$,
+   		$$P(Y_n > b + a|Y_n > a) = P(Y_n > b) = e^{-\lambda b}$$
+   		This means the process $\{N(t)\}$ ``starts over" in each new time interval. \\
+   		It follows that $N(t+s) - N(s) \sim N(t) \sim Poisson(\lambda t)$.\\
+   		Also, it follows that if $0 \leq a < b \leq c < d$, then $N(d) - N(c)$ is independent of $N(b) - N(a)$, and similarly for multiple non-overlapping time intervals.
+   	\end{proof}
    	
+   	\definition
+   	A \under{Poisson process} with intensity $\lambda$ is a collection $\{N(t)\}_{t\geq 0}$ of random non-decreasing integer counts $N(t)$, satisfying the following properties
+   	\begin{enumerate}
+   		\item $N(0) = 0$
+   		\item $\forall t \geq 0, N(t) \sim Poisson(\lambda t)$
+   		\item Independent Poisson increments: If $0 \leq t_1 \leq s_1 \leq t_2 \leq s_2 \leq \hdots \leq t_k \leq s_k$, then $N(s_i) - N(t_i) \sim Poisson(\lambda(s_i - t_i))$, and $\{N(s_i) - N(t_i)\}_{i=1}^k$ are all independent.
+   	\end{enumerate}
+   	\example
+   	Let $\{N(t)\}$ be a Poisson process with intensity $\lambda$. Then for $0 < t <s$,
+   	\begin{align*}
+   		P(N(t) = 1| N(s) = 1) &= \frac{P(N(t) = 1, N(s) = 1)}{P(N(s) = 1)}\\
+   		&= \frac{P(N(t) = 1, N(s) - N(t) = 0)}{P(N(s) = 1)} \\
+   		&= t/s
+   	\end{align*}
+   	That is, condition on $N(s) = 1$, the first event is uniform over $[0, s]$. (Distribution does not depend on $\lambda$.
+   	\example
+   	\begin{align*}
+   		P(N(4) = 1| N(5) = 3) &= \frac{P(N(4) = 1, N(5) = 3)}{P(N(5) = 3)} \\
+   		&= \frac{P(N(4) = 1, N(5) - N(4) = 2)}{P(N(5) = 3)} \\
+   		&= 12/125
+   	\end{align*}
+   	This also does not depend on $\lambda$, and equals ${3 \choose 1}(4/5)^1 (1/5)^2$.\\
+   	Intuition: 3 events occurred in 5 units of time, each event is uniform over $[0,5]$, so for $i = 1, 2, 3, P(T_{e_i} \leq 4) = \frac{4}{5}$, where $e$ represents an event, follows a Bernoulli distribution with $p = 4/5$. Then $P(N(4) = x|N(5) = 3) \sim Binom(3, 4/5)$.  
     
     
     
