@@ -1271,11 +1271,119 @@
  	0, & n = 0	
  	\end{cases}$$
     where $\{Z_i\}$ are i.i.d. with $P(Z_i = +1) = P(Z_i = -1) = \frac{1}{2}$.\\
-    Let $M$ be a large integer, and let $\{Y_t^{(M)}$ be like $\{X_n\}$, except with time sped up by a factor of $M$, and space shrunk down by a factor of $\sqrt{M}$. We have $\dur{Y}{0}{M} = 0$ and
+    Let $M$ be a large integer, and let $\{Y_t^{(M)}\}$ be like $\{X_n\}$, except with time sped up by a factor of $M$, and space shrunk down by a factor of $\sqrt{M}$. We have $\dur{Y}{0}{M} = 0$ and
     $$\dur{Y}{\frac{i+1}{M}}{M} = \dur{Y}{\frac{i}{M}}{M} + \frac{1}{\sqrt{M}}Z_{i+1}$$
     Fill in $\{\dur{Y}{t}{M}\}_{t \geq 0}$ by \blue{linear interpolation}.\\
     \under{Brownian motion} $\{B_t\}_{t\geq 0}$ is (intuitively) the limit as $M \rightarrow \infty$ of $\{\dur{Y}{t}{M}\}$.\\
-    Since $\dur{Y}{0}{M} = 0$ for all $M$, also $B_0 = 0$. Also, note that $\dur{Y}{t}{M} = \frac{1}{\sqrt{M}}(Z_1 + Z_2 + \hdots + Z_{tM})$ (at least if $tM \in \mb{Z}$, otherwise within $\mc{O}(1/\sqrt{M})$, which )    
+    Since $\dur{Y}{0}{M} = 0$ for all $M$, also $B_0 = 0$. Also, note that $\dur{Y}{t}{M} = \frac{1}{\sqrt{M}}(Z_1 + Z_2 + \hdots + Z_{tM})$ (at least if $tM \in \mb{Z}$, otherwise within $\mc{O}(1/\sqrt{M})$, which doesn't matter when $M \rightarrow \infty$)\\
+    Thus $E(\dur{Y}{t}{M})= E(Z_i) = 0$ and $Var(\dur{Y}{t}{M}) = (\frac{1}{\sqrt{M}})^2(tM) = t$. As $M \rightarrow \infty$, by the Central Limit Theorem,
+    $$B_t \sim \mc{N}(0,t)$$    
+    Also, if $0 < t < s$, then 
+    $$\dur{Y}{s}{M} - \dur{Y}{t}{M} = \frac{1}{\sqrt{M}}(Z_{tM+1} + Z_{tM+2} + \hdots + Z_{sM}) \rightarrow \mc{N}(0, s-t)$$ which is independent of $\dur{Y}{t}{M}$.
+    Therefore,
+    $$B_s - B_t \sim \mc{N}(0, s-t)$$
+    which is independent of $B_t$.\\
+    More generally, if $0 \leq t_1 \leq s_1 \leq t_2 \leq s_2 \leq \hdots \leq t_k \leq s_k$, then $B_{s_i} - B_{t_i} \sim \mc{N}(0, s_i - t_i)$, and $\{B_{s_i} - B_{t_i}\}_{i=1}^k$ are all independent. This is called ``independent normal increments".\\
+    Finally, if $0 < t \leq s$, then
+    \begin{align*}
+    	Cov(B_t, B_s) &= E(B_tB_s) \\
+    	&= E(B_t[B_s - B_t + B_t]) \\
+    	&= E(B_t[B_s - B_t]) + E((B_t)^2) \\
+    	&= E(B_t)E(B_s - B_t) + E((B_t)^2) \tag{Since $B_t$ and $B_s - B_t$ are independent}\\
+    	&= (0)(0) + t \\
+    	&= t
+    \end{align*}
+    Similar for the case $0 < s \leq t$. Therefore
+    $$Cov(B_t, B_s) = \min(t,s)$$
+    \definition[Brownian motion]
+    \under{Brownian motion} is a process $\{B_t\}_{t\geq 0}$ with $B_0 = 0$ and continuous sample paths (the random function $t \mapsto B_t$ is always continuous) satisfying the following  three properties 
+    \begin{enumerate}
+    	\item $B_t \sim \mc{N}(0,t)$
+    	\item Independent normal increments:
+    $0 \leq t_1 \leq s_1 \leq t_2 \leq s_2 \leq \hdots \leq t_k \leq s_k$, then $B_{s_i} - B_{t_i} \sim \mc{N}(0, s_i - t_i)$, and $\{B_{s_i} - B_{t_i}\}_{i=1}^k$ are all independent.
+    	\item $Cov(B_s, B_t) = \min(s,t)$
+    \end{enumerate}
+    \remark
+    Such a process exists!
+    \fact
+    $\{B_t\}$ is a (continuous-time) martingale. Hence similar results apply just like for discrete-time martingales.
+    \begin{proof}
+    	If $0 < t < s$, then 
+    	\begin{align*}
+    		B_s | B_t &= B_t + (B_s - B_t) | B_t \\
+    		&= B_t + \mc{N}(0, s-t) \\
+    		&\sim \mc{N}(B_t, s-t)
+    	\end{align*}
+    	So in particular, $$E[B_s | \{B_r\}_{0 \leq r \leq t}] = B_t$$
+    	Hence $\{B_t\}$ is a (continuous-time) martingale.
+    \end{proof}
+    \example Let $a,b > 0$, and let $\tau = \min\{t \geq 0: B_t = -a \lor b\}$. What is $p \equiv P(B_{\tau} = b)$?\\
+    \ti{solution: }\\
+    Here $\{B_t\}$ is a martingale, and $\tau$ is a stopping time. Furthermore, $\{B_t\}$ is bounded up to time $\tau$: 
+    $$|B_t|\id{t\leq \tau} \leq \max(|a|, |b|)$$
+    So just like for discrete martingales, must have 
+    $$E(B_{\tau}) = E(B_0) = 0$$
+    Hence we have $p(b) + (1-p)(-a) = 0 \implies p = \frac{a}{a+b}$.
+    \example Let $a,b > 0$, and let $\tau = \min\{t \geq 0: B_t = -a \lor b\}$. What is $e \equiv E(\tau)$?\\
+    \ti{solution: }\\
+    Let $Y_t = B_t^2 - t$.
+    Then for $0 < t < s$, 
+    \begin{align*}
+    	E[Y_s | \{B_r\}_{r \leq t}] &= E[B_s^2 - s | \{B_r\}_{r \leq t}] \\
+    	&= Var[B_s | \{B_r\}_{r \leq t}] + (E[B_s|\{B_r\}_{r \leq t}])^2 - s \\
+    	&= (s-t) + (B_t)^2 - s \\
+    	&= (B_t)^2 - t \\
+    	&= Y_t
+    \end{align*}
+    Then by the Double-expectation formula \ref{Double-expectation formula},
+    $$E[Y_s |\{Y_r\}_{r\leq t}] = E[E[Y_s | \{B_r\}_{r\leq t}|\{Y_r\}_{r\leq t}] = E[Y_t | \{Y_r\}_{r\leq t}] = Y_t$$
+    So, $\{Y_t\}$ is also a martingale. Then
+    \begin{align*}
+    	E(Y_{\tau}) &= E(B_{\tau}^2 - \tau) \\
+    	&= E(B_{\tau}^2 - E(\tau) \\
+    	&= pb^2 + (1-p)(-a)^2 -e \\
+    	&= \frac{a}{a+b}b^2 + \frac{b}{a+b}a^2 - e\\
+    	&= ab - e
+    \end{align*}
+   	Now we want to justify that $E(Y_\tau) = 0$.\\
+   	Let $\tau_M = \min(\tau, M)$. Then $\tau_M$ is bounded, so $E(Y_{\tau_M}) = 0$. But $Y_{\tau_M} = B_{\tau_M}^2 - \tau_M$, so $E(\tau_M) = E(B_{\tau_M}^2)$. As $M \rightarrow \infty, E(\tau_M) \rightarrow E(\tau)$ by the Monotone Convergence Theorem, and $E(B_{\tau_M}^2) \rightarrow E(B_\tau^2)$ by the Bounded Convergence Theorem \ref{Bounded Convergence Theorem}. Therefore, 
+   	$$E(\tau) = E(B^2_\tau) \implies E(Y_\tau) = 0$$
+   	Then since $E(Y_{\tau}) = ab - e = 0$, we can solve this to get that $e = ab$.
+   	\fact The function $t \mapsto B_t$ is differentiable \tb{nowhere}, despite the fact that it is continuous.
+   	\todo{reasons}
+   	\subsection{Stock Options (Continuous)}
+   	Assume now that the stock price $X_t$ is equal to some (random) positive value, for each time $t \geq 0$. Common model for the stock price:
+   	$$X_t = x_0\exp(\mu t + \sigma B_t)$$
+   	Also assume a risk-free interest rate $r$, so that $\$ 1$ today is worth $\$ e^{rt}$ after $t$ years. Equivalently, $\$ 1$ at a future time $t > 0$ is worth $\$ e^{-rt}$ at time $0$. 
+   	\definition[``discounted" stock price]
+   	We define \under{``discounted" stock price} (in today's dollars) as
+   	$$D_t \equiv e^{-rt}X_t = e^{-rt}x_0\exp(\mu t + \sigma B_t) = x_0 \exp((\mu - r)t + \sigma B_t)$$\\
+   	Recall that a stock option is the option to buy the stock for some amount $\$ K$ at some fixed future time $S > 0$ years later. At time $S$, this is worth $\max(0, X_S - K)$. So at time 0, it's worth the discounted value $e^{-rS}\max(0, X_S - K)$. \blue{However, at time 0, $X_S$ is unknown (random), so this discounted value is a random variable.}
+   	\remark
+   	What is the fair price?
+   	\fact
+   	If $\mu = r - \frac{\sigma^2}{2}$, then it can be computed that $\{D_t\}$ becomes a martingale. Then similar to the discrete case, the fair price of the option at time 0 is the same as the expected value of the option at time $S$ under the martingale probabilities, by the Martingale Pricing Principle.\\
+   	i.e., if $X_S = x_0\exp([r - \frac{\sigma^2}{2}]S + \sigma B_S)$, where $B_S \sim \mc{N}(0,S)$, then the fair price for the option equals
+   	\begin{align*}
+   		E[e^{-rs}\max(0, X_S - K)] &= x_0\Phi\left( \frac{(r+\frac{\sigma^2}{2}S - \log(K/x_0)}{\sigma\sqrt{S}} \right) - e^{-rS}K\Phi\left( \frac{(r-\frac{\sigma^2}{2}S - \log(K/x_0)}{\sigma \sqrt{S}}\right)
+   	\end{align*}
+   	\remark
+   	This price does not depend on the drift $\mu$, since we first have to replace $\mu$ by $r - \frac{\sigma^2}{2}$. However, the price is an increasing function the volatility $\sigma$, since the option ``protects" you against the large drops in the stock price.
+   	
+   	\subsection{Poisson Processes}
+   	\example
+   	Suppose an average of $\lambda = 2.5$ fires in Toronto per day. Intuitively, this is caused by a very large number $n$ of buildings, each of which has a very small probability $p$ of having a fire. Then the mean $= np = \lambda$, so $p = \frac{\lambda}{n}$, and the number of fires today $X \sim Binom(n,p) = Binom(n, \lambda/n)$.\\
+   	As $n \rightarrow \infty$, we have
+   	\begin{align*}
+   		P(X = k) &= {n \choose k}p^k(1-p)^{n-k} \\
+   		&= \frac{n(n-1)(n-2)\hdots(n-k+1)}{k!}\left(\frac{\lambda}{n}\right)^k\left(1-\left(\frac{\lambda}{n}\right)\right)^{n-k}\\
+   		&\approx \frac{n^k}{k!}\left(\frac{\lambda}{n}\right)^k \left(e^{-\lambda/n}\right)^n\\
+   		&= \frac{1}{k!}\lambda^k e^{-\lambda}
+   	\end{align*}
+   	This is the $pdf$ of $Poisson(\lambda)$
+   	\paragraph{Construction of Poisson process}
+   	Let $\{Y_n\}_{n=1}^\infty \underset{\sim}{i.i.d.} Exp(\lambda)$ for some $\lambda > 0$.
+   	
     
     
     
