@@ -21,6 +21,7 @@
 	prependcaption,
 	textsize=tiny
 ]{todonotes}
+\counterwithin{equation}{section}
 
 \newcommand{\ur}[2]{{#1}^{({#2})}}
 \newcommand{\dur}[3]{{#1}_{#2}^{({#3})}}
@@ -38,6 +39,7 @@
     \maketitle
     \tableofcontents
     \newpage
+    \noindent All the copyrights to Professor Jeffery Rosenthal.
     \section{Preliminary}
     \proposition If $Z$ is a non-negative-integer-valued random variable, then
     $$E(Z) = \sum_{k=1}^\infty P(Z \geq k)$$
@@ -105,7 +107,17 @@
   	
   	\theorem[\label{Dominated Convergence Theorem}Dominated Convergence Theorem]
     If $\limit{n} X_n = X$, and there is some random variable $Y$ with $E|Y|<\infty$ and $|X_n| \leq Y$ for all $n$, then $$\limit{n} E(X_n) = E(X)$$
-
+    
+    \definition[order notation]
+    We say that a function $f = O(g)$ if 
+    $$\underset{h \searrow 0}{\lim} \frac{f}{g} < \infty$$
+    We say that a function $f = o(g)$ if
+    $$\underset{h \searrow 0}{\lim} \frac{f}{g} = 0$$
+    
+    \example From a first-order Taylor series expansion,
+    $$e^x = 1 + x + o(x^2)$$
+    as $x \rightarrow 0$.
+    
     \info[inline]{If time, please finish reading the preliminary, which I found useful. --Mar 9}
 
     \section{Markov Chain Probabilities}
@@ -1351,7 +1363,7 @@
    	Then since $E(Y_{\tau}) = ab - e = 0$, we can solve this to get that $e = ab$.
    	\fact The function $t \mapsto B_t$ is differentiable \tb{nowhere}, despite the fact that it is continuous.
    	\todo{reasons}
-   	\subsection{Stock Options (Continuous)}
+   	\subsection{Application - Stock Options (Continuous)}
    	Assume now that the stock price $X_t$ is equal to some (random) positive value, for each time $t \geq 0$. Common model for the stock price:
    	$$X_t = x_0\exp(\mu t + \sigma B_t)$$
    	Also assume a risk-free interest rate $r$, so that $\$ 1$ today is worth $\$ e^{rt}$ after $t$ years. Equivalently, $\$ 1$ at a future time $t > 0$ is worth $\$ e^{-rt}$ at time $0$. 
@@ -1438,8 +1450,54 @@
    	\end{align*}
    	This also does not depend on $\lambda$, and equals ${3 \choose 1}(4/5)^1 (1/5)^2$.\\
    	Intuition: 3 events occurred in 5 units of time, each event is uniform over $[0,5]$, so for $i = 1, 2, 3, P(T_{e_i} \leq 4) = \frac{4}{5}$, where $e$ represents an event, follows a Bernoulli distribution with $p = 4/5$. Then $P(N(4) = x|N(5) = 3) \sim Binom(3, 4/5)$.  
+   	\proposition
+   	If $N(t)$ is a Poisson process with rate $\lambda > 0$, then as $h \searrow 0$:
+   	\begin{enumerate}
+   		\item $P(N(t+h) - N(t) = 1) = \lambda h +o(h)$
+   		\item $P(N(t+h) - N(t) \geq 2) = o(h)$
+   	\end{enumerate}
+   	\begin{proof}
+   		\begin{align}
+   			P(N(t+h) - N(t) = 1) &= P(N(h) = 1) \\
+   			&= e^{- \lambda h}(\lambda h)^1 / 1! \\
+   			&= [1 -\lambda h + O(h^2)](\lambda h)\\
+   			&= \lambda h - \lambda^2h^2 + O(h^3) \\
+   			&= \lambda h + O(h^2) \\
+   			&= \lambda h + o(h) 
+   		\end{align}
+   		Also,
+   		\begin{align}
+   			P(N(t+h) - N(t) \geq 2) &= P(N(h) \geq 2) \\
+   			&= 1 - P(N(h) = 0) - P(N(h) = 1) \\
+   			&= 1 - e^{- \lambda h}(\lambda h)^0 / 0! - e^{- \lambda h}(\lambda h)^1 / 1!\\
+   			&= 1 - [1 - \lambda h + O(h^2)](1) - [1 - \lambda h + O(h^2)](\lambda h) \\
+   			&= 1 - 1 + \lambda h - O(h^2) - \lambda h + \lambda^2 h^2 - O(h^3) \\
+   			&= \lambda^2 h^2 + O(h^2) + O(h^3)\\
+   			&= O(h^2)\\
+   			&= o(h) 
+   		\end{align}
+   	\end{proof}
+    \property[Poisson clumping]
+    Suppose we have a Poisson process on $[0, 100]$ with intensity $\lambda = 1$ event per day. Then the probability of seeing 4 events within some single day is
+    \begin{align*}
+    	P(\exists r \in [1, 100]: N(r) - N(r-1) = 4) &\geq P(\exists m \in \{1,2,\hdots, 100\}: N(m) - N(m-1) = 4) \\
+    	&= 1 - P(\not \exists m \in \{1,2,\hdots,100\}: N(m) - N(m-1) = 4)\\
+    	&= 1 - (P(N(1) \neq 4))^{100} \\
+    	&= 1 - (1 - P(N(1) = 4))^{100} \\
+    	&= 1 - (1 - e^{-1}(1^4/4!))^{100}\\
+    	&\approx 0.787
+    \end{align*}
+    Therefore, the $\{T_i\}$ tend to ``clump up" in various patterns, just by chance alone.
+    \blue{This doesn't mean anything at all: they are still independent.}
     
+    \proposition
+    Suppose $\{N_1(t)\}_{t\geq 0}$ and $\{N_2(t)\}_{t\geq 0}$ are independent Poisson processes, with rates $\lambda_1$ and $\lambda_2$ respectively. Let $N(t) = N_1(t) + N_2(t)$. Then $\{N(t)\}_{t \geq 0}$ is also a Poisson process, with rate $\lambda_1 + \lambda_2$.
     
+    \proposition[thin]
+    Let $\{N(t)\}_{t \geq 0}$ be a Poisson process with rate $\lambda$. Suppose each arrival is independently of ``type $i$" with probability $p_i$, for $i = 1, 2, 3, \hdots$ (could be countably infinite), where $\sum_i p_i = 1$. Let $N_i(t)$ be number of arrivals of type $i$ up to time $t$. Then the different $\{N_i(t)\}$ are all independent, and furthermore each $\{N_i(t)\}$ is itself a Poisson process, with rate $\lambda p_i$.
+    \todo{prove this!}
+    
+          
     
     
     
