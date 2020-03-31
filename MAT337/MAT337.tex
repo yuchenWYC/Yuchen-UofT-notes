@@ -993,10 +993,94 @@ If $\underset{x \rightarrow a}{\lim} f(x)$ does not exist for other reasons, we 
 \property
 Discontinuity of a monotone function $f$ is a jump. Moreover, $D_f$ is countable.
 
-\section{The Derivative}
+\section{the Derivative}
 \subsection{Derivatives and the Intermediate Value Property}
+\definition[derivative]
+Let $f: \real \rightarrow \real, c \in \real$. Define the \under{derivative} of $f$ at $c$:
+$$f'(c) = \underset{x \rightarrow c}{\lim} \frac{f(x) - f(c)}{x - c}$$
+If $f'(c)$ exists, we say that $f$ is \under{differentiable at $c$}. If $f'(a)$ exists for all $a \in \real$, we say that $g$ is \under{differentiable on $\real$}.
 
+\property If $f$ is differentiable at $c$, then $f$ is continuous at $c$.
+\begin{proof}
+	We have
+	$$\underset{x \rightarrow c}{\lim} (f(x) - f(c)) = \underset{x \rightarrow c}{\lim} \frac{f(x) - f(c)}{x - c} \cdot (x - c) = f'(c)\cdot 0 = 0$$
+\end{proof}
 
+\theorem[Algebraic Differentiability Theorem] Suppose $f, g$ are differentiable, $a,c \in \real$. We have
+\begin{enumerate}
+	\item $(cf)'(a) = cf'(a)$
+	\item $(f + g)'(a) = f'(a) + g'(a)$
+	\item $(f \cdot g)'(a) = f'(a)g(a) + f(a)g'(a)$
+	\item $\left( \frac{f}{g} \right)'(a) = \frac{f'(a)g(a) - f(a)g'(a)}{[g(a)]^2}$
+\end{enumerate}
+
+\theorem[Chain Rule] Let $f: A \rightarrow B, g: B \rightarrow \real, f(A) \subseteq B$ so that $g \circ f$ is defined. If $f$ is differentiable at $c$ and $g$ is differentiable at $f(c)$, then $g \circ f$ is differentiable at $a$ with 
+	$$(g \circ f)'(c) = g'(f(c)) \cdot f'(c)$$
+
+\theorem[Interior Extremum Theorem] If $f$ is differentiable on $(a,b)$, $f$ attains maximum at some $c \in (a,b)$, then $f'(c) = 0$.
+\begin{proof}
+	We have
+	$$f'(c) = \underset{x \rightarrow c^-}{\lim} \frac{f(x) - f(c)}{x-c} \leq 0$$
+	and 
+	$$f'(c) = \underset{x \rightarrow c^+}{\lim} \frac{f(x) - f(c)}{x-c} \geq 0$$
+	then $f'(c) = 0$.
+\end{proof}
+
+\theorem[Darboux's Theorem] If $f$ is differentiable on $[a,b]$ and $f'(a) < \alpha < f'(b)$ or $f'(a) > \alpha > f'(b)$, then $\exists c \in (a,b)$ s.t. $f'(c) = \alpha$.
+
+\subsection{the Mean Value Theorems}
+\theorem[Rolle's Theorem] Let $f:[a,b] \rightarrow \real$ be continuous on $[a,b]$ and differentiable on $(a,b)$. If $f(a) = f(b)$, then $\exists c\in (a,b)$ s.t. $f'(c) = 0$.
+\begin{proof}
+	By EVT, since $f$ is continuous on a compact set, then $f$ attains a maximum and a minimum. If both extremums occur at the endpoints, then $f$ is necessarily a constant function and $f'(x) = 0$ on $(a,b)$.\\
+	If either the maximum or minimum occurs at some point $c \in (a,b)$, then it follows from the Interior Extremum Theorem that $f'(c) = 0$.
+\end{proof}
+
+\theorem[Mean Value Theorem] If $f: [a,b] \rightarrow \real$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then $\exists c \in (a,b)$ s.t.
+$$f'(c) = \frac{f(b) - f(a)}{b-a}$$
+\begin{proof}
+	Consider 
+	$$d(x) = f(x) - \left[ \left(\frac{f(b) - f(a)}{b-a}\right) (x-a) + f(a) \right]$$
+	We know $d$ is continuous on $[a,b]$ and differentiable on $(a,b)$. Also, $d(a) = d(b) = 0$. \\
+	By Rolle's Theorem, $\exists c \in (a,b)$ s.t. $d'(c) = 0 \implies f'(c) = \frac{f(b) - f(a)}{b-a}$.
+\end{proof}
+
+\corollary If $f: (a,b) \rightarrow \real$ is differentiable and $f'(x) = 0$ for all $x \in (a,b)$, then $f$ is constant on $(a,b)$.
+\begin{proof}
+	Assume $x, y \in (a,b)$ and $x < y$. We set $c \in (x,y)$, then by Mean Value Theorem,
+	$$0 = f'(c) = \frac{f(y) - f(x)}{y-x} \implies f(y) - f(x) = 0$$
+\end{proof}
+	
+\corollary If $f: (a,b) \rightarrow \real$ is differentiable and $f'(x) = g'(x)$ for all $x \in (a,b)$, then $f(x) = g(x) + c$ for some $c \in \real$.
+\begin{proof}
+	Apply the previous corollary to the function $h(x) = f(x) - g(x)$.
+\end{proof}
+
+\theorem[Generalized Mean Value Theorem] If $f, g: [a,b] \rightarrow \real$ are continuous on $[a,b]$ and differentiable on $(a,b)$, then $\exists c \in (a,b)$ s.t.
+$$[f(b) - f(a)]g'(c) = [g(b) - g(a)]f'(c)$$
+If $g'$ is never zero on $(a,b)$, then
+$$\frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)}$$
+\begin{proof}
+	Apply the Mean Value Theorem to the function $h(x) = [f(b) - f(a)]g(x) - [g(b)-g(a)]f(x)$.
+\end{proof}
+
+\theorem[L'Hospital's Rule: 0/0 case] Suppose $f, g$ are continuous on $I$ with $a \in I$ and are differentiable on $I \setminus \{a\}$. If $f(a) = g(a) = 0$ and $\forall x \neq a, g'(x) \neq 0$, then
+$$\underset{x \rightarrow a}{\lim} \frac{f'(x)}{g'(x)} = L \implies \underset{x \rightarrow a}{\lim}\frac{f(x)}{g(x)} = L$$
+\begin{proof}
+	Since $\underset{x \rightarrow a}{\lim}\frac{f'(x)}{g'(x)} = L$, then for all $\epsilon > 0, \exists \delta > 0$ s.t.
+	$$x \in (a - \delta, a + \delta) \implies \bignorm{\frac{f'(x)}{g'(x)} - L} < \epsilon$$
+	By the Generalized Mean Value Theorem, for every $y \in (a, a + \delta), \exists x \in (a, y)$ s.t.
+	$$\frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f(y)}{g(y)}$$
+	and thus
+	$$\bignorm{\frac{f(y)}{g(y)} - L} = \bignorm{\frac{f'(x)}{g'(x)} - L} < \epsilon$$
+\end{proof}
+
+\theorem[L'Hospital's Rule: $\infty/\infty$ case] Suppose $f,g$ are differentiable on $(a,b)$ and $g'(x) \neq 0$ for all $x \in (a,b)$. If $\underset{x \rightarrow a}{\lim} g(x) = \infty$ or $-\infty$, then
+$$\underset{x \rightarrow a}{\lim} \frac{f'(x)}{g'(x)} = L \implies \underset{x \rightarrow a}{\lim}\frac{f(x)}{g(x)} = L$$
+
+\section{Sequences and Series of Functions}
+\subsection{Uniform Convergence of a Sequence of Functions}
+\definition For each $n \in \mb{N}$, let $f_n$ be a function defined on a set $A \subseteq \real$. If $\forall x \in A, f_n(x) \rightarrow f(x)$ for some function $f$, then sequence $(f_n)$ of functions \under{converges pointwise} on $A$ to $f$.\\
+ We can write $f_n \rightarrow f, \lim f_n = f$, or $\limit f_n(x) = f(x)$.
 
 
 
