@@ -1392,7 +1392,17 @@
    		&\approx \frac{n^k}{k!}\left(\frac{\lambda}{n}\right)^k \left(e^{-\lambda/n}\right)^n\\
    		&= \frac{1}{k!}\lambda^k e^{-\lambda}
    	\end{align*}
-   	This is the $pdf$ of $Poisson(\lambda)$
+   	This is the $pdf$ of $Poisson(\lambda)$.
+   	
+   	\property
+   	It is possible to show that if a distribution is \blue{continuous and memoryless}, then it \red{must} have this pdf:
+   	$$f(x) = \lambda e^{-\lambda x}, \quad x \geq 0$$
+   	which is the pdf of the exponential distribution.\\
+   	In other words, \red{memoryless $\iff$ exponential}.
+   	
+   	\remark
+   	The \under{rate parameter} $\lambda$ is some positive real number. You can conceive of it as the probability an event will occur in unit time. The larger $\lambda$ is, the more rapidly the pdf descends with increasing $x$.
+   	
    	\paragraph{Construction of Poisson process}
    	Let $\{Y_n\}_{n=1}^\infty \overset{i.i.d.}{\sim} Exp(\lambda)$ for some $\lambda > 0$.\\
    	Let $T_0 = 0$, and $T_n = Y_1 + Y_2 + \hdots + Y_n$ for $n \geq 1$ (``$n$th arrival time").\\
@@ -1426,6 +1436,7 @@
    		It follows that $N(t+s) - N(s) \sim N(t) \sim Poisson(\lambda t)$.\\
    		Also, it follows that if $0 \leq a < b \leq c < d$, then $N(d) - N(c)$ is independent of $N(b) - N(a)$, and similarly for multiple non-overlapping time intervals.
    	\end{proof}
+   	
    	
    	\definition
    	A \under{Poisson process} with intensity $\lambda$ is a collection $\{N(t)\}_{t\geq 0}$ of random non-decreasing integer counts $N(t)$, satisfying the following properties

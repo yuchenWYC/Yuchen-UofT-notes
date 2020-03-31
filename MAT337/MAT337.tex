@@ -888,20 +888,113 @@ $$f(x_1) \leq f(x) \leq f(x_2)$$
 \begin{proof}
 	Let $H = f[K] = \{f(x): x \in K\} \subseteq \real$, which is compact. Since compact subsets of $\real$ are bounded, then let $y_2 = \sup(H)$. \\
 	We have $y \leq y_2$ for all $y \in H$ and $\forall \epsilon > 0, \exists y \in H$ s.t. $y_2 - \epsilon < y \leq y_2$.\\
-	Take $\epsilon = \frac{1}{n}$, then we have some $z_n \in H$ s.t. $y_2 - \frac{1}{n} < z_n \leq y_2$. \\
+	Take $\epsilon = \frac{1}{n}$, then we have some $z_n \in H$ s.t. $y_2 - \frac{1}{n} < z_n \leq y_2$. \\as
 	Now we find $a_n \in k$ s.t. $f(a_n) = z_n, n = 1,2,\hdots$ \\
 	\red{By theorem, we have $a_{n_k} \rightarrow x_2$, then $f(x_2) = \underset{k \rightarrow \infty}{\lim}f(a_{n_k}) = y_2$.}
 	\todo{Which theorem?}
 \end{proof}
 
+\subsection{Continuous Functions on Compact Sets}
+\subsubsection{Uniform Continuity}
+\definition[uniform continuity]
+We say function $f: A \rightarrow \real$ is \under{uniformly continuous} on $A$ if 
+$$\forall \epsilon > 0, \exists \delta > 0, x, y \in A \land |x - y| < \delta \implies |f(x) - f(y)| < \epsilon$$
 
+\example $f(x) = x^2$ is not uniformly continuous.
+\begin{proof}
+	WTS $\exists \epsilon > 0, \forall \delta > 0, \exists x, y \in \real$ s.t. $|x - y| < \delta $ and $|f(x) - f(y)|  \geq \epsilon$.\\
+	Let $\epsilon = 1, \delta > 0$. \\
+	Choose $y = x + \frac{1}{2}\delta$, so that $|x - y| < \delta$. \\
+	\begin{align*}
+		f(y) - f(x) &= y^2 - x^2 \\
+		&= (x + \frac{1}{2}\delta)^2 - x^2 \\
+		&= x^2 + \delta x + \frac{1}{4}\delta^2 - x^2 \\
+		&= \delta x + \frac{1}{4}\delta^2
+	\end{align*} 
+	If $x > \frac{1}{\delta}$, then $f(y) - f(x) > 1$.
+\end{proof}
 
+\property[\label{fails to be uniformly continuous iff}]
+Function  $f: A \rightarrow \real$ fails to be uniformly continuous iff 
+$\exists \epsilon_0 > 0, \exists (x_n), (y_n) \subseteq A$ s.t. $\limit |x_n - y_n| = 0 \land \forall n, |f(x_n) - f(y_n)| \geq \epsilon_0$.
+\begin{proof} 
+($\Leftarrow$) Obvious.\\
+($\Rightarrow$) Assume $f$ is not uniformly continuous. \\
+Then $\exists \epsilon_0 > 0$ s.t. $\forall \delta > 0, \exists x_n, y_n \in \real$ s.t. $|x_n - y_n| < \delta$ and $|f(x_n) - f(y_n)| \geq \epsilon_0$.\\
+Then this is true for $\delta \in \mb{N}$ as well. \\
+For each $n \in \mb{N}$, let $\delta = \frac{1}{n}$, and pick $x_n, y_n$ as above. Then it is obvious that $\limit |x_n - y_n| = 0$ and $\forall n, |f(x_n) - f(y_n)| \geq \epsilon_0$.
+\end{proof}
 
+\property[Continuous functions on compact sets are uniformly continuous] Assume $f: K \rightarrow \real$ is continuous and $K$ is compact, then $f$ is uniformly continuous on $K$.
+\begin{proof}
+	Assume for a contradiction that $f: K \rightarrow \real$ is continuous and $K$ is compact, but $f$ is not uniformly continuous. Then by Property \ref{fails to be uniformly continuous iff}, $\exists \epsilon_0 > 0, (x_n), (y_n) \subseteq K$ s.t. $\limit |x_n - y_n| = 0$ and $\forall n, |f(x_n) - f(y_n)| \geq \epsilon_0$. \\ 
+	Since $K$ is compact, then $(x_n)$ has a subsequence $(x_{n_k})$ s.t. $x_{n_k} \rightarrow x \in K$.\\
+	Moreover, $(y_{n_k})$ has a subsequence $(y_{n_{k_m}})$ s.t. $y_{n_{k_m}} \rightarrow y \in K$.\\
+	Let $x_m' = x_{n_{k_m}}, y_m' = y_{n_{k_m}}$, then $x_m' \rightarrow x, y_m' \rightarrow y$.\\
+	Since $\underset{m \rightarrow \infty}{\lim} |x_m' - y_m'| = 0$, thus $x = y$.\\
+	Then
+	\begin{align*}
+		|f(x_m') - f(y_m')| & \geq \epsilon_0 \\
+		\implies \underset{m \rightarrow \infty}{\lim}|f(x_m') - f(y_m')| & \geq \epsilon_0 \\
+		\implies |f(x) - f(y)| &\geq \epsilon_0 \\
+		\implies 0 &\geq \epsilon_0
+	\end{align*}
+	which is a contradiction.
+\end{proof}
 
+\definition A function $f: A \rightarrow \real$ is said to be \under{Lipschitz} if $\exists M \in \mb{N}$ s.t. $\forall x \neq y \in A$,
+$$\bignorm{\frac{f(x) - f(y)}{x - y}} < M$$
 
+\property Lipschitz functions are uniformly continuous.
+\begin{proof}
+	Let $f: A \rightarrow \real$ be Lipschitz on $A$. Then for every $\epsilon > 0$, take $\delta < \frac{\epsilon}{M}$. \\
+	Then if $|x - y| < \delta$, then 
+	\begin{align*}
+		|f(x) - f(y)| &< M|x - y| \\
+		&< M\frac{\epsilon}{M}\\
+		&= \epsilon
+	\end{align*}
+	So $f$ is uniformly continuous.
+\end{proof}
+\remark
+The converse does not hold.
+\property[Continuous image of connected sets is connected] If $f: E \rightarrow \real$ is continuous and $E$ is connected, then $f(E)$ is connected.
+%\begin{proof}
+%	Assume for a contradiction that $f(E)$ is not connected.\\
+%	Fix $A, B \subseteq f(E)$ s.t. $\bar{A} \cap B = \emptyset = \bar{B} \cap A$ and $f(E) = A \cup B$.\\
+%	Let $C = f^{-1}(A), D = f^{-1}(B)$. Note that $C \cup D = E$ because $f$ is a function.
+%\end{proof}
 
+\subsection{Sets of Discontinuity}
+Let $f: \real \rightarrow \real, D_f = \{x \in \real: f \text{ is not continuous at }x\}$.
+\example[$D_f = \emptyset$] $f$ is continuous
+\example[$D_f = \real$] $f(x) = \begin{cases}
+	1, & x\in \mb{Q}\\
+	0, & x \in \real \setminus \mb{Q}
+\end{cases} $
+\example Given a countable set $A = \{a_1, \hdots\}$, define $f(a_n) := \frac{1}{n}$ and $f(x) = 0, \forall x \notin A$. Then we have $D_f = A$.
+\fact There is no $f: \real \rightarrow \real$ s.t. $D_f = \real \setminus \mb{Q}$.
 
+\definition[$F_\sigma$-set] A subset $F$ of $\real$ is a \under{$F_\sigma$-set} if $F = \bigcup_{n=1}^\infty F_n$ s.t. $F_n$ is closed for all $n$.
 
+\definition[$\alpha$-continuity] Let $\alpha > 0, f:\real \rightarrow \real, a \in \real$. $f$ is \under{$\alpha$-continuous} at $a$ if
+$$\exists \delta > 0 \text{ s.t. } x, y \in (a - \delta, a + \delta) \implies |f(x) - f(y)| < \alpha$$
+Note that $f$ is continuous at $a$ iff $f$ is $\alpha$-continuous at a for all $a > 0$.
+
+\property For every $f: \real \rightarrow \real$, \red{the set $D_f$ is $F_\sigma$-set of $\real$.}
+\unsure{red parts}
+
+\definition Let $f: \real \rightarrow \real$. \\
+$f$ is \under{removable discontinuous} if $\underset{x \rightarrow a}{\lim} f(x)$ exists but does not equal $f(a)$.\\
+$f$ has a \under{jump} at $a$ if $\underset{x \rightarrow a^-}{\lim} f(x) \neq \underset{x \rightarrow a^+}{\lim} f(x)$. \\
+If $\underset{x \rightarrow a}{\lim} f(x)$ does not exist for other reasons, we say $f$ is essential discontinuous.
+\definition[monotonicity] $f: \real \rightarrow \real$ is \under{monotone} if either $x \leq y \implies f(x) \leq f(y)$ or $x \leq y \implies f(x) \geq f(y)$.
+
+\property
+Discontinuity of a monotone function $f$ is a jump. Moreover, $D_f$ is countable.
+
+\section{The Derivative}
+\subsection{Derivatives and the Intermediate Value Property}
 
 
 
