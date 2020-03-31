@@ -1079,8 +1079,37 @@ $$\underset{x \rightarrow a}{\lim} \frac{f'(x)}{g'(x)} = L \implies \underset{x 
 
 \section{Sequences and Series of Functions}
 \subsection{Uniform Convergence of a Sequence of Functions}
-\definition For each $n \in \mb{N}$, let $f_n$ be a function defined on a set $A \subseteq \real$. If $\forall x \in A, f_n(x) \rightarrow f(x)$ for some function $f$, then sequence $(f_n)$ of functions \under{converges pointwise} on $A$ to $f$.\\
+\definition[pointwise convergence] For each $n \in \mb{N}$, let $f_n$ be a function defined on a set $A \subseteq \real$. If $\forall x \in A, f_n(x) \rightarrow f(x)$ for some function $f$, then sequence $(f_n)$ of functions \under{converges pointwise} on $A$ to $f$.\\
  We can write $f_n \rightarrow f, \lim f_n = f$, or $\limit f_n(x) = f(x)$.
+ 
+ \example Consider $f_n: \real \rightarrow \real$
+ $$f_n(x) = \frac{x^2 + nx}{n}$$
+ We can compute
+ $$\limit f_n(x) = \limit \frac{x^2 + nx}{n} = \limit \frac{x^2}{n} + x = x$$
+ Thus, $(f_n)$ converges pointwise to $f(x) = x$ on $\real$.
+ 
+ \example Consider $f_n: [0,1] \rightarrow \real$
+ $$f_n(x) = x^n$$
+ If $0 \leq x < 1, x^n \rightarrow 0$. If $x = 1, x^n \rightarrow 1$. It follows that $f_n \rightarrow f$ pointwise on $[0,1]$ where
+ $$f(x) = \begin{cases}
+ 	0, & 0\leq x < 1\\
+ 	1, & x = 1
+ \end{cases}$$
+ Note that pointwise convergent sequence of continuous functions may converge to a non-continuous function.
+ 
+ \definition[uniformly convergence] Let $(f_n)$ be a sequence of functions defined on a set $A \subseteq \real$, then $(f_n)$ \under{converges uniformly} on $A$ to a limit function $f$ defined on $A$ if
+ $$\forall \epsilon > 0, \exists N \text{ s.t. } \forall n \geq N, \forall x \in A, |f(x) - f_n(x)| < \epsilon$$
+
+\example Consider $f_n: \real \rightarrow \real$
+ $$f_n(x) = \frac{x^2 + nx}{n}$$
+ which converges pointwise on $\real$ to $f(x) = x$. But the convergence is not uniform, since
+ $$|f_n(x) - f(x)| = \bignorm{\frac{x^2 + nx}{n} - x} = \frac{x^2}{n}$$
+ In order to force $|f_n(x) - f(x)| < \epsilon$, we need $N < \frac{x^2}{\epsilon}$. Although it is possible to do for each $x \in \real$, there is no way to choose a single value of $N$ that will work for all values of $x$ at the same time. \\
+ On the other hand, we can show that $f_n \rightarrow f$ uniformly on the set $[-b, b]$.
+
+
+
+
 
 
 
