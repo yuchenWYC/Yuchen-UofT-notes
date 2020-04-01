@@ -1113,7 +1113,7 @@ $$\underset{x \rightarrow a}{\lim} \frac{f'(x)}{g'(x)} = L \implies \underset{x 
 A sequence of functions $(f_n)$ defined on a set $A \subseteq \real$ converges uniformly on $A$ iff
 $$\forall \epsilon > 0, \exists N \text{ s.t. } \forall x \in A, \forall m,n \geq N, |f_n(x) - f_m(x)| < \epsilon$$
 
-\theorem[Continuous Limit Theorem] Let $(f_n)$ be a sequence of functions defined on $A \subseteq \real$ that converges uniformly on $A$ to a function $f$. If each $f_n$ is continuous at $c \in A$, then $f$ is continuous at $c$.
+\theorem[\label{Continuous Limit Theorem}Continuous Limit Theorem] Let $(f_n)$ be a sequence of functions defined on $A \subseteq \real$ that converges uniformly on $A$ to a function $f$. If each $f_n$ is continuous at $c \in A$, then $f$ is continuous at $c$.
 \begin{proof}
 	Let $\epsilon >0$ and fix $c \in A$. Choose $N$ s.t.
 	$$|f_N(x) - f(x)| < \frac{\epsilon}{3}, \forall x \in A$$
@@ -1147,9 +1147,9 @@ So $(f_ng_n)$ is uniformly convergent.
 \end{proof}
 
 \subsection{Uniform Convergence and Differentiation}
-\theorem[Differentiable Limit Theorem] Let $f_n \rightarrow f$ pointwisely on $[a,b]$ and assume each $f_n$ is differentiable. If $(f_n')$ converges uniformly on $[a,b]$ to a function $g$, then the function $f$ is differentiable and $f' = g$.
+\theorem[\label{Differentiable Limit Theorem}Differentiable Limit Theorem] Let $f_n \rightarrow f$ pointwisely on $[a,b]$ and assume each $f_n$ is differentiable. If $(f_n')$ converges uniformly on $[a,b]$ to a function $g$, then the function $f$ is differentiable and $f' = g$.
 \theorem Let $(f_n)$ be a sequence of differentiable functions defined on $[a,b]$ and assume $(f_n')$ converges uniformly on $[a,b]$. If $\exists x_0 \in [a,b]$ s.t. $f_n(x_0)$ is convergent, then $(f_n)$ converges uniformly on $[a,b]$.
-\theorem Let $(f_n)$ be a sequence of differentiable functions defined on $[a,b]$ and assume $(f_n')$ converges uniformly on $[a,b]$. If $\exists x_0 \in [a,b]$ s.t. $f_n(x_0)$ is convergent, then $(f_n)$ converges uniformly on $[a,b]$. Moreover, the limit function $f = \lim f_n$ is differentiable and $f' = g$.
+\theorem[\label{stronger form of Differentiable Limit Theorem}stronger form of Differentiable Limit Theorem] Let $(f_n)$ be a sequence of differentiable functions defined on $[a,b]$ and assume $(f_n')$ converges uniformly on $[a,b]$ to a function $g$. If $\exists x_0 \in [a,b]$ s.t. $f_n(x_0)$ is convergent, then $(f_n)$ converges uniformly on $[a,b]$. Moreover, the limit function $f = \lim f_n$ is differentiable and $f' = g$.
 
 
 \subsection{Series of Functions}
@@ -1162,6 +1162,73 @@ converges pointwise to $f(x)$. \\
 \definition[uniform convergence]
 The series \under{converges uniformly} on $A$ to $f$ if the sequence $s_k(x)$ converges uniformly on $A$ to $f(x)$.\\
 In either case, we write $f = \sum_{n=1}^\infty f_n$ or $f(x) = \sum_{n=1}^\infty f_n(x)$.
+
+\theorem[Term-byterm Continuity Theorem] Let $f_n$ be continuous functions defined on a set $A \subseteq \real$, and assume $\sum_{n=1}^\infty f_n$ converges uniformly on $A$ to a function $f$. Then, $f$ is continuous on $A$.
+
+\begin{proof}
+	Apply the Continuous Limit Theorem \ref{Continuous Limit Theorem} to the partial sums $s_k = f_1 + f_2 + \hdots + f_k$.
+\end{proof}
+
+\theorem[Term-by-term Differentiability Theorem] Let $f_n$ be differentiable functions defined on an interval $A$, and assume $\sum_{n=1}^\infty f_n'(x)$ converges uniformly to a limit $g(x)$ on $A$. If there exists a point $x_0 \in [a,b]$ where $\sum_{n=1}^\infty f_n(x_0)$ converges, then the series $\sum_{n=1}^\infty f_n(x)$ converges uniformly to a differentiable function $f(x)$ satisfying $f'(x) = g(x)$ on $A$. In other words,
+$$f(x) = \sum_{n=1}^\infty f_n(x) \quad \text{and} \quad f'(x) = g(x)$$
+\begin{proof}
+	Apply the stronger form of the Differentiable Limit Theorem \ref{stronger form of Differentiable Limit Theorem} to the partial sums $s_k = f_1 + f_2 + \hdots + f_k$.
+\end{proof}
+
+\theorem[Cauchy Criterion for Uniform Convergence of Series]
+A series $\sum_{n=1}^\infty f_n$ converges uniformly on $A \subseteq \real$ if and only if
+$$\forall \epsilon > 0, \exists N \in \mb{N} \text{ s.t. } \forall n > m \geq N, \forall x \in A, |s_n - s_{m}| = \bignorm{\sum_{i=m+1}^n f_i(x)} < \epsilon$$
+
+\remark
+The benefit of the Cauchy Criterion is that it does not depend on the value of the limit.
+
+\corollary[Weierstrass M-Test] For each $n \in \mb{N}$, let $f_n$ be a function defined on a set $A \subseteq \real$, and let $M_n > 0$ be a real number satisfying that
+$$\sup_{x \in A}|f_n(x)| \leq M_n$$
+If $\sum_{n=1}^\infty M_n$ converges, then $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
+
+\remark
+The reverse is not true.
+
+\example If $f_n(x) = (-1)^n\frac{1}{n}$, then $\sum_{n=1}^\infty f_n(x)$ is uniformly convergent, but the M-test fails because if $M_n = \frac{1}{n}$ (the smallest $M_n$ possible), then $\sum_{n=1}^\infty \frac{1}{n}$ is not convergent.
+
+
+\begin{proof}
+	Let $\epsilon > 0$. Choose $N$ s.t. $n > m \geq N$.\\
+	Then by Cauchy Criterion for Uniform Convergence of Series, 
+	$$M_{m+1} + \hdots + M_n < \epsilon$$
+	Then for $n > m \geq N$ and all $x \in A$,
+	\begin{align*}
+		|f_{m+1}(x) + \hdots + f_n(x)| &\leq |f_{m+1}(x)| + \hdots + |f_n(x)| \\
+		&\leq M_{m+1} + \hdots + M_n \\
+		&< \epsilon
+	\end{align*}
+	
+\end{proof}
+
+\corollary If $\sum_{n=1}^\infty f_n$ converges uniformly on $A \subseteq \real$, then the sequence $(f_n)$ converges uniformly on $A$ to 0.
+\begin{proof}
+	WTS $\forall \epsilon > 0, \exists N \in \mb{N}, \forall x \in A, |f_n(x)| < \epsilon$.\\
+	Let $\epsilon > 0$. Since $\sum_{n=1}^\infty f_n$ converges uniformly, then by Cauchy Criterion, 
+	$$\exists N \in \mb{N} \text{ s.t. } \forall n > m \geq N, \forall x \in A, |f_{m+1}(x) + \hdots + f_n(x)|< \epsilon$$
+	Let $n = m+1$, then
+	$$|f_n(x)| < \epsilon$$
+	as wanted.
+\end{proof}
+
+\corollary Suppose $\forall n \in \mb{N}, \forall x \in A, g_n(x) \geq f_n(x) \geq 0$. If $\sum_{n=1}^\infty g_n$ converge uniformly on $A$, then $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
+\begin{proof}
+	Let $\epsilon > 0$. Apply Cauchy Criterion for $\sum_{n=1}^\infty g_n$, we get $N \in \mb{N}$ s.t. for $n > m \geq N$ and $x \in A$,
+	\begin{align*}
+		|f_{m+1}(x) + \hdots + f_n(x) | &= f_m(x) + \hdots + f_n(x) \\
+		&\leq g_{m+1}(x) + \hdots + g_n(x) \\
+		&= |g_{m+1}(x) + \hdots + g_n(x) |\\
+		&< \epsilon
+	\end{align*}
+So $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
+\end{proof}
+
+
+
 
 
 
