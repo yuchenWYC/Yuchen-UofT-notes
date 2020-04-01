@@ -866,7 +866,7 @@ The following are equivalent:
 \remark
 \red{Note that we may have $\underset{x \rightarrow a}{\lim} f(x)$ exists but $f$ is discontinuous at $a$.}
 
-\theorem[Algebraic Continuous Theorem] Suppose $f, g: A \rightarrow \real$ are continuous at $a \in A, c \in \real$. We have
+\theorem[Algebraic Continuity Theorem] Suppose $f, g: A \rightarrow \real$ are continuous at $a \in A, c \in \real$. We have
 \begin{enumerate}
 	\item $cf(x)$ is continuous at $a$
 	\item $f(x) \pm g(x)$ is continuous at $a$
@@ -1099,6 +1099,8 @@ $$\underset{x \rightarrow a}{\lim} \frac{f'(x)}{g'(x)} = L \implies \underset{x 
  
  \definition[uniformly convergence] Let $(f_n)$ be a sequence of functions defined on a set $A \subseteq \real$, then $(f_n)$ \under{converges uniformly} on $A$ to a limit function $f$ defined on $A$ if
  $$\forall \epsilon > 0, \exists N \text{ s.t. } \forall n \geq N, \forall x \in A, |f(x) - f_n(x)| < \epsilon$$
+ \remark
+ This is a \tb{stronger} notion of convergence.
 
 \example Consider $f_n: \real \rightarrow \real$
  $$f_n(x) = \frac{x^2 + nx}{n}$$
@@ -1107,7 +1109,59 @@ $$\underset{x \rightarrow a}{\lim} \frac{f'(x)}{g'(x)} = L \implies \underset{x 
  In order to force $|f_n(x) - f(x)| < \epsilon$, we need $N < \frac{x^2}{\epsilon}$. Although it is possible to do for each $x \in \real$, there is no way to choose a single value of $N$ that will work for all values of $x$ at the same time. \\
  On the other hand, we can show that $f_n \rightarrow f$ uniformly on the set $[-b, b]$.
 
+\property[Cauchy Criterion for Uniform Convergence]
+A sequence of functions $(f_n)$ defined on a set $A \subseteq \real$ converges uniformly on $A$ iff
+$$\forall \epsilon > 0, \exists N \text{ s.t. } \forall x \in A, \forall m,n \geq N, |f_n(x) - f_m(x)| < \epsilon$$
 
+\theorem[Continuous Limit Theorem] Let $(f_n)$ be a sequence of functions defined on $A \subseteq \real$ that converges uniformly on $A$ to a function $f$. If each $f_n$ is continuous at $c \in A$, then $f$ is continuous at $c$.
+\begin{proof}
+	Let $\epsilon >0$ and fix $c \in A$. Choose $N$ s.t.
+	$$|f_N(x) - f(x)| < \frac{\epsilon}{3}, \forall x \in A$$
+	Since $f_N$ is continuous, then $\exists \delta > 0$ s.t.
+	$$|x - c| < \delta \implies |f_N(x) - f_N(c)| < \frac{\epsilon}{3}$$
+	Thus,
+	\begin{align*}
+		|f(x) - f(c) | &= |f(x) - f_N(x) + f_N(x) - f_N(c) + f_N(c) - f(c)|\\
+		&\leq |f(x) - f_N(x)| + |f_N(x) - f_N(c)| + |f_N(c) - f(x)|\\
+		&< \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} \\
+		&= \epsilon
+	\end{align*}
+\end{proof}
+Hence $f$ is continuous at $c \in A$.
+\property (Algebraic Limit Theorem for Uniform Convergence) Suppose $(f_n), (g_n)$ are uniformly convergent on $A$, then
+\begin{enumerate}
+	\item $(cf_n + g_n)$ is uniformly convergent on $A$
+	\item If $\exists M > 0$ s.t. $|f_n| \leq M$ and $|g_n| \leq M$, then $(f_ng_n)$ is uniformly convergent.
+\end{enumerate}
+\begin{proof}
+(1) Obvious.\\
+(2) Let $\epsilon > 0$. Since $(f_n), (g_n)$ are uniformly convergent on $A$, then $\exists N$ s.t. $\forall m, n \geq N, |f_n(x) - f_m(x)| < \frac{\epsilon}{2M}$ and $g_n(x) - g_m(x) < \frac{\epsilon}{2M}$. Using Cauchy criterion, we have
+\begin{align*}
+	|f_m(x)g_m(x) - f_n(x)g_n(x)| &= |f_m(x)g_m(x) -f_m(x)g_n(x) + f_m(x)g_n(x) - f_n(x)g_n(x)| \\
+	&\leq |f_m(x)||g_m(x)-g_n(x)| + |g_n(x)||f_m(x) - f_n(x)|\\
+	&\leq M(|g_m(x) - g_n(x)| + |f_m(x) - f_n(x)| \\
+	&< M(\frac{\epsilon}{M}) \\
+	&= \epsilon
+\end{align*}
+So $(f_ng_n)$ is uniformly convergent.
+\end{proof}
+
+\subsection{Uniform Convergence and Differentiation}
+\theorem[Differentiable Limit Theorem] Let $f_n \rightarrow f$ pointwisely on $[a,b]$ and assume each $f_n$ is differentiable. If $(f_n')$ converges uniformly on $[a,b]$ to a function $g$, then the function $f$ is differentiable and $f' = g$.
+\theorem Let $(f_n)$ be a sequence of differentiable functions defined on $[a,b]$ and assume $(f_n')$ converges uniformly on $[a,b]$. If $\exists x_0 \in [a,b]$ s.t. $f_n(x_0)$ is convergent, then $(f_n)$ converges uniformly on $[a,b]$.
+\theorem Let $(f_n)$ be a sequence of differentiable functions defined on $[a,b]$ and assume $(f_n')$ converges uniformly on $[a,b]$. If $\exists x_0 \in [a,b]$ s.t. $f_n(x_0)$ is convergent, then $(f_n)$ converges uniformly on $[a,b]$. Moreover, the limit function $f = \lim f_n$ is differentiable and $f' = g$.
+
+
+\subsection{Series of Functions}
+
+\definition[pointwise convergence] For each $n \in \mb{N}$, let $f_n$ and $f$ be functions defined on a set $A \subseteq \real$. The infinite series
+$$\sum_{n=1}^\infty f_n(x) = f_1(x) + f_2(x) + f_3(x) + \hdots$$
+\under{converges pointwise} on $A$ to $f(x)$ if the sequence $s_k(x)$ of partial sums defined by
+$$s_k(x) = f_1(x) + f_2(x) + \hdots + f_k(x)$$
+converges pointwise to $f(x)$. \\
+\definition[uniform convergence]
+The series \under{converges uniformly} on $A$ to $f$ if the sequence $s_k(x)$ converges uniformly on $A$ to $f(x)$.\\
+In either case, we write $f = \sum_{n=1}^\infty f_n$ or $f(x) = \sum_{n=1}^\infty f_n(x)$.
 
 
 

@@ -32,3 +32,5 @@
 \contentsline {subsection}{\numberline {5.2}the Mean Value Theorems}{25}{subsection.5.2}% 
 \contentsline {section}{\numberline {6}Sequences and Series of Functions}{27}{section.6}% 
 \contentsline {subsection}{\numberline {6.1}Uniform Convergence of a Sequence of Functions}{27}{subsection.6.1}% 
+\contentsline {subsection}{\numberline {6.2}Uniform Convergence and Differentiation}{29}{subsection.6.2}% 
+\contentsline {subsection}{\numberline {6.3}Series of Functions}{29}{subsection.6.3}% 
