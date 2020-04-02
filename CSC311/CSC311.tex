@@ -216,10 +216,12 @@ If the state space is finite, then we can use a table to represent the value fun
 Write $R_t = R(S_t, A_t)$ and $r(s,a) := \mb{E}_\pi[R(s,a)]$.\\
 The value function satisfies the following recursive relationship:
 \begin{align}
-	Q^\pi(s, a) &= \mb{E}_\pi\left[ \sum_{t=0}^\infty \gamma^tR_t|S_0 = S, A_0 = a\right] \\
-	Q^\pi(s, a) &= \mb{E}_\pi\left[R(S_0, A_0) + \sum_{t=1}^\infty \gamma^tR_t|S_0 = S, A_0 = a\right] \\
-	&= \mb{E}_\pi\left[ R(S_0, A_0) \right] + \expect{\gamma\sum_{t=0}^\infty\gamma^tR_{t+1}|S_0=s, A_0=a}\\
-	&= \mb{E}_\pi\left[ R(S_0, A_0) \right] + \gamma\expect{\sum_{t=0}^\infty\gamma^tR_{t+1}|S_0=s, A_0=a}\\
+	Q^\pi(s, a) &= \mb{E}_\pi\left[ \sum_{t=0}^\infty \gamma^tR_t|S_0 = s, A_0 = a\right] \\
+	&= \mb{E}_\pi\left[R(S_0, A_0) + \sum_{t=1}^\infty \gamma^tR_t|S_0 = s, A_0 = a\right] \\
+	&= \mb{E}_\pi\left[R(s, a) + \sum_{t=1}^\infty \gamma^tR_t|S_0 = s, A_0 = a\right] \\
+	&= \mb{E}_\pi\left[ R(s, a) + \gamma R(S_1, A_1) + \gamma^2R(S_2, A_2) + \hdots|S_0=s, A_0=a\right]\\
+	&= \mb{E}_\pi\left[ R(s, a) + \gamma\{R(S_1, \pi(S_1)) + \gamma R(S_2, \pi(S_2)) + \hdots\}|S_0=s, A_0=a\right]\\
+	&= \mb{E}_\pi\left[ R(s, a) \right] + \gamma\expect{\sum_{t=1}^\infty\gamma^tR_{t}|S_1=S_1, A_1=\pi(S_1)}\\
 	&= r(s,a) + \gamma  Q^\pi(S_1, \pi(S_1)) \\
 	&= r(s,a) + \gamma \int_S Q^\pi(s', \pi(s'))\mc{P}(s'|s,a)\,ds'
 \end{align}
