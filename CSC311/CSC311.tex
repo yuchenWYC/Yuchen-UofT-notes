@@ -197,7 +197,7 @@ This model has \tb{Markov property}: the future depends on the past only through
 \under{State value function} $V^\pi$ for policy $\pi$ is a function defined as
 $$V^{\pi}(s) := \mb{E}_\pi\left[ \sum_{t \geq 0} \gamma^t R_t | S_0=s \right ]$$ where $R_t \sim \mc{R}(\cdot | S_t, A_t, S_{t+1})$.\\
 It describes the expected discounted reward if the agent starts from state $s$ and follows policy $\pi$.\\
-\ti{Problem: we don't have access to the environment's dynamics.}
+\ti{Problem: we don't have direct access to the environment's dynamics, i.e. we don't know the transition probabilities, so this function is intractable.}\\
 \under{Action-value} function $Q^\pi$ for policy $\pi$ is 
 $$Q^\pi(s,a) := \mb{E}_\pi\left[ \sum_{t \geq 0} \gamma^tR_t | S_0=s, A_0 = a\right ]$$
 It describes the expected discounted reward if the agent starts from state $s$, takes action $a$, and afterwards follows policy $\pi$. \\
