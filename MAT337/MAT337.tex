@@ -1186,14 +1186,8 @@ The benefit of the Cauchy Criterion is that it does not depend on the value of t
 $$\sup_{x \in A}|f_n(x)| \leq M_n$$
 If $\sum_{n=1}^\infty M_n$ converges, then $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
 
-\remark
-The reverse is not true.
-
-\example If $f_n(x) = (-1)^n\frac{1}{n}$, then $\sum_{n=1}^\infty f_n(x)$ is uniformly convergent, but the M-test fails because if $M_n = \frac{1}{n}$ (the smallest $M_n$ possible), then $\sum_{n=1}^\infty \frac{1}{n}$ is not convergent.
-
-
 \begin{proof}
-	Let $\epsilon > 0$. Choose $N$ s.t. $n > m \geq N$.\\
+	Let $\epsilon > 0$. Choose $N$ that satisfies the Cauchy Criterion. Let $m > n \geq N$.\\
 	Then by Cauchy Criterion for Uniform Convergence of Series, 
 	$$M_{m+1} + \hdots + M_n < \epsilon$$
 	Then for $n > m \geq N$ and all $x \in A$,
@@ -1204,6 +1198,12 @@ The reverse is not true.
 	\end{align*}
 	
 \end{proof}
+
+\remark
+The reverse is not true.
+
+\example If $f_n(x) = (-1)^n\frac{1}{n}$, then $\sum_{n=1}^\infty f_n(x)$ is uniformly convergent, but the M-test fails because if $M_n = \frac{1}{n}$ (the smallest $M_n$ possible), then $\sum_{n=1}^\infty \frac{1}{n}$ is not convergent.
+
 
 \corollary If $\sum_{n=1}^\infty f_n$ converges uniformly on $A \subseteq \real$, then the sequence $(f_n)$ converges uniformly on $A$ to 0.
 \begin{proof}
@@ -1227,8 +1227,16 @@ The reverse is not true.
 So $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
 \end{proof}
 
-
-
+\subsection{Power Series}
+\theorem If a power series $\sum_{n=0}^\infty a_nx^n$ converges at some point $x_0 \in \real$, then it converges absolutely for any $x$ satisfying $|x| < |x_0|$.
+\begin{proof}
+	If $\sum_{n=0}^\infty a_nx_0^n$ converges, then $(a_nx_0^n)$ is bounded and $\rightarrow 0$.\\
+	Let $M > 0$ be s.t. $|a_nx_0^n| \leq M$ for all $n \in \mb{N}$. If $x \in \real$ satisfies $|x| < |x_0|$, then
+	$$|a_nx^n| = |a_nx_0^n|\bignorm{\frac{x}{x_0}}^n \leq M\bignorm{\frac{x}{x_0}}^n$$
+	But $|x / x_0| < 1$, so the geometric series
+	$$\sum_{n=0}^\infty M \bignorm{\frac{x}{x_0}}^n$$ 
+	is convergent. By the Comparison Test, $\sum_{n=0}^\infty a_nx^n$ converges absolutely.
+\end{proof} 
 
 
 

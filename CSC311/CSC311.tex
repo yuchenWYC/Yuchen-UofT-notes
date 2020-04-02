@@ -197,6 +197,7 @@ This model has \tb{Markov property}: the future depends on the past only through
 \under{State value function} $V^\pi$ for policy $\pi$ is a function defined as
 $$V^{\pi}(s) := \mb{E}_\pi\left[ \sum_{t \geq 0} \gamma^t R_t | S_0=s \right ]$$ where $R_t \sim \mc{R}(\cdot | S_t, A_t, S_{t+1})$.\\
 It describes the expected discounted reward if the agent starts from state $s$ and follows policy $\pi$.\\
+\ti{Problem: we don't have access to the environment's dynamics.}
 \under{Action-value} function $Q^\pi$ for policy $\pi$ is 
 $$Q^\pi(s,a) := \mb{E}_\pi\left[ \sum_{t \geq 0} \gamma^tR_t | S_0=s, A_0 = a\right ]$$
 It describes the expected discounted reward if the agent starts from state $s$, takes action $a$, and afterwards follows policy $\pi$. \\
@@ -303,7 +304,7 @@ We can define a random variable $t_i = R_i + \gamma\,\underset{a' \in \mc{A}}{\m
 Notice that 
 \begin{align}
 	\mb{E}[t_i|S_i, A_i] &= \mb{E}\left[ R_i + \gamma \underset{a' \in \mc{A}}{\max} \, Q(S'_i, a')|S_i, A_i \right] \\
-	&= r(S_i, A_i) + \gamma \int \underset{a' \in \mc{A}}{\max}\, Q(s', a')\mc{P}(s'|S_i,A_o)\, ds' \\
+	&= r(S_i, A_i) + \gamma \int \underset{a' \in \mc{A}}{\max}\, Q(s', a')\mc{P}(s'|S_i,A_i)\, ds' \\
 	&= (T^*Q)(S_i, A_i) \\
 	&= Q_{k+1}(S_i, A_i)
 \end{align}
@@ -332,7 +333,7 @@ Update the action-value function at state-action $(S_t, A_t)$:
 $$Q(S_t, A_t) \leftarrow\ Q(S_t, A_t) + \alpha\left[ R_t + \gamma \underset{a' \in \mc{A}}{\max} \, Q(S_{t+1}, a') - Q(S_t, A_t) \right ] $$
 
 \paragraph{Remarks}
-The $\epsilon$-greedy policy ensures that most of the time the agent exploits ints incomplete knowledge of the world by choose the best action, but occasionally it explores other actions. \\
+The $\epsilon$-greedy policy ensures that most of the time the agent exploits its incomplete knowledge of the world by choose the best action, but occasionally it explores other actions. \\
 One can show that under certain conditions, Q-Learning indeed converges to the optimal action-value function $Q^*$ for finite state-action spaces.
 
 \subsection{Approaches to RL}
