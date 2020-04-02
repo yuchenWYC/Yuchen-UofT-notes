@@ -10,7 +10,13 @@
 \BOOKMARK [2][-]{subsection.1.7}{Expectation-Maximization algorithm}{section.1}% 10
 \BOOKMARK [1][-]{section.2}{Reinforcement Learning}{}% 11
 \BOOKMARK [2][-]{subsection.2.1}{Formalizing Reinforcement Learning Problems}{section.2}% 12
-\BOOKMARK [2][-]{subsection.2.2}{Bellman Equation}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.3}{Finding the Value Function \(Policy Evaluation Problem\)}{section.2}% 14
-\BOOKMARK [2][-]{subsection.2.4}{Q-Learning}{section.2}% 15
-\BOOKMARK [2][-]{subsection.2.5}{Approaches to RL}{section.2}% 16
+\BOOKMARK [2][-]{subsection.2.2}{Approaches to RL}{section.2}% 13
+\BOOKMARK [2][-]{subsection.2.3}{Value-Based Methods}{section.2}% 14
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Bellman Equation}{subsection.2.3}% 15
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Finding the Value Function \(Policy Evaluation Problem\)}{subsection.2.3}% 16
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Q-Learning}{subsection.2.3}% 17
+\BOOKMARK [2][-]{subsection.2.4}{Policy-Based Methods}{section.2}% 18
+\BOOKMARK [3][-]{subsubsection.2.4.1}{REINFORCE}{subsection.2.4}% 19
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Evolution Strategies \(ES\)}{subsection.2.4}% 20
+\BOOKMARK [2][-]{subsection.2.5}{Value-based v.s. Policy-based}{section.2}% 21
+\BOOKMARK [2][-]{subsection.2.6}{Model-Based Methods \(in brief\)}{section.2}% 22

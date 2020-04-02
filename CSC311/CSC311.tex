@@ -10,12 +10,26 @@
 \usepackage{perpage}
 \usepackage{float}
 \usepackage{esint}
-\usepackage[margin=1.5cm]{geometry}
+\usepackage[margin=3cm]{geometry}
 \usepackage{../raina}
+\usepackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
+\usepackage{algorithmicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{footnote}
+
+
 
 % Property settings.
+\counterwithin{equation}{section}
 \MakePerPage{footnote}
 \pagestyle{headings}
+\makesavenoteenv{tabular}
+\makesavenoteenv{table}
 
 % Attr.
 \title{CSC311 \\ Lecture Notes}
@@ -191,8 +205,19 @@ The \tb{transition probability} describes the changes in the state of the agent 
 $$\mc{P}(S_{t+1}=s'|S_t = s, A_t = a)$$
 This model has \tb{Markov property}: the future depends on the past only through the current state.
 
+\subsection{Approaches to RL}
+\begin{itemize}
+	\item \tb{Value-based methods}: Optimize the value function
+	\item \tb{Policy-based methods}: Optimize the policy
+	\item \tb{Model-based methods}: Estimate the true, but unknown, model of environment $\mc{P}$ by an estimate $\hat{\mc{P}}$, and use $\hat{\mc{P}}$ to plan
+	\item Hybrid methods
+\end{itemize}
 
-\paragraph{Value Function}
+
+
+\subsection{Value-Based Methods}
+
+\definition[Value Function]
 \tb{Value function} $V^\pi$ is the expected future reward, and is used to evaluate the desirability of states. \\
 \under{State value function} $V^\pi$ for policy $\pi$ is a function defined as
 $$V^{\pi}(s) := \mb{E}_\pi\left[ \sum_{t \geq 0} \gamma^t R_t | S_0=s \right ]$$ where $R_t \sim \mc{R}(\cdot | S_t, A_t, S_{t+1})$.\\
@@ -201,7 +226,11 @@ It describes the expected discounted reward if the agent starts from state $s$ a
 \under{Action-value} function $Q^\pi$ for policy $\pi$ is 
 $$Q^\pi(s,a) := \mb{E}_\pi\left[ \sum_{t \geq 0} \gamma^tR_t | S_0=s, A_0 = a\right ]$$
 It describes the expected discounted reward if the agent starts from state $s$, takes action $a$, and afterwards follows policy $\pi$. \\
-The goal is to find a policy $\pi$ that maximizes the value function. \\
+\under{Relationship}: $$V^\pi(s) = \sum_{a}\pi(a|s)Q^\pi(s,a)$$
+
+
+\paragraph{Goal} 
+\blue{The goal is to find a policy $\pi$ that maximizes the value function.} \\
 Optimal value function:
 $$Q^*(s,a) = \underset{\pi}{\sup} \, Q^\pi (s,a)$$
 Given $Q^*$, the optimal policy can be obtained as 
@@ -212,7 +241,7 @@ The goal of an RL agent is to find a policy $\pi$ that is close to optimal: $Q^\
 If the state space is finite, then we can use a table to represent the value function.
 
 
-\subsection{Bellman Equation}
+\subsubsection{Bellman Equation}
 Write $R_t = R(S_t, A_t)$ and $r(s,a) := \mb{E}_\pi[R(s,a)]$.\\
 The value function satisfies the following recursive relationship:
 \begin{align}
@@ -221,7 +250,7 @@ The value function satisfies the following recursive relationship:
 	&= \mb{E}_\pi\left[R(s, a) + \sum_{t=1}^\infty \gamma^tR_t|S_0 = s, A_0 = a\right] \\
 	&= \mb{E}_\pi\left[ R(s, a) + \gamma R(S_1, A_1) + \gamma^2R(S_2, A_2) + \hdots|S_0=s, A_0=a\right]\\
 	&= \mb{E}_\pi\left[ R(s, a) + \gamma\{R(S_1, \pi(S_1)) + \gamma R(S_2, \pi(S_2)) + \hdots\}|S_0=s, A_0=a\right]\\
-	&= \mb{E}_\pi\left[ R(s, a) \right] + \gamma\expect{\sum_{t=1}^\infty\gamma^tR_{t}|S_1=S_1, A_1=\pi(S_1)}\\
+	&= \mb{E}_\pi\left[ R(s, a) \right] + \gamma\mb{E}_\pi[\sum_{t=1}^\infty\gamma^tR_{t}|S_1=S_1, A_1=\pi(S_1)]\\
 	&= r(s,a) + \gamma  Q^\pi(S_1, \pi(S_1)) \\
 	&= r(s,a) + \gamma \int_S Q^\pi(s', \pi(s'))\mc{P}(s'|s,a)\,ds'
 \end{align}
@@ -256,7 +285,7 @@ $$Q^{\pi(s;\hat{Q})} \approx Q^{\pi^*} \equiv Q^*$$
 where the greedy policy of $\hat{Q}$ is defined as 
 $$\pi(s;\hat{Q}) = \underset{a \in \mc{A}}{argmax}\, \hat{Q}(s,a)$$
 
-\subsection{Finding the Value Function (Policy Evaluation Problem)}
+\subsubsection{Finding the Value Function (Policy Evaluation Problem)}
 Given policy $\pi$, find $Q^\pi$ (or $V^\pi$). \\
 \textcolor{red}{The uniqueness of the fixed-point of the Bellman operator implies that if we find a $Q$ s.t. $T^\pi Q = Q$, then $Q = Q^\pi$. If we find a $Q$ such that $T^*Q = Q$, then $Q = Q^*$} \\
 Assume that $\mc{P}$ and $r(s,a) = \mb{E}[\mc{R}(\cdot|s,a)]$. \\
@@ -276,6 +305,10 @@ $$Q_{k+1}(s,a) \leftarrow r(s,a) + \gamma \sum_{s' \in \mc{S}} \underset{a' \in 
 	\centering
 	\includegraphics[scale=0.6]{p1.png}
 \end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.9]{p2.png}
+\end{figure}
 
 \paragraph{Contraction property of the Bellman operator}
 \begin{align}
@@ -284,6 +317,10 @@ $$Q_{k+1}(s,a) \leftarrow r(s,a) + \gamma \sum_{s' \in \mc{S}} \underset{a' \in 
 \end{align}
 Equivalently,
 $$\underset{(s,a)\in \mc{S} \times \mc{A}}{\sup} |(T^*Q_1)(s,a) - (T^*Q_2)(s,a)| \leq \underset{(s,a)\in \mc{S} \times \mc{A}}{\sup} |Q_1(s,a) - Q_2(s,a)|$$
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p3.png}
+\end{figure}
 \paragraph{Theorem}
 By the Contraction property of the Bellman operator, the Value Iteration converges to the optimal value function.\\
 \tb{Case 3: } If $\mc{S} \subset \real^d$ or $|\mc{S} \times \mc{A}|$ is very large:
@@ -291,7 +328,7 @@ Exact representation of the value function is infeasible for all $(s,a) \in \mc{
 $$Q_{k+1}(s,a) \leftarrow r(s,a) + \gamma\int_{\textcolor{red}{\mc{S}}} \underset{a' \in \mc{A}}{\max}\, Q_k(s',a')\mc{P}(s'|s,a)\, ds'$$
 We often do not know the dynamics $\mc{P}$ and the reward function $\mc{R}$, so we cannot calculate the Bellman operators.
 
-\paragraph{Solution: Approximate/Fitted Value Iteration}
+\paragraph{Solution: Approximate/Fitted Value Iteration (AVI)}
 Suppose that we are given the following dataset
 \begin{align}
 	D_N &= \{(S_i, A_i, R_i, S'_i)\}_{i=1}^N \\
@@ -300,23 +337,52 @@ Suppose that we are given the following dataset
 	R_i &\sim \mc{R}(\cdot|S_i, A_i)
 \end{align}
 This is called \tb{Batch RL} problem. \\
-We can approximately perform one step of Value Iteration using these data. \\
+Recall that each iteration of VI computes
+$$Q_{k+1} \gets T^*Q_k$$
+We cannot directly compute $T^*Q_k$, but we can use data to approximately perform one step of Value Iteration. \\
 Consider a function $Q: \mc{S} \times \mc{A} \rightarrow \real$ \\
 We can define a random variable $t_i = R_i + \gamma\,\underset{a' \in \mc{A}}{\max}\, Q(S'_i, a')$ \\
 Notice that 
 \begin{align}
 	\mb{E}[t_i|S_i, A_i] &= \mb{E}\left[ R_i + \gamma \underset{a' \in \mc{A}}{\max} \, Q(S'_i, a')|S_i, A_i \right] \\
 	&= r(S_i, A_i) + \gamma \int \underset{a' \in \mc{A}}{\max}\, Q(s', a')\mc{P}(s'|S_i,A_i)\, ds' \\
-	&= (T^*Q)(S_i, A_i) \\
-	&= Q_{k+1}(S_i, A_i)
+	&= (T^*Q)(S_i, A_i) 
 \end{align}
-So we can treat the problem of estimating $Q_{k+1}$ as a regression problem with noisy data. We minimize the squared error:
-$$Q_{k+1} \leftarrow \underset{Q \in \mc{F}}{argmin} \, \frac{1}{N} \sum_{i=1}^N \left | \underbrace{Q(S_i, A_i)}_{\text{current Q}} - (\underbrace{R_i + \gamma \underset{a' \in \mc{A}}{\max} \, Q_k(S'_i, a))}_{\text{true Q}}\right |^2$$
-We run this procedure $K$-times. \\
+So $t_i$ has the mean of $(T^*Q)(S_i, A_i)$, and we can use it as our target:\\
+We treat the problem of estimating $Q_{k+1}$ as a regression problem with noisy data. We minimize the squared error:
+$$Q_{k+1} \leftarrow \underset{Q \in \mc{F}}{argmin} \, \frac{1}{N} \sum_{i=1}^N \left | \underbrace{Q(S_i, A_i)}_{\text{current Q}} - (\underbrace{R_i + \gamma \underset{a' \in \mc{A}}{\max} \, Q_k(S'_i, a))}_{\text{target $t_i$}}\right |^2$$
+We run this procedure $K$-times.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p4.png}
+\end{figure}
+\noindent The policy of the agent is selected to be the greedy policy w.r.t. the final estimate of the value function: At state $s \in \mc{S}$, the agent chooses
+$$\pi(s; Q_k) \gets \arg \max_{a\in \mc{A}} Q_k(s,a)$$
 
-\subsection{Q-Learning}
+\paragraph{Choice of Estimator}
+We have many choices for the regression method (and the function space $\mc{F}$).
+\begin{enumerate}
+	\item Linear models: $\mc{F} = \{Q(s,a) = w^T\psi(s,a)\}$, where $\psi$ is the feature mapping.
+	\item Decision Trees, Random Forest, etc
+	\item Kernel-based methods, and regularized variants
+	\item Deep Neural Networks. Deep Q Network (DQN) is an example of performing AVI with DNN.
+\end{enumerate}
+
+\paragraph{Compute $Q$ with DNN}
+Update $Q$ using backpropagation:
+\begin{align*}
+	t &\gets R_i + \gamma \underset{a' \in \mc{A}}{\max} \, Q_k(S'_i, a))\\
+	\theta &\gets \theta + \alpha(t - Q(s,a))\frac{\partial Q}{\partial \theta}
+\end{align*}
+
+\paragraph{Some Remarks on AVI}
+AVI converts a value function estimation problem to a sequence of regression problems. As opposed to the conventional regression problem, the target of AVI, which is $T^*Q_k$, changes at each iteration. Usually we cannot guarantee that the solution of the regression problem $Q_{k+1}$ is exactly equal to $T^*Q_k$. We may only have $Q_{k+1} \approx T^*Q_k$. These errors might accumulate and may even cause divergence.
+
+
+
+\subsubsection{Q-Learning}
 \paragraph{Online RL}
-The agent continually interacts with the environment, updates its knowledge of the world and its policy, with the goal of achieving as much rewards as possible.\\
+The agent continually interacts with the environment, updates its knowledge of the world and its policy, with the goal of achieving as much rewards as possible.
 \paragraph{Q-Learning with $\epsilon$-Greedy Policy}
 Update the estimate of the action-value function $Q$ online and only based on $(S_t, A_t, R_t, S_{t+1})$, using the policy $\pi_t$ to explore the environment, such that $Q$ converges to the optimal value function $Q^*$.
 \begin{itemize}
@@ -338,13 +404,109 @@ $$Q(S_t, A_t) \leftarrow\ Q(S_t, A_t) + \alpha\left[ R_t + \gamma \underset{a' \
 The $\epsilon$-greedy policy ensures that most of the time the agent exploits its incomplete knowledge of the world by choose the best action, but occasionally it explores other actions. \\
 One can show that under certain conditions, Q-Learning indeed converges to the optimal action-value function $Q^*$ for finite state-action spaces.
 
-\subsection{Approaches to RL}
-\begin{itemize}
-	\item Discussed are \tb{value-based methods}: Optimize the value function
-	\item \tb{policy search methods}: Optimize the policy
-	\item \tb{Model-based RL}: Estimate the true, but unknown, model of environment $\mc{P}$ by an estimate $\hat{\mc{P}}$, and use $\hat{\mc{P}}$ to plan
-	\item hybrid methods
-\end{itemize}
+\subsection{Policy-Based Methods}
+Assume a fully observable environment, i.e. $S_t$ can be observed directly for each $t$.
+\definition[rollout]
+A \under{rollout} (or \under{trajectory}) $\tau$ is defined as
+$$\tau:= (S_0, A_0, S_1, A_1, \hdots, S_T, A_T)$$
+where $T$ is a stopping time. \\
+The probability of $\tau$ can be expanded using the chain rule of probabilities:
+\begin{align}
+	p(\tau) &= p(S_0)\pi_\theta(A_0|S_0)p(S_1|S_0,A_0)\hdots p(S_T|S_{T-1},A_{T-1})\pi_\theta(A_T|S_T) \\
+	&= p(S_0)\prod_{t=0}^T\pi_\theta(A_t | S_t) \prod_{t=1}^Tp(S_t|S_{t-1},A_{t-1}) \label{p of tau}
+\end{align}
+
+\definition
+The \under{return for a rollout} is 
+$$r(\tau) := \sum_{t=0}^T R(S_t,A_t)$$
+
+\paragraph{Goal}
+\blue{The goal is to maximize the expected return, $R := \mb{E}_{p(\tau)}[r(\tau)]$.}
+\subsubsection{REINFORCE}
+\under{REINFORCE} is an element algorithm for the goal of maximizing the expected return $R$.\\
+\under{Intuition:} trial and error. Sample a rollout $\tau$. If you get a high reward, try to make it more likely. If you get a low reward, try to make it less likely. Interestingly, this can be seen as stochastic gradient ascent on the expected return $R$.
+\paragraph{Gradient of $R$}
+Recall the derivative formula for log:
+\begin{equation}
+	\frac{\partial}{\partial \theta}\log p(\tau) = \frac{\frac{\partial}{\partial \theta}p(\tau)}{p(\tau)} \implies \frac{\partial}{\partial \theta}p(\tau) = p(\tau)\frac{\partial}{\partial \theta}\log p(\tau) \label{log deriv}
+\end{equation}
+
+\begin{align}
+	\frac{\partial}{\partial \theta} \mb{E}_{p(\tau)}[r(\tau)] &= \frac{\partial}{\partial \theta} \sum_{\tau} r(\tau)p(\tau) \\
+	&= \sum_{r}r(\tau) \frac{\partial}{\partial \theta}p(\tau)\\
+	&= \sum_{r}r(\tau)p(\tau)\frac{\partial}{\partial \theta}\log p(\tau) &&\text{(by \ref{log deriv}})\\
+	&= \mb{E}_{p(\tau)}\left[ r(\tau)\frac{\partial}{\partial \theta} \log p(\tau) \right]\\
+\end{align}
+which can be estimated by a stochastic sample of rollouts. \\
+
+\noindent The intuition is that we label each rollout by how much reward ($r(\tau)$) we get. If we get a large reward, make the rollout more likely. If you get a small reward, make it less likely.
+
+\begin{align}
+	\frac{\partial}{\partial \theta} \log p(\tau) 
+	&= \frac{\partial}{\partial \theta} \left [p(S_0)\prod_{t=0}^T\pi_\theta(A_t | S_t) \prod_{t=1}^Tp(S_t|S_{t-1},A_{t-1})\right] &&\text{(by \ref{p of tau})}\\
+	&=\frac{\partial}{\partial \theta} \prod_{t=0}^T\pi_\theta(A_t | S_t) &&\text{($\theta$ doesn't depend on $p$)}\\
+	&= \sum_{t=0}^T \frac{\partial }{\partial \theta} \log \pi_\theta(A_t|S_t)
+\end{align}
+Notice that it tries to make \tb{all} the actions more likely or less likely, depending on the reward. If a rollout happens to be good, all the actions get reinforced, even if some of them were bad.
+
+\paragraph{the Algorithm}
+Note that actions should only be reinforced based on future rewards, since they cannot possibly influence past rewards.
+\begin{algorithm}[H]
+\begin{algorithmic}
+\State \tb{Algorithm} \textbf{REINFORCE}:
+\While{True}
+\State Sample a rollout $\tau = (S_0, A_0, S_1, A_1, \hdots, S_T, A_T)$
+\For{$t = 0, \hdots, T$}
+\State $r_t(\tau) \gets \sum_{k=t}^Tr(S_k,A_k)$
+\State$ \theta \gets \theta + \alpha r_t(\tau)\frac{\partial }{\partial \theta} \log \pi_\theta(A_t|S_t)$
+\EndFor
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Optimizing Discontinuous Objectives}
+\todo[inline]{To be implemented...}
+
+\subsubsection{Evolution Strategies (ES)}
+REINFORCE can handle discontinuous dynamics and reward functions, but it requires a differentiable network since it computes $\frac{\partial }{\partial \theta} \log \pi_\theta(A_t|S_t)$.\\
+Evolution strategies take the policy gradient idea a step further, and avoid backprop entirely. It randomizes over the choice of policy rather than over the choice of actions:\\
+Sample a random policy from a distribution $p_\eta(\theta)$ parameterized by $\eta$ and apply  the policy gradient trick
+$$\frac{\partial }{\partial \eta} \mb{E}_{\theta \sim p_\eta}[r(\tau(\theta))] = \mb{E}_{\theta \sim p_\eta}\left[ r(\tau(\theta))\frac{\partial }{\partial \eta} \log p_\eta(\theta) \right]$$
+In this way, the neural net architecture itself can be discontinuous.
+\paragraph{the Algorithm}
+\begin{algorithm}[H]
+\begin{algorithmic}
+\State \tb{Algorithm} \textbf{Evolution Strategies}:
+\State \tb{Input:} Learning rate $\alpha$, noise standard deviation $\sigma$, initial policy parameters $\theta_0$
+\For{$t = 0, 1, 2,\hdots $}
+\State Sample $\epsilon_1, \hdots, \epsilon_n \sim \mc{N}(0,I)$
+\State Compute returns $R_i = R(\theta_t + \sigma \epsilon_i)$ for $i = 1, \hdots, n$
+\State Set $\theta_{t+1} \gets \theta_t + \alpha \frac{1}{n\sigma}\sum_{i=1}^n F_i\epsilon_i$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Value-based v.s. Policy-based}
+\begin{center}
+\begin{tabular}{ |c|c| } 
+ \hline
+  Value-based methods & Policy-based methods \\ 
+  \hline\hline
+  biased updates\footnote{Since Q function is approximated} & unbiased estimate of gradients\\
+  \hline
+  low variance updates & high variance updates  \\ 
+  \hline
+  does credit assignment & doesn't do credit assignment \\ 
+  \hline
+  hard to handle many actions \footnote{Since you need to take the max. Therefore we usually use value-based methods for discrete actions} & can handle a large space of actions \footnote{Since you only need to sample one. Therefore we usually use policy-based methods for continuous actions}\\
+ \hline
+\end{tabular}
+\end{center}
+Advantage of both methods: don't need to model the environment.
+
+\subsection{Model-Based Methods (in brief)}
+Intuition: If we know the function space $\mc{F}$, and can evaluate $R(s)$ at any state, then we can just simulate the interaction with the environment and pick the action with the best outcome.
+ 
 
     
 \end{document}
