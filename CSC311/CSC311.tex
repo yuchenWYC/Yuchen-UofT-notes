@@ -443,8 +443,8 @@ which can be estimated by a stochastic sample of rollouts. \\
 
 \begin{align}
 	\frac{\partial}{\partial \theta} \log p(\tau) 
-	&= \frac{\partial}{\partial \theta} \left [p(S_0)\prod_{t=0}^T\pi_\theta(A_t | S_t) \prod_{t=1}^Tp(S_t|S_{t-1},A_{t-1})\right] &&\text{(by \ref{p of tau})}\\
-	&=\frac{\partial}{\partial \theta} \prod_{t=0}^T\pi_\theta(A_t | S_t) &&\text{($\theta$ doesn't depend on $p$)}\\
+	&= \frac{\partial}{\partial \theta} \log \left [p(S_0)\prod_{t=0}^T\pi_\theta(A_t | S_t) \prod_{t=1}^Tp(S_t|S_{t-1},A_{t-1})\right] &&\text{(by \ref{p of tau})}\\
+	&=\frac{\partial}{\partial \theta} \log \prod_{t=0}^T\pi_\theta(A_t | S_t) &&\text{($\theta$ doesn't depend on $p$)}\\
 	&= \sum_{t=0}^T \frac{\partial }{\partial \theta} \log \pi_\theta(A_t|S_t)
 \end{align}
 Notice that it tries to make \tb{all} the actions more likely or less likely, depending on the reward. If a rollout happens to be good, all the actions get reinforced, even if some of them were bad.

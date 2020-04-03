@@ -25,11 +25,14 @@
 \newcommand{\q}[0]{\textcolor{red}{???}}
 \newcommand{\under}[1]{\underline{#1}}
 \renewcommand{\qed}[0]{$\hfill\blacksquare$}
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\orange}[1]{\textcolor{orange}{#1}}
 
 % ================ Mathematics: General ================
 % Absolute Value
 \newcommand{\abs}[1]{\big \vert {#1} \big \vert}
-
 \DeclareMathOperator*{\argmax}{argmax}
 \DeclareMathOperator*{\argmin}{argmin}
 
@@ -45,6 +48,7 @@
 \newcommand{\ve}[0]{\tb{e}}
 \newcommand{\vm}[0]{\tb{m}}
 \newcommand{\vh}[0]{\tb{h}}
+\newcommand{\vs}[0]{\tb{s}}
 \newcommand{\vf}[0]{\tb{F}}
 \newcommand{\vi}[0]{\tb{i}}
 \newcommand{\vj}[0]{\tb{j}}
@@ -67,10 +71,7 @@
 \newcommand{\inner}[2]{\langle {#1}, {#2} \rangle}
 \newcommand{\norm}[1]{\vert \vert {#1} \vert \vert}
 \newcommand{\bignorm}[1]{\left \vert {#1} \right \vert}
-\newcommand{\red}[1]{\textcolor{red}{#1}}
-\newcommand{\green}[1]{\textcolor{green}{#1}}
-\newcommand{\blue}[1]{\textcolor{blue}{#1}}
-\newcommand{\orange}[1]{\textcolor{orange}{#1}}
+\DeclareMathOperator*{\diag}{diag}
 
 
 % ================ Mathematics: Calculus ================
@@ -83,6 +84,7 @@
 \newcommand{\pd}[0]{\partial}
 \newcommand{\func}[3]{\tb{#1}: {#2} \rightarrow {#3} }
 \newcommand{\limit}[0]{\underset{n \rightarrow \infty}{\lim}}
+\newcommand{\deriv}[2]{\frac{\partial {#1}}{\partial {#2}}}
 
 % ================ Statistics ================
 % Indicator Function
