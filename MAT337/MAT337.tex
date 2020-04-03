@@ -1163,13 +1163,13 @@ converges pointwise to $f(x)$. \\
 The series \under{converges uniformly} on $A$ to $f$ if the sequence $s_k(x)$ converges uniformly on $A$ to $f(x)$.\\
 In either case, we write $f = \sum_{n=1}^\infty f_n$ or $f(x) = \sum_{n=1}^\infty f_n(x)$.
 
-\theorem[Term-byterm Continuity Theorem] Let $f_n$ be continuous functions defined on a set $A \subseteq \real$, and assume $\sum_{n=1}^\infty f_n$ converges uniformly on $A$ to a function $f$. Then, $f$ is continuous on $A$.
+\theorem[Term-by-term Continuity Theorem] Let $f_n$ be continuous functions defined on a set $A \subseteq \real$, and assume $\sum_{n=1}^\infty f_n$ converges uniformly on $A$ to a function $f$. Then, $f$ is continuous on $A$.
 
 \begin{proof}
 	Apply the Continuous Limit Theorem \ref{Continuous Limit Theorem} to the partial sums $s_k = f_1 + f_2 + \hdots + f_k$.
 \end{proof}
 
-\theorem[Term-by-term Differentiability Theorem] Let $f_n$ be differentiable functions defined on an interval $A$, and assume $\sum_{n=1}^\infty f_n'(x)$ converges uniformly to a limit $g(x)$ on $A$. If there exists a point $x_0 \in [a,b]$ where $\sum_{n=1}^\infty f_n(x_0)$ converges, then the series $\sum_{n=1}^\infty f_n(x)$ converges uniformly to a differentiable function $f(x)$ satisfying $f'(x) = g(x)$ on $A$. In other words,
+\theorem[Term-by-term Differentiability Theorem] Let $f_n$ be differentiable functions defined on an interval $A$, and assume $\sum_{n=1}^\infty f_n'(x)$ \blue{converges uniformly} to a limit $g(x)$ on $A$. If there exists a \blue{point} $x_0 \in [a,b]$ where $\sum_{n=1}^\infty f_n(x_0)$ converges, then the series $\sum_{n=1}^\infty f_n(x)$ converges uniformly to a differentiable function $f(x)$ satisfying $f'(x) = g(x)$ on $A$. In other words,
 $$f(x) = \sum_{n=1}^\infty f_n(x) \quad \text{and} \quad f'(x) = g(x)$$
 \begin{proof}
 	Apply the stronger form of the Differentiable Limit Theorem \ref{stronger form of Differentiable Limit Theorem} to the partial sums $s_k = f_1 + f_2 + \hdots + f_k$.
@@ -1251,21 +1251,21 @@ If the power series $g(x) = \sum_{n=0}^\infty a_nx^n$ converges conditionally at
 \example
 $$\sum_{n=1}^\infty \frac{(-1)^nx^n}{n}$$
 
-\lemma[\label{Abel's Lemma}Abel's Lemma] Let $b_n$ satisfy $b_1 \geq b_2 \geq b_3 \geq \hdots \geq 0$, and let $\sum_{n=1}^\infty a_n$ be a series for which the partial sums are bounded. In other words, assume there exists $A > 0$ such that
+\lemma[\label{Abel's Lemma}Abel's Lemma] Let $b_n$ satisfy $b_1 \geq b_2 \geq b_3 \geq \hdots \geq 0$, and let $\sum_{n=1}^\infty a_n$ be a series for which the \blue{partial sums are bounded}. In other words, assume there exists $A > 0$ such that
 	$$|a_1 + a_2 + \hdots + a_n| \leq A$$
 	for all $n \in \mb{N}$. Then for all $n \in \mb{N}$,
 	$$|a_1b_1 + a_2b_2 + a_3b_3 + \hdots + a_nb_n| \leq Ab_1$$
 \begin{proof}
 	\begin{align*}
-		\bignorm{\sum_{k=1}^n a_kb_k} = \bignorm{s_nb_{n+1} + \sum_{k=1}^n s_k(b_k - b_{k+1})} &&\text{summation-by-parts formula} \\
-		&\leq \bignorm{s_nb_{n+1}} + \bignorm{\sum_{k=1}^n s_k(b_k - b_{k+1})}  &&\text{Triangle Inequality} \\
+		\bignorm{\sum_{k=1}^n a_kb_k} &= \bignorm{s_nb_{n+1} + \sum_{k=1}^n s_k(b_k - b_{k+1})} &&\text{by summation-by-parts formula} \\
+		&\leq \bignorm{s_nb_{n+1}} + \bignorm{\sum_{k=1}^n s_k(b_k - b_{k+1})}  &&\text{by Triangle Inequality} \\
 		&\leq A b_{n+1} + \sum_{k=1}^n A(b_k - b_{k+1}) \\
 		&= Ab_{n+1} + (Ab_1 - Ab_{n+1}) \\
 		&= Ab_1
 	\end{align*}
 \end{proof}
 
-\theorem[Abel's Theorem] Let $g(x) = \sum_{n=0}^\infty a_nx^n$ be a power series that converges at the point $x = R > 0$. Then the series converges uniformly on the interval $[0, R]$. A similar result holds if the series converges at $x = -R$.
+\theorem[Abel's Theorem] Let $g(x) = \sum_{n=0}^\infty a_nx^n$ be a power series that \blue{converges at the point} $x = R > 0$. Then the series converges uniformly on the interval $[0, R]$. A similar result holds if the series converges at $x = -R$.
 \begin{proof}
 	To set the stage for Abel's Lemma \ref{Abel's Lemma}, we first write
 	$$g(x) = \sum_{n=0}^\infty a_n x^n = \sum_{n=0}^\infty (a_nR^n)\left( \frac{x}{R}\right)^n$$
@@ -1278,11 +1278,22 @@ $$\sum_{n=1}^\infty \frac{(-1)^nx^n}{n}$$
 	Therefore the series converges uniformly on the interval $[0, R]$.
 \end{proof}
 
+\theorem If $\sum_{n=0}^\infty a_nx^n$ \blue{converges for all $x \in (-R, R)$}, then the differentiated series $\sum_{n=1}^\infty na_nx^{n-1}$ converges at each $x \in (-R, R)$ as well. Consequently, the convergence is uniform on closed intervals in $(-R, R)$.
+\todo{prove this}
+%\begin{proof}
+%	Fix $x \neq 0 \in (-R, R)$. Let $\epsilon > 0$. We need to find $N \in \mb{N}$ s.t. for all $n > m \geq N$,
+%	$$|(m+1)a_{m+1}x^m + \hdots + na_nx^{n-1}| < \epsilon$$
+%	Find $0 < y < R$ s.t. $|x| < y$. We need a bound $B$ s.t.
+%	$$m \cdot \bignorm{\frac{x}{y}}^m < B \quad \forall m$$
+%\end{proof}
+\theorem
+Assume $f(x) = \sum_{n=0}^\infty a_nx^n$ converges on an interval $A \subseteq \real$. The function $f$ is continuous on $A$ and differentiable on any open interval $(-R, R) \subseteq A$. The derivative is given by
+$$f'(x) = \sum_{n=1}^\infty n a_n x^{n-1}$$
+Moreover, $f$ is infinitely differentiable on $(-R, R)$, and the successive derivatives can be obtained via term-by-term differentiation of the appropriate series:
+$$f^{(k)}(x) = \sum_{n=k}^\infty n(n-1)\hdots (n-k+1) x^{n-k}$$
 
-
-
-
-
+\corollary
+If $\sum_{n=0}^\infty a_nx^n, \sum_{n=0}^\infty b_nx^n$ exist and equal for all $x \in (-R, R)$, then it must be the case that $a_n = b_n$ for all $n \in \mb{N}$.
 
 
 
