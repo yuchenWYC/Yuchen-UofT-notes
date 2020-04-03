@@ -235,7 +235,7 @@
     
 
     
-    \theorem[Chapman-Kolmogorov equations] 
+    \theorem[\label{Chapman-Kolmogorov equations}Chapman-Kolmogorov equations] 
     \begin{align*}
     	p_{ij}^{(m+n)} &= \sum_{k \in S} p_{ik}^{(m)}p_{kj}^{(n)} \\
     	P_{ij}^{(m + s +n)} &= \sum_{k \in S}\sum_{l \in S} p_{ik}^{(m)} p_{kl}^{(s)}p_{lj}^{(n)}
@@ -246,7 +246,7 @@
 		P^{(m + s +n)} &= P^{(m)}P^{(s)}P^{(n)}
 	\end{align*}
     
-    \theorem[Chapman-Kolmogorov Inequality]
+    \theorem[\label{Chapman-Kolmogorov Inequality}Chapman-Kolmogorov Inequality]
     \begin{align*}
     	p_{ij}^{(m+n)} &\geq p_{ik}^{(m)}p_{kj}^{(n)} \tag{for all $k \in S$} \\
     	P_{ij}^{(m + s +n)} &\geq  p_{ik}^{(m)} p_{kl}^{(s)}p_{lj}^{(n)} \tag{for any $k, l \in S$}
@@ -1508,7 +1508,94 @@
     Let $\{N(t)\}_{t \geq 0}$ be a Poisson process with rate $\lambda$. Suppose each arrival is independently of ``type $i$" with probability $p_i$, for $i = 1, 2, 3, \hdots$ (could be countably infinite), where $\sum_i p_i = 1$. Let $N_i(t)$ be number of arrivals of type $i$ up to time $t$. Then the different $\{N_i(t)\}$ are all independent, and furthermore each $\{N_i(t)\}$ is itself a Poisson process, with rate $\lambda p_i$.
     \todo{prove this!}
     
-          
+    
+    \subsection{Continuous-Time, Discrete-Space Processes}
+    Recall that a Markov chain $\{X_n\}_{n=0}^\infty$ is defined in discrete time. But Brownian motion $\{B_t\}_{t\geq 0}$ and Poisson processes $\{N(t)\}_{t \geq 0}$ are both defined in continuous time. So we want to define Markov processes in continuous time.
+    \definition[continuous-time Markov process] A continuous-time (time-homogeneous, non-explosive) Markov process, on a countable (discrete) state space $S$, is a collection $\{X(t)\}_{t \geq 0}$ of random variables such that 
+    $$P(X_0 = i_0, X_{t_1} = i_1, X_{t_2} = i_2, \hdots, X_{t_n} = i_n) = v_{i0}\dur{p}{i_0i_1}{t_1}\dur{p}{i_1i_2}{t_2 - t_1} \hdots \dur{p}{i_{n-1}i_n}{t_n - t_{n-1}}$$
+    for all $i_0, i_1, \hdots, i_n \in S$ and all $0 < t_1 < t_2 < \hdots < t_n$.
+    \property 
+    We need some initial distribution $\{v_i\}_{i\in S}$ (with $v_i \geq 0$ and $\sum_{i\in S}v_i = 1$), and transition probabilities $\{\dur{p}{ij}{t}\}_{i, j \in S, t\geq 0}$ (with $\dur{p}{ij}{t} \geq 0$ and $\sum_{j \in S}\dur{p}{ij}{t} = 1$)\\
+    Also, $\delta_{ij} := \dur{p}{ij}{0} = \begin{cases}
+    	1, & i= j\\
+    	0, &i \neq j
+    \end{cases}$
+    \remark
+    This is just like discrete-time chains, except need to keep track of elapsed time $t$ too.
+    \property[standard Markov process]
+    In a standard Markov process,
+    $$\underset{t \searrow 0}{\lim}\, \dur{p}{ij}{t} = \dur{p}{ij}{0} = \delta_{ij}$$
+    That is, the mapping $t \mapsto \dur{p}{ij}{t}$ is continuous.\\
+    Note that \tb{this property does not always hold.} But from now on, assume our processes are standard.
+    \example
+    Let $S = \{1,2\}$ with $\dur{p}{11}{0} = \dur{p}{22}{0} = 1$. Suppose that for all $t > 0, \dur{p}{11}{t} = \dur{p}{21}{t} = 1$. Then the process is not standard, since $\dur{p}{21}{0} = 0$ so that $p_{21}$ is not continuous at $0$. 
+    \property[aperiodic]
+    Continuous-time standard processes are always aperiodic.
+    \begin{proof}
+    For all small enough $h > 0, \dur{p}{ii}{h} > 0$. Hence by Chapman-Kolmogorov Inequality \ref{Chapman-Kolmogorov Inequality}, 
+    $$\dur{p}{ii}{nh} \geq \left( \dur{p}{ii}{h} \right)^n > 0$$
+    for all small enough $h > 0$ and all $n \in \mb{N}$.\\
+    Hence $\dur{p}{ii}{t} > 0$ for all $t \geq 0$. \\
+    Hence continuous-time standard processes are always aperiodic.	
+    \end{proof}
+    
+    \definition[generator] Given a standard Markov process, its \under{generator} is the right-handed derivative
+    $$g_{ij} =: \underset{t \searrow 0}{\lim}\, \frac{\dur{p}{ij}{t} - \delta_{ij}}{t} = \dur{p'}{ij}{0}$$
+    In matrix form we have
+    $$G = (g_{ij})_{i,j \in S} = P'^{(0)} = \underset{t \searrow 0}{\lim}\, \frac{P^{(t)}-I}{t}$$
+    \property
+    $g_{ii} \leq 0$, while $g_{ij} \geq 0$ for $i \neq j$.\\
+    \begin{proof}
+    	The result follows by the sign of the limits.
+    \end{proof}
+    \property
+    If the state space $S$ is finite, then a generator $G$ of a standard Markov process on $S$ has row sums equal to 0. i.e., $\sum_{j\in S}g_{ij} = 0$.
+    \begin{proof}
+    	\begin{align*}
+    		\sum_{j \in S}g_{ij} &= \sum_{j \in S} \underset{t \searrow 0}{\lim}\, \frac{\dur{p}{ij}{t}-\delta_{ij}}{t} \\
+    		&= \underset{t \searrow 0}{\lim}\, \frac{\sum_{j \in S}\dur{p}{ij}{t} - \sum_{j \in S}\delta_{ij}}{t} &&\text{(exchange the sum and limit since $S$ finite)}\\
+    		&= \underset{t \searrow 0}{\lim}\, \frac{1-1}{t} \\
+    		&= 0
+    	\end{align*}
+    \end{proof}
+    \property \label{small t}
+    If $t > 0$ is small, then $\frac{P^{(t)}-I}{t} \approx G$, so
+    $$P^{(t)} \approx I + tG \iff \dur{p}{ij}{t} \approx \delta_{ij} + tg_{ij}$$
+
+	\example
+	$$S = \{1,2\}, G = \begin{pmatrix}
+		-3 & 3 \\ 6 & -6
+	\end{pmatrix}$$
+	$G$ is a valid generator since
+	\begin{enumerate}
+		\item $g_{ii} \leq 0$, while $g_{ij} \geq 0$ for $i \neq j$
+		\item $\sum_{j\in S}g_{ij} = 0$
+	\end{enumerate}
+	Then for small $t > 0, P^{(t)} \approx I + tG = \begin{pmatrix}
+		1 - 3t & 3t \\ 6t & 1-6t
+	\end{pmatrix}$\\
+	Then for example, $\dur{p}{11}{0.02} \approx 1 - 3(0.02) = 0.94, \dur{p}{12}{0.02} \approx 3(0.02) = 0.06, P^{(0.02)} \approx \begin{pmatrix}
+		0.94 & 0.06 \\ 0.12 & 0.88
+	\end{pmatrix}$.
+	
+	\theorem[Continuous-Time Transitions Theorem]
+	If a continuous-time Markov process has generator matrix $G$, then for any $t \geq 0$,
+	$$P^{(t)} = \exp(tG) := I + tG + \frac{t^2G^2}{2!} + \frac{t^3G^3}{3!}+\hdots$$
+	\begin{proof}
+	Recall that $\limit{n} (1+\frac{c}{n})^n = e^c = 1+ c + \frac{c^2}{2!} + \frac{c^3}{3!} + \hdots$.\\
+	Similarly, for a matrix $A$, $\limit{n} (I + \frac{1}{n}A)^n = \exp(A)$ where $\exp(A) = I + A + \frac{A^2}{2!} + \frac{A^3}{3!} + \hdots$.\\
+	Hence, by Chapman-Kolmogorov equations \ref{Chapman-Kolmogorov equations},
+	\begin{align*}
+		P^{(t)} &= [P^{(t/m)}]^m &&\text{for any $m \in \mb{N}$} \\
+		&= \limit{n} [P^{(t/n)}]^n\\
+		&= \limit{n} [I + (t/n)G]^n &&\text{by property \ref{small t} since $t/n$ is small}\\
+		&= \exp(tG) \\
+		&= I + tG + \frac{t^2G^2}{2!} + \frac{t^3G^3}{3!} + \hdots
+	\end{align*}
+	  
+	\end{proof}
+
+   	\todo[inline]{missing 
     
     
     

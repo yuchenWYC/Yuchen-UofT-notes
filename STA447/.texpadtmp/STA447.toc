@@ -1,40 +1,41 @@
 \babel@toc {english}{}
-\contentsline {section}{\numberline {1}Preliminary}{2}{section.1}% 
-\contentsline {section}{\numberline {2}Markov Chain Probabilities}{4}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}Markov Chain examples}{5}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Elementary Computations}{5}{subsection.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Recurrence and Transience}{7}{subsection.2.3}% 
-\contentsline {subsection}{\numberline {2.4}Communicating States and Irreducibility}{9}{subsection.2.4}% 
-\contentsline {section}{\numberline {3}Markov Chain Convergence}{14}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}Stationary Distributions}{14}{subsection.3.1}% 
-\contentsline {subsection}{\numberline {3.2}Searching for Stationary}{14}{subsection.3.2}% 
-\contentsline {subsection}{\numberline {3.3}Obstacles to Convergence}{16}{subsection.3.3}% 
-\contentsline {subsection}{\numberline {3.4}Convergence Theorem}{17}{subsection.3.4}% 
-\contentsline {paragraph}{Proof of Markov Chain Convergence Theorem}{18}{section*.40}% 
-\contentsline {subsection}{\numberline {3.5}Periodic Convergence}{19}{subsection.3.5}% 
-\contentsline {subsection}{\numberline {3.6}Application - Markov Chain Monte Carlo Algorithms}{20}{subsection.3.6}% 
-\contentsline {paragraph}{Metropolis Algorithm}{20}{section*.42}% 
-\contentsline {subsection}{\numberline {3.7}Application - Random Walks on Graphs}{21}{subsection.3.7}% 
-\contentsline {subsection}{\numberline {3.8}Application - Gambler's Ruin}{22}{subsection.3.8}% 
-\contentsline {paragraph}{The Gambler's Ruin question}{23}{section*.43}% 
-\contentsline {subsection}{\numberline {3.9}Mean Recurrence Times}{25}{subsection.3.9}% 
-\contentsline {subsection}{\numberline {3.10}Application - Sequence Waiting Times}{26}{subsection.3.10}% 
-\contentsline {paragraph}{Problem}{26}{section*.50}% 
-\contentsline {section}{\numberline {4}Martingales}{26}{section.4}% 
-\contentsline {subsection}{\numberline {4.1}Martingale Definitions}{26}{subsection.4.1}% 
-\contentsline {paragraph}{Special case: Markov chain}{27}{section*.51}% 
-\contentsline {subsection}{\numberline {4.2}Stopping Times}{27}{subsection.4.2}% 
-\contentsline {subsection}{\numberline {4.3}Wald's Theorem}{30}{subsection.4.3}% 
-\contentsline {subsection}{\numberline {4.4}Application - Sequence Waiting Times}{33}{subsection.4.4}% 
-\contentsline {paragraph}{the Problem}{33}{section*.64}% 
-\contentsline {paragraph}{the Martingale approach}{33}{section*.65}% 
-\contentsline {subsection}{\numberline {4.5}Martingale Convergence Theorem}{34}{subsection.4.5}% 
-\contentsline {subsection}{\numberline {4.6}Application - Branching Processes}{34}{subsection.4.6}% 
-\contentsline {paragraph}{Transition probabilties}{35}{section*.66}% 
-\contentsline {paragraph}{In summary}{35}{section*.67}% 
-\contentsline {subsection}{\numberline {4.7}Application - Stock Options (Discrete)}{36}{subsection.4.7}% 
-\contentsline {section}{\numberline {5}Continuous Processes}{37}{section.5}% 
-\contentsline {subsection}{\numberline {5.1}Brownian Motion}{38}{subsection.5.1}% 
-\contentsline {subsection}{\numberline {5.2}Application - Stock Options (Continuous)}{40}{subsection.5.2}% 
-\contentsline {subsection}{\numberline {5.3}Poisson Processes}{41}{subsection.5.3}% 
-\contentsline {paragraph}{Construction of Poisson process}{41}{section*.71}% 
+\contentsline {section}{\numberline {1}Preliminary}{3}{section.1}% 
+\contentsline {section}{\numberline {2}Markov Chain Probabilities}{5}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Markov Chain examples}{6}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Elementary Computations}{6}{subsection.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Recurrence and Transience}{8}{subsection.2.3}% 
+\contentsline {subsection}{\numberline {2.4}Communicating States and Irreducibility}{10}{subsection.2.4}% 
+\contentsline {section}{\numberline {3}Markov Chain Convergence}{15}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Stationary Distributions}{15}{subsection.3.1}% 
+\contentsline {subsection}{\numberline {3.2}Searching for Stationary}{15}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Obstacles to Convergence}{17}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Convergence Theorem}{18}{subsection.3.4}% 
+\contentsline {paragraph}{Proof of Markov Chain Convergence Theorem}{19}{section*.40}% 
+\contentsline {subsection}{\numberline {3.5}Periodic Convergence}{20}{subsection.3.5}% 
+\contentsline {subsection}{\numberline {3.6}Application - Markov Chain Monte Carlo Algorithms}{21}{subsection.3.6}% 
+\contentsline {paragraph}{Metropolis Algorithm}{21}{section*.42}% 
+\contentsline {subsection}{\numberline {3.7}Application - Random Walks on Graphs}{22}{subsection.3.7}% 
+\contentsline {subsection}{\numberline {3.8}Application - Gambler's Ruin}{23}{subsection.3.8}% 
+\contentsline {paragraph}{The Gambler's Ruin question}{24}{section*.43}% 
+\contentsline {subsection}{\numberline {3.9}Mean Recurrence Times}{26}{subsection.3.9}% 
+\contentsline {subsection}{\numberline {3.10}Application - Sequence Waiting Times}{27}{subsection.3.10}% 
+\contentsline {paragraph}{Problem}{27}{section*.50}% 
+\contentsline {section}{\numberline {4}Martingales}{27}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}Martingale Definitions}{27}{subsection.4.1}% 
+\contentsline {paragraph}{Special case: Markov chain}{28}{section*.51}% 
+\contentsline {subsection}{\numberline {4.2}Stopping Times}{28}{subsection.4.2}% 
+\contentsline {subsection}{\numberline {4.3}Wald's Theorem}{31}{subsection.4.3}% 
+\contentsline {subsection}{\numberline {4.4}Application - Sequence Waiting Times}{34}{subsection.4.4}% 
+\contentsline {paragraph}{the Problem}{34}{section*.64}% 
+\contentsline {paragraph}{the Martingale approach}{34}{section*.65}% 
+\contentsline {subsection}{\numberline {4.5}Martingale Convergence Theorem}{35}{subsection.4.5}% 
+\contentsline {subsection}{\numberline {4.6}Application - Branching Processes}{35}{subsection.4.6}% 
+\contentsline {paragraph}{Transition probabilties}{36}{section*.66}% 
+\contentsline {paragraph}{In summary}{36}{section*.67}% 
+\contentsline {subsection}{\numberline {4.7}Application - Stock Options (Discrete)}{37}{subsection.4.7}% 
+\contentsline {section}{\numberline {5}Continuous Processes}{38}{section.5}% 
+\contentsline {subsection}{\numberline {5.1}Brownian Motion}{39}{subsection.5.1}% 
+\contentsline {subsection}{\numberline {5.2}Application - Stock Options (Continuous)}{41}{subsection.5.2}% 
+\contentsline {subsection}{\numberline {5.3}Poisson Processes}{42}{subsection.5.3}% 
+\contentsline {paragraph}{Construction of Poisson process}{42}{section*.71}% 
+\contentsline {subsection}{\numberline {5.4}Continuous-Time, Discrete-Space Processes}{45}{subsection.5.4}% 
