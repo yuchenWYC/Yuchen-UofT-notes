@@ -1175,14 +1175,14 @@ $$f(x) = \sum_{n=1}^\infty f_n(x) \quad \text{and} \quad f'(x) = g(x)$$
 	Apply the stronger form of the Differentiable Limit Theorem \ref{stronger form of Differentiable Limit Theorem} to the partial sums $s_k = f_1 + f_2 + \hdots + f_k$.
 \end{proof}
 
-\theorem[Cauchy Criterion for Uniform Convergence of Series]
+\theorem[\label{Cauchy Criterion for Uniform Convergence of Series}Cauchy Criterion for Uniform Convergence of Series]
 A series $\sum_{n=1}^\infty f_n$ converges uniformly on $A \subseteq \real$ if and only if
 $$\forall \epsilon > 0, \exists N \in \mb{N} \text{ s.t. } \forall n > m \geq N, \forall x \in A, |s_n - s_{m}| = \bignorm{\sum_{i=m+1}^n f_i(x)} < \epsilon$$
 
 \remark
 The benefit of the Cauchy Criterion is that it does not depend on the value of the limit.
 
-\corollary[Weierstrass M-Test] For each $n \in \mb{N}$, let $f_n$ be a function defined on a set $A \subseteq \real$, and let $M_n > 0$ be a real number satisfying that
+\corollary[\label{Weierstrass M-Test}Weierstrass M-Test] For each $n \in \mb{N}$, let $f_n$ be a function defined on a set $A \subseteq \real$, and let $M_n > 0$ be a real number satisfying that
 $$\sup_{x \in A}|f_n(x)| \leq M_n$$
 If $\sum_{n=1}^\infty M_n$ converges, then $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
 
@@ -1228,7 +1228,7 @@ So $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
 \end{proof}
 
 \subsection{Power Series}
-\theorem If a power series $\sum_{n=0}^\infty a_nx^n$ converges at some point $x_0 \in \real$, then it converges absolutely for any $x$ satisfying $|x| < |x_0|$.
+\theorem If a power series $\sum_{n=0}^\infty a_nx^n$ \blue{converges} at some point $x_0 \in \real$, then it converges absolutely for any $x$ satisfying $|x| < |x_0|$.
 \begin{proof}
 	If $\sum_{n=0}^\infty a_nx_0^n$ converges, then $(a_nx_0^n)$ is bounded and $\rightarrow 0$.\\
 	Let $M > 0$ be s.t. $|a_nx_0^n| \leq M$ for all $n \in \mb{N}$. If $x \in \real$ satisfies $|x| < |x_0|$, then
@@ -1237,6 +1237,58 @@ So $\sum_{n=1}^\infty f_n$ converges uniformly on $A$.
 	$$\sum_{n=0}^\infty M \bignorm{\frac{x}{x_0}}^n$$ 
 	is convergent. By the Comparison Test, $\sum_{n=0}^\infty a_nx^n$ converges absolutely.
 \end{proof} 
+
+\theorem If a power series $\sum_{n=0}^\infty a_nx^n$ \blue{converges absolutely} at a point $x_0$, then it converges uniformly on the closed interval $[-c, c]$, where $c = |x_0|$.
+\begin{proof}
+	For $n \in \mb{N}$, let $M_n = |a_n|\cdot|x_0|^n$.\\
+	Note that $\sup_{x \in [-c,c]} |a_nx^n| \leq |a_n|\cdot|x_0|^n = M_n$.\\
+	Since $\sum_{n=0}^\infty M_n$ is convergent by assumption, then by Weierstrass M-Test \ref{Weierstrass M-Test}, $\sum_{n=0}^\infty a_nx^n$ converges uniformly on $[-c,c]$.
+\end{proof}
+
+\remark
+If the power series $g(x) = \sum_{n=0}^\infty a_nx^n$ converges conditionally at $x = R$, then it is possible for it to diverge when $x = -R$.
+
+\example
+$$\sum_{n=1}^\infty \frac{(-1)^nx^n}{n}$$
+
+\lemma[\label{Abel's Lemma}Abel's Lemma] Let $b_n$ satisfy $b_1 \geq b_2 \geq b_3 \geq \hdots \geq 0$, and let $\sum_{n=1}^\infty a_n$ be a series for which the partial sums are bounded. In other words, assume there exists $A > 0$ such that
+	$$|a_1 + a_2 + \hdots + a_n| \leq A$$
+	for all $n \in \mb{N}$. Then for all $n \in \mb{N}$,
+	$$|a_1b_1 + a_2b_2 + a_3b_3 + \hdots + a_nb_n| \leq Ab_1$$
+\begin{proof}
+	\begin{align*}
+		\bignorm{\sum_{k=1}^n a_kb_k} = \bignorm{s_nb_{n+1} + \sum_{k=1}^n s_k(b_k - b_{k+1})} &&\text{summation-by-parts formula} \\
+		&\leq \bignorm{s_nb_{n+1}} + \bignorm{\sum_{k=1}^n s_k(b_k - b_{k+1})}  &&\text{Triangle Inequality} \\
+		&\leq A b_{n+1} + \sum_{k=1}^n A(b_k - b_{k+1}) \\
+		&= Ab_{n+1} + (Ab_1 - Ab_{n+1}) \\
+		&= Ab_1
+	\end{align*}
+\end{proof}
+
+\theorem[Abel's Theorem] Let $g(x) = \sum_{n=0}^\infty a_nx^n$ be a power series that converges at the point $x = R > 0$. Then the series converges uniformly on the interval $[0, R]$. A similar result holds if the series converges at $x = -R$.
+\begin{proof}
+	To set the stage for Abel's Lemma \ref{Abel's Lemma}, we first write
+	$$g(x) = \sum_{n=0}^\infty a_n x^n = \sum_{n=0}^\infty (a_nR^n)\left( \frac{x}{R}\right)^n$$
+	Let $\epsilon > 0$. Since we are assuming that $\sum_{n=0}^\infty a_nR^n$ converges, then by the Cauchy Criterion for Uniform Convergence of Series \ref{Cauchy Criterion for Uniform Convergence of Series}, $\exists N \in \mb{N}$ s.t. if $n > m \geq N$, then
+	$$|a_{m+1}R^{m+11} + a_{m+2}R^{m+2} + \hdots + a_nR^n| < \epsilon$$
+	Now for any fixed $m \in \mb{N}$, we apply Abel's Lemma \ref{Abel's Lemma} to the sequence $\sum_{i=1}^\infty a_{m+i} R^{m+i}$.\\
+	Since $x \in [0, R]$, then we have
+	$$\left(\frac{x}{R}\right)^{m+1} \geq \left(\frac{x}{R}\right)^{m+2} \geq \hdots \geq 0$$
+	Then $$\abs{(a_{m+1}R^{m+1})\left(\frac{x}{R}\right)^{m+1} + (a_{m+2}R^{m+2})\left(\frac{x}{R}\right)^{m+2} + \hdots +(a_{n}R^{n})\left(\frac{x}{R}\right)^{n}  } \leq \epsilon\left(\frac{x}{R}\right)^{m+1} \leq \epsilon$$
+	Therefore the series converges uniformly on the interval $[0, R]$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
