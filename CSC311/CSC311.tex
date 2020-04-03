@@ -250,8 +250,8 @@ The value function satisfies the following recursive relationship:
 	&= \mb{E}_\pi\left[R(s, a) + \sum_{t=1}^\infty \gamma^tR_t|S_0 = s, A_0 = a\right] \\
 	&= \mb{E}_\pi\left[ R(s, a) + \gamma R(S_1, A_1) + \gamma^2R(S_2, A_2) + \hdots|S_0=s, A_0=a\right]\\
 	&= \mb{E}_\pi\left[ R(s, a) + \gamma\{R(S_1, \pi(S_1)) + \gamma R(S_2, \pi(S_2)) + \hdots\}|S_0=s, A_0=a\right]\\
-	&= \mb{E}_\pi\left[ R(s, a) \right] + \gamma\mb{E}_\pi[\sum_{t=1}^\infty\gamma^tR_{t}|S_1=S_1, A_1=\pi(S_1)]\\
-	&= r(s,a) + \gamma  Q^\pi(S_1, \pi(S_1)) \\
+	&= \mb{E}_\pi\left[ R(s, a) + \gamma\mb{E}[\sum_{t=1}^\infty\gamma^tR_{t}|S_1=S_1, A_1=\pi(S_1)]\right]\\
+	&= r(s,a) + \gamma  \mb{E}[Q^\pi(S_1, \pi(S_1))] \\
 	&= r(s,a) + \gamma \int_S Q^\pi(s', \pi(s'))\mc{P}(s'|s,a)\,ds'
 \end{align}
 Or for countable state spaces:
