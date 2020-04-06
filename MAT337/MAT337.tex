@@ -1422,6 +1422,7 @@ $$ \limit \int_a^b f_n = \int_a^b f$$
 
 \subsection{The Fundamental Theorem of Calculus}
 \theorem[Fundamental Theorem of Calculus]
+We have
 \begin{enumerate}
 	\item If $f: [a,b] \rightarrow \real$ is integrable, and $F: [a,b] \rightarrow \real$ satisfies $F'(x) = f(x)$ for all $x \in [a,b]$, then
 	$$\int_a^b f = F(b) - F(a)$$
@@ -1431,14 +1432,51 @@ $$ \limit \int_a^b f_n = \int_a^b f$$
 \end{enumerate}
 \todo{prove this}
 
+\example
+$f(x) = |x|$ on $[-1, 1]$.\\
+Define $F(x) = \int_{-1}^x f(x)\,dx$, then $F$ is continuous and differentiable on $[-1, 1]$.\\
+On $[-1, 0], F(x) = -\frac{1}{2} x^2 + \frac{1}{2}$. \\
+On $[0, 1], F(x) = \frac{1}{2}x^2 + \frac{1}{2}$. \\
+So combining the two, we keep the relationship $F'(x) = f(x)( = |x|)$.
 
+\example
+$f: [a,b] \rightarrow \real$ continuous. Let $F(x) = \int_a^x f: [a,b] \rightarrow \real$.\\
+We know from FTC that $F'(x) = f(x)$ for all $x \in [a,b]$. \\
+Assume $F(x) = \int_a^x f = 0$ for all $x \in [a,b]$. Then $f(x) = 0$ for all $x \in [a,b]$.
 
+\example
+T or F:
+\begin{enumerate}
+	\item $h' = g$ does not imply continuity of $g$. (True)
+	\item If $g$ is continuous on $[a,b]$, then there is a differentiable $h$ s.t. $h' = g$. (True)
+	\item If $H(x) = \int_a^x h$ is differentiable at $c \in (a,b)$, then $h$ is continuous at $c$. (False)
+\end{enumerate}
+Counterexample for (3): $h: [0,1] \rightarrow \real$.
+$$h(x) = \begin{cases}
+	0, \quad &x \neq 1/2\\
+	1, \quad &x = 1/2
+\end{cases} \implies H(x) = 0$$
 
+\example
+$f_n \rightarrow 0$ pointwise on $[0,1]$, but $\limit \int f_n$ does not exist.
+$$f_n = \begin{cases}
+	x^n, \quad &0 \leq x < 1\\
+	0, \quad  & x = 1
+\end{cases}$$
+For every $x \in [0,1]$,
+$\int_0^1 f_n = n \rightarrow \infty$,
+But $f_n(x) \rightarrow 0$.
 
+%\example
+%Sequence $(g_n)$ on $[0,1]$ integrable, $\int_0^1 g_n \rightarrow 0$, but $g_n(x)$ does not converge to 0 for all $x \in [0,1]$. 
+%$$g_n(x) = \begin{cases}
+%	1 \quad & \frac{k(n)}{2^{l(n)}} \leq x \leq \frac{k(n) + 1}{2^{l(n)}}\\
+%	0 \quad & \text{otherwise}
+%\end{cases}$$
+%where $k(n) = 
 
-
-
-
+\fact
+If $f:[a,b] \rightarrow \real$ is integrable and there is $M \in \real$ s,t, $|f(x)| \leq M$ for all $x \in [a,b]$, then $f^2(x) = \left( f(x) \right)^2$ is integrable.
 
 
 
