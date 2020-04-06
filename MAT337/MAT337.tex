@@ -1359,8 +1359,26 @@ $$U(f, P_\epsilon) - L(f, P_\epsilon) < \epsilon$$
 \theorem If $f$ is \blue{continuous} on $[a,b]$, then it is integrable.
 \todo{prove this}
 
+\definition[tagged partition] A \under{tagged partition} $(P, \{c_k\})$ is one where in addition to a partition $P$ we choose a sampling point $c_k$ in each of the subintervals$[x_{k-1}, x_k]$.
+$$P = [x_0, x_1, \hdots, x_n]$$
+$$c_k \in [x_{k-1}, x_{k}], \quad 0 < k \leq n$$
+\definition[Riemann sum]
+$$R(f, P, \{c_k\}) = \sum_{k=1}^n f(c_k) \cdot (x_k - x_{k-1})$$
+
+\definition[Riemann's Original Definition of the Integral] A bounded function $f$ is \under{integrable} on $[a,b]$ with $\int_a^b f = A$ if for all $\epsilon > 0, \exists \delta > 0$ such that for any tagged partition $(P, \{c_k\})$ satisfying $\delta x_k < \delta$ for all $k$< it follows that
+$$|R(f, P, \{c_k\}) - A| < \epsilon$$
+\remark
+This definition is equivalent to our definition.
+
+
 \subsection{Integrating Functions with Discontinuities}
 \theorem If $f: [a,b] \rightarrow \real$ is bounded, and $f$ is integrable on $[c,b]$ for all $c \in (a,b)$, then $f$ is integrable on $[a,b]$. An analogous result holds at the other endpoint.
+\todo{prove this}
+
+\fact Suppose two functions $f, g: [a,b] \rightarrow \real$ are both bounded. and $f$ is integrable. Suppose there are finitely many points $y_1, y_2, \hdots, y_l \in [a,b]$ s.t.
+$f(x) = g(x)$ for $x \neq y_k$ for $k = 1, 2, \hdots, l$.\\
+Then $g$ is integrable and
+$$\int_a^b g = \int_a^b f$$
 \todo{prove this}
 
 
