@@ -1409,12 +1409,42 @@ $$\int_b^a f = -\int_a^b f$$
 Also for $c \in [a,b]$, define
 $$\int_c^c f = 0$$
 
+\fact If $f: [a,b] \rightarrow \real$ is integrable, then 
+$$|f|(x) = |f(x)|$$
+is also integrable, and
+$$\bignorm{\int_a^b f} \leq \int_a^b |f|$$
+\todo{prove this}
+
 \subsubsection{Uniform Convergence and Integration}
 \theorem[Integrable Limit Theorem] Assume that $f_n \rightarrow f$ \blue{uniformly} on $[a,b]$ and that each $f_n$ is integrable. Then, $f$ is integrable and 
 $$ \limit \int_a^b f_n = \int_a^b f$$
 \todo{prove this}
 
 \subsection{The Fundamental Theorem of Calculus}
+\theorem[Fundamental Theorem of Calculus]
+\begin{enumerate}
+	\item If $f: [a,b] \rightarrow \real$ is integrable, and $F: [a,b] \rightarrow \real$ satisfies $F'(x) = f(x)$ for all $x \in [a,b]$, then
+	$$\int_a^b f = F(b) - F(a)$$
+	\item Let $g: [a,b] \rightarrow \real$ be integrable, and for $x \in [a,b]$, define
+	$$G(x) = \int_a^x g$$
+	Then $G$ is continuous on $[a,b]$. If $g$ is continuous at some point $c \in [a,b]$, then $G$ is differentiable at $c$ and $G'(c) = g(c)$.
+\end{enumerate}
+\todo{prove this}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
