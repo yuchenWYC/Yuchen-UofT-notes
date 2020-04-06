@@ -1295,8 +1295,73 @@ $$f^{(k)}(x) = \sum_{n=k}^\infty n(n-1)\hdots (n-k+1) x^{n-k}$$
 \corollary
 If $\sum_{n=0}^\infty a_nx^n, \sum_{n=0}^\infty b_nx^n$ exist and equal for all $x \in (-R, R)$, then it must be the case that $a_n = b_n$ for all $n \in \mb{N}$.
 
+\section{The Riemann Integral}
+\subsection{The Definition of the Riemann Integral}
+\subsubsection{Partitions, Upper Sums, and Lower Sums}
 
+\definition[partition] A \under{partition} P of $[a,b]$ is a finite set of points from $[a,b]$ that includes both $a$ and $b$. The notational convention is to always list the points of a partition $P = \{x_0, x_1, x_2, \hdots, x_n\}$ in increasing order; thus
+$$a = x_0 < x_1 < x_2 < \hdots < x_n = b$$
+\definition[lower sum and upper sum]
+For each subinterval $[x_{k-1}, x_k]$ of $P$, let
+$$m_k = \inf\{f(x): x \in [x_{k-1}, x_k]\} \text{ and } M_k = \sup\{f(x): x \in [x_{k-1}, x_k]\}$$
+The \under{lower sum} of $f$ with respect to $P$ is given by
+$$L(f, P) = \sum_{k=1}^n m_k(x_k - x_{k-1})$$
+Likewise, we define the \under{upper sum} of $f$ with respect to $P$ by
+$$U(f, P) \sum_{k=1}^n M_k(x_k - x_{k-1})$$
 
+\fact
+For a particular partition $P$, it is clear that $U(f, P) \geq L(f, P)$.
+
+\definition[refinement]
+A partition $Q$ is a \under{refinement} of a partition $P$ if $Q$ contains all of the points of $P$; that is, if $P \subseteq Q$.
+
+\lemma If $P \subseteq Q$, then $L(f, P) \leq L(f, Q)$, and $U(f,P) \geq U(f,Q)$.
+
+\begin{proof}
+	Consider what happens when we refine $P$ by adding a single point $z$ to some subinterval $[x_{k-1}, x_k]$ of $P$. Focusing on the lower sum, we have
+	\begin{align*}
+		m_k(x_k - x_{k-1}) &= m_k(x_k - z) + m_k(z - x_{k-1}) \\
+		&\leq m'_k(x_k - z) + m_k^{kk}(z - x_{k-1})
+	\end{align*}
+	where 
+	$$m_k' = \inf\{ f(x): x \in [z, x_k]\} \text{ and } m_k^{''} = \inf \{f(x): x \in [x_{k-1},z]\}$$
+	are each necessarily as large or larger than $m_k$.\\
+	By induction, we have $L(f,P) \leq L(f,Q)$, and an analogous argument holds for the upper sums.
+\end{proof}
+
+\lemma If $P_1$ and $P_2$ are any two partitions of $[a,b]$, then $L(f, P_1) \leq U(f, P_2)$.
+
+\begin{proof}
+	Let $Q = P_1 \cup P_2$. Because $P_1 \subseteq Q$ and $P_2 \subseteq Q$, it follows that 
+	$$L(f, P_1) \leq L(f, Q) \leq U(f,Q) \leq U(f, P_2)$$
+	
+\end{proof}
+
+\subsubsection{Integrability}
+
+\definition[upper integral and lower integral]
+Let $\mc{P}$ be the collection of all possible partitions of the interval $[a,b]$. The \under{upper integral} of $f$ is defined to be
+$$U(f) = \inf\{ U(f,P): P \in \mc{P}\}$$
+Similarly, we define the \under{lower integral} of $f$ by
+$$L(f) = \sup\{ L(f,P): P \in \mc{P}\}$$
+
+\lemma For any bounded function $f$ on $[a,b]$, it is always the case that $$U(f) \geq L(f)$$
+
+\definition[Riemann Integrability] A bounded function $f$ defined on the interval $[a,b]$ is \under{Riemann-integrable} if \blue{$U(f) = L(f)$}. In this case, we define $\int_a^b f$ or $\int_a^b f(x) \, dx$ to be this common value; namely,
+$$\int_a^b f = U(f) = L(f)$$
+
+\subsubsection{Criteria for Integrability}
+\theorem[Integrability Criterion]
+A bounded function $f$ is \under{integrable} on $[a,b]$ if and only if, for every $\epsilon > 0, \exists$ a partition $P_{\epsilon}$ of $[a,b]$ such that
+$$U(f, P_\epsilon) - L(f, P_\epsilon) < \epsilon$$
+\todo{prove this}
+
+\theorem If $f$ is \blue{continuous} on $[a,b]$, then it is integrable.
+\todo{prove this}
+
+\subsection{Integrating Functions with Discontinuities}
+\theorem If $f: [a,b] \rightarrow \real$ is bounded, and $f$ is integrable on $[c,b]$ for all $c \in (a,b)$, then $f$ is integrable on $[a,b]$. An analogous result holds at the other endpoint.
+\todo{prove this}
 
 
 
