@@ -1478,9 +1478,60 @@ But $f_n(x) \rightarrow 0$.
 \fact
 If $f:[a,b] \rightarrow \real$ is integrable and there is $M \in \real$ s,t, $|f(x)| \leq M$ for all $x \in [a,b]$, then $f^2(x) = \left( f(x) \right)^2$ is integrable.
 
+\fact
+If $f, g$ are integrable, then so is $fg$.
 
+%\begin{proof}
+%	We know that $f^2$ and $g^2$ are both integrable.
+%	\begin{align*}
+%		(f+g)^2(x) &= f(x)^2 + 2f(x)g(x) + g(x)^2 \\
+%		(f+g)^2(y) &= f(y)^2 + 2f(y)g(y) + g(y)^2 \\
+%		|f(x)g(x) - f(y)g(y)| &\leq \frac{1}{2} |(f+g)^2(x) - (f+g)^2(y)| + \frac{1}{2}|(F(x))^2 - (F(y))^2| + \frac{1}{2}|(g(x))^2 - (g(y))^2|
+%	\end{align*}	
+%\end{proof}
+\subsection{Lebesgue's Criterion for Riemann Integrability}
+\subsubsection{Sets of Measure Zero}
+\definition[measure zero]
+A set $A \subseteq \real$ has \under{measure zero} if, for all $\epsilon > 0$, there exists a countable collection of open intervals $O_n$ with the property that $A$ is contained in the union of all the intervals $O_n$ and the sum of the lengths of all of the intervals is less than or equal to $\epsilon$.  More precisely, if $|O_n|$ refers to the length of the interval $O_n$, then we have
+$$A \subseteq \bigcup_{n=1}^\infty O_n \quad \text{and} \quad \sum_{n=1}^\infty |O_n|\leq \epsilon$$
+\example
+Consider a finite set $A = \{a_1, a_2, \hdots, a_N\}$. To show that $A$ has measure zero, let $\epsilon > 0$> For each $1 \leq n \leq N$, construct the interval
+$$G_n = \left( a_n - \frac{\epsilon}{2N}, a_n + \frac{\epsilon}{2N}\right)$$
+Clearly, $A$ is contained in the union of these intervals, and
+$$\sum_{n=1}^N |G_n| = \sum_{n=1}^N \frac{\epsilon}{N} = \epsilon$$
 
+\theorem Countable sets have measure zero.
+\begin{proof}
+	If a countable set $A = \{a_1, a_2, \hdots, a_n, \hdots\}$, then define
+	$$O_n = (a_n - \frac{\epsilon}{2^{n+1}}, a_n + \frac{\epsilon}{2^{n+1}}$$
+	Then $|O_n| = \frac{\epsilon}{2^n}$, and $A \subseteq \bigcup{n=1}^\infty O_n$. Then
+	$$\sum{n=1}^\infty |O_n| = \sum_{n=1}^\infty \frac{\epsilon}{2^n} = \epsilon \cdot \sum_{n=1}^\infty \frac{1}{2^n} = \epsilon \cdot 1 = \epsilon$$
+\end{proof}
 
+\theorem The canter sets has measure zero.
+
+\fact If two sets $A$ and $B$ both have measure zero, then set $A \cup B$ has measure zero.
+
+\fact If a sequence of sets $(A_n)$ all have measure zero, then $\bigcup{n=1}^\infty A_n$ has measure zero.
+
+\subsubsection{$\alpha$-continuity}
+\definition[$\alpha$-continuity] Let $f$ be defined on $[a,b]$, and let $\alpha > 0$. The function $f$ is \under{$\alpha$-continuous} at $x \in [a,b]$ if there exists $\delta > 0$ such that for all $y, z \in (x - \delta, x + \delta)$, it follows that $|f(y) - f(z)| < \alpha$.\\
+Let $f$ be a bounded function on $[a,b]$. For each $\alpha > 0$, define $D^\alpha$ to be the set of points in $[a,b]$ where the function $f$ fails to be $\alpha$-continuous; that is,
+$$D^\alpha = \{x \in [a,b]: f \text{ is not $\alpha$-continuous at $x$}\}$$
+
+\fact Let $D_f =  \{x \in [a,b]: f \text{ is not continuous at $x$}\}$. Then $D_f = \bigcup_{\alpha > 0} D_f^\alpha$.
+
+\fact If $\alpha < \alpha'$< then $D^{\alpha'} \subseteq D^\alpha$.
+
+\fact For a fixed $\alpha > 0$, the set $D^\alpha$ is closed and therefore compact.
+
+\subsubsection{Lebesgue's Theorem}
+\theorem[Lebesgue's Theorem] Let $f$ be a bounded function defined on the interval $[a,b]$. Then. $f$ is Riemann-integrable if and only if the set of points where $f$ is not continuous has measure zero.
+
+\corollary If functions $f, g$ are bounded on $[a,b]$, $f$ is continuous on $[a,b]$ and 
+$$D = \{x \in [a,b]: g(x) \neq f(x)\}$$ has measure zero. Then $g$ is integrable and 
+$$\int_a^b f = \int_a^b g$$
+\todo{prove this}
 
 
 
