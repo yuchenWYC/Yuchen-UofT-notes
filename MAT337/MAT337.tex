@@ -1372,15 +1372,49 @@ This definition is equivalent to our definition.
 
 
 \subsection{Integrating Functions with Discontinuities}
-\theorem If $f: [a,b] \rightarrow \real$ is bounded, and $f$ is integrable on $[c,b]$ for all $c \in (a,b)$, then $f$ is integrable on $[a,b]$. An analogous result holds at the other endpoint.
-\todo{prove this}
-
 \fact Suppose two functions $f, g: [a,b] \rightarrow \real$ are both bounded. and $f$ is integrable. Suppose there are finitely many points $y_1, y_2, \hdots, y_l \in [a,b]$ s.t.
 $f(x) = g(x)$ for $x \neq y_k$ for $k = 1, 2, \hdots, l$.\\
 Then $g$ is integrable and
 $$\int_a^b g = \int_a^b f$$
 \todo{prove this}
 
+\theorem If $f: [a,b] \rightarrow \real$ is bounded, and $f$ is integrable on $[c,b]$ for all $c \in (a,b)$, then $f$ is integrable on $[a,b]$. An analogous result holds at the other endpoint.
+\todo{prove this}
+
+\example[Dirichlet's function]
+$$g(x) = \begin{cases}
+	1 \quad &\text{for $x$ rational} \\
+	0 \quad &\text{for $x$ irrational}
+\end{cases}$$
+
+If $P$ is some partition of $[0,1]$, then the density of the rationals in $\real$ implies that every subinterval of $P$ will contain a point where $g(x) = 1$ as well as a point where $g(y) = 0$.. It follows that $U(g, P) = 1$ and $L(g, P) = 0$. Because this is the case for every partition $P$, we see that $U(f) = 1, L(f) = 0$. The two are not equal, so we conclude that Dirichlet's function is \red{not} integrable.
+
+\subsection{Properties of the Integral}
+\theorem Assume $f: [a,b] \rightarrow \real$ is bounded, and let $c \in (a,b)$. Then, $f$ is integrable on $[a,b]$ if and only if $f$ is integrable on $[a,c]$ and $[c,b]$. In this case, we have
+$$\int_a^b f = \int_a^c f + \int_c^b f$$
+\todo{prove this}
+
+\theorem Assume $f$ and $g$ are integrable functions on the interval $[a,b]$.
+\begin{enumerate}
+	\item The function $f + g$ is integrable on $[a,b]$ with $\int_a^b(f + g) = \int_a^b f + \int_a^b g$.
+	\item For $k \in \real$, the function is $kf$ is integrable with $\int_a^b kf = k\int_a^b f$.
+	\item If $m \leq f(x) \leq M$ on $[a,b]$, then $m(b-a) \leq \int_a^b f \leq M(b-a)$.
+	\item If $f(x) \leq g(x)$ on $[a,b]$, then $\int_a^b f \leq \int_a^b g$.
+	\item If $f(x) \leq g(x)$ on $[a,b]$, then $\int_a^b f \leq \int_a^b g$.
+	\item The function $|f|$ is integrable an $|\int_a^b f| \leq \int_a^b|f|$.
+\end{enumerate}
+
+\definition If $f$ is integrable on the interval $[a,b]$, define
+$$\int_b^a f = -\int_a^b f$$
+Also for $c \in [a,b]$, define
+$$\int_c^c f = 0$$
+
+\subsubsection{Uniform Convergence and Integration}
+\theorem[Integrable Limit Theorem] Assume that $f_n \rightarrow f$ \blue{uniformly} on $[a,b]$ and that each $f_n$ is integrable. Then, $f$ is integrable and 
+$$ \limit \int_a^b f_n = \int_a^b f$$
+\todo{prove this}
+
+\subsection{The Fundamental Theorem of Calculus}
 
 
 
