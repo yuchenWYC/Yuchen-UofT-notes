@@ -937,8 +937,10 @@ Our approximate posterior is
 $$q_\phi(z|x) = \mc{N}(\mu(x), \sigma(x)I)$$
 Define our encoder and decoder to be\\
 \tb{Encoder}: $g_\phi(x_i) = \phi_i = (\mu_i, \log \sigma_i)$ (learning the distribution of $z$)\\
-\tb{Decoder}: $f_\theta(z_i) = \theta_i$ (reconstructing the distribution of $x$)
-\unsure{what is $\theta$ doing here?}
+Inputs $x_i$s are encoded to vectors $\mu$ and $\log \sigma_i$, which parameterize $q_\phi(z|x)$. Before decoding, we draw a sample $z \sim q_\phi(z|x) = \mc{N}(\mu(x). \sigma(x)I)$.\\
+\tb{Decoder}: $f_\theta(z_i) = \theta_i$ (reconstructing the distribution of $x$)\\
+Then evaluate $p_\theta(x_i|z_i)$. We compute the loos function (negative ELBO) and propagate its derivative with respect to $\theta$ and $\phi$, through the networks during training.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{p12.png}
@@ -954,14 +956,13 @@ Our goal is to learn $g, f$ from unlabeled data, and usually we specify $f$ and 
 	\centering
 	\includegraphics[scale=0.6]{p13.png}
 \end{figure}
-$z$ is the code the model attempts to compress a representation of the input, $x$, into.
+\noindent $z$ is the code the model attempts to compress a representation of the input, $x$, into.
 It is important that the encoder reduces the dimension, for example by learning how to ignore noise (otherwise, we would just learn the identify function). The big idea is that the code contains only the most important features of the input, such that we can reconstruct the input from the code reliably
 $$\tilde{x} = f(g(x)) \approx x$$
 
-\paragraph{Problems with Deterministic Autoencoders}
-\tb{Problem 1: Proximity in data space does not mean proximity in feature space}
+\paragraph{Problem 1 - Proximity in data space does not mean proximity in feature space}
 $$x_1 \approx x_2 \notimplies z_1 \approx z_2$$
-\tb{Problem 2: ``White" latent space region}
+\paragraph{Problem 2: ``White" latent space region}
 If the space has regions where no data gets encoded to, and you sample/generate a variation from there, the decoder will simply generate an unrealistic output, because the decoder has no idea how to deal with that region of the latent space. During training, it never saw encoded vectors coming from that region of latent space.\\
 \tb{Solution: Adding noise to autoencoders}
 \begin{itemize}
@@ -969,8 +970,9 @@ If the space has regions where no data gets encoded to, and you sample/generate 
 	\item Can add noise to latents after encoding, reconstruct original data. But how much noise?
 \end{itemize}
 
-\paragraph{Variational Autoencoders (VAEs)}
+\paragraph{Solution - Variational Autoencoders (VAEs)}
 This stochastic generation means, that even for the same input, while the mean and standard deviations remain the same, the actual encoding will somewhat \blue{vary} on every single pass simply due to \blue{sampling}. \\
+\tb{Why does a VAE solve the problems of a deterministic autoencoder?}\\
 The VAE generation model learns to reconstruct its inputs not only from the encoded points but also from the area around them. This allows the generation model to generate new data by sampling from an ``area" instead of only being able to generate already seen data corresponding to the particular fixed encoded points.
 
 \section{Normalizing Flows}

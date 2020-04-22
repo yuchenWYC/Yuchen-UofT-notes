@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  21 MAR 2020 22:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 APR 2020 17:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -811,86 +811,87 @@ Underfull \hbox (badness 10000) in paragraph at lines 915--917
 <p12.png, id=629, 702.625pt x 223.83624pt>
 File: p12.png Graphic file (type png)
 <use p12.png>
-Package pdftex.def Info: p12.png  used on input line 944.
+Package pdftex.def Info: p12.png  used on input line 946.
 (pdftex.def)             Requested size: 421.57825pt x 134.30278pt.
-<p13.png, id=630, 679.53876pt x 507.8975pt>
+ [32]
+<p13.png, id=641, 679.53876pt x 507.8975pt>
 File: p13.png Graphic file (type png)
 <use p13.png>
-Package pdftex.def Info: p13.png  used on input line 955.
+Package pdftex.def Info: p13.png  used on input line 957.
 (pdftex.def)             Requested size: 407.72641pt x 304.74086pt.
- [32 <./p12.png (PNG copy)>] [33 <./p13.png>] [34]
-Overfull \hbox (66.15561pt too wide) in paragraph at lines 1010--1011
+ [33 <./p12.png (PNG copy)> <./p13.png>] [34]
+Overfull \hbox (66.15561pt too wide) in paragraph at lines 1012--1013
 [][]\OT1/cmr/bx/n/10.95 Definition 9.3 \OT1/cmr/m/n/10.95 (nor-mal-iz-ing di-rec-tion)\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 The in-verse func-tion $\OML/cmm/m/it/10.95 g$ \OT1/cmr/m/n/10.95 moves in the op-po-site, $[]$:
  []
 
 
-Overfull \hbox (39.73009pt too wide) in paragraph at lines 1016--1019
+Overfull \hbox (39.73009pt too wide) in paragraph at lines 1018--1021
  []\OT1/cmr/bx/n/10.95 Constructing flows[] \OT1/cmr/m/n/10.95 Con-struct-ing ar-bi-trar-ily com-pli-cated non-linear in-vert-ible func-tions(bijections)
  []
 
 [35] [36]
-Underfull \hbox (badness 10000) in paragraph at lines 1066--1068
+Underfull \hbox (badness 10000) in paragraph at lines 1068--1070
 
  []
 
 [37]
-Underfull \hbox (badness 10000) in paragraph at lines 1091--1092
+Underfull \hbox (badness 10000) in paragraph at lines 1093--1094
 
  []
 
-LaTeX Font Info:    Try loading font information for U+dsrom on input line 1099.
+LaTeX Font Info:    Try loading font information for U+dsrom on input line 1101.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/doublestroke/Udsrom.fd
 File: Udsrom.fd 1995/08/01 v0.1 Double stroke roman font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 1099--1102
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1104
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1099--1102
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1109--1111
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1109--1111
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1104
 
  []
 
 [38]
-Underfull \hbox (badness 10000) in paragraph at lines 1113--1116
+Underfull \hbox (badness 10000) in paragraph at lines 1111--1113
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1139--1140
+Underfull \hbox (badness 10000) in paragraph at lines 1111--1113
 
  []
 
-[39] [40] [41]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1186.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1186.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1115--1118
+
+ []
+
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 1141--1142
+
+ []
+
+[40] [41]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1188.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1188.
  (/Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1186.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1186.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1188.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1188.
 Package rerunfilecheck Info: File `STA414.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1186.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1188.
  ) 
 Here is how much of TeX's memory you used:
- 19252 strings out of 492616
- 354211 string characters out of 6129482
- 453601 words of memory out of 5000000
- 22496 multiletter control sequences out of 15000+600000
+ 19249 strings out of 492616
+ 354047 string characters out of 6129482
+ 452128 words of memory out of 5000000
+ 22493 multiletter control sequences out of 15000+600000
  15719 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,15n,81p,645b,1035s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/doublestroke/dsrom10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.pdf (41 pages, 1037071 bytes).
+Output written on /Users/raina/Desktop/UofT-notes/STA414/.texpadtmp/STA414.pdf (41 pages, 1037587 bytes).
 PDF statistics:
  854 PDF objects out of 1000 (max. 8388607)
  739 compressed objects within 8 object streams
