@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  14 APR 2020 18:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  30 APR 2020 22:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**MAT337.tex
-(./MAT337.tex
+**ad_math_notes.tex
+(./ad_math_notes.tex
 LaTeX2e <2018-12-01>
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
@@ -22,6 +22,8 @@ File: size11.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/doublestroke/dsfont.sty
+Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2018/12/01 v2.17b AMS math features
 \@mathmargin=\skip43
@@ -524,8 +526,6 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Cskip=\skip62
 )
 \c@@todonotes@numberoftodonotes=\count145
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/doublestroke/dsfont.sty
-Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 )
 \c@definition=\count146
 \c@theorem=\count147
@@ -540,25 +540,47 @@ Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 \c@axiom=\count156
 \c@rules=\count157
 \c@fact=\count158
+) (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2018/05/01 v1.1-162 Sub-captions (AR)
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2018/10/06 v3.3-154 Customizing captions (AR)
+ (/usr/local/texlive/2019/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2018/09/12 v1.8c caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 64.
+\captionmargin=\dimen176
+\captionmargin@=\dimen177
+\captionwidth=\dimen178
+\caption@tempdima=\dimen179
+\caption@indent=\dimen180
+\caption@parindent=\dimen181
+\caption@hangindent=\dimen182
 )
-\c@pp@a@footnote=\count159
- (/Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.aux)
-\openout1 = `MAT337.aux'.
+\c@caption@flags=\count159
+\c@ContinuedFloat=\count160
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+)
+\c@subfigure=\count161
+\c@subtable=\count162
+)
+\c@pp@a@footnote=\count163
+ (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.aux)
+\openout1 = `ad_math_notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 34.
-LaTeX Font Info:    ... okay on input line 34.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -596,16 +618,16 @@ LaTeX Font Info:    ... okay on input line 34.
 
 (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count160
-\scratchdimen=\dimen176
+\scratchcounter=\count164
+\scratchdimen=\dimen183
 \scratchbox=\box43
-\nofMPsegments=\count161
-\nofMParguments=\count162
+\nofMPsegments=\count165
+\nofMParguments=\count166
 \everyMPshowfont=\toks48
-\MPscratchCnt=\count163
-\MPscratchDim=\dimen177
-\MPnumerator=\count164
-\makeMPintoPDFobject=\count165
+\MPscratchCnt=\count167
+\MPscratchDim=\dimen184
+\MPnumerator=\count168
+\makeMPintoPDFobject=\count169
 \everyMPtoPDFconversion=\toks49
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -620,157 +642,104 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \AtBeginShipoutBox=\box44
-Package hyperref Info: Link coloring OFF on input line 34.
+Package hyperref Info: Link coloring OFF on input line 39.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
  (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count166
+\c@section@level=\count170
 )
-LaTeX Info: Redefining \ref on input line 34.
-LaTeX Info: Redefining \pageref on input line 34.
-LaTeX Info: Redefining \nameref on input line 34.
- (/Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.out) (/Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.out)
+LaTeX Info: Redefining \ref on input line 39.
+LaTeX Info: Redefining \pageref on input line 39.
+LaTeX Info: Redefining \nameref on input line 39.
+ (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.out) (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.out)
 \@outlinefile=\write4
-\openout4 = `MAT337.out'.
+\openout4 = `ad_math_notes.out'.
 
  ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for U+msa on input line 36.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Try loading font information for U+msa on input line 41.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 36.
+LaTeX Font Info:    Try loading font information for U+msb on input line 41.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+esint on input line 36.
+LaTeX Font Info:    Try loading font information for U+esint on input line 41.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/esint/uesint.fd
 File: uesint.fd 
-) (/Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.toc [1
+) (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.toc [1
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write5
-\openout5 = `MAT337.toc'.
+\openout5 = `ad_math_notes.toc'.
 
  [2]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 40.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\@ifnextchar' on input line 40.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 40.
-
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 122--123
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
 
  []
 
-[4] [5]
-<p1.png, id=334, 586.19pt x 152.57pt>
-File: p1.png Graphic file (type png)
-<use p1.png>
-Package pdftex.def Info: p1.png  used on input line 221.
-(pdftex.def)             Requested size: 351.7167pt x 91.5427pt.
- [6] [7 <./p1.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 275--288
+[3] [4]
+Overfull \hbox (5.61588pt too wide) in paragraph at lines 122--124
+ []\OT1/cmr/bx/n/10.95 GPs de-fine mul-ti-vari-ate Gaus-sian dis-tri-bu-tions[] \OT1/cmr/m/n/10.95 We have data points $\OML/cmm/m/it/10.95 X \OT1/cmr/m/n/10.95 = [[][]\OML/cmm/m/it/10.95 ; [] ; [][]\OT1/cmr/m/n/10.95 ][]$
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 151--154
+
+ []
+
+[6] [7]
+<./images/laplace.png, id=249, 652.4375pt x 489.83pt>
+File: ./images/laplace.png Graphic file (type png)
+<use ./images/laplace.png>
+Package pdftex.def Info: ./images/laplace.png  used on input line 232.
+(pdftex.def)             Requested size: 195.73276pt x 146.95012pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[8] [9 <./images/laplace.png>] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 321--322
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--288
-
- []
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 288.
-(/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 288.
- [8]
-Underfull \hbox (badness 10000) in paragraph at lines 326--329
-
- []
-
-[9]
-Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 374.
- [10] [11]
-Underfull \hbox (badness 10000) in paragraph at lines 468--470
+Underfull \hbox (badness 10000) in paragraph at lines 329--331
 
  []
 
 [12]
-Overfull \hbox (8.30077pt too wide) in paragraph at lines 483--484
-[][]\OT1/cmr/bx/n/10.95 Definition 2.10 \OT1/cmr/m/n/10.95 (con-di-tion-ally con-ver-gence)\OT1/cmr/bx/n/10.95 . []$[][] \OML/cmm/m/it/10.95 a[]$ \OT1/cmr/m/n/10.95 is $[]$ if $[][] \OML/cmm/m/it/10.95 a[] <
- []
-
-[13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 563--564
-
- []
-
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 656--657
-
- []
-
-[16] [17] [18] [19] [20]
-Underfull \hbox (badness 10000) in paragraph at lines 905--908
-
- []
-
-[21]
-Overfull \hbox (4.0646pt too wide) in paragraph at lines 918--921
-[][]\OT1/cmr/bx/n/10.95 Property 4.4 \OT1/cmr/m/n/10.95 ([])\OT1/cmr/bx/n/10.95 . []\OT1/cmr/m/n/10.95 Func-tion $\OML/cmm/m/it/10.95 f \OT1/cmr/m/n/10.95 : \OML/cmm/m/it/10.95 A \OMS/cmsy/m/n/10.95 ! \U/msb/m/n/10.95 R$ \OT1/cmr/m/n/10.95 fails to be uni-formly con-tin-u-ous iff $\OMS/cmsy/m/n/10.95 9\OML/cmm/m/it/10.95 ^^O[] > \OT1/cmr/m/n/10.95 0\OML/cmm/m/it/10.95 ; \OMS/cmsy/m/n/10.95 9\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 x[]\OT1/cmr/m/n/10.95 )\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 y[]\OT1/cmr/m/n/10.95 ) \OMS/cmsy/m/n/10.95 ^^R
- []
-
-[22] [23] [24] [25] [26] [27] [28]
-Underfull \hbox (badness 10000) in paragraph at lines 1160--1162
-
- []
-
-[29] [30] [31] [32] [33] [34] [35] [36] [37]
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1517.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\alpha' on input line 1517.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 1517.
-
-[38] [39]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1544.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1544.
- (/Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1544.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1544.
-Package rerunfilecheck Info: File `MAT337.out' has not changed.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
+ (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 336.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 336.
+Package rerunfilecheck Info: File `ad_math_notes.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1544.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
  ) 
 Here is how much of TeX's memory you used:
- 19355 strings out of 492616
- 356102 string characters out of 6129482
- 467338 words of memory out of 5000000
- 22495 multiletter control sequences out of 15000+600000
- 13652 words of font info for 55 fonts, out of 8000000 for 9000
+ 19882 strings out of 492616
+ 366750 string characters out of 6129482
+ 467848 words of memory out of 5000000
+ 23328 multiletter control sequences out of 15000+600000
+ 12594 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,12n,83p,480b,1029s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/MAT337/.texpadtmp/MAT337.pdf (39 pages, 378347 bytes).
+ 69i,10n,94p,667b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on /Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.pdf (12 pages, 258845 bytes).
 PDF statistics:
- 930 PDF objects out of 1000 (max. 8388607)
- 843 compressed objects within 9 object streams
- 401 named destinations out of 1000 (max. 500000)
- 498 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 370 PDF objects out of 1000 (max. 8388607)
+ 317 compressed objects within 4 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 338 words of extra memory for PDF output out of 10000 (max. 10000000)
 

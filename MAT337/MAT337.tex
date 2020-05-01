@@ -665,7 +665,7 @@ A \blue{subset} $F$ of a topological space $(X, \tau)$ is \under{closed} if $X \
 Given a topological space $(X, \tau)$, where $\tau \subseteq P(X)$, and a set $F \subseteq X$, the \under{topological closure} of $F$ is the minimal closed superset of $F$, i.e.,
 $$\bar{F} = \bigcap \{H: H \text{ is closed}, H \supseteq F\}$$
 The \under{interior} of $F$ is the maximal open subset of $F$, i.e.,
-$$F^\circ = \bigcap \{U: U \text{ is open}, U \subseteq F\}$$
+$$F^\circ = \bigcup \{U: U \text{ is open}, U \subseteq F\}$$
 
 \example
 Given $(X, d)$ a metric space, define $\tau_d: $ a set $U \in \tau_d \iff \forall x \in U, \exists \epsilon > 0, B_\epsilon(x) \subseteq U$. Suppose $F \subseteq X$, then

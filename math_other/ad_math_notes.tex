@@ -1,44 +1,35 @@
 \documentclass[11pt]{article}
-
 % Libraries.
+
+\usepackage{dsfont}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{pgfplots}
+\usepackage{esint}
+\usepackage[margin=3cm]{geometry}
+%\usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{perpage}
+\usepackage[dvipsnames, pdftex]{xcolor}
 \usepackage{float}
-\usepackage{graphicx}
-\graphicspath{ {./images/} }
+\usepackage{xargs}
+\usepackage{/Users/raina/Desktop/uoft-notes/raina}
+\usepackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
+\usepackage{subcaption}
+
+
 
 % Property settings.
 \MakePerPage{footnote}
-\pagestyle{fancy}
-\lhead{Notes by Y.W.}
+\pagestyle{headings}
+\counterwithin{equation}{section}
 
-% Commands
-\newcommand{\ti}[1]{\textit{#1}}
-\newcommand{\tb}[1]{\textbf{#1}}
-\newcommand{\mb}[1]{\mathbb{#1}}
-\newcommand{\under}[1]{\underline{#1}}
-\newcommand{\proof}[0]{\textit{\underline{proof:} }}
-\newcommand{\litran}[0]{$T: V \rightarrow W$ }
-\newcommand{\slitran}[0]{Let $ T: V \rightarrow W$ be a linear transformation }
-\newcommand{\mt}[0]{$[T]_\alpha^\beta$ }
-\newcommand{\qed}[0]{$\hfill\blacksquare$}
-\newcommand{\real}[0]{\mathbb{R}}
-\newcommand{\vx}[0]{\tb{x}}
-\newcommand{\vy}[0]{\tb{y}}
-\newcommand{\vz}[0]{\tb{z}}
-\newcommand{\vo}[0]{\tb{0}}
-\newcommand{\vu}[0]{\tb{u}}
-\newcommand{\vw}[0]{\tb{w}}
-\newcommand{\vv}[0]{\tb{v}}
-\newcommand{\vf}[0]{\tb{f}}
-\newcommand{\vm}[0]{\tb{m}}
-\newcommand{\trans}[3]{{#1}: {#2} \rightarrow {#3}}
 
 % Attr.
 \title{Advanced Math Notes}
@@ -238,7 +229,7 @@ Sometimes also called ``double exponential distribution", because it can be thou
 $$\frac{1}{2b}\exp(-\frac{|x-\mu|}{b})$$
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.3]{laplace.png}
+	\includegraphics[scale=0.3]{./images/laplace.png}
 	\caption{PDF of Laplace Distribution}
 \end{figure}
 
@@ -307,4 +298,39 @@ De Moivre's formula is a precursor to Euler's formula
 $$e^{ix} = \cos x + i \sin x$$
 One can derive de Moivre's formula using Euler's formula and the exponential law for integer powers $${\left(e^{i x}\right)^{n}=e^{i n x}} \\ $$
 since Euler's formula implies that the left side is equal to $(\cos x+i \sin x)^{n}$ while the right side is equal to  $e^{i n x}=\cos (n x)+i \sin (n x)$.
+
+
+\section{Bayesian Optimization}
+We are interested in finding the minimum of a function $f(x)$ on some bounded set $\chi$> which we will take to be a subset of $\real^D$. Bayesian optimization constructs a probabilistic model for $f(x)$ and then exploits this model to make decisions about where in $\chi$ to next evaluate the function, while integrating out uncertainty. \\
+There are two major choices made when performing Bayesian optimization
+\begin{enumerate}
+	\item Select a prior (assumptions) over functions being optimized;
+	\item Choose an \tb{acquisition function}, which is used to construct a utility function from the model posterior, allowing us to determine the next point to evaluate.
+\end{enumerate}
+
+\subsection{Gaussian Processes (GP) as the prior}
+We will take GP to be of the form $f: \chi \rightarrow \real$. The GP is defined by the property that any finite set of $N$ points $\{\vx \in \chi\}_{n=1}^N$ induces a multivariate Gaussian distribution on $\real^N$. The $n$th of these points is taken to be the function value $f(\vx_n)$.\\
+We assume that the function $f(\vx)$ is drawn from a Gaussian process prior and that our observation are of the form $\{\vx_n, y_n\}_{n=1}^N$, where $y_n \sim \mc{N}(f(\vx_n), v)$ and $v$ is the variance of noice introduced into the function observations. This prior and data induce a posterior over functions. \\
+The acquisition function, which we denote by $a: \chi \rightarrow \real^+$, determines what point in $\chi$ should be evaluated next via a proxy optimization $\vx{next} = \argmax_\vx a(\vx)$, where several different functions have been proposed. In general, these acquisition functions depend on the previous observations and GP hyperparameters. We denote this dependence as $a(\vx; \{\vx_n, y_n\}, \theta)$.\\
+Define $\gamma$ to be the function that normalizes $f(\vx_{best})$:
+$$\gamma(\vx) = \frac{f(\vx_{best}) - \mu(\vx; \{\vx_n, y_n\}, \theta)}{\sigma(\vx; \{\vx_n, y_n\}, \theta)}$$
+\paragraph{Probability of Improvement (PI)} One strategy is to maximize the probability of improving over the best current value. \\
+$$a_{PI}(\vx) = P(f(\vx) <  \gamma(\vx))$$
+Under GP,
+$$a_{PI}(\vx; \{\vx_n, y_n\}, \theta) = \Phi(\gamma(x))$$
+\paragraph{Expected Improvement} Alternatively, one could choose to maximize the expected improvement over the best current value. \\
+$$a_{EI}(\vx) = \expect{\max(\gamma(\vx) - f(\vx), 0))}$$
+(The idea: if the new value is much better, we win by a lot; if it's much worse, we haven't lost anything)\\
+Under GP,
+$$a_{EI}(\vx; \{\vx_n, y_n\}, \theta) = \sigma(\vx; \{\vx_n, y_n\}, \theta)(\gamma(\vx) \Phi(\gamma(\vx)) + \mc(\gamma(\vx); 0, 1))$$
+
+\subsection{Jointly Continuity and Separately Continuity}
+\definition[jointly continuity and separately continuity] 
+If $X, Y$ and $Z$ are topological spaces and $f: X \times Y \rightarrow Z$ is a function then we say that $f$ is \tb{jointly continuous} at $\left(x_{0}, y_{0}\right) \in X \times Y$ if for each neighbourhood $W$ of $f\left(x_{0}, y_{0}\right)$ there exists a product of open sets $U \times V \subseteq X \times Y$ containing $\left(x_{0}, y_{0}\right)$ such that $f(U \times V) \subseteq W$. \\\\
+We say that $f$ is \tb{separately continuous} on $X \times Y$ if for each $x_{0} \in X$ and $y_{0} \in Y$ the functions $y \mapsto f\left(x_{0}, y\right)$ and $x \mapsto f\left(x, y_{0}\right)$ are both continuous on $Y$ and $X$ respectively. If the range space $Z$ is a metric space, with metric $d,$ and $\varepsilon$ is a positive number then we say that $f$ is \tb{$\varepsilon$-jointly continuous}xw at $\left(x_{0}, y_{0}\right) \in X \times Y$ if there exists a product of open sets $U \times V \subseteq X \times Y$ containing $\left(x_{0}, y_{0}\right) \in X \times Y$ such that $d$-diam $f(U \times V) \leq \varepsilon$.
+
+
+
+
+
 \end{document}

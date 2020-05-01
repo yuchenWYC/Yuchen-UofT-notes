@@ -1,0 +1,28 @@
+\BOOKMARK [1][-]{section.1}{Free parameter}{}% 1
+\BOOKMARK [1][-]{section.2}{Rectifier}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Definition}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Softplus \(Smooth ReLu\)}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{LogSumExp: Multivariable Generalization to Softplus}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Softmax Function}{}% 6
+\BOOKMARK [1][-]{section.4}{Cross Entropy}{}% 7
+\BOOKMARK [1][-]{section.5}{Cross Product in Higher Dimensions}{}% 8
+\BOOKMARK [1][-]{section.6}{Gaussian Process}{}% 9
+\BOOKMARK [2][-]{subsection.6.1}{The Basics}{section.6}% 10
+\BOOKMARK [2][-]{subsection.6.2}{Gaussian Process Regression}{section.6}% 11
+\BOOKMARK [1][-]{section.7}{Kronecker Product}{}% 12
+\BOOKMARK [1][-]{section.8}{Bayes' Theorem}{}% 13
+\BOOKMARK [1][-]{section.9}{Maximum a Posteriori Estimation \(MAP\)}{}% 14
+\BOOKMARK [1][-]{section.10}{Bayesian Linear Regression}{}% 15
+\BOOKMARK [1][-]{section.11}{Laplace Distribution}{}% 16
+\BOOKMARK [1][-]{section.12}{Kullback-Leibler Divergence}{}% 17
+\BOOKMARK [1][-]{section.13}{Power Set}{}% 18
+\BOOKMARK [1][-]{section.14}{the Binomial Theorem}{}% 19
+\BOOKMARK [1][-]{section.15}{Markov Process}{}% 20
+\BOOKMARK [2][-]{subsection.15.1}{Introduction}{section.15}% 21
+\BOOKMARK [2][-]{subsection.15.2}{The Transition Matrix and its Steady-state Vector}{section.15}% 22
+\BOOKMARK [1][-]{section.16}{Jensen's Inequality \(Probability Theory\)}{}% 23
+\BOOKMARK [1][-]{section.17}{Weight Decay}{}% 24
+\BOOKMARK [1][-]{section.18}{De Moivre's Formula}{}% 25
+\BOOKMARK [1][-]{section.19}{Bayesian Optimization}{}% 26
+\BOOKMARK [2][-]{subsection.19.1}{Gaussian Processes \(GP\) as the prior}{section.19}% 27
+\BOOKMARK [2][-]{subsection.19.2}{Jointly Continuity and Separately Continuity}{section.19}% 28
