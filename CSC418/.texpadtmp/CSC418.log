@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 MAY 2020 16:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 MAY 2020 21:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -654,7 +654,7 @@ File: uesint.fd
  [1
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<p1.png, id=77, 243.91125pt x 201.75375pt>
+<p1.png, id=87, 243.91125pt x 201.75375pt>
 File: p1.png Graphic file (type png)
 <use p1.png>
 Package pdftex.def Info: p1.png  used on input line 57.
@@ -664,29 +664,56 @@ Package pdftex.def Info: p1.png  used on input line 57.
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.70 \definition
-                [Blinn-Phong shading model] <./p1.png>] [3]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 111.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 111.
+                [Blinn-Phong shading model] <./p1.png>]
+<p4.png, id=104, 964.60374pt x 297.11pt>
+File: p4.png Graphic file (type png)
+<use p4.png>
+Package pdftex.def Info: p4.png  used on input line 85.
+(pdftex.def)             Requested size: 385.83466pt x 118.84189pt.
+<p2.png, id=105, 688.5725pt x 298.11375pt>
+File: p2.png Graphic file (type png)
+<use p2.png>
+Package pdftex.def Info: p2.png  used on input line 99.
+(pdftex.def)             Requested size: 344.2854pt x 149.0565pt.
+ [3 <./p4.png>]
+<p3.png, id=119, 594.22pt x 289.08pt>
+File: p3.png Graphic file (type png)
+<use p3.png>
+Package pdftex.def Info: p3.png  used on input line 107.
+(pdftex.def)             Requested size: 433.777pt x 211.02664pt.
+<p5.png, id=120, 216.81pt x 197.73875pt>
+File: p5.png Graphic file (type png)
+<use p5.png>
+Package pdftex.def Info: p5.png  used on input line 119.
+(pdftex.def)             Requested size: 108.40472pt x 98.86913pt.
+ [4 <./p2.png> <./p3.png>] [5pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.148 \end{document}
+                     <./p5.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 148.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 148.
  (/Users/raina/Desktop/UofT-notes/CSC418/.texpadtmp/CSC418.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 111.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 111.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 148.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 148.
 Package rerunfilecheck Info: File `CSC418.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 111.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 148.
  ) 
 Here is how much of TeX's memory you used:
- 18668 strings out of 492616
- 345247 string characters out of 6129482
- 441086 words of memory out of 5000000
- 22192 multiletter control sequences out of 15000+600000
+ 18698 strings out of 492616
+ 345552 string characters out of 6129482
+ 441123 words of memory out of 5000000
+ 22211 multiletter control sequences out of 15000+600000
  12940 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,12n,83p,452b,350s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,12n,83p,452b,352s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/CSC418/.texpadtmp/CSC418.pdf (3 pages, 150807 bytes).
+Output written on /Users/raina/Desktop/UofT-notes/CSC418/.texpadtmp/CSC418.pdf (5 pages, 620602 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
- 114 compressed objects within 2 object streams
- 22 named destinations out of 1000 (max. 500000)
- 170 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 182 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
+ 206 words of extra memory for PDF output out of 10000 (max. 10000000)
 
