@@ -21,6 +21,7 @@
 	prependcaption,
 	textsize=tiny
 ]{todonotes}
+\usepackage{minted}
 
 
 % Property settings.
@@ -77,7 +78,7 @@ where $k_s$ is the \ti{specular coefficient}, or the specular color of the surfa
 \subsubsection{Ambient Shading}
 A heuristic to avoid black shadows is to add a constant component to the shading model, one whose contribution to the pixel color depends only on the \blue{object hit}, with no dependence on the \blue{surface geometry} at all, as if surfaces were illuminated by ambient light that comes equally from everywhere.
 \definition[simple shading model / Blinn-Phong model with ambient shading]
-$$L = k_a I_a + k_d I \max (0, \vn \cdot \vl) + k_s I \max (0, \vn \cdot \vh)^n$$
+$$L = k_a I_a + k_d I \max (0, \vn \cdot \vl) + k_s I \max (0, \vn \cdot \vh)^p$$
 where $k_a$ is the surface's ambient coefficient or ``ambient color", and $I_a$ is the ambient light intensity.
 
 \begin{figure}[H]
@@ -120,7 +121,15 @@ The code above assumes that $\vd$ and $\vl$ are not necessarily unit vectors.
 	\caption{When looking into a perfect mirror, the viewer looking in direction $\vd$ will see whatever the viewer ``below" the surface would see in direction $\vr$}
 \end{figure}
 $$\vr = \vd - 2(\vd \cdot \vn)\vn$$
-
+In the real world, a surface may reflect some colors more efficiently than others, so it shifts the colors of the objects it reflects (i.e. some energy is lost when the light reflects from the surface). \\
+We implement the reflection by a recursive call of \ti{raycolor}:
+\begin{framed}
+\begin{minted}{C}
+	color c = c + km * raycolor(p + sr, epsilon, max_t);
+\end{minted}
+\end{framed}
+\noindent where $k_m$ is the specular RGB color, $p$ is the intersection of the viewing ray and the surface, $s \in [\epsilon, max\_t)$ for the same reason as we did with shadow rays: we don't want the reflection ray to hit the object that generates it.\\
+To make sure that the recursive call will terminate, we need to add a maximum recursion depth.
 
 
 

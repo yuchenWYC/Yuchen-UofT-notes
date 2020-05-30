@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{color} \PYG{n}{c} \PYG{o}{=} \PYG{n}{c} \PYG{o}{+} \PYG{n}{km} \PYG{o}{*} \PYG{n}{raycolor}\PYG{p}{(}\PYG{n}{p} \PYG{o}{+} \PYG{n}{sr}\PYG{p}{,} \PYG{n}{epsilon}\PYG{p}{,} \PYG{n}{max\PYGZus{}t}\PYG{p}{);}
+\end{Verbatim}
