@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  30 APR 2020 22:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  16 JUN 2020 22:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -283,9 +283,9 @@ File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 \xargs@max=\count118
 \xargs@toksa=\toks26
 \xargs@toksb=\toks27
-) (/Users/raina/Desktop/uoft-notes/raina.sty
+) (../raina.sty
 
-LaTeX Warning: You have requested package `/Users/raina/Desktop/uoft-notes/raina',
+LaTeX Warning: You have requested package `../raina',
                but the package provides `raina'.
 
 Package: raina 
@@ -564,7 +564,7 @@ Package caption Info: hyperref package is loaded.
 \c@subtable=\count162
 )
 \c@pp@a@footnote=\count163
- (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.aux)
+ (/Users/raina/Library/Mobile Documents/com~apple~CloudDocs/UofT-notes/math_other/.texpadtmp/ad_math_notes.aux)
 \openout1 = `ad_math_notes.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
@@ -653,7 +653,7 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 39.
 LaTeX Info: Redefining \pageref on input line 39.
 LaTeX Info: Redefining \nameref on input line 39.
- (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.out) (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.out)
+ (/Users/raina/Library/Mobile Documents/com~apple~CloudDocs/UofT-notes/math_other/.texpadtmp/ad_math_notes.out) (/Users/raina/Library/Mobile Documents/com~apple~CloudDocs/UofT-notes/math_other/.texpadtmp/ad_math_notes.out)
 \@outlinefile=\write4
 \openout4 = `ad_math_notes.out'.
 
@@ -671,7 +671,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Info:    Try loading font information for U+esint on input line 41.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/esint/uesint.fd
 File: uesint.fd 
-) (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.toc [1
+) (/Users/raina/Library/Mobile Documents/com~apple~CloudDocs/UofT-notes/math_other/.texpadtmp/ad_math_notes.toc [1
 
 {/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
 \tf@toc=\write5
@@ -720,7 +720,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 329--331
 [12]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
- (/Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.aux)
+ (/Users/raina/Library/Mobile Documents/com~apple~CloudDocs/UofT-notes/math_other/.texpadtmp/ad_math_notes.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 336.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 336.
 Package rerunfilecheck Info: File `ad_math_notes.out' has not changed.
@@ -728,15 +728,15 @@ Package rerunfilecheck Info: File `ad_math_notes.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
  ) 
 Here is how much of TeX's memory you used:
- 19882 strings out of 492616
- 366750 string characters out of 6129482
- 467848 words of memory out of 5000000
- 23328 multiletter control sequences out of 15000+600000
+ 19886 strings out of 492616
+ 367067 string characters out of 6129482
+ 467756 words of memory out of 5000000
+ 23332 multiletter control sequences out of 15000+600000
  12594 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,10n,94p,667b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,10n,94p,669b,459s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/math_other/.texpadtmp/ad_math_notes.pdf (12 pages, 258845 bytes).
+Output written on "/Users/raina/Library/Mobile Documents/com~apple~CloudDocs/UofT-notes/math_other/.texpadtmp/ad_math_notes.pdf" (12 pages, 258251 bytes).
 PDF statistics:
  370 PDF objects out of 1000 (max. 8388607)
  317 compressed objects within 4 object streams

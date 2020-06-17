@@ -132,18 +132,102 @@ We implement the reflection by a recursive call of \ti{raycolor}:
 To make sure that the recursive call will terminate, we need to add a maximum recursion depth.
 
 
+\section{Data Structures for Graphics}
+\subsection{Spatial Data Structures}
+\subsubsection{Bounding Boxes}
+\definition
+	We first consider a 2D ray whose direction vector has positive $x$ and $y$ components. The 2D bounding box is defined by two horizontal and two vertical lines:
+	$$x = x_{\min}$$
+	$$x = x_{\max}$$
+	$$y = y_{\min}$$
+	$$y = y_{\max}$$
+	The points bounded by these lines can be described in interval notation:
+	$$(x,y) \in [x_{\min}, x_{\max}] \times [y_{\min}, y_{\max}]$$
+	The intersection test can be phrased in terms of these intervals. First, we compute the ray parameter where the ray hits the line $x = x_{\min}$:
+	$$t_{xmin} = \frac{x_{\min} - x_e}{x_d}$$
+	We then make similar computations for $t_{xmax}, t_{ymin}$, and $t_{ymax}$. The ray hits the box if and only if the intervals $[t_{xmin}, t_{xmax}]$ and $[t_{ymin}, t_{ymax}]$ overlap.
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p6}
+	\caption{The algorithm pseudocode.}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{p7}
+	\end{figure}
+\paragraph{Issue 1}
+The first thing we must address is the case when $x_d$ or $y_d$ is negative. If $x_d$ is negative, then the ray will hit $x_{\max}$ before it hits $x_{\min}$. Thus the code for computing $t_{xmin}$ and $t_{xmax}$ expands to:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p8}
+	\end{figure}
+A similar code expansion must be made for the $y$ cases.
+	
+\paragraph{Issue 2}
+A major concern is that horizontal and vertical rays have a zero value for $y_d$ and $x_d$, respectively. This will cause divide by zero which may be a problem. We define the \tb{rules for divide by zero}: \\
+For any positive real number $a$,
+$$+a / 0 = +\infty$$
+$$-a / 0 = -\infty$$
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p9}
+	\caption{The new code segment.}
+	\end{figure}
+	
+\subsubsection{Hierarchical Bounding Boxes}
+Basic idea: Place an axis-aligned 3D bounding box around all the objects. Since testing for intersection with the box is not free, rays that hit the bounding box will be more expensive to compute than in a brute force search, but rays that miss the box are cheaper. Such bounding boxes can be made hierarchical by partitioning the set of objects in a box and placing a box around each partition.
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p10}
+	\end{figure}
+\noindent The data structure for the hierarchy might be a tree with the large bounding box at the root and the two smaller bounding boxes as left and right subtrees. 
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p11}
+	\end{figure}
+\remark
+Each object belongs to one of two sibling nodes, whereas a point a space may be inside both sibling nodes.
 
+\subsubsection{Uniform Spatial Subdivision}
+In spatial division, each point in space belongs to exactly one node, whereas objects may belong to many nodes.\\
+The scene is partitioned into axis-aligned boxes. These boxes are all the same size, although they are not necessarily cubes. The ray traverses these boxes. When an object is hit, the traversal ends.
 
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p12}
+	\end{figure}
 
+\noindent This traversal is done in an increment fashion. We need to find the index $(i, j)$ of the first cell hit by the ray $\ve + t\vd$. Then we need to traverse the cells in an appropriate order. 
 
+\subsection{Axis-Aligned Binary Space Partitioning}
+We can also partition space in a hierarchical data structure such as a \ti{binary space partitioning tree} (BSP tree). It's common to use axis-aligned cutting planes for ray intersection.\\
+A node in this structure contains a single cutting plane and a left and right subtree. Each subtree contains all the objects on one side of the cutting plane. Objects that pass through the plane are stored in both subtrees. \red{If we assume the cutting plane is parallel to the $yz$ plane at $x = D$, then the node class is:}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p13}
+	\end{figure}
+The intersection code can then be called recursively in an object-oriented style. The code considers the four cases:
 
-
-
-
-
-
-
-
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p14}
+	\end{figure}
+The origin of these rays is a point at parameter $t_0$:
+$$\vp = \va + t_0 \vb$$
+The four cases are:
+\begin{enumerate}
+	\item The ray only interacts with the left subtree, and we need not test it for intersection with the cutting plane. It occurs for $x_p < D$ and $x_b < 0$.
+	\item The ray is tested against the left subtree, and if there are no hits, it is then tested against the right subtree. We need to find the ray parameter at $x = D$, so we can make sure we only test for intersections within the subtree. This case occurs for $x_p < D$ and $x_b > 0$.
+	\item This case is analogous to case 1 and occurs for $x_p > D$ and $x_b > 0$.
+	\item This case is analogous to case 2 and occurs for $x_p > D$ and $x_b < 0$.
+\end{enumerate}
+The resulting traversal code handling these cases in order is:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p15}
+	\end{figure}
 
 
 
