@@ -5,7 +5,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{esint}
-\usepackage[margin=3cm]{geometry}
+\usepackage[margin=2cm]{geometry}
 %\usepackage{pgfplots}
 \usepackage{graphicx}
 \usepackage{enumitem}
@@ -23,6 +23,7 @@
 ]{todonotes}
 \usepackage{minted}
 
+\numberwithin{equation}{section}
 
 % Property settings.
 \MakePerPage{footnote}
@@ -37,8 +38,207 @@
     \maketitle
     \tableofcontents
     \newpage
+\section{Raster Images}
+\begin{enumerate}
+	\item Raster displays show images as rectangular arrays of pixels.
+	\item Images should be arrays of floating-point numbers, with either one (for \tb{grayscale}, or black and white images), or three (for \tb{RGB} color images) 32-bit floating point numbers stored per pixel.
+\end{enumerate}
+
+\paragraph{Images as functions}
+Grayscale: $I(x, y): \real^2 \rightarrow \real$\\
+RGB: $I(x, y): \real^2 \rightarrow \real^3$\\
+
+
+
+\paragraph{Bayer filters}
+A \tb{Bayer filter} is a color filter array for arranging RGB color filters on a square grid of photosensors. The information is stored as a seemingly 1-channel image, but with an understood convention for interpreting each pixel as the red, green or blue intensity value with a fixed pattern.
+\paragraph{Demosaic algorithm}
+To demosaic an image, we would like to create a full rgb image without downsampling the image resolution. For each pixel
+\begin{enumerate}
+	\item We'll use the exact color sample when it's available;
+	\item We average available neighbors (in all 8 directions) to fill in missing colors.
+\end{enumerate}
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p25}
+	\caption{a: Bayer filters; bcd: Demosaic algorithm}
+	\end{figure}
+
+
+\paragraph{Image storage on the computer}
+To reduce the storage requirement, most image formats allow for some kind of compression, either \ti{lossless} or \ti{lossy}.
+\begin{itemize}
+	\item \tb{jpeg}: Lossy, compresses image blocks based on thresholds in the human visual system, works well for natural images.
+	\item \tb{tiff}: Losslessly compressed 8- or 16-bit RGB, or hold binary images.
+	\item \tb{ppm}: Lossless, uncompressed, most often used for 8-bit RGB images. Color intensities are represented as an integer between 0 and 255.
+	\item \tb{png}: Lossless, with a good set of open source management tools. \blue{can store rgba images}
+\end{itemize}
+In our assignment we use the convention that the red value of pixel in the top-left corner comes first, then its green value, then its blue value, and then the rgb values of its neighbor to the right and so on across the row of pixels, and then moving to the next row down the columns of rows.
+
+\paragraph{RGB images}
+
+\paragraph{HSV images}
+Another useful representation is store the hue, saturation, and value of a color. This "hsv" representation also has 3-channels: typically, the hue or h channel is stored in degrees (i.e., on a periodic scale) in the range $[0^\circ, 360^\circ]$ and the saturation s and value v are given as absolute values in $[0,1]$.
+
+\paragraph{HSV/RGB conversion}
+\tb{Desaturation}: Given a \texttt{factor}, for each pixel,
+\begin{enumerate}
+	\item Convert RGB values to HSV
+	\item Let $s \gets (1-factor) * s$
+	\item Convert HSV back to RGB
+\end{enumerate}
+\tb{Hue shifting}:
+\tb{Desaturation}: Given a \texttt{shift}, for each pixel,
+\begin{enumerate}
+	\item Convert RGB values to HSV
+	\item Let $h \gets (h + shift) \text{ mod } 360$
+	\item Convert HSV back to RGB
+\end{enumerate}
+
+\paragraph{Grayscale images}
+Take a weighted average of RGB values given higher priority to green:
+\begin{equation}
+	i = 0.2126r + 0.7152g + 0.0722b
+\end{equation}
+
+
+\paragraph{Alpha masking}
+It is often useful to store a value $\alpha$ representing \under{how opaque each pixel is}. \\
+When we store rgb + $\alpha$ image as a 4-channel rgba image. Just like rgb images, rgba images are 3D arrays unrolled into a linear array in memory.
+
+\section{Ray Casting}
+\subsection{General Ray Casting Algorithm}
+\begin{framed}
+\begin{minted}{C}
+for each pixel in the image {
+	Generate a ray
+	for each object in the scene {
+		if (Intersect ray with object){
+			Set pixel color
+		}
+	}
+}
+\end{minted}
+\end{framed}
+\subsection{Basics}
+\notation
+$\vs$: the scene\\
+$\ve$: the camera\\
+$\vd$: the viewing direction
+$p(t)$: point along ray
+\paragraph{Parametric equation for ray}
+A ray emanating from a point $\ve \in \real^3$ in a direction $\vd \in \real^3$ can be parameterized by a single number $t \in [0, \infty)$. Changing the value of $t$ picks a different point along the ray. The parametric function for a ray is
+\begin{align}
+	p(t) &= \ve + t(\vs - \ve) \\
+	&= \ve + t\vd
+\end{align}
+where $p(0) = \ve$ and $p(1) = \vs$.\\
+If $0 < t_1 < t_2$, then $p(t_1)$ is closer to the eye than $p(t_2)$.\\
+Also, if $t < 0$, then $p(t)$ is ``behind" the eye.
+
+\paragraph{Camera space}
+\begin{align}
+	\vw &= -\frac{View}{||View||} \\
+	\vu &= View \times Up \\
+	\vv &= \vw \times \vu
+\end{align}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p26}
+	\end{figure}
+
+\subsection{Orthographic/perspective projection}
+The view that is produced is determined by the choice of projection direction and image plane.
+\begin{enumerate}
+	\item \tb{Orthographic projection}: The image plane is perpendicular to the view direction
+	\item \tb{Oblique projection}: The image plane is \under{not} perpendicular to the view direction
+	\item \tb{Perspective projection}: Project alone lines that pass through a single \ti{view point}, rather than along parallel lines
+\end{enumerate}
+
+\paragraph{Orthographic views}
+$l$ and $r$ are the positions of the left and right edges of the image, as measured from e along the $\vu$ direction; and b and t are the positions of the bottom and top edges of the image, as measured from $\ve$ along the $\vv$ direction. Usually $l < 0 < r$ and $b < 0 < t$. \\
+To fit an image with $n_x \times n_y$ pixels into a rectangle of size $(r-l) \times (t-b)$, the pixels are spaced a distance $(r - l)/n_x$ apart horizontally and $(t-b)/n_y$ apart vertically, with a half-pixel space around the edge to center the pixel grid within the image rectangle.
+\begin{align}
+	u &= l + (r - l)(i+0.5)/n_x \\
+	v &= b + (t - b)(j+0.5)/n_y
+\end{align}
+where $(u, v)$ are the coordinates of the pixel's position on the image plane, measured with respect to the origin $\ve$ and the basis $\{\vu, \vv\}$.\\
+The procedure for generating orthographic viewing rays is then:
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p27}
+	\end{figure}
+
+\paragraph{Perspective views}
+The image plane is some distance $d$ (\ti{image plane distance}) in front of $\ve$. The resulting procedure is
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p29}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p28}
+	\end{figure}
+	
+\subsection{Ray-Object Intersection}
+\subsubsection{Plane}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p30}
+	\end{figure}
+	
+
+\subsubsection{Sphere}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p31}
+	\end{figure}
+
+\begin{align}
+	intersect &= \ve + \vt * \vd\\
+	\vn &= (intersect - \vc).normalized()
+\end{align}
+	
+
+\subsubsection{Triangle}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p32}
+	\end{figure}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p33}
+	\end{figure}
+	
+\begin{align}
+	\vn &= [(\vb - \va) \times (\vc - \va)].normalized()
+\end{align}
+
+
 
 \section{Ray Tracing}
+\subsection{General Ray Tracing Algorithm}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p34}
+	\includegraphics[scale=0.3]{p35}
+	\end{figure}
+\subsection{Image-order vs Object-order rendering}
+\paragraph{Image-order rendering}
+Each pixel is considered in turn, and for each pixel all the objects that influence it are found and the pixel value is computed.\\
+\blue{Simpler to get working, more flexible in the effects that can be produced, usually takes much more execution time to produce a comparable image.}
+
+\paragraph{Object-order rendering}
+Each object is considered in turn, and for each object all the pixels that it influences are found and updated.
+
+\subsection{Two types of lights}
+\paragraph{Directional Light}
+Direction of light does not depend on the position of the object. Light is very far away.
+
+\paragraph{Point Light}
+Direction of light depends on position of object relative to light.
+
 \subsection{Shading \label{Shading}}
 \notation
 The important variables in light reflection are \red{unit vectors}\\
@@ -132,9 +332,20 @@ We implement the reflection by a recursive call of \ti{raycolor}:
 To make sure that the recursive call will terminate, we need to add a maximum recursion depth.
 
 
-\section{Data Structures for Graphics}
-\subsection{Spatial Data Structures}
-\subsubsection{Bounding Boxes}
+\section{Bounding Volume Hierachy}
+\subsection{Two types of subdivisions}
+\tb{Object-based subdivision}:
+\begin{itemize}
+	\item AABB Trees
+\end{itemize}
+\tb{Spatial subdivision}:
+\begin{itemize}
+	\item Uniform Spatial Subdivision
+	\item Axis-Aligned Spatial Subdivision
+\end{itemize}
+
+
+\subsection{Bounding Boxes}
 \definition
 	We first consider a 2D ray whose direction vector has positive $x$ and $y$ components. The 2D bounding box is defined by two horizontal and two vertical lines:
 	$$x = x_{\min}$$
@@ -157,6 +368,9 @@ To make sure that the recursive call will terminate, we need to add a maximum re
 	\centering
 	\includegraphics[scale=0.45]{p7}
 	\end{figure}
+\paragraph{Ray-AABB Intersection}
+If $\max(t_{xmin}, t_{ymin}, y_{zmin}) < \min(t_{xmax}, t_{ymax}, y_{zmax})$, then the ray intersects with the box.
+
 \paragraph{Issue 1}
 The first thing we must address is the case when $x_d$ or $y_d$ is negative. If $x_d$ is negative, then the ray will hit $x_{\max}$ before it hits $x_{\min}$. Thus the code for computing $t_{xmin}$ and $t_{xmax}$ expands to:
 	\begin{figure}[H]
@@ -175,22 +389,50 @@ $$-a / 0 = -\infty$$
 	\includegraphics[scale=0.7]{p9}
 	\caption{The new code segment.}
 	\end{figure}
-	
-\subsubsection{Hierarchical Bounding Boxes}
-Basic idea: Place an axis-aligned 3D bounding box around all the objects. Since testing for intersection with the box is not free, rays that hit the bounding box will be more expensive to compute than in a brute force search, but rays that miss the box are cheaper. Such bounding boxes can be made hierarchical by partitioning the set of objects in a box and placing a box around each partition.
-	\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.7]{p10}
-	\end{figure}
-\noindent The data structure for the hierarchy might be a tree with the large bounding box at the root and the two smaller bounding boxes as left and right subtrees. 
-	\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.7]{p11}
-	\end{figure}
-\remark
-Each object belongs to one of two sibling nodes, whereas a point a space may be inside both sibling nodes.
 
-\subsubsection{Uniform Spatial Subdivision}
+\subsection{Axis-Aligned Bounding Boxes Tree (AABB Tree)}
+In our assignment, we will build a binary tree. Conducting queries on the tree will be reminiscent of searching for values in a \ti{binary search tree}.
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{p36}
+	\end{figure}
+
+\noindent \tb{Basic idea}: Place an axis-aligned 3D bounding box around all the objects. Since testing for intersection with the box is not free, rays that hit the bounding box will be more expensive to compute than in a brute force search, but rays that miss the box are cheaper. Such bounding boxes can be made hierarchical by partitioning the set of objects in a box and placing a box around each partition.\\
+\remark
+Each object belongs to one of two sibling nodes, whereas a point in space may be inside both sibling nodes.\\
+\remark[pros and cons]
+As follows:
+\begin{itemize}
+	\item pros: \blue{Operations (e.g. growing the bounding box, testing ray intersection or determining closest-point distances with an axis-aligned bounding box) usually reduce to trivial per-component arithmetic. This means the code is simple to write/debug and also inexpensive to evaluate.}
+	\item cons: \blue{In general, AABBs will not tightly enclose a set of objects.}
+\end{itemize}
+\paragraph{Ray intersection algorithm}
+The ray intersection algorithm is essentially performing a \red{depth first search}.
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p11}
+	\end{figure}
+\paragraph{Distance query algorithm}
+In this algorithm, we are interested in which box in the AABB tree is the closest to a fixed point.
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p10}
+	\end{figure}
+\remark[pros and cons of DFS]
+As follows:
+\begin{itemize}
+	\item pros: \blue{The search usually doesn't have to visit the entire tree because most boxes are not hit by the given ray. In this way, many search paths are quickly aborted.}
+	\item cons: \blue{Every box has some closest point to our query. A naive depth-first search could end up searching over every box before finding the one with the smallest query.}
+	\item BFS is a much better structure since it makes use of a priority queue to explore the current best looking path in our tree.
+\end{itemize}
+
+
+\subsection{Object-Oriented Bounding Box (OOBB)}
+Find directions of maximum variance using PCA.
+
+
+\subsection{Uniform Spatial Subdivision}
 In spatial division, each point in space belongs to exactly one node, whereas objects may belong to many nodes.\\
 The scene is partitioned into axis-aligned boxes. These boxes are all the same size, although they are not necessarily cubes. The ray traverses these boxes. When an object is hit, the traversal ends.
 
@@ -201,7 +443,7 @@ The scene is partitioned into axis-aligned boxes. These boxes are all the same s
 
 \noindent This traversal is done in an increment fashion. We need to find the index $(i, j)$ of the first cell hit by the ray $\ve + t\vd$. Then we need to traverse the cells in an appropriate order. 
 
-\subsection{Axis-Aligned Binary Space Partitioning}
+\subsection{Axis-Aligned Binary Space Partitioning (BSP Trees)}
 We can also partition space in a hierarchical data structure such as a \ti{binary space partitioning tree} (BSP tree). It's common to use axis-aligned cutting planes for ray intersection.\\
 A node in this structure contains a single cutting plane and a left and right subtree. Each subtree contains all the objects on one side of the cutting plane. Objects that pass through the plane are stored in both subtrees. \red{If we assume the cutting plane is parallel to the $yz$ plane at $x = D$, then the node class is:}
 	\begin{figure}[H]
@@ -229,8 +471,272 @@ The resulting traversal code handling these cases in order is:
 	\includegraphics[scale=0.6]{p15}
 	\end{figure}
 
+\section{Triangle Meshes}
+\paragraph{Motivation} 
+\begin{itemize}
+	\item Mesh is a basic computer graphics data structure.
+	\item Most real-world models are composed of complexes of triangles with shared vertices. These are usually known as \tb{triangle meshes}, and handling them efficiently is crucial to the performance of many graphics programs. 
+	\item We'd like to minimize the amount of storage consumed.
+	\item Besides basic operations (storing \& drawing), other operations such as \ti{subdivision}, \ti{mesh editing} and \ti{mesh compression}, \under{efficient access to adjacency information} is crucial.
+\end{itemize}
 
 
+\subsection{Mesh Topology}
+\property[Manifold meshes]
+The topology of a mesh is a \tb{manifold} surface: A surface in which a small neighborhood around any point could be smoothed out into a bit of flat surface.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p16}
+\end{figure}
+\paragraph{Verifying the property}
+Prevent crashes or infinite loops by checking:
+\begin{enumerate}
+	\item Every edge is shared by exactly two triangles.	 (as in figure 12.1)
+	\item Every vertex has a single, complete loop of triangles around it. (as in figure 12.2)
+\end{enumerate}
+
+
+\property[Manifold with boundary meshes]
+Sometimes it's necessary to allow meshes to have boundaries. Such meshes are not manifolds. However, we can relax the requirements of a manifold mesh to those for a \tb{manifold with boundary} without causing problems for most mesh processing algorithms. The relaxed conditions are:
+\begin{enumerate}
+	\item Every edge is used by either one or two triangles.
+	\item Every vertex connects to a single edge-connected set of triangles.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p17}
+\end{figure}
+\noindent Figure 12.3 illustrates these conditions. 
+
+\property[orientation]
+For a single triangle, we define orientation based on the order in which the vertices are listed: \blue{the front is the side from which the triangle's three vertices are arranged in counterclockwise order.}\\
+A connected mesh is \tb{consistently oriented} if its triangles all agree on which side is the front.
+
+
+\subsection{Indexed Mesh Storage}
+\definition[Separate triangles]
+Store each triangle as an independent entity.
+\begin{framed}
+\begin{minted}{C}
+Triangle {
+	vector3 vertexPosition[3]
+}
+\end{minted}
+\end{framed}
+
+\definition[Indexed Shared-vertex mesh]
+This data structure has triangles which \tb{point to} vertices which contain the vertex data:
+\begin{framed}
+\begin{minted}{C}
+Triangle {
+	Vertex v[3]
+}
+
+Vertex {
+	vector3 position
+}
+\end{minted}
+\end{framed}
+In implementation, the vertices and triangles are normally stored in arrays:
+\begin{framed}
+\begin{minted}{C}
+IndexedMesh{
+	int tInd[nt][3]
+	vector3 verts[nv]
+}
+\end{minted}
+\end{framed}
+\noindent The index of the $k$th vertex of the $i$th triangle is found in \texttt{tInd[i][k]}, and the position of that vertex is stored in the corresponding row of the \texttt{verts} arary.
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{p18}
+	\end{figure}
+\paragraph{Space requirements}
+If our mesh has $n_v$ vertices and $n_t$ triangles, and if we assume that the data for floats, pointers, and ints all require the same storage, the space requirements are as follows:
+\begin{itemize}
+	\item \tb{Triangle}: Three vectors per triangle, for $9n_t$ units of storage;
+	\item \tb{IndexedMesh}: One vector per vertex and three ints per triangle, for $3n_v + 3n_t$ units of storage.
+\end{itemize}
+Empirically, $n_t \approx 2n_v$.
+
+\subsection{Triangle Strips and Fans}
+In applications where even more compactness is desirable, the triangle vertex indices can be expressed more efficiently using \tb{triangle strips} and \tb{triangle fans}.
+
+\definition[Triangle fan]
+All the triangles share one common vertex, and the other vertices generate a set of triangles like the vanes of a collapsible fan (Figure 12.9). \blue{The fan in the figure could be specified with the sequence $[0, 1, 2, 3, 4, 5]$: the first vertex establishes the center, and subsequently each pair of adjacent vertices creates a triangle.}
+\definition[Triangle strip]
+Here, vertices are added alternating top and bottom in a linear strip as shown in Figure 12.10. \blue{The triangle strip in the figure could be specified by the sequence [0 1 2 3 4 5 6 7], and every subsequence of three adjacent vertices creates a triangle.} For consistent orientation, every other triangle needs to have its order reversed. For each new vertex that comes in, the oldest vertex is forgotten and the order of the two remaining vertices is swapped.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p19}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p20}
+\end{figure}
+\noindent \red{In both strips and fans, $n+2$ vertices suffice to describe $n$ triangles.}
+
+\subsection{Data Structures for Mesh Connectivity}
+\subsubsection{The Triangle-Neighbor Structure}
+Augmenting the basic shared-vertex mesh with pointers from the triangles to the three neighboring triangles, and a pointer from each vertex to one of the adjacent triangles (it doesn't matter which one)
+\begin{framed}
+\begin{minted}{C}
+Triangle {
+	Triangle nbr[3];
+	Vertex v[3];
+}
+
+Vertex {
+	// ... per-vertex data ...
+	Triangle t; // any adjacent tri
+}
+\end{minted}
+\end{framed}
+\noindent \blue{In the array \texttt{Triangle.nbr}, the $k$th entry points to the neighboring triangle that shares vertices $k$ and $k + 1$.}\\
+Implementation:
+\begin{framed}
+\begin{minted}{C}
+Mesh{
+	vector3 verts[nv] // per-vertex data 
+	int tInd[nt][3]; // vertex indices
+	int tNbr[nt][3]; // indices of neighbor triangles
+	int vTri[nv]; // index of any adjacent triangle
+}
+\end{minted}
+\end{framed}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p21}
+\end{figure}
+
+The idea is to move from triangle to triangle, visiting only the triangles adjacent to the relevant vertex. If triangle t has vertex v as its kth vertex, then the triangle t.nbr[k] is the next triangle around v in the clockwise direction. This observation leads to the following algorithm to traverse all the triangles adjacent to a given vertex:
+\begin{framed}
+\begin{minted}{C}
+TrianglesOfVertex(v) { t = v.t
+do {
+find i such that (t.v[i] == v) t = t.nbr[i]
+} while (t != v.t) }
+\end{minted}
+\end{framed}
+A small refinement to let us find the previous triangle:
+\begin{framed}
+\begin{minted}{C}
+Triangle {
+   Edge nbr[3];
+   Vertex v[3];
+}
+Edge { // the i-th edge of triangle t Triangle t;
+   int i;  // in {0,1,2}
+}
+Vertex {
+   // ... per-vertex data ...
+   Edge e; // any edge leaving vertex
+}
+
+\end{minted}
+\end{framed}
+
+\begin{framed}
+\begin{minted}{C}
+TrianglesOfVertex(v) { 
+	{t, i} = v.e;
+	do {
+		{t, i} = t.nbr[i];
+		i = (i+1) mod 3;
+	} while (t != v.e.t);
+}
+
+\end{minted}
+\end{framed}
+
+\subsection{The Winged-Edge Structure}
+In a winged-edge mesh, each edge stores pointers to the two vertices it con- nects (the head and tail vertices), the two faces it is part of (the left and right faces), and, most importantly, the next and previous edges in the counterclock- wise traversal of its left and right faces (Figure 12.16). Each vertex and face also stores a pointer to a \under{single, arbitrary edge} that connects to it:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p21}
+\end{figure}
+
+\begin{framed}
+\begin{minted}{C}
+Edge {
+	Edge lprev, lnext, rprev, rnext; 
+	Vertex head, tail;
+	Face left, right;
+}
+Face {
+	// ... per-face data ...
+	Edge e; // any adjacent edge
+}
+Vertex {
+	// ... per-vertex data ... Edge e; // any incident edge
+}
+\end{minted}
+\end{framed}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.4]{p22}
+\end{figure}
+
+The search algorithm:
+\begin{figure}[H]
+%	\centering
+	\includegraphics[scale=0.5]{p23}
+\end{figure}
+
+\subsection{The Half-Edge Structure}
+The winged-edge structure is quite elegant, but it has one remaining awkward- ness—the need to constantly check which way the edge is oriented before moving to the next edge. \\
+Solution: Store data for each \tb{half-edge}. There is one half-edge for each of the two triangles that share an edge, and the two half-edges are oriented oppositely, each oriented consistently with its own triangle.\\
+\blue{The data normally stored in an edge is split between the two half-edges. Each half-edge points to the face on its side of the edge and to the vertex at its head, and each contains the edge pointers for its face. It also points to its neighbor on the other side of the edge, from which the other half of the information can be found.}
+\begin{framed}
+\begin{minted}{C}
+HEdge {
+   HEdge pair, next;
+   Vertex v;
+   Face f;
+}
+Face {
+	// ... per-face data ...
+	HEdge h; // any h-edge of this face
+}
+Vertex {
+	// ... per-vertex data ...
+	HEdge h; // any h-edge pointing toward this vertex
+}
+
+\end{minted}
+\end{framed}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p24}
+\end{figure}
+
+The search algorithm:
+\begin{framed}
+\begin{minted}{C}
+EdgesOfVertex(v) { 
+	h = v.h;
+	do {
+		h = h.pair.next;
+	} while (h != v.h); 
+}
+
+EdgesOfFace(f) { 
+	h = f.h;
+	do {
+		h = h.next;
+	} while (h != f.h); 
+}
+\end{minted}
+\end{framed}
+
+The vertex traversal here is clockwise, which is necessary because of omitting the prev pointer from the structure.\\
+Because half-edges are generally allocated in pairs (at least in a mesh with no boundaries), many implementations can do away with the pair pointers. For instance, in an implementation based on array indexing (such as shown in Figure 12.18), the array can be arranged so that an even-numbered edge $i$ always pairs with edge $i + 1$ and an odd-numbered edge $j$ always pairs with edge $j-1$.\\
+In addition to the simple traversal algorithms shown in this chapter, all three of these mesh topology structures can support "mesh surgery" operations of various sorts, such as splitting or collapsing vertices, swapping edges, adding or removing triangles, etc.
+
+\subsection{Catmull-Clark subdivision algorithm}
+\todo{Missing notes}
 
 
 

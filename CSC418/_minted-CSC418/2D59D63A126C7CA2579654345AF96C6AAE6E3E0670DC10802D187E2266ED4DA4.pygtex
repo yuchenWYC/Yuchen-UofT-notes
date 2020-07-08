@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{HEdge} \PYG{p}{\PYGZob{}}
+   \PYG{n}{HEdge} \PYG{n}{pair}\PYG{p}{,} \PYG{n}{next}\PYG{p}{;}
+   \PYG{n}{Vertex} \PYG{n}{v}\PYG{p}{;}
+   \PYG{n}{Face} \PYG{n}{f}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{Face} \PYG{p}{\PYGZob{}}
+	\PYG{c+c1}{// ... per\PYGZhy{}face data ...}
+	\PYG{n}{HEdge} \PYG{n}{h}\PYG{p}{;} \PYG{c+c1}{// any h\PYGZhy{}edge of this face}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{Vertex} \PYG{p}{\PYGZob{}}
+	\PYG{c+c1}{// ... per\PYGZhy{}vertex data ...}
+	\PYG{n}{HEdge} \PYG{n}{h}\PYG{p}{;} \PYG{c+c1}{// any h\PYGZhy{}edge pointing toward this vertex}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

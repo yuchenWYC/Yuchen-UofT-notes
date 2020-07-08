@@ -1,15 +1,37 @@
-\BOOKMARK [1][-]{section.1}{Ray Tracing}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{Shading }{section.1}% 2
-\BOOKMARK [3][-]{subsubsection.1.1.1}{Lambertian Shading}{subsection.1.1}% 3
-\BOOKMARK [3][-]{subsubsection.1.1.2}{Blinn-Phong Shading}{subsection.1.1}% 4
-\BOOKMARK [3][-]{subsubsection.1.1.3}{Ambient Shading}{subsection.1.1}% 5
-\BOOKMARK [3][-]{subsubsection.1.1.4}{Multiple Point Lights}{subsection.1.1}% 6
-\BOOKMARK [2][-]{subsection.1.2}{A Ray-Tracing Program}{section.1}% 7
-\BOOKMARK [2][-]{subsection.1.3}{Shadows}{section.1}% 8
-\BOOKMARK [2][-]{subsection.1.4}{Ideal Specular Reflection}{section.1}% 9
-\BOOKMARK [1][-]{section.2}{Data Structures for Graphics}{}% 10
-\BOOKMARK [2][-]{subsection.2.1}{Spatial Data Structures}{section.2}% 11
-\BOOKMARK [3][-]{subsubsection.2.1.1}{Bounding Boxes}{subsection.2.1}% 12
-\BOOKMARK [3][-]{subsubsection.2.1.2}{Hierarchical Bounding Boxes}{subsection.2.1}% 13
-\BOOKMARK [3][-]{subsubsection.2.1.3}{Uniform Spatial Subdivision}{subsection.2.1}% 14
-\BOOKMARK [2][-]{subsection.2.2}{Axis-Aligned Binary Space Partitioning}{section.2}% 15
+\BOOKMARK [1][-]{section.1}{Raster Images}{}% 1
+\BOOKMARK [1][-]{section.2}{Ray Casting}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{General Ray Casting Algorithm}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Basics}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Orthographic/perspective projection}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Ray-Object Intersection}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Plane}{subsection.2.4}% 7
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Sphere}{subsection.2.4}% 8
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Triangle}{subsection.2.4}% 9
+\BOOKMARK [1][-]{section.3}{Ray Tracing}{}% 10
+\BOOKMARK [2][-]{subsection.3.1}{General Ray Tracing Algorithm}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.2}{Image-order vs Object-order rendering}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.3}{Two types of lights}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.4}{Shading }{section.3}% 14
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Lambertian Shading}{subsection.3.4}% 15
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Blinn-Phong Shading}{subsection.3.4}% 16
+\BOOKMARK [3][-]{subsubsection.3.4.3}{Ambient Shading}{subsection.3.4}% 17
+\BOOKMARK [3][-]{subsubsection.3.4.4}{Multiple Point Lights}{subsection.3.4}% 18
+\BOOKMARK [2][-]{subsection.3.5}{A Ray-Tracing Program}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.6}{Shadows}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.7}{Ideal Specular Reflection}{section.3}% 21
+\BOOKMARK [1][-]{section.4}{Bounding Volume Hierachy}{}% 22
+\BOOKMARK [2][-]{subsection.4.1}{Two types of subdivisions}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.2}{Bounding Boxes}{section.4}% 24
+\BOOKMARK [2][-]{subsection.4.3}{Axis-Aligned Bounding Boxes Tree \(AABB Tree\)}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.4}{Object-Oriented Bounding Box \(OOBB\)}{section.4}% 26
+\BOOKMARK [2][-]{subsection.4.5}{Uniform Spatial Subdivision}{section.4}% 27
+\BOOKMARK [2][-]{subsection.4.6}{Axis-Aligned Binary Space Partitioning \(BSP Trees\)}{section.4}% 28
+\BOOKMARK [1][-]{section.5}{Triangle Meshes}{}% 29
+\BOOKMARK [2][-]{subsection.5.1}{Mesh Topology}{section.5}% 30
+\BOOKMARK [2][-]{subsection.5.2}{Indexed Mesh Storage}{section.5}% 31
+\BOOKMARK [2][-]{subsection.5.3}{Triangle Strips and Fans}{section.5}% 32
+\BOOKMARK [2][-]{subsection.5.4}{Data Structures for Mesh Connectivity}{section.5}% 33
+\BOOKMARK [3][-]{subsubsection.5.4.1}{The Triangle-Neighbor Structure}{subsection.5.4}% 34
+\BOOKMARK [2][-]{subsection.5.5}{The Winged-Edge Structure}{section.5}% 35
+\BOOKMARK [2][-]{subsection.5.6}{The Half-Edge Structure}{section.5}% 36
+\BOOKMARK [2][-]{subsection.5.7}{Catmull-Clark subdivision algorithm}{section.5}% 37

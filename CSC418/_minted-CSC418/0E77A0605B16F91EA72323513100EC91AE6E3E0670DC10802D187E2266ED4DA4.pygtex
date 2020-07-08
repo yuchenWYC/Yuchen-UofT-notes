@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{Edge} \PYG{p}{\PYGZob{}}
+	\PYG{n}{Edge} \PYG{n}{lprev}\PYG{p}{,} \PYG{n}{lnext}\PYG{p}{,} \PYG{n}{rprev}\PYG{p}{,} \PYG{n}{rnext}\PYG{p}{;}
+	\PYG{n}{Vertex} \PYG{n}{head}\PYG{p}{,} \PYG{n}{tail}\PYG{p}{;}
+	\PYG{n}{Face} \PYG{n}{left}\PYG{p}{,} \PYG{n}{right}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{Face} \PYG{p}{\PYGZob{}}
+	\PYG{c+c1}{// ... per\PYGZhy{}face data ...}
+	\PYG{n}{Edge} \PYG{n}{e}\PYG{p}{;} \PYG{c+c1}{// any adjacent edge}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{Vertex} \PYG{p}{\PYGZob{}}
+	\PYG{c+c1}{// ... per\PYGZhy{}vertex data ... Edge e; // any incident edge}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{IndexedMesh}\PYG{p}{\PYGZob{}}
+	\PYG{k+kt}{int} \PYG{n}{tInd}\PYG{p}{[}\PYG{n}{nt}\PYG{p}{][}\PYG{l+m+mi}{3}\PYG{p}{]}
+	\PYG{n}{vector3} \PYG{n}{verts}\PYG{p}{[}\PYG{n}{nv}\PYG{p}{]}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{Triangle} \PYG{p}{\PYGZob{}}
+   \PYG{n}{Edge} \PYG{n}{nbr}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{];}
+   \PYG{n}{Vertex} \PYG{n}{v}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{];}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{Edge} \PYG{p}{\PYGZob{}} \PYG{c+c1}{// the i\PYGZhy{}th edge of triangle t Triangle t;}
+   \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{;}  \PYG{c+c1}{// in \PYGZob{}0,1,2\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\PYG{n}{Vertex} \PYG{p}{\PYGZob{}}
+   \PYG{c+c1}{// ... per\PYGZhy{}vertex data ...}
+   \PYG{n}{Edge} \PYG{n}{e}\PYG{p}{;} \PYG{c+c1}{// any edge leaving vertex}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

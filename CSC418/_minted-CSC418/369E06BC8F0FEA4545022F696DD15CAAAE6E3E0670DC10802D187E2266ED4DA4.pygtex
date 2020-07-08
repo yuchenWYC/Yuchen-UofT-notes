@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{TrianglesOfVertex}\PYG{p}{(}\PYG{n}{v}\PYG{p}{)} \PYG{p}{\PYGZob{}} \PYG{n}{t} \PYG{o}{=} \PYG{n}{v}\PYG{p}{.}\PYG{n}{t}
+\PYG{k}{do} \PYG{p}{\PYGZob{}}
+\PYG{n}{find} \PYG{n}{i} \PYG{n}{such} \PYG{n}{that} \PYG{p}{(}\PYG{n}{t}\PYG{p}{.}\PYG{n}{v}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{==} \PYG{n}{v}\PYG{p}{)} \PYG{n}{t} \PYG{o}{=} \PYG{n}{t}\PYG{p}{.}\PYG{n}{nbr}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+\PYG{p}{\PYGZcb{}} \PYG{k}{while} \PYG{p}{(}\PYG{n}{t} \PYG{o}{!=} \PYG{n}{v}\PYG{p}{.}\PYG{n}{t}\PYG{p}{)} \PYG{p}{\PYGZcb{}}
+\end{Verbatim}
