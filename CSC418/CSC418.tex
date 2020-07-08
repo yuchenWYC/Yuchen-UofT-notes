@@ -426,6 +426,12 @@ As follows:
 	\item cons: \blue{Every box has some closest point to our query. A naive depth-first search could end up searching over every box before finding the one with the smallest query.}
 	\item BFS is a much better structure since it makes use of a priority queue to explore the current best looking path in our tree.
 \end{itemize}
+\remark
+\tb{Tree construction complexity:} $\mc{O}(n\log n)$\\
+\tb{Tree traversal complexity:} $\mc{O}(n)$ (worst case) \\
+\tb{Brute force complexity:} $\mc{O}(n)$
+
+
 
 
 \subsection{Object-Oriented Bounding Box (OOBB)}
@@ -652,7 +658,7 @@ TrianglesOfVertex(v) {
 \end{framed}
 
 \subsection{The Winged-Edge Structure}
-In a winged-edge mesh, each edge stores pointers to the two vertices it con- nects (the head and tail vertices), the two faces it is part of (the left and right faces), and, most importantly, the next and previous edges in the counterclock- wise traversal of its left and right faces (Figure 12.16). Each vertex and face also stores a pointer to a \under{single, arbitrary edge} that connects to it:
+In a winged-edge mesh, each edge stores pointers to the two vertices it connects (the head and tail vertices), the two faces it is part of (the left and right faces), and, most importantly, the next and previous edges in the counterclock- wise traversal of its left and right faces (Figure 12.16). Each vertex and face also stores a pointer to a \under{single, arbitrary edge} that connects to it:
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.4]{p21}
@@ -734,11 +740,42 @@ EdgesOfFace(f) {
 The vertex traversal here is clockwise, which is necessary because of omitting the prev pointer from the structure.\\
 Because half-edges are generally allocated in pairs (at least in a mesh with no boundaries), many implementations can do away with the pair pointers. For instance, in an implementation based on array indexing (such as shown in Figure 12.18), the array can be arranged so that an even-numbered edge $i$ always pairs with edge $i + 1$ and an odd-numbered edge $j$ always pairs with edge $j-1$.\\
 In addition to the simple traversal algorithms shown in this chapter, all three of these mesh topology structures can support "mesh surgery" operations of various sorts, such as splitting or collapsing vertices, swapping edges, adding or removing triangles, etc.
+\subsection{Different types of normals}
+\paragraph{Per-Face Normals}
+The surface will have a \tb{faceted appearance}. This appearance is mathematically correct, but not necessarily desired if we wish to display a smooth looking surface.
+\paragraph{Per-Vertex Normals}
+Corners of triangles located at the same vertex should share the same normal vector. \tb{Smooth appearance}. A common way to define per-vertex normals is to take a \tb{area-weighted average} of normals from incident faces:
+\begin{equation}
+	\vn_{v} = \frac{\sum_{f\in N(v)} a_f\vn_{f}}{||\sum_{f\in N(v)} a_f\vn_{f}||}
+\end{equation}
+where $N(v)$ is the set of faces neighboring the $v$-th vertex, $a_f$ is the area of face $f$, and $\vn_f$ is the normal vector of face $f$.
+
+\paragraph{Per-Corner Normals}
+For surfaces with a mixture of smooth-looking parts and creases, it is useful to define normals independently for each triangle corner (as opposed to each mesh vertex). For each corner, we'll again compute an area-weighted average of normals triangles incident on the shared vertex at this corner, but we'll ignore triangle's whose normal is too different from the corner's face's normal:
+\begin{equation}
+	\vn_{f,c} = \frac{\sum_{g \in N(v)|\vn_{g}\cdot \vn_{f}>\epsilon} a_g\vn_{g}}{||\sum_{g \in N(v)|\vn_{g}\cdot \vn_{f}>\epsilon} a_g\vn_{g}||}
+\end{equation}
+where $\epsilon$ is the minimum dot  product between two face normals before we declare there is a crease between them.
+
 
 \subsection{Catmull-Clark subdivision algorithm}
-\todo{Missing notes}
+\paragraph{Subdivision Surfaces}
+A Recursive refinement of polygonal mesh that results in smooth 	``limit surface".
 
-
+\subsection{Catmull-Clark subdivision algorithm}
+The first and still popular subdivision scheme.
+\begin{enumerate}
+	\item Set the face point for each facet to be the average of its vertices.
+	\item Add edge points - average of two neighboring face points and edge end points.
+	\item Add edges between face points and edge points.
+	\item Move each original vertex according to new position given by
+	$$\frac{F + 2R + (n-3)P}{n}$$
+	where $F$ is average of all $n$ created face points adjacent to $P$ and $R$ is average of all original edge midpoints touching $P$.
+	\item Connect up original points to make facets
+	\item Repeat
+	
+\end{enumerate}
+\unsure{If texture coordinates is on the test, look up textbook p249}
 
 
 

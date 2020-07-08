@@ -34,4 +34,6 @@
 \BOOKMARK [3][-]{subsubsection.5.4.1}{The Triangle-Neighbor Structure}{subsection.5.4}% 34
 \BOOKMARK [2][-]{subsection.5.5}{The Winged-Edge Structure}{section.5}% 35
 \BOOKMARK [2][-]{subsection.5.6}{The Half-Edge Structure}{section.5}% 36
-\BOOKMARK [2][-]{subsection.5.7}{Catmull-Clark subdivision algorithm}{section.5}% 37
+\BOOKMARK [2][-]{subsection.5.7}{Different types of normals}{section.5}% 37
+\BOOKMARK [2][-]{subsection.5.8}{Catmull-Clark subdivision algorithm}{section.5}% 38
+\BOOKMARK [2][-]{subsection.5.9}{Catmull-Clark subdivision algorithm}{section.5}% 39

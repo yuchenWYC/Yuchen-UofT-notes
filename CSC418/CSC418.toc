@@ -47,7 +47,7 @@
 \contentsline {subsection}{\numberline {4.3}Axis-Aligned Bounding Boxes Tree (AABB Tree)}{15}{subsection.4.3}% 
 \contentsline {paragraph}{Ray intersection algorithm}{15}{section*.23}% 
 \contentsline {paragraph}{Distance query algorithm}{16}{section*.24}% 
-\contentsline {subsection}{\numberline {4.4}Object-Oriented Bounding Box (OOBB)}{16}{subsection.4.4}% 
+\contentsline {subsection}{\numberline {4.4}Object-Oriented Bounding Box (OOBB)}{17}{subsection.4.4}% 
 \contentsline {subsection}{\numberline {4.5}Uniform Spatial Subdivision}{17}{subsection.4.5}% 
 \contentsline {subsection}{\numberline {4.6}Axis-Aligned Binary Space Partitioning (BSP Trees)}{17}{subsection.4.6}% 
 \contentsline {section}{\numberline {5}Triangle Meshes}{18}{section.5}% 
@@ -61,4 +61,10 @@
 \contentsline {subsubsection}{\numberline {5.4.1}The Triangle-Neighbor Structure}{22}{subsubsection.5.4.1}% 
 \contentsline {subsection}{\numberline {5.5}The Winged-Edge Structure}{24}{subsection.5.5}% 
 \contentsline {subsection}{\numberline {5.6}The Half-Edge Structure}{26}{subsection.5.6}% 
-\contentsline {subsection}{\numberline {5.7}Catmull-Clark subdivision algorithm}{27}{subsection.5.7}% 
+\contentsline {subsection}{\numberline {5.7}Different types of normals}{27}{subsection.5.7}% 
+\contentsline {paragraph}{Per-Face Normals}{27}{section*.28}% 
+\contentsline {paragraph}{Per-Vertex Normals}{27}{section*.29}% 
+\contentsline {paragraph}{Per-Corner Normals}{28}{section*.30}% 
+\contentsline {subsection}{\numberline {5.8}Catmull-Clark subdivision algorithm}{28}{subsection.5.8}% 
+\contentsline {paragraph}{Subdivision Surfaces}{28}{section*.31}% 
+\contentsline {subsection}{\numberline {5.9}Catmull-Clark subdivision algorithm}{28}{subsection.5.9}% 
