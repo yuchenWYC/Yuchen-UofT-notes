@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  8 JUL 2020 04:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  8 JUL 2020 04:47
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -755,7 +755,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 48--50
 
  []
 
-<p25.png, id=243, 1345.025pt x 224.84pt>
+<p25.png, id=238, 1345.025pt x 224.84pt>
 File: p25.png Graphic file (type png)
 <use p25.png>
 Package pdftex.def Info: p25.png  used on input line 64.
@@ -783,61 +783,61 @@ l.83
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 2.
 ) [4]
-<p26.png, id=283, 585.18625pt x 520.94624pt>
+<p26.png, id=278, 585.18625pt x 520.94624pt>
 File: p26.png Graphic file (type png)
 <use p26.png>
 Package pdftex.def Info: p26.png  used on input line 148.
 (pdftex.def)             Requested size: 234.07034pt x 208.3748pt.
  [5 <./p26.png>]
-<p27.png, id=301, 375.4025pt x 123.46124pt>
+<p27.png, id=296, 375.4025pt x 123.46124pt>
 File: p27.png Graphic file (type png)
 <use p27.png>
 Package pdftex.def Info: p27.png  used on input line 170.
 (pdftex.def)             Requested size: 150.15834pt x 49.3836pt.
-<p29.png, id=302, 354.32375pt x 92.345pt>
+<p29.png, id=297, 354.32375pt x 92.345pt>
 File: p29.png Graphic file (type png)
 <use p29.png>
 Package pdftex.def Info: p29.png  used on input line 177.
 (pdftex.def)             Requested size: 177.16144pt x 46.17238pt.
-<p28.png, id=303, 958.58125pt x 548.0475pt>
+<p28.png, id=298, 958.58125pt x 548.0475pt>
 File: p28.png Graphic file (type png)
 <use p28.png>
 Package pdftex.def Info: p28.png  used on input line 181.
 (pdftex.def)             Requested size: 383.4257pt x 219.2151pt.
-<p30.png, id=304, 1127.21124pt x 635.37375pt>
+<p30.png, id=299, 1127.21124pt x 635.37375pt>
 File: p30.png Graphic file (type png)
 <use p30.png>
 Package pdftex.def Info: p30.png  used on input line 188.
 (pdftex.def)             Requested size: 450.87651pt x 254.14499pt.
  [6 <./p27.png> <./p29.png> <./p28.png>]
-<p31.png, id=315, 1154.3125pt x 642.4pt>
+<p31.png, id=310, 1154.3125pt x 642.4pt>
 File: p31.png Graphic file (type png)
 <use p31.png>
 Package pdftex.def Info: p31.png  used on input line 195.
 (pdftex.def)             Requested size: 461.71683pt x 256.95544pt.
-<p32.png, id=316, 1109.14375pt x 611.28375pt>
+<p32.png, id=311, 1109.14375pt x 611.28375pt>
 File: p32.png Graphic file (type png)
 <use p32.png>
 Package pdftex.def Info: p32.png  used on input line 207.
 (pdftex.def)             Requested size: 443.64964pt x 244.50917pt.
-<p33.png, id=317, 1121.18875pt x 605.26125pt>
+<p33.png, id=312, 1121.18875pt x 605.26125pt>
 File: p33.png Graphic file (type png)
 <use p33.png>
 Package pdftex.def Info: p33.png  used on input line 211.
 (pdftex.def)             Requested size: 448.46756pt x 242.1002pt.
  [7 <./p30.png> <./p31.png>]
-<p34.png, id=327, 935.495pt x 496.85625pt>
+<p34.png, id=322, 935.495pt x 496.85625pt>
 File: p34.png Graphic file (type png)
 <use p34.png>
 Package pdftex.def Info: p34.png  used on input line 224.
 (pdftex.def)             Requested size: 374.19136pt x 198.73897pt.
-<p35.png, id=328, 1254.6875pt x 733.74126pt>
+<p35.png, id=323, 1254.6875pt x 733.74126pt>
 File: p35.png Graphic file (type png)
 <use p35.png>
 Package pdftex.def Info: p35.png  used on input line 225.
 (pdftex.def)             Requested size: 376.40915pt x 220.12407pt.
  [8 <./p32.png> <./p33.png>] [9 <./p34.png> <./p35.png>]
-<p1.png, id=346, 243.91125pt x 201.75375pt>
+<p1.png, id=341, 243.91125pt x 201.75375pt>
 File: p1.png Graphic file (type png)
 <use p1.png>
 Package pdftex.def Info: p1.png  used on input line 258.
@@ -848,23 +848,23 @@ Package pdftex.def Info: p1.png  used on input line 258.
                                                   \fi \fi 
 l.275 \end{align*}
                    <./p1.png>]
-<p4.png, id=359, 964.60374pt x 297.11pt>
+<p4.png, id=354, 964.60374pt x 297.11pt>
 File: p4.png Graphic file (type png)
 <use p4.png>
 Package pdftex.def Info: p4.png  used on input line 286.
 (pdftex.def)             Requested size: 385.83466pt x 118.84189pt.
-<p2.png, id=360, 688.5725pt x 298.11375pt>
+<p2.png, id=355, 688.5725pt x 298.11375pt>
 File: p2.png Graphic file (type png)
 <use p2.png>
 Package pdftex.def Info: p2.png  used on input line 300.
 (pdftex.def)             Requested size: 344.2854pt x 149.0565pt.
  [11 <./p4.png> <./p2.png>]
-<p3.png, id=373, 594.22pt x 289.08pt>
+<p3.png, id=368, 594.22pt x 289.08pt>
 File: p3.png Graphic file (type png)
 <use p3.png>
 Package pdftex.def Info: p3.png  used on input line 308.
 (pdftex.def)             Requested size: 433.777pt x 211.02664pt.
-<p5.png, id=374, 216.81pt x 197.73875pt>
+<p5.png, id=369, 216.81pt x 197.73875pt>
 File: p5.png Graphic file (type png)
 <use p5.png>
 Package pdftex.def Info: p5.png  used on input line 320.
@@ -877,12 +877,12 @@ Package pdftex.def Info: p5.png  used on input line 320.
                                                   \fi \fi 
 l.333 
        <./p3.png> <./p5.png>]
-<p6.png, id=384, 485.815pt x 231.86626pt>
+<p6.png, id=379, 485.815pt x 231.86626pt>
 File: p6.png Graphic file (type png)
 <use p6.png>
 Package pdftex.def Info: p6.png  used on input line 363.
 (pdftex.def)             Requested size: 340.06818pt x 162.30525pt.
-<p7.png, id=385, 694.595pt x 562.1pt>
+<p7.png, id=380, 694.595pt x 562.1pt>
 File: p7.png Graphic file (type png)
 <use p7.png>
 Package pdftex.def Info: p7.png  used on input line 369.
@@ -893,18 +893,18 @@ Package pdftex.def Info: p7.png  used on input line 369.
                                                   \fi \fi 
 l.371 \paragraph
                 {Ray-AABB Intersection} <./p6.png>]
-<p8.png, id=394, 248.93pt x 165.61874pt>
+<p8.png, id=389, 248.93pt x 165.61874pt>
 File: p8.png Graphic file (type png)
 <use p8.png>
 Package pdftex.def Info: p8.png  used on input line 378.
 (pdftex.def)             Requested size: 174.2498pt x 115.93231pt.
-<p9.png, id=395, 197.73875pt x 169.63374pt>
+<p9.png, id=390, 197.73875pt x 169.63374pt>
 File: p9.png Graphic file (type png)
 <use p9.png>
 Package pdftex.def Info: p9.png  used on input line 389.
 (pdftex.def)             Requested size: 138.41617pt x 118.7428pt.
  [14 <./p7.png> <./p8.png>]
-<p36.png, id=405, 700.6175pt x 230.8625pt>
+<p36.png, id=400, 700.6175pt x 230.8625pt>
 File: p36.png Graphic file (type png)
 <use p36.png>
 Package pdftex.def Info: p36.png  used on input line 398.
@@ -919,7 +919,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 403--404
 
  []
 
-<p11.png, id=406, 1040.88875pt x 585.18625pt>
+<p11.png, id=401, 1040.88875pt x 585.18625pt>
 File: p11.png Graphic file (type png)
 <use p11.png>
 Package pdftex.def Info: p11.png  used on input line 414.
@@ -930,40 +930,40 @@ Package pdftex.def Info: p11.png  used on input line 414.
                                                   \fi \fi 
 l.416 \paragraph
                 {Distance query algorithm} <./p9.png> <./p36.png>]
-<p10.png, id=417, 1073.00874pt x 487.8225pt>
+<p10.png, id=412, 1073.00874pt x 487.8225pt>
 File: p10.png Graphic file (type png)
 <use p10.png>
 Package pdftex.def Info: p10.png  used on input line 420.
 (pdftex.def)             Requested size: 429.19589pt x 195.12553pt.
  [16 <./p11.png> <./p10.png>]
-<p12.png, id=427, 545.03625pt x 262.9825pt>
+<p12.png, id=422, 545.03625pt x 262.9825pt>
 File: p12.png Graphic file (type png)
 <use p12.png>
 Package pdftex.def Info: p12.png  used on input line 447.
 (pdftex.def)             Requested size: 381.52278pt x 184.08649pt.
-<p13.png, id=428, 437.635pt x 130.4875pt>
+<p13.png, id=423, 437.635pt x 130.4875pt>
 File: p13.png Graphic file (type png)
 <use p13.png>
 Package pdftex.def Info: p13.png  used on input line 457.
 (pdftex.def)             Requested size: 306.3424pt x 91.3406pt.
-<p14.png, id=429, 204.765pt x 218.8175pt>
+<p14.png, id=424, 204.765pt x 218.8175pt>
 File: p14.png Graphic file (type png)
 <use p14.png>
 Package pdftex.def Info: p14.png  used on input line 463.
 (pdftex.def)             Requested size: 122.85992pt x 131.2915pt.
  [17 <./p12.png> <./p13.png>]
-<p15.png, id=436, 442.65375pt x 291.0875pt>
+<p15.png, id=431, 442.65375pt x 291.0875pt>
 File: p15.png Graphic file (type png)
 <use p15.png>
 Package pdftex.def Info: p15.png  used on input line 477.
 (pdftex.def)             Requested size: 265.59428pt x 174.65384pt.
  [18 <./p14.png> <./p15.png>]
-<p16.png, id=448, 328.22626pt x 477.785pt>
+<p16.png, id=443, 328.22626pt x 477.785pt>
 File: p16.png Graphic file (type png)
 <use p16.png>
 Package pdftex.def Info: p16.png  used on input line 495.
 (pdftex.def)             Requested size: 196.93727pt x 286.6732pt.
-<p17.png, id=449, 256.96pt x 221.82875pt>
+<p17.png, id=444, 256.96pt x 221.82875pt>
 File: p17.png Graphic file (type png)
 <use p17.png>
 Package pdftex.def Info: p17.png  used on input line 514.
@@ -978,18 +978,18 @@ Package pdftex.def Info: p17.png  used on input line 514.
 \openout4 = `CSC418.pyg'.
 
  (./_minted-CSC418/D2ABBFA447413DEAE280FA2CEA098647AE6E3E0670DC10802D187E2266ED4DA4.pygtex)
-<p18.png, id=463, 627.34375pt x 322.20375pt>
+<p18.png, id=458, 627.34375pt x 322.20375pt>
 File: p18.png Graphic file (type png)
 <use p18.png>
 Package pdftex.def Info: p18.png  used on input line 559.
 (pdftex.def)             Requested size: 376.40915pt x 193.32373pt.
  [20 <./p17.png>]
-<p19.png, id=473, 294.09875pt x 625.33624pt>
+<p19.png, id=468, 294.09875pt x 625.33624pt>
 File: p19.png Graphic file (type png)
 <use p19.png>
 Package pdftex.def Info: p19.png  used on input line 578.
 (pdftex.def)             Requested size: 147.04901pt x 312.66736pt.
-<p20.png, id=474, 758.835pt x 349.305pt>
+<p20.png, id=469, 758.835pt x 349.305pt>
 File: p20.png Graphic file (type png)
 <use p20.png>
 Package pdftex.def Info: p20.png  used on input line 582.
@@ -1001,7 +1001,7 @@ Package pdftex.def Info: p20.png  used on input line 582.
 \openout4 = `CSC418.pyg'.
 
  (./_minted-CSC418/95E6A30C3F3EE040273754A1ECFED4D2AE6E3E0670DC10802D187E2266ED4DA4.pygtex)
-<p21.png, id=489, 953.5625pt x 471.7625pt>
+<p21.png, id=484, 953.5625pt x 471.7625pt>
 File: p21.png Graphic file (type png)
 <use p21.png>
 Package pdftex.def Info: p21.png  used on input line 617.
@@ -1023,12 +1023,12 @@ Package pdftex.def Info: p21.png  used on input line 664.
 \openout4 = `CSC418.pyg'.
 
  (./_minted-CSC418/0E77A0605B16F91EA72323513100EC91AE6E3E0670DC10802D187E2266ED4DA4.pygtex)
-<p22.png, id=500, 849.1725pt x 803.0pt>
+<p22.png, id=495, 849.1725pt x 803.0pt>
 File: p22.png Graphic file (type png)
 <use p22.png>
 Package pdftex.def Info: p22.png  used on input line 685.
 (pdftex.def)             Requested size: 339.66298pt x 321.1943pt.
-<p23.png, id=501, 278.03876pt x 410.53375pt>
+<p23.png, id=496, 278.03876pt x 410.53375pt>
 File: p23.png Graphic file (type png)
 <use p23.png>
 Package pdftex.def Info: p23.png  used on input line 691.
@@ -1037,7 +1037,7 @@ Package pdftex.def Info: p23.png  used on input line 691.
 \openout4 = `CSC418.pyg'.
 
  (./_minted-CSC418/2D59D63A126C7CA2579654345AF96C6AAE6E3E0670DC10802D187E2266ED4DA4.pygtex)
-<p24.png, id=508, 272.01625pt x 325.215pt>
+<p24.png, id=503, 272.01625pt x 325.215pt>
 File: p24.png Graphic file (type png)
 <use p24.png>
 Package pdftex.def Info: p24.png  used on input line 718.
@@ -1054,28 +1054,24 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 784.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 784.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 784.
 Package rerunfilecheck Info: File `CSC418.out' has not changed.
-(rerunfilecheck)             Checksum: A24A3B8D2BBE1F408A3B5A99630D8D30;2826.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+(rerunfilecheck)             Checksum: E9C3EDE9FDEB01F5706AD09B530D1070;2741.
 runsystem(rm CSC418.pyg)...executed.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 784.
  ) 
 Here is how much of TeX's memory you used:
- 22224 strings out of 492616
- 417249 string characters out of 6129482
- 552287 words of memory out of 5000000
- 25465 multiletter control sequences out of 15000+600000
+ 22223 strings out of 492616
+ 417230 string characters out of 6129482
+ 552288 words of memory out of 5000000
+ 25464 multiletter control sequences out of 15000+600000
  13276 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,12n,83p,937b,988s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,12n,83p,937b,992s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on CSC418.pdf (28 pages, 4083876 bytes).
+Output written on CSC418.pdf (28 pages, 4083736 bytes).
 PDF statistics:
- 636 PDF objects out of 1000 (max. 8388607)
- 494 compressed objects within 5 object streams
+ 632 PDF objects out of 1000 (max. 8388607)
+ 490 compressed objects within 5 object streams
  168 named destinations out of 1000 (max. 500000)
- 601 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 593 words of extra memory for PDF output out of 10000 (max. 10000000)
 

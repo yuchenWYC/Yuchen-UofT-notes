@@ -67,4 +67,4 @@
 \contentsline {paragraph}{Per-Corner Normals}{28}{section*.30}% 
 \contentsline {subsection}{\numberline {5.8}Catmull-Clark subdivision algorithm}{28}{subsection.5.8}% 
 \contentsline {paragraph}{Subdivision Surfaces}{28}{section*.31}% 
-\contentsline {subsection}{\numberline {5.9}Catmull-Clark subdivision algorithm}{28}{subsection.5.9}% 
+\contentsline {paragraph}{Catmull-Clark subdivision algorithm}{28}{section*.32}% 
