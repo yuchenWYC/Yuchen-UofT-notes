@@ -777,6 +777,227 @@ The first and still popular subdivision scheme.
 \end{enumerate}
 \unsure{If texture coordinates is on the test, look up textbook p249}
 
+\section{Shader Pipeline}
+\definition[rasterization]
+The process of finding all the pixels in an image that are occupied by a geometric primitive is called \tb{rasterization}.
+
+\definition[graphics pipeline]
+The sequence of operations that is required, starting with objects and ending by updating pixels in the image, is known as the \tb{graphics pipeline}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p37}
+\end{figure}
+\paragraph{Tessellation control shader}
+Determines how to subdivide each input patch. The subdivision is determined independently for each triangle and not called recursively.\\
+Unlike the vertex or fragment shader, the tessellation control shader has access to attribute information at all of the vertices of a triangle.
+
+\paragraph{Tessellation evaluation shader}
+Takes the result of the tessellation that the ``tessellation control shader" has specified. This shader is called once for every vertex output during tessellation. It has access to the attribute information of the original corners and a special variable \texttt{gl\_TessCoord} containing the barycentric coordinates of the current vertex. Using this information, it is possible to interpolate information stored at the original corners onto the current vertex (e.g. the 3D position).
+
+\definition[Bump map]
+A \tb{bump map} is a mapping from a surface point to a displacement along the normal direction. Each point $\vp \in \real^3$ on the surface is moved to a new position $\tilde{\vp} \in \real^3$:
+\begin{equation}
+	\tilde{\vp}(\vp) := \vp + h(\vp)\hat{\vn}(\vp)
+\end{equation} 
+where $h: \real^3 \rightarrow \real$ is the bump height amount function (could be negative) and $\hat{\vn}(\vp): \real^3 \rightarrow \real^3$ is the mathematically correct normal at $\vp$.
+\remark
+The idea is that a bump map is a height field: a function that give the local height of the detailed surface above the smooth surface.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p40}
+\end{figure}
+
+\definition[Normal map]
+A \tb{normal map} is a mapping from a surface point to a unit normal vector.\\
+To create a consistent and believable looking normal map, we can first generate a plausible bump map. If our bump height $h$ is a smooth function over the surface, we can compute the perceived normal vector $\tilde{\vn}$ by taking a small finite difference of the 3D position:
+\begin{equation}
+	\tilde{\vn} = \frac{\partial \vp}{\partial T} \times \frac{\partial \vp}{\partial B} \approx \left( \frac{\tilde{\vp}(\vp + \epsilon T) - \tilde{\vp}(\vp)}{\epsilon} \right) \times  \left( \frac{\tilde{\vp}(\vp + \epsilon B) - \tilde{\vp}(\vp)}{\epsilon} \right)
+\end{equation}
+where $T, B \in \real^3$ are orthogonal tangent and bi-tangent vectors in the tangent plane at $\vp$ and $\epsilon$ is a small number (e.g. 0.0001). \\
+We'll make sure that this approximate perceived normal is unit length by dividing by its length:
+\begin{equation}
+	\tilde{\vn} \gets \frac{\tilde{\vn}}{||\tilde{\vn}||}
+\end{equation}
+\remark
+Normal mapping is useful in computer graphics because we can drape the appearance of a complex surface on top a low resolution and simple one.\\
+\remark
+Normal mapping makes the shading normal depend on values read from a texture map.
+\remark
+It does not change the surface at all, just a shadowing trick that create the illusion of depth detail on the surface of a model.
+
+\paragraph[Perlin noise]
+A type of gradient noise used to produce natural appearing textures.
+\begin{enumerate}
+	\item Grid definition: Define an n-dimensional grid where each point has a random n-dimensional unit-length gradient vector.
+	\item Dot product: An n-dimensional candidate point can be viewed as falling into an n-dimensional grid cell. Fetch the $2^n$ closest gradient values, located at the $2^n$ corners of the grid cell. Then for each gradient value, compute a distance vector from each corner node to the candidate point. Then compute the dot product between each pair of gradient vector and distance vector. \blue{This function has a value of 0 at the node and a gradient equal to the precomputed node gradient.}
+	\item Interpolation: Performed using a function that has zero first derivative at the $2^n$ grid nodes.
+\end{enumerate}
+If $n=1$, an example of a function that interpolates between value $a_0$ at grid node 0 and value $a_1$ at grid node 1 is
+\begin{equation}
+	f(x) = a_0 + smoothstep(x) \cdot (a_1 - a_0)
+\end{equation}
+for $0 \leq x \leq 1$, where
+\begin{equation}
+	smoothstep(x) = \begin{cases}
+		0 & x\leq 0\\
+		3x^2 - 2x^3 & 0\leq x \leq 1\\
+		1 & x \geq 1
+	\end{cases}
+\end{equation}
+\definition{Tangent and bitangent vector}
+Let $s(x,y,z)$ and $t(x,y,z)$ be differentiable scalar functions defined at all points on a surface $S$. In computer graphics, the functions $s$ and $t$ often represent texture coordinates for a 3-dimensional polygonal model. In this context, the \tb{tangent vector} $T(p_x, p_y, p_z)$ is specifically defined to be the unit vector lying in the tangent plane for which
+\begin{equation}
+	\grad_T t(p_x, p_y, p_z) = 0, \grad_T s(p_x, p_y, p_z) > 0
+\end{equation}
+The \tb{bitangent vector} $B(p_x, p_y, p_z)$ is defined to be the unit vector lying in the tangent plane for which
+
+\begin{equation}
+	\grad_T s(p_x, p_y, p_z) = 0, \grad_T t(p_x, p_y, p_z) > 0
+\end{equation}
+\remark
+The vectors $T$ and $B$ are not necessarily orthogonal and may not exist for poorly conditioned functions $s$ and $t$.
+
+\subsection{Rasterization}
+For each primitive that comes in, the rasterizer has two jobs:
+\begin{enumerate}
+	\item It enumerates the pixels that are covered by the primitive.
+	\item It interpolates values, called attributes, across the primitive.
+\end{enumerate}
+The output is called \tb{fragments}, one for each pixel covered by the primitive. Each fragment ``lives" at a particular pixel and carries its own set of attribute values.
+
+\subsubsection{Triangle Rasterization}
+\definition[Gouraud interpolation]
+If the vertices have colors $\vc_0, \vc_1$ and $\vc_2$, the color at a point in the triangle with barycentric coordinates $(\alpha, \beta, \gamma)$ is
+\begin{equation}
+	\vc = \alpha\vc_0 + \beta \vc_1 + \gamma\vc_2
+\end{equation}
+\\
+We are usually rasterizing triangles that share vertices and edges. To draw them with no holes, we can use the midpoint algorithm to draw the outline of each triangle and then fill in the interior pixels.\\
+Pixels are drawn iff their centers are inside the triangle, i.e., the barycentric coordinates of the pixel center are all in the interval $(0,1)$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p38}\\
+	\includegraphics[scale=0.5]{p39}
+	\caption{Algorithm for triangle rasterization.}
+\end{figure}
+
+\subsection{Operations Before and After Rasterization}
+\subsubsection{Vertex-processing stage}
+\begin{enumerate}
+	\item Incoming vertices are transformed by the modeling, viewing, and projection transformations, mapping them from their original coordinates into screen space.
+	\item Other information, such as colors, surface normals, or texture coordinates, is transformed as needed.
+\end{enumerate}
+
+\subsubsection{Fragment processing stage}
+\begin{enumerate}
+	\item 
+\end{enumerate}
+\subsubsection{Blending stage}
+Combines the fragments generated by the primitives that overlapped each pixel to compute the final color. The most common blending approach is to choose the color of the fragment with the smallest depth (closest to the eye).
+ 
+\paragraph{Using a z-buffer for hidden surfaces}
+At each pixel, we keep track of the distance to the closest surface that has been drawn so far, and we throw away fragments that are farther away than that distance.\\
+The closest distance is stored by allocating an extra value for each pixel, in addition to the rgb values, which is known as the depth, or z-value. The \tb{z-buffer} is the name for the grid of depth values.
+\remark
+Of course there can be ties in the depth test, in which case the order may well matter.
+
+\section{Kinematics}
+Study of motion without consideration of what causes that motion.
+\section{Mass-Spring Systems}
+\subsection{Bones}
+\definition[skeleton]
+A \tb{skeleton} is a tree of rigid bones. Each bone in the skeleton is a UI widget for visualizing and controlling a 3D rigid transformation. A common visualization of 3D bone in computer graphics is a long, pointed pyramid shape.
+\definition[Canonical bones]
+The ``canonical bone" of length $l$ lies along the $x$-axis with its ``tail" at the origin $(0, 0, 0)$, its ``tip" at $(l, 0, 0)$.\\
+\tb{Twisting} is rotating about the $x$-axis in the canonical frame.\\
+\tb{Bending} is rotating about the $z$-axis in the canonical frame.
+\remark
+Composing a twist, bend and another twist spans all possible 3D rotations.
+We call the three angles composed into a rotation this way, \tb{Euler angles}.
+\definition[Rest bones]
+For each bone, there is a rigid transformation that places its tail and tip to the desired positions in the model.
+\begin{equation}
+	\hat{T} = \begin{pmatrix}\hat{R}\hat{\vt}\end{pmatrix} \in \real^{3\times 4}
+\end{equation}
+where $T$ = transformation, $R$ = rotation and $t$ = translation.
+We use the convention that the ``canonical tail" (the origin $(0,0,0)$) is mapped to the ``rest tail" inside the model. This means that the translation part of the matrix $\hat{T}$ is simply the rest tail position $\hat{\vs} \in \real^3$:
+\begin{equation}
+	\hat{\vs} = \hat{T}\begin{pmatrix}
+		0 \\ 0\\ 0 \\ 1
+	\end{pmatrix} = \hat{R} \begin{pmatrix}
+		0 \\ 0 \\ 0 
+	\end{pmatrix} + \hat{\vt}1 = \hat{\vt}
+\end{equation}
+The bone's rotation is chosen so that the ``canonical tip" maps to the ``rest tip" $\hat{\vd} \in \real^3$:
+\begin{equation}
+	\hat{\vd} = \hat{T}\begin{pmatrix}
+		l \\ 0\\ 0 \\ 1
+	\end{pmatrix} = \hat{R} \begin{pmatrix}
+		l \\ 0 \\ 0 
+	\end{pmatrix} + \hat{\vt}1 = \hat{\vt}
+\end{equation}
+\blue{Typically the ``rest tail" of a bone is coincident with the ``rest tip" of its parent (if it exists)}
+\begin{equation}
+	\hat{\vd}_p = \hat{\vs}
+\end{equation}
+\remark
+The \tb{pose} of each bone will be measured relative to the ``rest bone".
+
+\definition[Pose bones]
+In general, each rest bone undergoes a rigid transformation $T \in \real^{3\times 4}$, composed of a rotation $R \in \real^{3 \times 4}$ and a translation $\vt \in \real^3$, mapping each of its rest points $\hat{x} \in \real^3$ to its corresponding posed position $\vx \in \real^3$:
+\begin{equation}
+	\vx = T\hat{\vx}
+\end{equation}
+\remark
+In particular, we would like each bone to rotate about its parent's tip, but this position is determined by the parent's pose transformation $T_p$, which in turn should rotate about the grandparent's tip and so on.
+
+\subsection{Forward Kinematics}
+For each bone $i$ in a skeleton, we aggregate relative rotations $\overline{R_i} \in \real^{3\times 3}$ between a bone $i$ and its parent bone $p_i$ in the skeletal tree.\\
+For each bone:
+\begin{enumerate}
+	\item First undo the map from canonical to rest (inverting $\hat{T}_i$);
+	\item Then rotate by the relative rotation $\overline{R_i}$;
+	\item Then map back to rest (via $\hat{T}_i$);
+	\item Continue up the tree recursively applying the parent's relative transformation.
+\end{enumerate}
+\begin{equation}
+	T_i = T_{p_i}\begin{pmatrix}
+		\hat{T}_i 
+	\end{pmatrix}
+\end{equation}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p41}
+\end{figure}
+
+\definition[Linear Blend Skinning]
+Skinning is the process of defining how bones are attached to the meshes. In linear blend skinning, each vertex $i$ of the mesh is assigned a weight $w_{i,j}$ for each bone $j$ corresponding to how much it is ``attached" to that bone on a scale of $0\%$ to $100\%$:
+\begin{equation}
+	\vv_i = \sum_{j=1}^m w_{i,j}T_j\begin{pmatrix}
+		\hat{\vv}_i \\ 1
+	\end{pmatrix}
+\end{equation}
+
+
+\subsection{Keyframe animation}
+To create a long animation, specifying three Euler angles for every bone for every frame manually would be too difficult. The standard way to determine the relative bone transformations for each frame is to interpolate values specified at a small number of "key" times during the animation. 
+ \definition[Catmull-Rom interpolation]
+ $\theta = \vc(t)$ is a curve in the pose space. A \tb{cubic Hermite spline} is a spline where each piece is a third-degree polynomial specified by its values and first derivatives.
+ \todo{incomplete}
+ \subsection{Inverse Kinematics}
+ \todo{\href{https://github.com/psarahdactyl/computer-graphics-kinematics}{A6}}
+ \subsection{Projected Gradient Descent}
+ \todo{\href{https://github.com/psarahdactyl/computer-graphics-kinematics}{A6}}
+ \subsection{Line Search}
+ \todo{\href{https://github.com/psarahdactyl/computer-graphics-kinematics}{A6}}
+
+\section{Mass-Spring Systems}
+
+
+
+\section{Computational Fabrication}
 
 
 

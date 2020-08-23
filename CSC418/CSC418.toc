@@ -68,3 +68,23 @@
 \contentsline {subsection}{\numberline {5.8}Catmull-Clark subdivision algorithm}{28}{subsection.5.8}% 
 \contentsline {paragraph}{Subdivision Surfaces}{28}{section*.31}% 
 \contentsline {paragraph}{Catmull-Clark subdivision algorithm}{28}{section*.32}% 
+\contentsline {section}{\numberline {6}Shader Pipeline}{28}{section.6}% 
+\contentsline {paragraph}{Tessellation control shader}{29}{section*.34}% 
+\contentsline {paragraph}{Tessellation evaluation shader}{29}{section*.35}% 
+\contentsline {paragraph}{Perlin noise}{30}{section*.36}% 
+\contentsline {subsection}{\numberline {6.1}Rasterization}{31}{subsection.6.1}% 
+\contentsline {subsubsection}{\numberline {6.1.1}Triangle Rasterization}{31}{subsubsection.6.1.1}% 
+\contentsline {subsection}{\numberline {6.2}Operations Before and After Rasterization}{31}{subsection.6.2}% 
+\contentsline {subsubsection}{\numberline {6.2.1}Vertex-processing stage}{31}{subsubsection.6.2.1}% 
+\contentsline {subsubsection}{\numberline {6.2.2}Fragment processing stage}{31}{subsubsection.6.2.2}% 
+\contentsline {subsubsection}{\numberline {6.2.3}Blending stage}{32}{subsubsection.6.2.3}% 
+\contentsline {paragraph}{Using a z-buffer for hidden surfaces}{32}{section*.37}% 
+\contentsline {section}{\numberline {7}Kinematics}{32}{section.7}% 
+\contentsline {section}{\numberline {8}Mass-Spring Systems}{32}{section.8}% 
+\contentsline {subsection}{\numberline {8.1}Bones}{32}{subsection.8.1}% 
+\contentsline {subsection}{\numberline {8.2}Forward Kinematics}{33}{subsection.8.2}% 
+\contentsline {subsection}{\numberline {8.3}Keyframe animation}{33}{subsection.8.3}% 
+\contentsline {subsection}{\numberline {8.4}Inverse Kinematics}{33}{subsection.8.4}% 
+\contentsline {subsection}{\numberline {8.5}Projected Gradient Descent}{34}{subsection.8.5}% 
+\contentsline {subsection}{\numberline {8.6}Line Search}{34}{subsection.8.6}% 
+\contentsline {section}{\numberline {9}Computational Fabrication}{34}{section.9}% 
