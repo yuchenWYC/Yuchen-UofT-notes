@@ -54,7 +54,7 @@ This collection of notes aims to help myself learn Math & Stats efficiently. Sin
   * Sampling Distributions
   * Consistent & Efficient Estimators 
   
-- &#x1F5DD [**CSC263**](https://yuchenwyc.github.io/Yuchen-UofT-notes/CSC263/CSC263.pdf) Data Structures and Analysis (Winter 2018)
+- &#x1F5DD; [**CSC263**](https://yuchenwyc.github.io/Yuchen-UofT-notes/CSC263/CSC263.pdf) Data Structures and Analysis (Winter 2018)
   * Some notes on AVL trees
   
 ## License 
