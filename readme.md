@@ -46,7 +46,7 @@ This collection of notes aims to help myself learn Math & Stats efficiently. Sin
   * k-Means and EM Algorithm
   * Reinforcement Learning
 
-- &#x1F393; [**STA261**](https://yuchenwyc.github.io/Yuchen-UofT-notes/STA261/STA261.pdf)  (Winter 2018)
+- &#x1F393; [**STA261**](https://yuchenwyc.github.io/Yuchen-UofT-notes/STA261/STA261.pdf)  (Winter 2019)
   * Converge in distribution
   * Normal Distribution Theory
   * Expectation and Covariance
@@ -54,7 +54,7 @@ This collection of notes aims to help myself learn Math & Stats efficiently. Sin
   * Sampling Distributions
   * Consistent & Efficient Estimators 
   
-- &#x1F393; [**CSC263**](https://yuchenwyc.github.io/Yuchen-UofT-notes/CSC263/CSC263.pdf) Data Structures and Analysis (Winter 2018)
+- &#x1F393; [**CSC263**](https://yuchenwyc.github.io/Yuchen-UofT-notes/CSC263/CSC263.pdf) Data Structures and Analysis (Winter 2019)
   * Some notes on AVL trees
   
 ## License 
