@@ -11,13 +11,13 @@ This collection of notes aims to help myself learn Math & Stats efficiently. Sin
 
 - &#x1F5DD; [**MAT337**](https://yuchenwyc.github.io/Yuchen-UofT-notes/MAT337/MAT337.pdf) Real Analysis (Winter 2020)
 
-- &#x1F5DD; [**MAT224**](https://yuchenwyc.github.io/Yuchen-UofT-notes/MAT224/MAT224.pdf) Linear Algebra II (Winter 2019)
-
 - &#x1F5DD; [**APM462**](https://yuchenwyc.github.io/Yuchen-UofT-notes/APM462/APM462.pdf) Nonlinear Optimizations (Fall 2019)
 
 - &#x1F5DD; [**STA347**](https://yuchenwyc.github.io/Yuchen-UofT-notes/STA347/STA347.pdf) Probability I (Fall 2019)
 
 - &#x1F5DD; [**STA302**](https://yuchenwyc.github.io/Yuchen-UofT-notes/STA302/STA302.pdf) Methods of Data Analysis (Summer 2019)
+
+- &#x1F5DD; [**MAT224**](https://yuchenwyc.github.io/Yuchen-UofT-notes/MAT224/MAT224.pdf) Linear Algebra II (Winter 2019)
 
 - &#x1F5DD; [**MAT237**](https://yuchenwyc.github.io/Yuchen-UofT-notes/MAT237/MAT237.pdf) Advanced Calculus (Fall 2018 & Winter 2019), Made together with [@tingfengx](https://github.com/tingfengx)
   * With special comments about k-dimensional manifolds, which is more abstract than materials covered in lecture.
