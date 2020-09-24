@@ -4,7 +4,7 @@
 
 This collection of notes aims to help myself learn Math & Stats efficiently. Since one course gives dozens of theorems and corollaries, sorting them into clean notes is usually a good way to include them in the knowledge network in my mind.
 
-### &#x1F58B Complete Notes
+### &#x1F58B; Complete Notes
 - &#x1F5DD; [**STA447**](https://yuchenwyc.github.io/Yuchen-UofT-notes/STA447/STA447.pdf) Stochastic Processes (Winter 2020)
 
 - &#x1F5DD; [**STA414**](https://yuchenwyc.github.io/Yuchen-UofT-notes/STA414/STA414.pdf) Statistical Methods for Machine Learning II (Winter 2020)
@@ -23,7 +23,7 @@ This collection of notes aims to help myself learn Math & Stats efficiently. Sin
   * With special comments about k-dimensional manifolds, which is more abstract than materials covered in lecture.
 
 
-### &#x1F5C3	Archived Notes
+### &#x1F5C3;	Archived Notes
 
 - &#x1F393; [**CSC418**](https://yuchenwyc.github.io/Yuchen-UofT-notes/CSC418/CSC418.pdf) Computer Graphics (Summer 2020)
   * Raster Images
