@@ -322,3 +322,78 @@ When declared inside the class, the constructor can be defined ouside the class 
             return 0;
       }
 
+# Data Structures and Algorithms
+## Hash Table
+If let array elements be keys and array indices be values, we can reduce the lookup time from $O(n)$ to $O(1)$ by **trading space for speed**. 
+
+Example: Leetcode #1
+
+## Breath First Search
+- An algorithm for traversing or searching graph data structures.
+- First Discovered - First Explored
+- Time complexity: $O(|V| + |E|)$
+
+      1  BFS(G, root) 
+      2      let Q be a queue
+      3      label root as discovered
+      4      Q.enqueue(root)
+      5      while Q is not empty do
+      6          v := Q.dequeue()
+      7          if v is the goal then
+      8              return v
+      9          for all edges from v to w in G.adjacentEdges(v) do
+      10              if w is not labeled as discovered then
+      11                  label w as discovered
+      12                  Q.enqueue(w)
+
+## Depth First Search
+- An algorithm for traversing or searching graph data structures.
+- Last Discovered - First Explored
+- Time complexity: $O(|V| + |E|)$
+  
+A recursive implementation:
+
+    DFS(G, v)
+        label v as discovered
+        for all directed edges from v to w that are in adjacentEdges(v) do
+            if vertex w is not labeled as discovered then
+                recursively call DFS(G, w)
+
+A non-recursive implementation:
+
+    DFS_iterative(G, v)
+      let S be a stack
+      S.push(v)
+      while S is not empty do
+          v = S.pop()
+          if v is not labeled as discovered then
+              label v as discovered
+              for all edges from v to w in G.adjacentEdges(v) do 
+                  S.push(w)
+  
+## Dynamic Programming
+### Outline
+- Breaking the problem down into simpler subproblems, solve each subproblem just once, and store their solutions.
+- The next time the same subproblem occurs, instead of recomputing its solution, simply look up its previously computed solution.
+- Hopefully, we save a lot of computation at the expense of modest increase in storage space.
+
+
+## Special Python functions and values
+### str.split()
+By default, split the str by any white spaces.
+
+### str.strip()
+Remove spaces at the beginning and at the end of the string.
+
+### list.sort()
+Sort the list in-place in ascending order.
+
+### float('-inf') / float('inf')
+
+### list(#a string)
+Split a string into arrays with elements separated as items.
+
+### collections.OrderedDict()
+
+### key in dict
+syntax to check if the dictionary dict contains the key.

@@ -1,0 +1,628 @@
+\documentclass[11pt]{article}
+% Libraries.
+
+\usepackage{dsfont}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{esint}
+\usepackage[margin=2cm]{geometry}
+%\usepackage{pgfplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{perpage}
+\usepackage[dvipsnames, pdftex]{xcolor}
+\usepackage{float}
+\usepackage{xargs}
+\usepackage{/Users/raina/Desktop/uoft-notes/raina}
+\usepackage[
+	colorinlistoftodos,
+	prependcaption,
+	textsize=tiny
+]{todonotes}
+
+\numberwithin{equation}{section}
+
+% Property settings.
+\MakePerPage{footnote}
+\pagestyle{headings}
+
+% Attr.
+\title{STA452\\ Lecture Notes}
+\author{Yuchen Wang}
+\date{\today}
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    \newpage
+\section{Preface}
+In our course, you will not see very much data. Our job is to express the ideas that drive the logic (or the logic that drives the ideas). As a consequence, the most of the examples in elementary book appear as pure theory. But they are not defined, they are consequences of abstract mathematical ideas.
+For example, conditional density is a consequence of conditional expectation, which is an orthogonal projection in a vector space, a pure euclidean geometric idea.
+
+\subsection{Preliminary}
+\definition
+A sequence of sets $A_n \rightarrow A$ iff $I(A_n) \rightarrow I(A)$.
+\remark
+	\red{See Appendix 2 of the original notes.}
+
+\proposition A limit exists when the limsup is equal to the liminf:
+\begin{equation}
+	lim = \overline{lim} = \under{lim}
+\end{equation}
+\begin{proof}
+For $w \in \Omega$,
+	\begin{align*}
+		\sup_{t \in T} I(A_t)(w) &= I(\cup_{t\in T} A_t)(w) \\
+		&= 1 \text{ or } 0 \\
+		\inf_{t \in T} I(A_t)(w) &= I(\cap_{t\in T} A_t)(w)
+	\end{align*}
+Therefore,
+\begin{align*}
+	\lim_{n \rightarrow \infty} I(A_n) &= \underset{n \rightarrow \infty}{\overline{\lim}} I(A_n) \\
+	&= \inf_{n=1}^\infty \sup_{k=n}^\infty I(A_k) \\
+	&= I\left(\cap_{n=1}^\infty \cup_{k=n}^\infty A_k \right) \\
+	&= \underset{n \rightarrow \infty}{\under{\lim}} I(A_n) \\
+	&= \sup_{n=1}^\infty \inf_{k=n}^\infty I(A_k) \\
+	&= I\left(\cup_{n=1}^\infty \cap_{k=n}^\infty A_k \right)
+\end{align*}
+\end{proof}
+\property Therefore it is clear that
+\begin{enumerate}
+	\item \begin{align}
+	A_n \rightarrow A \iff A = \cap_{n=1}^\infty \cup_{k=n}^\infty A_k = \cup_{n=1}^\infty \cap_{k=n}^\infty A_k
+\end{align}
+	\item 
+	\begin{equation} \label{monotone sequence limit 1}
+		A_n \uparrow \implies A_n \uparrow \cup_{n=1}^\infty A_n
+	\end{equation}
+	\item
+	\begin{equation} \label{monotone sequence limit 2}
+		A_n \downarrow \implies A_n \downarrow \cap_{n=1}^\infty A_n
+	\end{equation}
+
+\end{enumerate}
+
+\section{Virtual Dice}
+\subsection{The Law of Large Numbers}
+Consider a \ti{mechanism/process/system}, $W$, which generates \ti{outcomes}, $w$, in a sample space $\Omega$:
+$$W: w_1, w_2, \hdots, w_n, \hdots$$
+The outcomes are often referred to as \ti{trials} of the \ti{process} $W$. $w_n$ is called the $n$th trial, and the finite sequence ($w_1, w_2, 
+\hdots, w_n$) is the first $n$ trials. \\
+Consider any real-valued function $g: \Omega \rightarrow \real$ defined on the \ti{sample space} $\Omega$. Let $X = g(W)$ denote the \ti{extended process} that applies the function $g$ to the outcome $w$ from $W$ to produce the outcome $x = g(w)$. This new process has its own sequence of trial outcomes:
+\begin{align*}
+	& g(W): g(w_1), g(w_2), \hdots, g(w_n), \hdots \\
+    \text{or} \quad & X \quad \,\,\,  : x_1, x_2, \hdots, x_n, \hdots
+\end{align*}
+These transformed outcomes are all real values, with which we can do lots of easy arithmetic, while the abstract sample space $\Omega$ may not have this property.
+\definition[sample mean]
+For each $n \in \mb{N}$, the \ti{sample mean} over the first $n$ trials is the \ti{arithmetic average} of the function values over those $n$ trials:
+\begin{align}
+	\widehat{E}_nX := \frac{g(w_1) + \hdots + g(w_n)}{n} = \bar{x}_n
+\end{align}
+
+\definition[random variable] A given process $W$ is said to be a \ti{random process / random variable} iff it satisfies the \ti{empirical law of large numbers}, in that, for any real-valued $X = g(W)$, we have
+\begin{enumerate}
+	\item \ti{stability}: the sequence of \ti{sample averages} ($\widehat{E}_ng(W), n \in \mb{N}$) converges;
+	\item \ti{invariance}: the limit is independent of any particular realization ($w_n, n \in \mb{N}$).
+\end{enumerate}
+
+\definition[expected value]
+For each real-valued $X = g(W)$, we obtain a \ti{expected value} in the above limit:
+\begin{align}
+	EX := \lim_{n \rightarrow \infty} \widehat{E}_n g(W) = \lim_{n \rightarrow \infty} \hat{x}_n
+\end{align}
+\definition[indicator function] The indicator function of a subset $A$ of a set $X$ is a function $I_A: X \rightarrow \{0, 1\}$ defined as
+\begin{equation}
+	I_A(x) := \begin{cases}
+		1 & x \in A\\
+		0 & x \notin A
+	\end{cases}
+\end{equation}
+\definition[probability]
+Now \ti{probability} itself is a special case of an \ti{expected value}: for any \ti{indicator function} $g = I_A$ with $A \subset \Omega$ we will get the usual sequence of averages, but now to be referred to as \ti{empirical relative frequencies}. These averages give the proportion of times that $A$ occurs in the first $n$ trials.
+\begin{equation}
+	\widehat{P}_n(W \in A) := \widehat{E}_n I_A(W) = \frac{I_A(w_1) + \hdots + I_A(w_n)}{n} \, \forall n \in \mb{N}
+\end{equation}
+As $n \rightarrow \infty$, the above equation gives the \ti{long-run frequency}, or \ti{probability}:
+\begin{equation}
+	P_W(A) = P(W \in A) := \lim_{n \rightarrow \infty}\widehat{E}_n I_A(W) = \lim_{n \rightarrow \infty}\widehat{P}_n (W \in A)
+\end{equation}
+\notation Given a random variable $W$ and a \ti{probability distribution} $P_W$, we can use the following notation:
+$$W \sim P_W \quad \text{on} \quad \Omega$$
+to be read as ``$W$ is distributed as $P_W$ on $\Omega$" or ``$W$ is distributed as $P_W$".
+
+\subsection{Some examples: ``virtual dice"}
+\definition \label{physical} For any specific $n \in \mb{N}$, the random variable $X$ is said to have a \ti{(finite discrete) uniform distribution} on the sample space $\Omega = \{1, \hdots, n\}$ (denoted $X \sim unif\{1, \hdots, n\}$)\\
+iff\\
+\begin{equation}
+P(X = k) = \frac{1}{n}, \quad, k = 1, \hdots, n
+\end{equation}
+
+\example{A ten-sided die: $Y \sim unif\{0, \hdots, 9\}$ \label{virtual dice}}
+Let $Y$ be a $2$-stage procedure:\\
+Divide the ten digits $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 0\}$ into two batches
+\begin{equation}
+	A = \{1, 2, 3, 4, 5\} \quad \& \quad B = \{6, 7, 8, 9, 0\}
+\end{equation}
+and then toss a standard six-sided die twice. On the first toss, if the die shows $1, 2$ or $3$ then we go to $A$, if the die shows $4,5$ or $6$ then we go to $B$. Thus each batch is selected half the time. On the second toss, ignoring the digit $6$, and if the die shows $k$ we take the $k$th digit in the batch and report the result. It should be clear then we will arrive at each of the ten digits with identical frequency $\frac{1}{10}$.
+
+
+\subsubsection{A higher level of virtuality: `continuous dice' and random `real' numbers}
+
+Let $U$ denote the hypothetical possibility of generating an infinite decimal expansion of a number between 0 and 1, by performing the physical algorithm outlined in Example (\ref{virtual dice}) an infinite number of times. So an outcome $u$ for $U$ entails an infinite number of repetitions $Y_i, i = 1, 2, \hdots$ of the finite procedure $Y$:
+\begin{equation}
+	U = \sum_{i = 1}^\infty \frac{Y_i}{10^i} = 0.Y_1Y_2Y_3 \hdots
+\end{equation}
+
+\example
+If we generate $U$ explicitly to four places $.y_1y_2y_3y_4$, then there are $10,000$ equally likely possibilities, and our `actual' $U$ is known to be somewhere between $.y_1y_2y_3y_4$ and $0.0001$ higher. In other words, the outcome is in one particular of $10,000$ equally likely subintervals of $[0, 1]$:
+\begin{equation}
+	P(.y_1y_2y_3y_4 \leq U \leq .y_1y_2y_3y_4 + 0.0001) = 1/10,000 \quad \forall y_1, y_2, y_3, y_4 \in \Omega
+\end{equation}
+
+Thus we can deduce that
+\begin{equation}
+	P(0 \leq U \leq .a_1a_2a_3a_4) = a_1a_2a_3a_4 / 10,000 = .a_1a_2a_3a_4 \forall a_1, a_2, a_3, a_4 \in \Omega
+\end{equation}
+More generally, if $u$ is an $n$-place finite decimal in the interval $[0,1]$ for any $n \in \mb{Z}$, then $P(U \leq u) = u$, and for any pair of $n$-place finite decimals $a, b \in [0, 1]$ with $a \leq b$, we will have the \ti{uniformity condition} 
+\begin{equation}
+	P(a \leq U \leq b) = b - a
+\end{equation}
+
+\corollary
+The probability of $U$ obtaining any specific value $u$ is zero.
+\begin{equation}
+	P(U = u) = P(u \leq U \leq u) = u - u = 0
+\end{equation}
+
+\definition[uniform distribution] The random variable $U$ is said to have a \ti{(continuous) uniform distribution} on the unit interval $[0, 1]$ (denoted $U \sim unif[0, 1]$) \\
+iff \\
+\begin{equation}
+	P(U \leq u) = u \quad \forall 0 \leq u \leq 1
+\end{equation}
+
+\remark
+This is a mathematical statement, which is different from physical existence as in Definition (\ref{physical}).
+
+\corollary
+If $X \sim unif[a, b]$ and $U \sim unif[0, 1]$, then
+\begin{equation}
+	x = a + (b-a)\cdot u
+\end{equation}
+
+\example
+Let $V = 1 - U$, then
+\begin{align}
+	P(V \leq u) &= P(1-U \leq u) = P(U \geq 1-u) \\
+	&= 1 - P(U \leq 1 - u) \\
+	&= 1 - (1-u) = u = P(U \leq u)
+\end{align}
+As random variables, $U$ and $V$ behave exactly the same way. They have the same \ti{stochastic behavior}. Accordingly, they are said to be \red{\ti{equal-in-distribution}}: $V \overset{d}{=} U$.
+
+\subsubsection{Equality-in-distribution}
+\definition[equality-in-distribution] Two random variables $W_1, W_2$ on the same sample space $\Omega$ are said to be \ti{identically distributed / stochastically identical} (denoted $W_1 \overset{d}{=} W_2$)\\
+iff \\
+\begin{equation}
+	Eg(W_1) = Eg(W_2) \quad \forall g: \Omega \rightarrow \real
+\end{equation}
+iff \\
+\begin{equation}
+	P(W_1 \in A) = P(W_2 \in A) \quad \forall A \subset \Omega
+\end{equation}
+
+\proposition[invariance 1]
+For any function $\phi: \Omega \rightarrow \chi$
+\begin{equation}
+	W_1 \overset{d}{=} W_2 \implies \phi(W_1) \overset{d}{=} \phi(W_2)
+\end{equation}
+\begin{proof}
+\begin{align*}
+	Eh(\phi(W_1)) = Eh(\phi(W_2)) \quad \forall h: \chi \rightarrow \real
+\end{align*}
+\end{proof}
+
+\proposition[invariance 2]
+\begin{equation}
+	W_1 \overset{d}{=} W_2 \iff g(W_1) \overset{d}{=}  g(W_2) \quad \forall g: \Omega \rightarrow \real
+\end{equation}
+
+\subsection{Nature makes them, so can you}
+\subsubsection{Exponential distribution}
+Let $Z = -\ln U$ with $U \sim unif[0,1]$. Then it is straightforward to compute that, for any non-negative $0 \leq s \leq t \leq \infty$:
+\begin{equation}
+	P(s \leq Z \leq t) = e^{-s} - e^{-t}
+\end{equation}
+\begin{proof}
+\begin{align*}
+	s \leq Z \leq t &\iff s \leq -\ln U \leq t\\
+	&\iff -t \leq \ln U \leq -s\\
+	&\iff e^{-t} \leq U \leq e^{-s}
+\end{align*}
+Therefore 
+\begin{align*}
+	P(s \leq Z \leq t) &= P(e^{-t} \leq U \leq e^{-s}) \\
+	&= e^{-s} - e^{-t}
+\end{align*}	
+\end{proof}
+\definition[standard exponential distribution] The random variable $Z$ is said to have a \ti{standard exponential distribution} on $[0, \infty)$ (denoted $Z \sim \exp(1)$)\\
+iff \\
+\begin{equation}
+	P(Z \leq z) = 1 - e^{-z} \quad \forall z \geq 0
+\end{equation}
+
+\definition[scaled exponential distribution] The random variable $X$ is said to have a \ti{scaled exponential distribution}, with \ti{scale parameter} $\theta > 0$ on $[0, \infty)$ (denoted $X \sim \exp(\theta)$)\\
+iff \\
+\begin{equation}
+	X \overset{d}{=} \theta Z, \quad \text{where } Z \sim \exp(1)
+\end{equation}
+
+\subsubsection{Consider the generalization}
+Consider any strictly monotone and $C^1$ function, $g$ on the interval $[0, 1]$, and let $X \overset{d}{=} g(U)$, where $U \sim unif[0, 1]$. Then
+\begin{equation}
+	P(s < X \leq t) = \begin{cases}
+		g^{-1}(t) - g^{-1}(s), \quad g \uparrow\uparrow\\
+		g^{-1}(s) - g^{-1}(t), \quad g \downarrow\downarrow\\
+	\end{cases}
+\end{equation}
+
+\corollary Suppose $F: \real \rightarrow [0, 1] \, x \mapsto P(X \leq x)$. Then $F$ is certainly \ti{non-decreasing}, and for any $s \leq t$, 
+\begin{equation}
+	P(s < X \leq t) = F(t) - F(s)
+\end{equation}
+
+\definition[distribution function] For any real-valued random variable, $X$, the \ti{distribution function} of $X$ is given by
+\begin{equation}
+	F(x) \overset{or}{=} F_X(x) := P(X \leq x) \quad \forall x \in \real
+\end{equation}
+
+\remark
+Let $f(x) = F'(x)$, then we immediately have
+\begin{equation}
+	P(s < X \leq t) = F(t) - F(s) = \int_s^t f(x) dx \quad \forall s, t
+\end{equation}
+At each $x \in g[0, 1]$,
+\begin{equation}
+	\lim_{s \uparrow x, \, t \downarrow x} \frac{P(s < X \leq t)}{t - s} = \lim_{s \uparrow x, \, t \downarrow x} \frac{F(t) - F(s)}{t - s} = f(x)
+\end{equation}
+
+\remark
+$f(x)$ can be interpreted as ``amount of probability per unit length at the point $x$".
+
+\definition[probability density function]
+A real-valued random variable $X$ is said to be \ti{absolutely continuous} (wrt length measure)\\
+iff\\
+\begin{equation}
+	\exists f: \real \rightarrow [0, \infty), P(s < X \leq t) = \int_s^t f(x)\,dx \quad \forall s \leq t
+\end{equation}
+in which case, the function $f$ (\red{not necessarily unique}) is referred to as the \ti{probability density function} of $X$.
+
+\remark
+For any abs. cont. $X$, 
+\begin{equation}
+	P(X = x) = \int_x^x f(x) \, dx = 0 \quad \forall x
+\end{equation}
+so there is no discrete contribution to the distribution at any $x \in \real$.
+Thus,
+$$P(s \leq X \leq t) = P(s < X < t) = P(s < X \leq t) = P(s \leq X < t)$$
+
+\proposition
+$F: [a,b] \rightarrow [0, 1]$ is $C^1$, iff
+$$F(x) = \int_a^x f(s) \, ds \quad \text{with } f = F' > 0 \text{ cont. on } [a, b]$$ 
+
+\proposition If $g = F^{-1}$ and $g \in C^1$, then $F(X) \overset{d}{=} U$
+\begin{proof}
+	\begin{align*}
+		P(F(X) \leq u) &= P(X \leq g(u)) \\
+		&= P(X \leq g(u)) \\
+		&= F(g(u)) \\
+		&= u \\
+		&= P(U \leq u)
+	\end{align*}
+\end{proof}
+
+\definition[quantile]
+For any $0 \leq p \leq 1$, the value $x_p = g(p) = F^{-1}(p)$ is called the $100 \times p$th \ti{quantile} (or \ti{percentile}) of $X$. The function $g$ is called the \ti{quantile function}.
+\begin{equation}
+	P(X \leq x_p) = p
+\end{equation}
+
+\subsection{Expected Value}
+\property[finite additivity of probability]
+If two sets $A$ and $B$ are mutually disjoint, then
+\begin{equation}
+	I(A + B) = I(A) + I(B)
+\end{equation}
+Therefore
+\begin{align}
+	P(A+B) &= EI(A + B)(W) = E(I(A)(W) + I(B)(W)) \\
+	&= EI(A)(W) + EI(B)(W) \\
+	&= P(A) + P(B)	
+\end{align}
+We can prove by induction that
+\begin{equation}
+	P\left(\sum_{i=1}^n A_i \right) = \sum_{i=1}^n P(A_i)
+\end{equation}
+
+\property[$E$ is normed on constant random variables]
+$E$ is \ti{normed} on $g(W) = c$ where $c \in \real$
+\begin{equation}
+	Ec = c \quad \forall c \in \real
+\end{equation}
+
+\property
+The indicator function of the whole sample space $\Omega$ is 1
+\begin{equation}
+	I_\Omega(W) = 1 \implies P(\Omega) = E1 = 1
+\end{equation}
+
+\property[non-negativity of probability]
+\begin{equation}
+	0 \leq I(A) \leq 1 \implies 0\leq P(A) = EI(A) \leq 1
+\end{equation}
+
+\subsubsection{Expected Value for an Arbitrary Finite Discrete Distribution}
+\definition[finite scheme] For any finite discrete distribution, we can write a \ti{finite scheme} 
+\begin{equation}
+	W \sim \begin{pmatrix}
+		w_1 & \hdots & w_N\\
+		p_1 & \hdots & p_N
+	\end{pmatrix}
+\end{equation}
+to symbolize the \ti{probability mass function}
+$$P(W = w_i) = p_i, \quad i \in \{1, 2, \hdots, N\}$$
+where $\sum_{i=1}^Np_i = 1$.
+
+\corollary
+For any real-valued function $g(W), W \in \Omega$, the expected value is
+\begin{equation}
+	Eg(W) = \sum_{i=1}^Ng(w_i)P(W = w_i) = \sum_{i=1}^Ng(w_i)p_i
+\end{equation}
+\begin{proof}
+	$g(W)$ can be explicitly represented as a finite linear combination of simple indicator functions
+	$$g(W) = \sum_{i=1}^N g(w_i)I(W = w_i)$$
+	So that applying E to both sides gives us the result.
+\end{proof}
+
+\subsubsection{Full generality: lebesgue-stieltjes}
+Suppose we are given a distribution function $F(x) = P(X \leq x), x \in \real$, for a real-valued random variable $X = g(W)$, with $W \sim P$ on sample space $\Omega$. Then consider some discrete approximation to $X$, for example,
+\begin{equation}
+	X_n = \sum_{i = -n}^n \frac{i-1}{\sqrt{n}}I\left(\frac{i-1}{\sqrt{n}} < X < \frac{i}{\sqrt{n}}\right)
+\end{equation}
+For this particular approximation,
+\begin{align*}
+	|X - X_n| \leq \frac{1}{\sqrt{n}} + |X|I(|X| > \sqrt{n})
+\end{align*}
+Thus $X_n \rightarrow X$ as $n \rightarrow \infty$. Then any continuous real-valued function $h(X_n) \rightarrow h(X)$ as $n \rightarrow \infty$. If $h(X)$ is bounded, then
+\begin{equation}
+	Eh(X) = \lim_{n \rightarrow \infty} \sum_{i = -n}^n h(\frac{i-1}{\sqrt{n}})\left(F(\frac{i}{\sqrt{n}}) - F(\frac{i-1}{\sqrt{n}})\right)
+\end{equation}
+which is called the \ti{lebesgue-stieltjes integral} of the function $h(x)$. It may be denoted
+\begin{equation}
+	Eh(X) := \int_{-\infty}^\infty h(x)\,dF(x)
+\end{equation}
+
+\subsubsection{Examples}
+\definition[bernoulli trial]
+The random variable $Z$ is said to be a \ti{bernoulli trial} (denoted $Z \sim bern(p), 0 \leq p \leq 1$) iff
+$$Z \sim \begin{pmatrix}
+	0 & 1 \\
+	q & p
+\end{pmatrix}$$
+
+\subsubsection{Expected Value for Continuous Functions}
+\subsubsection{Expected Value for $C^1$ functions}
+Consider the special case where function $g$ is strictly monotone and $C^1$.
+\proposition
+If $X = g(U), g:[0,1] \rightarrow [a,b]$ is strictly monotone and $C^1$, then for any continuous function $h: \real \rightarrow \real$,
+\begin{equation}
+	Eh(X) = \int_a^b h(x)f(x) \, dx
+\end{equation}
+where $$F = \begin{cases}
+g^{-1} &, g\uparrow\uparrow\\
+1 - g^{-1} &, g\downarrow\downarrow
+\end{cases} \quad \text{ and } \quad f(x) = F'(x)$$
+\begin{proof}
+	For any $0 \leq t < 1$, when $g \uparrow \uparrow$ and $C^1$, we have
+	\begin{align*}
+		\int_0^t h(g(u))\,du = \red{???}
+	\end{align*}
+\end{proof}
+\unsure{complete it later}
+\subsection{Exponential Distribution}
+\todo{notes}
+\subsection{Gamma Distribution}
+\todo{notes}
+\subsection{Continuity Revisited}
+\subsubsection{Sequential Continuity of Probability}
+\definition[$\sigma$-additivity] $P$ is said to be \ti{$\sigma$-additive / countably additive} iff
+for any mutually disjoint sequence of events $A_n$ ($n \in \mathbb{N}$)
+\begin{equation} \label{sigma add}
+	P(\sum_1^\infty A_n) = \sum_1^\infty P(A_n)
+\end{equation}
+
+\remark Equation (\ref{sigma add}) is equivalent to the following pair of equations:
+\begin{align}
+	\text{finite-additivity: } P(\sum_1^nA_i) &= \sum_1^n P(A_n) \\
+	\text{continuity: }A_n \rightarrow A &\implies P(A_n) \rightarrow P(A)
+\end{align}
+
+\proposition
+If $A_n \uparrow A$ or $A_n \downarrow A$, then
+$$P(A_n) \rightarrow P(A)$$
+\begin{proof}
+	if If $A_n \uparrow A$ then we have that 
+	$$ A = \cup_{n=1}^\infty A_n = \sum_{n=1}^\infty (A_n - A_{n-1})$$
+	where, for convenience, we have $A_0 = \emptyset$. \\
+	Then
+	\begin{align*}
+		P(A) &= \sum_{n=1}^\infty (P(A_n) - P(A_{n-1}) \\
+		&= \lim_{n \rightarrow \infty}\sum_{i=1}^\infty (P(A_i) - P(A_{i-1})) \\
+		&= \lim_{n \rightarrow \infty} P(A_n)
+	\end{align*}
+	On the other hand, $A_n \downarrow A$ is equivalent to $A_n^c \uparrow A^c$.
+\end{proof}
+
+\corollary[sequential continuity] 
+\begin{equation}
+	A_n \rightarrow A \implies P(A_n) \rightarrow P(A)
+\end{equation}
+\begin{proof}
+	Suppose $A_n \rightarrow A$, then
+	\begin{align*}
+		\cup_{n=1}^\infty\cap_{k\geq n}A_k &= A = \cap_{n=1}^\infty\cup_{k\geq n}A_k \\
+		\cap_{k\geq n}A_k &\leq A_n, A \leq \cup_{k\geq n}A_k \\
+		P(\cap_{k\geq n}A_k) &\leq P(A_n), P(A) \leq P(\cup_{k\geq n}A_k) \\
+		|P(A_n) - P(A)| & \leq P(\cup_{k\geq n}A_k) - P(\cap_{k\geq n}A_k) \\
+		& \rightarrow P(A) - P(A) \\
+		&= 0
+	\end{align*}
+	Therefore, 
+	\begin{align*}
+		|P(A_n) - P(A)| &\rightarrow 0 \\
+		P(A_n) \rightarrow P(A)
+	\end{align*}
+\end{proof}
+
+\subsection{Right Continuity of Cumulative Distribution Function}
+For any $x_n \downarrow x$, simply let $A_n = (-\infty, x_n]$ and $A=(-\infty, x]$. \\
+Then $A_n \downarrow A$, so 
+$$F(x_n) = P(X \in A_n) \downarrow P(X \in A) = F(x)$$
+Denoting the right-limit of $F$ at $x$ by $F(x+) := \lim_{y\downarrow x}F(y)$, and the left-limit $F(x-) := \lim_{y\uparrow x}F(y)$, we get the property of \ti{right-continuity} for CDF
+\begin{equation}
+	F(x+) = F(x) \quad \forall x \in \real
+\end{equation}
+
+\remark
+Any distribution function $F(x)$ can actually be discontinuous at no more than a \red{countable} number of points, which corresponds to all the jumps on the discrete part of the distribution.
+
+\definition[probability mass function] For any real-valued random variable $X$, the \ti{probability mass function} of $X$ is given by
+$$p(x) = p_X(x) = P(X=x) \quad \forall x \in \real$$
+
+\proposition Probability mass function
+\begin{equation}
+	p(x) = F(x) - F(x-) \quad \forall x \in \real
+\end{equation}
+\begin{proof}
+For any $x_n \uparrow x$, simply let $A_n = (-\infty, x_n]$ and $A=(-\infty, x\red{)}$. \\
+Then $A_n \uparrow A$, so 
+$$F(x-) := \lim_{n \rightarrow \infty} P(X \in A_n) = P(X \in A) = P(X < x)$$
+Therefore
+$$p(x) = P(X \leq x) - P(X < x) = F(x) - F(x-)$$ 
+\end{proof}
+
+\remark
+The points of continuity $C_F$ of any distribution function correspond perfectly to the points where pmf is zero.
+\begin{align*}
+	C_F &= \{ x \in \real | F(x-) = F(x+) \} \\
+	&= \{ x \in \real | F(x-) = F(x) \} \\
+	&= \{ x \in \real | p(x) = 0\} = p^{-1}(0)
+\end{align*}
+The complementary region being the discrete part of the distribution
+\begin{align*}
+	D_F = \{x \in \real | p(x) > 0\} = p^{-1}(0)^c
+\end{align*}
+
+\proposition $D_F$ is at most countable.
+$$\# D_F \leq \# \mathbb{N}$$
+\begin{proof}
+	Note that
+	$$\{ x \in \real | p(x) > 0 \} = \cup_{n=1}^\infty \{ x \in \real | p(x) > 1/n\}$$
+	It is clear that for every $n \in \mathbb{N}$, $\{ x \in \real | p(x) > 1/n\}$ has less than $n$ point in it. Otherwise
+	$$\exists A_n = \{a_1, \hdots, a_n\} \subset \{x \in \real | p(x) > 1/n \} \text{ with } P(A_n) > 1$$
+	which is a contradiction.\\
+	Since a countable union of countable sets is still countable, we have $D_F$ is at most countable.
+\end{proof}
+
+
+\section{Reduction to an Axiomatic System}
+\subsection{The Kolmogorov Axioms}
+\definition[probability space]
+A \ti{probability space (distribution)} is a triple of objects ($\Omega, L, E$)
+\begin{enumerate}
+	\item $\Omega$: any set, called the \ti{sample space}
+	\item $L$: any vector space of real-valued functions on $\Omega$ that contains the constants, and is closed under taking absolute values ($X \in L \implies |X| \in L$), the elements of which are referred to as \ti{random variables}
+	\item $E: L \rightarrow \real$, any functional that is 
+	\begin{itemize}
+		\item \ti{normed}: $Ec = c$
+		\item \ti{non-negative}: $X \geq 0 \implies EX \geq 0$
+		\item \ti{linear}: $E\sum_1^na_iX_i = \sum_1^na_iEX_i$
+		\item \ti{continuous}: $0\leq X_n \rightarrow X \implies 0 \leq EX_n \rightarrow EX$
+	\end{itemize}
+	referred to as an \ti{expectation operator}, while its value $EX$ at any $X \in L$ is called the \ti{expected value} of that $X$.
+\end{enumerate} 
+
+\property[continuity]
+A useful variant of $E$'s \ti{continuous} property is stated as:\\
+If $Z_n \geq 0, n = 1, 2, \hdots$, then 
+\begin{equation}
+	E\sum_{i=1}^\infty Z_n = \sum_{i=1}^\infty EZ_n
+\end{equation}
+
+\subsubsection{Reducing the Reduction}
+As understood, probability is a very special case of expected values. Thus we can reduce the definition of a probability space as follows
+\definition[probability space]
+A \ti{probability space (distribution)} is a triple of objects ($\Omega, \mc{F}, P$)
+\begin{enumerate}
+	\item $\Omega$: any set, called the \ti{sample space}
+	\item $\mc{F}$: any $\sigma$-algebra of subsets of $\Omega$, which is a non-empty collection closed under countable unions and complements. The elements of $\mc{F}$ are referred to as \ti{events}
+	\item $E: \mc{F} \rightarrow \real$, any functional that is 
+	\begin{itemize}
+		\item \ti{normed}: $Ec = c$
+		\item \ti{non-negative}: $X \geq 0 \implies EX \geq 0$
+		\item \ti{$\sigma$-additive}: $P(\sum_1^{\infty}A_i) = \sum_1^{\infty}P(A_i)$
+	\end{itemize}
+	referred to as \ti{probability measure}, while its value $P(A)$ at any $A \in \mc{F}$, is called the \ti{probability} of that $A$.
+\end{enumerate} 
+
+\remark
+$\sigma$-algebra is identical to $\sigma$-field.
+
+\proposition[nullity]
+$$P(\emptyset = 0)$$
+\begin{proof}
+	First we show that $\Omega \in \mc{F}$. \\
+	If $F \neq \emptyset$, then $\exists A \in \mc{F} \text{ s.t. } A^c \in \mc{F}$. \\
+	So let $A_1 = A, A_n = A^c \,\, \forall n \geq 2$. \\
+	Then 
+	\begin{align*}
+		\cup_1^\infty A_n &= A \cup A^c \cup A^c \cup \hdots \\
+		&= A \cup A^c \\
+		&= \Omega \in \mc{F}
+	\end{align*}
+	Define the sequence of mutually disjoint events
+	$$A_1 = \Omega \quad \& \quad A_n = \emptyset, \quad n \geq 2$$
+	Then we have $\Omega = \sum_{n=1}^\infty A_n$ and thus 
+	$$ 1 = 1 + \lim_{n\rightarrow\infty} nP(\emptyset)$$
+	which forces the result.
+\end{proof}
+
+\proposition[finite-additivity]
+$$P(A + B) = P(A) + P(B)$$
+
+\corollary[complementarity]
+$$P(A^c) = 1 - P(A)$$
+\corollary[negative additivity]
+$$P(A - B) = P(A) - P(A\cap B)$$
+\begin{proof}
+	Since $A = AB + AB^c = AB + (A-B)$, then $P(A) = P(AB) + P(A-B)$, hence the result.
+\end{proof}
+
+\corollary[monotonicity]
+$$A \subset B \implies P(A) \leq P(B)$$
+\begin{proof}
+	Since $B = (B - A) \cup A$, then $P(B) - P(A) = P(B - A) \geq 0$, hence the result.
+\end{proof}
+
+\proposition
+Assuming \ti{normed, non-negative} and \ti{$\sigma$-additive}. If $A_n \uparrow A$ or $A_n \downarrow A$, then
+$$P(A_n) \rightarrow P(A)$$
+
+
+
+
+
+
+
+\end{document}
