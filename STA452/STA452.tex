@@ -485,7 +485,7 @@ $$P(A_n) \rightarrow P(A)$$
 	\end{align*}
 \end{proof}
 
-\subsection{Right Continuity of Cumulative Distribution Function}
+\subsubsection{Right Continuity of Cumulative Distribution Function}
 For any $x_n \downarrow x$, simply let $A_n = (-\infty, x_n]$ and $A=(-\infty, x]$. \\
 Then $A_n \downarrow A$, so 
 $$F(x_n) = P(X \in A_n) \downarrow P(X \in A) = F(x)$$
@@ -535,6 +535,202 @@ $$\# D_F \leq \# \mathbb{N}$$
 	Since a countable union of countable sets is still countable, we have $D_F$ is at most countable.
 \end{proof}
 
+\subsection{Back to the Uniform}
+\definition[p-adic series]
+For any $p \in \mathbb{N}$ with $p \geq 2$, any real number $U \in [0, 1)$ can be written as a base $p$ expansion in the form
+$$ U = \sum_{i=1}^\infty Z_i p^{-1}$$
+where $Z_i \in \{0, 1, 2, \hdots, p-1\}$.
+
+\notation
+Let $\dot{p}^\infty$ denote the collection of all the infinite p-sequences which do not end in $p-1$ repeated forever.
+
+\lemma[p-adic coding of the unit interval]
+$u = \sum_{i=1}^\infty z_i p^{-i}$ defines a correspondence $\Phi: \dot{p}^\infty \mapsto [0, 1)$.
+
+\lemma[p-adic partitioning]
+If $u = \sum_{i=1}^\infty z_i p^{-i}$ with $\vz \in \dot{p}^\infty$ then
+$$z_1 = b_1, \hdots, z_n = b_n \iff \sum_{i=1}^n z_i p^{-i} \leq u < \sum_{i=1}^n z_i p^{-i} + p^{-n}$$
+
+\theorem[digital coding of the uniform]
+For $U = \sum_{i=1}^\infty z_i p^{-i}$ with $p \geq 2$ and $\tb{Z} \in p^\infty$,
+$$U \sim unif[0,1] \iff Z_i \overset{i.i.d.}{\sim} unif\{0, \hdots, p-1\}$$
+\begin{proof}
+	Omitted here because it is very long and nuanced.
+\end{proof}
+\remark 
+It is regarded as the \ti{Fundamental Theorem of Applied Probability}.
+
+\subsection{Back to the Uniform II}
+\subsubsection{Percentiles}
+For \red{any} given $X \sim F$ and any $0 < p < 1$
+\definition[percentile/quantile] A p-th \ti{percentile/quantile} of $X$ is any value, $\theta = \theta_p$, such that $F(\theta-) \leq p \leq F(\theta)$
+\remark
+Not necessarily unique, could be a closed interval on the real line.
+
+\definition[lower and upper quantile functions] We define the \ti{lower quantile function} of the distribution function, $F$, to be the real-valued function $g:(0, 1) \rightarrow \real$ with
+\begin{equation}
+	g(u) = \inf F^{-1}[u, 1]
+\end{equation}
+and the \ti{upper quantile function} to be
+$h:(0,1) \rightarrow \real$ with
+\begin{equation}
+	h(u) = \sup F^{-1}[0,u]
+\end{equation}
+\remark
+Both of these functions are non-decreasing. But even when $F(x)$ is strictly increasing, either of $g(u)$ or $h(u)$ may actually be constant over various intervals.
+
+\proposition For every $0<u<1$ and $x \in \real$ we have both
+\begin{equation}
+	\red{u \leq F(g(u)) \quad \text{and} \quad g(F(x)) \leq x}
+\end{equation}
+\begin{proof}
+	(1) By the definition of infimum, we may choose $x_n \downarrow g(u)$ with $F(x_n) \geq u \, \forall n$. \\
+	Since $F$ is non-decreasing, then $F(x_n) \downarrow F(g(u))$. So $\lim F(x_n) = F(g(u)) \geq u$. \\
+	(2) $$x \in F^{-1}(F(x)) \subset F^{-1}[F(x), 1]$$
+	Since $g(F(x)) = \inf F^{-1}[F(x), 1]$, then $g(F(x)) \leq x$.
+\end{proof}
+
+\proposition For every $0<u<1$ and $x \in \real$ we have both
+\begin{equation}
+	u \leq F(h(u)) \quad \text{and} \quad x \leq h(F(x))
+\end{equation}
+\begin{proof}
+	(1) By the definition of supremum, we may choose $x_n \uparrow h(u)$ with $F(x_n) \leq u \, \forall n$. \\
+	Since $F$ is non-decreasing, then $F(x_n) \uparrow F(h(u))$. So $\lim F(x_n) = F(h(u)) \leq u$.\\
+	(2) $$x \in F^{-1}(F(x)) \subset F^{-1}[0, F(x)]$$
+	Since $h(F(x)) = \sup F^{-1}[0, F(x)]$, then $x \leq h(F(x))$.
+\end{proof}
+
+\corollary \label{quantile iff} \begin{equation}\blue{g(u) \leq x \iff u \leq F(x}\end{equation}
+\begin{proof}
+	$$g(u) \leq x \overset{F}{\implies} u \leq F(g(u)) \leq F(x) \overset{g}{\implies} g(u) \leq g F(x) \leq x$$
+\end{proof}
+
+\corollary 
+\begin{equation}
+	F(g(p)-) \leq p \leq F(g(p))
+\end{equation}
+\begin{proof}
+	From $g(u) \leq x \iff u \leq F(x)$, we can conclude $x < g(u) \iff F(x) < u$.
+	Then $F(x) < p \quad \forall x < g(p)$, so $F(g(p)-) \leq p$.
+\end{proof}
+
+\remark
+Indeed, the set of all $p$th percentiles is the simple compact interval $[g(p), h(p)]$.
+
+\corollary $F(x-) \leq p F(x) \iff g(p) \leq x \leq h(p)$
+\todo{prove}
+
+\corollary $$FgF = F\quad \text{and} \quad gFg = g$$
+\begin{proof}
+	Since $u \leq Fg(u)$, then $F(x) \leq F(g(F(x)))$. \\
+	Since $g(F(x)) \leq x$ and $F$ is non-decreasing, then $F(g(F(x))) \leq F(x)$ \\
+	Therefore, $F(x) \leq F(g(F(x))) \leq F(x) \implies FgF = F$.\\
+	Similarly, Since $u \leq F(g(u))$ and $g$ is non-decreasing, then $g(u) \leq g(F(g(u)))$.\\
+	Since $g(F(x)) \leq x$, then $g(F(g(u))) \leq g(u)$.\\
+	Therefore, $g(u) \leq g(F(g(u))) \leq g(u) \implies gFg = g$.
+\end{proof}
+
+\corollary $g(u)$ is left-continuous.
+\begin{equation}
+	u_n \uparrow u \implies g(u_n) \uparrow g(u)
+\end{equation}
+\begin{proof}
+	$u_n \uparrow u \implies g(u_n) \uparrow c \leq g(u)$ for some upper limit $c$. \\
+	But $g(u_n) \leq c \quad \forall n$. Then $u_n \leq Fg(u_n) \leq F(c) \quad \forall n$ \\
+	Then $u \leq F(c)$, then $g(u) \leq g(F(c)) \leq c$.
+	Therefore $c \leq g(u) \leq c \implies g(u) = c$, then $g(u_n) \uparrow g(u)$.
+\end{proof}
+
+\corollary \label{u=Fg(u)}$F$ is continuous iff $u = Fg(u) \quad \forall u$.
+\begin{proof}
+	$(\Rightarrow)$ Obvious, since $F(g(u)) = F(g(u)-) \leq u \leq F(g(u)) \implies u = Fg(u)$ \\
+	$(\Leftarrow)$  If $u = Fg(u)$ for every $0 < u < 1$, then we only need to show that $F$ is left-continuous.\\
+	$x_n \uparrow x \implies F(x_n) \uparrow p = Fg(p) \leq F(x)$ for some $p$.\\
+	So if $g(p) = x$, we are done. \\
+	If $g(p) < x$, then $g(p) < x_n$ for $n$ sufficient large.\\
+	So $p = Fg(p) \leq F(x_n) \leq p$ for $n$ sufficient large, so $F(x_n) = p$ and \unsure{???}
+\end{proof}
+
+\proposition[the quantile transform] \label{the quantile transform}
+\begin{equation}
+	U \sim unif[0, 1] \implies g(U) \overset{d}{=} X
+\end{equation}
+\begin{proof}
+	We know from Corollary (\ref{quantile iff}) that $g(U) \leq x \iff U \leq F(x)$.\\
+	Therefore,
+	\begin{align*}
+		P(g(U) \leq x) &= P(U \leq F(x)) \\
+		&= F(x) \tag{by the property of uniform distribution}\\
+		&= P(X\leq x)
+	\end{align*}
+\end{proof}
+
+\corollary 
+\begin{equation}
+	gF(X) \overset{d}{=} X
+\end{equation}
+\begin{proof}
+	$gF(X) \overset{d}{=} gFg(U) \overset{d}{=} g(U) \overset{d}{=} X$.
+\end{proof}
+
+\corollary
+\begin{equation}
+	P(F(X) \leq F(x)) = P(X \leq x) \quad \forall x \in \real
+\end{equation}
+
+\begin{proof}
+	Let $x \in \real$\\
+	$F(X) \leq F(x) \implies gF(X) \leq \underbrace{g(F(x))}_{X} \leq x \implies F(X) \leq F(x)$ \\
+	Therefore, $F(X) \leq F(x)$ iff $X \leq x$\\
+	Then $P(F(X) \leq F(x)) = P(X \leq x)$.
+\end{proof}
+
+\proposition[probability integral transform]
+$F$ is continuous iff $F(X) \overset{d}{=} U$
+\begin{proof}
+	($\Rightarrow$): Assume $F$ is continuous. From Proposition (\ref{the quantile transform}), we know $g(U) \overset{d}{=}X$, so $F(X) \overset{d}{=} Fg(U)$. \\
+	 But since $F$ is continuous, $Fg(U) = U$. Therefore, $F(X) \overset{d}{=} U$.
+	($\Leftarrow$): Assume $F(X) \overset{d}{=} U$. \\
+	$X = x$ implies $F(X) = F(x)$. This means $F(X) = F(x)$ may have a higher probability than $X=x$. Therefore,
+	$$P(X=x) \leq P(F(X) = F(x)) = P(U = F(x)) = 0$$
+	Hence $P(X = x) = 0$ for all $x \in \real$ so $F$ is continuous.
+\end{proof}
+
+\proposition
+Both $g$ and $F$ are continuous iff $g = h = F^{-1}$ on $(0, 1)$.
+\begin{proof}
+	($\Rightarrow$): Assume $g$ and $F$ are continuous. \\
+	Then from Corollary \ref{u=Fg(u)}, $u = Fg(u)$. Also we can easily conclude that $g$ is onto. 
+	\todo{prove}
+\end{proof}
+ 
+\property
+Given any $f: \real \rightarrow (0, \infty) \in C$ s.t. $\int_{-\infty}^\infty f(x)\,dx =1$, the function defined by $F(x) = \int_{-\infty}^x f(s)\,ds, x \in \bar{\real} := \real \cup \{\pm \infty\} = [-\infty, \infty]$ determines a homeomorphism $F: \bar{\real} \overset{\cong}{\rightarrow} [0, 1]$ with quantile function $g = h = F^{-1}$.
+
+\subsubsection{Medians}
+\definition A \ti{median} for a random variable $X$ is any $\theta = \theta_{1/2}$ s.t. $F(\theta-) \leq \frac{1}{2} \leq F(\theta)$ (denoted $\theta = median(X)$).
+
+\remark
+A median is simply a 50th percentile.
+
+\proposition Assuming $E|X| < \infty$ (the mean of $X$ exists):
+\begin{equation}
+	\theta = median(X) \iff E|X - \theta| = \inf_{t\in\real} E|X-t|
+\end{equation}
+
+\remark
+A median of a r.v. $X$ is the closest constant to $X$ in $L_1$ metric, a specific way of measuring the distance between two random objects:
+$$d_1(x,y) = E|x - y|$$
+
+\proposition Assuming $E|X| < \infty$ (the mean of $X$ exists):
+\begin{equation}
+	\mu = EX \iff \sqrt{E(X-\mu)^2} = \inf_{t \in \real} \sqrt{E(X-t)^2}
+\end{equation}
+
+\remark
+A mean of a r.v. $X$ is the closest constant to $X$ in $L_2$ metric:
+$$d_2(x,y) = \sqrt{E(x-y)^2}$$
 
 \section{Reduction to an Axiomatic System}
 \subsection{The Kolmogorov Axioms}

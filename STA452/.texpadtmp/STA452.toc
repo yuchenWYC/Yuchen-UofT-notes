@@ -19,7 +19,11 @@
 \contentsline {subsection}{\numberline {2.6}Gamma Distribution}{9}{subsection.2.6}% 
 \contentsline {subsection}{\numberline {2.7}Continuity Revisited}{9}{subsection.2.7}% 
 \contentsline {subsubsection}{\numberline {2.7.1}Sequential Continuity of Probability}{9}{subsubsection.2.7.1}% 
-\contentsline {subsection}{\numberline {2.8}Right Continuity of Cumulative Distribution Function}{10}{subsection.2.8}% 
-\contentsline {section}{\numberline {3}Reduction to an Axiomatic System}{11}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}The Kolmogorov Axioms}{11}{subsection.3.1}% 
-\contentsline {subsubsection}{\numberline {3.1.1}Reducing the Reduction}{12}{subsubsection.3.1.1}% 
+\contentsline {subsubsection}{\numberline {2.7.2}Right Continuity of Cumulative Distribution Function}{10}{subsubsection.2.7.2}% 
+\contentsline {subsection}{\numberline {2.8}Back to the Uniform}{11}{subsection.2.8}% 
+\contentsline {subsection}{\numberline {2.9}Back to the Uniform II}{12}{subsection.2.9}% 
+\contentsline {subsubsection}{\numberline {2.9.1}Percentiles}{12}{subsubsection.2.9.1}% 
+\contentsline {subsubsection}{\numberline {2.9.2}Medians}{14}{subsubsection.2.9.2}% 
+\contentsline {section}{\numberline {3}Reduction to an Axiomatic System}{15}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}The Kolmogorov Axioms}{15}{subsection.3.1}% 
+\contentsline {subsubsection}{\numberline {3.1.1}Reducing the Reduction}{15}{subsubsection.3.1.1}% 
