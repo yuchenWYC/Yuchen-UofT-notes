@@ -457,7 +457,7 @@ $$P(A_n) \rightarrow P(A)$$
 	where, for convenience, we have $A_0 = \emptyset$. \\
 	Then
 	\begin{align*}
-		P(A) &= \sum_{n=1}^\infty (P(A_n) - P(A_{n-1}) \\
+		P(A) &= \sum_{n=1}^\infty (P(A_n) - P(A_{n-1}))x  \\
 		&= \lim_{n \rightarrow \infty}\sum_{i=1}^\infty (P(A_i) - P(A_{i-1})) \\
 		&= \lim_{n \rightarrow \infty} P(A_n)
 	\end{align*}
@@ -585,7 +585,7 @@ Both of these functions are non-decreasing. But even when $F(x)$ is strictly inc
 \end{equation}
 \begin{proof}
 	(1) By the definition of infimum, we may choose $x_n \downarrow g(u)$ with $F(x_n) \geq u \, \forall n$. \\
-	Since $F$ is non-decreasing, then $F(x_n) \downarrow F(g(u))$. So $\lim F(x_n) = F(g(u)) \geq u$. \\
+	Since $F$ is right-continuous, then $F(x_n) \downarrow F(g(u))$. So $\lim F(x_n) = F(g(u)) \geq u$. \\
 	(2) $$x \in F^{-1}(F(x)) \subset F^{-1}[F(x), 1]$$
 	Since $g(F(x)) = \inf F^{-1}[F(x), 1]$, then $g(F(x)) \leq x$.
 \end{proof}
@@ -595,13 +595,12 @@ Both of these functions are non-decreasing. But even when $F(x)$ is strictly inc
 	u \leq F(h(u)) \quad \text{and} \quad x \leq h(F(x))
 \end{equation}
 \begin{proof}
-	(1) By the definition of supremum, we may choose $x_n \uparrow h(u)$ with $F(x_n) \leq u \, \forall n$. \\
-	Since $F$ is non-decreasing, then $F(x_n) \uparrow F(h(u))$. So $\lim F(x_n) = F(h(u)) \leq u$.\\
+	(1) \todo{prove}
 	(2) $$x \in F^{-1}(F(x)) \subset F^{-1}[0, F(x)]$$
 	Since $h(F(x)) = \sup F^{-1}[0, F(x)]$, then $x \leq h(F(x))$.
 \end{proof}
 
-\corollary \label{quantile iff} \begin{equation}\blue{g(u) \leq x \iff u \leq F(x}\end{equation}
+\corollary \label{quantile iff} \begin{equation}\blue{g(u) \leq x \iff u \leq F(x)}\end{equation}
 \begin{proof}
 	$$g(u) \leq x \overset{F}{\implies} u \leq F(g(u)) \leq F(x) \overset{g}{\implies} g(u) \leq g F(x) \leq x$$
 \end{proof}
@@ -744,7 +743,7 @@ A \ti{probability space (distribution)} is a triple of objects ($\Omega, L, E$)
 		\item \ti{normed}: $Ec = c$
 		\item \ti{non-negative}: $X \geq 0 \implies EX \geq 0$
 		\item \ti{linear}: $E\sum_1^na_iX_i = \sum_1^na_iEX_i$
-		\item \ti{continuous}: $0\leq X_n \rightarrow X \implies 0 \leq EX_n \rightarrow EX$
+		\item \ti{continuous}: $0\leq X_n \uparrow X \implies 0 \leq EX_n \uparrow EX$
 	\end{itemize}
 	referred to as an \ti{expectation operator}, while its value $EX$ at any $X \in L$ is called the \ti{expected value} of that $X$.
 \end{enumerate} 
@@ -776,7 +775,7 @@ A \ti{probability space (distribution)} is a triple of objects ($\Omega, \mc{F},
 $\sigma$-algebra is identical to $\sigma$-field.
 
 \proposition[nullity]
-$$P(\emptyset = 0)$$
+$$P(\emptyset) = 0$$
 \begin{proof}
 	First we show that $\Omega \in \mc{F}$. \\
 	If $F \neq \emptyset$, then $\exists A \in \mc{F} \text{ s.t. } A^c \in \mc{F}$. \\
@@ -814,6 +813,19 @@ $$A \subset B \implies P(A) \leq P(B)$$
 \proposition
 Assuming \ti{normed, non-negative} and \ti{$\sigma$-additive}. If $A_n \uparrow A$ or $A_n \downarrow A$, then
 $$P(A_n) \rightarrow P(A)$$
+
+\subsubsection{Recovering the Expectation Operator}
+The space of bernoulli trials (indicator functions) is
+$$ \mc{J} = \{I_A | A \in \mc{F}\}$$
+On this collection, we have to define the expectation operator to be $E: \mc{J} \rightarrow \real$
+$$E(I_A) = P(A) \quad \forall A \in \mc{F}$$
+Starting from $\mc{J}$, we can create a vector space that contains finite linear combinations of indicator functions. They are all the finite discrete random variables
+$$\mc{S} = \left \{ S | S = \sum_{i=1}^m a_i I(A_i), a_i \in \real, A_i \in \mc{F}, i = 1, \hdots, m, m \in \mb{N} \right\}$$
+In this case, $E$ is required to be linear, so we define it as $E: \mc{S} \rightarrow \real$
+$$ E(S) = \sum_{i=1}^m a_iP(A_i) \quad \forall S = \sum_{i=1}^m a_iI(A_i)$$
+
+
+
 
 
 

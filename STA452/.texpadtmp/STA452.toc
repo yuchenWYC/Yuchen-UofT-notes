@@ -24,6 +24,7 @@
 \contentsline {subsection}{\numberline {2.9}Back to the Uniform II}{12}{subsection.2.9}% 
 \contentsline {subsubsection}{\numberline {2.9.1}Percentiles}{12}{subsubsection.2.9.1}% 
 \contentsline {subsubsection}{\numberline {2.9.2}Medians}{14}{subsubsection.2.9.2}% 
-\contentsline {section}{\numberline {3}Reduction to an Axiomatic System}{15}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}The Kolmogorov Axioms}{15}{subsection.3.1}% 
+\contentsline {section}{\numberline {3}Reduction to an Axiomatic System}{14}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}The Kolmogorov Axioms}{14}{subsection.3.1}% 
 \contentsline {subsubsection}{\numberline {3.1.1}Reducing the Reduction}{15}{subsubsection.3.1.1}% 
+\contentsline {subsubsection}{\numberline {3.1.2}Recovering the Expectation Operator}{16}{subsubsection.3.1.2}% 

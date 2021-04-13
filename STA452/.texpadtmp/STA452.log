@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  23 FEB 2021 19:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  8 MAR 2021 18:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -703,36 +703,36 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 [8]
 Package hyperref Info: bookmark level for unknown todo defaults to 0 on input line 432.
- [9] [10] [11] [12] [13] [14]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 744.
+ [9] [10] [11] [12] [13]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 743.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 744.
- [15] [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 824.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 824.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 743.
+ [14] [15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 836.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 836.
  (/Users/raina/Desktop/UofT-notes/STA452/.texpadtmp/STA452.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 824.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 824.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 836.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 836.
 Package rerunfilecheck Info: File `STA452.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 824.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 836.
  ) 
 Here is how much of TeX's memory you used:
- 19061 strings out of 492616
- 351984 string characters out of 6129482
- 454287 words of memory out of 5000000
- 22383 multiletter control sequences out of 15000+600000
+ 19072 strings out of 492616
+ 352220 string characters out of 6129482
+ 455432 words of memory out of 5000000
+ 22392 multiletter control sequences out of 15000+600000
  12940 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,13n,83p,454b,1035s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/esint-type1/esint10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on /Users/raina/Desktop/UofT-notes/STA452/.texpadtmp/STA452.pdf (16 pages, 261942 bytes).
+Output written on /Users/raina/Desktop/UofT-notes/STA452/.texpadtmp/STA452.pdf (16 pages, 264434 bytes).
 PDF statistics:
- 547 PDF objects out of 1000 (max. 8388607)
- 491 compressed objects within 5 object streams
- 223 named destinations out of 1000 (max. 500000)
- 333 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 553 PDF objects out of 1000 (max. 8388607)
+ 497 compressed objects within 5 object streams
+ 225 named destinations out of 1000 (max. 500000)
+ 341 words of extra memory for PDF output out of 10000 (max. 10000000)
 
