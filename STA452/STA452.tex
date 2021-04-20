@@ -44,8 +44,8 @@ For example, conditional density is a consequence of conditional expectation, wh
 \subsection{Preliminary}
 \definition
 A sequence of sets $A_n \rightarrow A$ iff $I(A_n) \rightarrow I(A)$.
-\remark
-	\red{See Appendix 2 of the original notes.}
+%\remark
+%	\red{See Appendix 2 of the original notes.}
 
 \proposition A limit exists when the limsup is equal to the liminf:
 \begin{equation}
@@ -53,26 +53,26 @@ A sequence of sets $A_n \rightarrow A$ iff $I(A_n) \rightarrow I(A)$.
 \end{equation}
 \begin{proof}
 For $w \in \Omega$,
-	\begin{align*}
+	\begin{align}
 		\sup_{t \in T} I(A_t)(w) &= I(\cup_{t\in T} A_t)(w) \\
 		&= 1 \text{ or } 0 \\
 		\inf_{t \in T} I(A_t)(w) &= I(\cap_{t\in T} A_t)(w)
-	\end{align*}
+	\end{align}
 Therefore,
-\begin{align*}
+\begin{align}
 	\lim_{n \rightarrow \infty} I(A_n) &= \underset{n \rightarrow \infty}{\overline{\lim}} I(A_n) \\
 	&= \inf_{n=1}^\infty \sup_{k=n}^\infty I(A_k) \\
 	&= I\left(\cap_{n=1}^\infty \cup_{k=n}^\infty A_k \right) \\
 	&= \underset{n \rightarrow \infty}{\under{\lim}} I(A_n) \\
 	&= \sup_{n=1}^\infty \inf_{k=n}^\infty I(A_k) \\
 	&= I\left(\cup_{n=1}^\infty \cap_{k=n}^\infty A_k \right)
-\end{align*}
+\end{align}
 \end{proof}
 \property Therefore it is clear that
 \begin{enumerate}
-	\item \begin{align}
+	\item \begin{equation}
 	A_n \rightarrow A \iff A = \cap_{n=1}^\infty \cup_{k=n}^\infty A_k = \cup_{n=1}^\infty \cap_{k=n}^\infty A_k
-\end{align}
+\end{equation}
 	\item 
 	\begin{equation} \label{monotone sequence limit 1}
 		A_n \uparrow \implies A_n \uparrow \cup_{n=1}^\infty A_n
@@ -91,10 +91,10 @@ $$W: w_1, w_2, \hdots, w_n, \hdots$$
 The outcomes are often referred to as \ti{trials} of the \ti{process} $W$. $w_n$ is called the $n$th trial, and the finite sequence ($w_1, w_2, 
 \hdots, w_n$) is the first $n$ trials. \\
 Consider any real-valued function $g: \Omega \rightarrow \real$ defined on the \ti{sample space} $\Omega$. Let $X = g(W)$ denote the \ti{extended process} that applies the function $g$ to the outcome $w$ from $W$ to produce the outcome $x = g(w)$. This new process has its own sequence of trial outcomes:
-\begin{align*}
+\begin{align}
 	& g(W): g(w_1), g(w_2), \hdots, g(w_n), \hdots \\
     \text{or} \quad & X \quad \,\,\,  : x_1, x_2, \hdots, x_n, \hdots
-\end{align*}
+\end{align}
 These transformed outcomes are all real values, with which we can do lots of easy arithmetic, while the abstract sample space $\Omega$ may not have this property.
 \definition[sample mean]
 For each $n \in \mb{N}$, the \ti{sample mean} over the first $n$ trials is the \ti{arithmetic average} of the function values over those $n$ trials:
@@ -218,9 +218,9 @@ For any function $\phi: \Omega \rightarrow \chi$
 	W_1 \overset{d}{=} W_2 \implies \phi(W_1) \overset{d}{=} \phi(W_2)
 \end{equation}
 \begin{proof}
-\begin{align*}
+\begin{align}
 	Eh(\phi(W_1)) = Eh(\phi(W_2)) \quad \forall h: \chi \rightarrow \real
-\end{align*}
+\end{align}
 \end{proof}
 
 \proposition[invariance 2]
@@ -235,16 +235,16 @@ Let $Z = -\ln U$ with $U \sim unif[0,1]$. Then it is straightforward to compute 
 	P(s \leq Z \leq t) = e^{-s} - e^{-t}
 \end{equation}
 \begin{proof}
-\begin{align*}
+\begin{align}
 	s \leq Z \leq t &\iff s \leq -\ln U \leq t\\
 	&\iff -t \leq \ln U \leq -s\\
 	&\iff e^{-t} \leq U \leq e^{-s}
-\end{align*}
+\end{align}
 Therefore 
-\begin{align*}
+\begin{align}
 	P(s \leq Z \leq t) &= P(e^{-t} \leq U \leq e^{-s}) \\
 	&= e^{-s} - e^{-t}
-\end{align*}	
+\end{align}	
 \end{proof}
 \definition[standard exponential distribution] The random variable $Z$ is said to have a \ti{standard exponential distribution} on $[0, \infty)$ (denoted $Z \sim \exp(1)$)\\
 iff \\
@@ -313,13 +313,13 @@ $$F(x) = \int_a^x f(s) \, ds \quad \text{with } f = F' > 0 \text{ cont. on } [a,
 
 \proposition If $g = F^{-1}$ and $g \in C^1$, then $F(X) \overset{d}{=} U$
 \begin{proof}
-	\begin{align*}
+	\begin{align}
 		P(F(X) \leq u) &= P(X \leq g(u)) \\
 		&= P(X \leq g(u)) \\
 		&= F(g(u)) \\
 		&= u \\
 		&= P(U \leq u)
-	\end{align*}
+	\end{align}
 \end{proof}
 
 \definition[quantile]
@@ -385,15 +385,25 @@ For any real-valued function $g(W), W \in \Omega$, the expected value is
 	So that applying E to both sides gives us the result.
 \end{proof}
 
+\remark
+For $U \sim unif\{1, \hdots, n\}$, we have $EU = \frac{1 + \hdots + n}{n}$ and generally $EU^k = \frac{1 + \hdots + n^k}{n}$. \\
+Note that $EU^k - E(U-1)^k = n^{k-1}$ for $k \in \mb{N}$. This provides an iterative basis for the computation of $EU^k$:
+\begin{align}
+EU^2 - E(U-1)^2 = n &\implies EU = \frac{n+1}{n} \\	
+EU^3 - E(U-1)^3 = n^2 &\implies EU^2 = \frac{2n+1}{3}EU \\	
+EU^4 - E(U-1)^4 = n^3 &\implies EU^3 = n(EU)^2 \\	
+\end{align}
+
+
 \subsubsection{Full generality: lebesgue-stieltjes}
 Suppose we are given a distribution function $F(x) = P(X \leq x), x \in \real$, for a real-valued random variable $X = g(W)$, with $W \sim P$ on sample space $\Omega$. Then consider some discrete approximation to $X$, for example,
 \begin{equation}
 	X_n = \sum_{i = -n}^n \frac{i-1}{\sqrt{n}}I\left(\frac{i-1}{\sqrt{n}} < X < \frac{i}{\sqrt{n}}\right)
 \end{equation}
 For this particular approximation,
-\begin{align*}
+\begin{align}
 	|X - X_n| \leq \frac{1}{\sqrt{n}} + |X|I(|X| > \sqrt{n})
-\end{align*}
+\end{align}
 Thus $X_n \rightarrow X$ as $n \rightarrow \infty$. Then any continuous real-valued function $h(X_n) \rightarrow h(X)$ as $n \rightarrow \infty$. If $h(X)$ is bounded, then
 \begin{equation}
 	Eh(X) = \lim_{n \rightarrow \infty} \sum_{i = -n}^n h(\frac{i-1}{\sqrt{n}})\left(F(\frac{i}{\sqrt{n}}) - F(\frac{i-1}{\sqrt{n}})\right)
@@ -425,15 +435,28 @@ g^{-1} &, g\uparrow\uparrow\\
 \end{cases} \quad \text{ and } \quad f(x) = F'(x)$$
 \begin{proof}
 	For any $0 \leq t < 1$, when $g \uparrow \uparrow$ and $C^1$, we have
-	\begin{align*}
+	\begin{align}
 		\int_0^t h(g(u))\,du = \red{???}
-	\end{align*}
+	\end{align}
 \end{proof}
 \unsure{complete it later}
 \subsection{Exponential Distribution}
 \todo{notes}
 \subsection{Gamma Distribution}
-\todo{notes}
+\property
+As follows.
+\begin{itemize}
+	\item $\Gamma(\alpha) = (\alpha - 1)!$ for positive integer $\alpha$
+	\item $\Gamma(p + 1) = p\Gamma(p)$ 
+	\item $\Gamma(1/2) = \pi^{1/2}$
+	\item If $Z \sim Gamma(p, 1)$, then $EZ^s = \Gamma(p+s) / \Gamma(p) \quad \forall s\in \real$
+	\item $Gamma(v/2, 1/2) \overset{d}{=} \chi^2_{(v)}$
+	\item $Gamma(1, \lambda) \overset{d}{=} Exp(\lambda)$
+	\item If $X_i \sim Gamma(\alpha_i, \beta)$ for $i = 1, 2, \hdots, N$, then $\sum_{i=1}^N X_i \sim Gamma\left( \sum_{i=1}^N \alpha_i, \beta \right)$
+	\item If $X \sim Gamma(\alpha, \theta), Y \sim Gamma(\beta, \theta)$ are independently distributed, then $X / (X+Y) \sim Beta(\alpha, \beta)$ is independent of $X + Y$.
+	\item If $X \sim Gamma(\alpha, \beta)$, then $cX \sim Gamma \left( \alpha, \frac{\beta}{c}\right)$
+	\item If $X_i \sim Gamma(\alpha_i, 1)$ are independently distributed, then the vector $(X_1 / S, \hdots, X_n / S)$, where $S = X_1 + \hdots + X_n$ follows a Dirichlet distribution with parameters $\alpha_1, \hdots, \alpha_n$.
+\end{itemize}
 \subsection{Continuity Revisited}
 \subsubsection{Sequential Continuity of Probability}
 \definition[$\sigma$-additivity] $P$ is said to be \ti{$\sigma$-additive / countably additive} iff
@@ -456,11 +479,11 @@ $$P(A_n) \rightarrow P(A)$$
 	$$ A = \cup_{n=1}^\infty A_n = \sum_{n=1}^\infty (A_n - A_{n-1})$$
 	where, for convenience, we have $A_0 = \emptyset$. \\
 	Then
-	\begin{align*}
+	\begin{align}
 		P(A) &= \sum_{n=1}^\infty (P(A_n) - P(A_{n-1}))x  \\
 		&= \lim_{n \rightarrow \infty}\sum_{i=1}^\infty (P(A_i) - P(A_{i-1})) \\
 		&= \lim_{n \rightarrow \infty} P(A_n)
-	\end{align*}
+	\end{align}
 	On the other hand, $A_n \downarrow A$ is equivalent to $A_n^c \uparrow A^c$.
 \end{proof}
 
@@ -470,19 +493,19 @@ $$P(A_n) \rightarrow P(A)$$
 \end{equation}
 \begin{proof}
 	Suppose $A_n \rightarrow A$, then
-	\begin{align*}
+	\begin{align}
 		\cup_{n=1}^\infty\cap_{k\geq n}A_k &= A = \cap_{n=1}^\infty\cup_{k\geq n}A_k \\
 		\cap_{k\geq n}A_k &\leq A_n, A \leq \cup_{k\geq n}A_k \\
 		P(\cap_{k\geq n}A_k) &\leq P(A_n), P(A) \leq P(\cup_{k\geq n}A_k) \\
 		|P(A_n) - P(A)| & \leq P(\cup_{k\geq n}A_k) - P(\cap_{k\geq n}A_k) \\
 		& \rightarrow P(A) - P(A) \\
 		&= 0
-	\end{align*}
+	\end{align}
 	Therefore, 
-	\begin{align*}
+	\begin{align}
 		|P(A_n) - P(A)| &\rightarrow 0 \\
 		P(A_n) \rightarrow P(A)
-	\end{align*}
+	\end{align}
 \end{proof}
 
 \subsubsection{Right Continuity of Cumulative Distribution Function}
@@ -514,15 +537,15 @@ $$p(x) = P(X \leq x) - P(X < x) = F(x) - F(x-)$$
 
 \remark
 The points of continuity $C_F$ of any distribution function correspond perfectly to the points where pmf is zero.
-\begin{align*}
+\begin{align}
 	C_F &= \{ x \in \real | F(x-) = F(x+) \} \\
 	&= \{ x \in \real | F(x-) = F(x) \} \\
 	&= \{ x \in \real | p(x) = 0\} = p^{-1}(0)
-\end{align*}
+\end{align}
 The complementary region being the discrete part of the distribution
-\begin{align*}
+\begin{align}
 	D_F = \{x \in \real | p(x) > 0\} = p^{-1}(0)^c
-\end{align*}
+\end{align}
 
 \proposition $D_F$ is at most countable.
 $$\# D_F \leq \# \mathbb{N}$$
@@ -658,11 +681,11 @@ Indeed, the set of all $p$th percentiles is the simple compact interval $[g(p), 
 \begin{proof}
 	We know from Corollary (\ref{quantile iff}) that $g(U) \leq x \iff U \leq F(x)$.\\
 	Therefore,
-	\begin{align*}
+	\begin{align}
 		P(g(U) \leq x) &= P(U \leq F(x)) \\
 		&= F(x) \tag{by the property of uniform distribution}\\
 		&= P(X\leq x)
-	\end{align*}
+	\end{align}
 \end{proof}
 
 \corollary 
@@ -781,11 +804,11 @@ $$P(\emptyset) = 0$$
 	If $F \neq \emptyset$, then $\exists A \in \mc{F} \text{ s.t. } A^c \in \mc{F}$. \\
 	So let $A_1 = A, A_n = A^c \,\, \forall n \geq 2$. \\
 	Then 
-	\begin{align*}
+	\begin{align}
 		\cup_1^\infty A_n &= A \cup A^c \cup A^c \cup \hdots \\
 		&= A \cup A^c \\
 		&= \Omega \in \mc{F}
-	\end{align*}
+	\end{align}
 	Define the sequence of mutually disjoint events
 	$$A_1 = \Omega \quad \& \quad A_n = \emptyset, \quad n \geq 2$$
 	Then we have $\Omega = \sum_{n=1}^\infty A_n$ and thus 
@@ -819,11 +842,318 @@ The space of bernoulli trials (indicator functions) is
 $$ \mc{J} = \{I_A | A \in \mc{F}\}$$
 On this collection, we have to define the expectation operator to be $E: \mc{J} \rightarrow \real$
 $$E(I_A) = P(A) \quad \forall A \in \mc{F}$$
-Starting from $\mc{J}$, we can create a vector space that contains finite linear combinations of indicator functions. They are all the finite discrete random variables
+Starting from $\mc{J}$, we can create a vector space that contains \blue{finite linear combinations of indicator functions}. They are all the finite discrete random variables
 $$\mc{S} = \left \{ S | S = \sum_{i=1}^m a_i I(A_i), a_i \in \real, A_i \in \mc{F}, i = 1, \hdots, m, m \in \mb{N} \right\}$$
 In this case, $E$ is required to be linear, so we define it as $E: \mc{S} \rightarrow \real$
 $$ E(S) = \sum_{i=1}^m a_iP(A_i) \quad \forall S = \sum_{i=1}^m a_iI(A_i)$$
 
+\lemma[invariance at zero]
+\begin{equation}
+	\sum_{i=1}^m a_i I(A_i) = 0 \implies \sum_{i=1}^m a_i P(A_i) = 0
+\end{equation}
+
+\corollary[invariance]
+\begin{equation}
+	\sum_{i=1}^ma_iI(A_i) = \sum_{j=1}^mb_jI(B_j) \implies \sum_{i=1}^ma_iP(A_i) = \sum_{j=1}^mb_jP(B_j)
+\end{equation}
+
+\corollary[linearity]
+$$E: \mc{S} \overset{linear}{\rightarrow} \real$$ by
+$$ES = \sum_{i=1}^ma_iP(A_i)$$ for any $$S = \sum_{i=1}^m I(A_i)$$
+
+\subsubsection{Classical Random Variables}
+Consider the event $(X \leq x)$ for any $x \in \real$. This is a subset of the original sample space $\Omega$:
+$$(X \leq x) = \{w \in \Omega | X(w) \leq x\} = X^{-1}(-\infty, x]$$
+\definition[classical real-valued random variables]
+The classical real-valued random variables, $X$, wrt to a given distribution, $(\Omega, \mc{F}, P)$, consist in the collection, $\mc{R} = \langle \mc{F} \rangle$ (generated by $\mc{F}$):
+\begin{equation}
+	\mc{R} = \langle \mc{F} \rangle = \{X: \Omega \rightarrow \real | (X \leq x)\in \mc{F} \, \forall x \in \real
+\end{equation}
+
+\proposition[$\mc{R}$ is closed wrt countable maxima and minima]
+For any given sequence $X_n, n \in \mb{N}$ in $\mc{R}$, provided they are real-valued, both $\inf_{n=1}^\infty X_n \in \mc{R}$ and $\sup_{n=1}^\infty X_n \in \mc{R}$
+
+\corollary[$\mc{R}$ is sequentially closed]
+For a given sequence $X_n, n\in \mb{N}$ in $\mc{R}$,
+$$X_n \rightarrow X \implies X \in \mc{R}$$
+
+\proposition[fundamental representation]
+For any $Z \geq 0$ in $\mc{R}$, there are $S_n \geq 0$ in $\mc{S}$ s.t. 
+$$0 \leq S_n \uparrow Z$$
+
+\proposition
+$\mc{R}$ is an algebra (a vector space with multiplication), closed wrt sequential limits and absolute values.
+
+\subsubsection{Expectation Operator}
+\theorem[monotone convergence theorem (MCT)]
+\begin{equation}
+	0 \leq Z_n \uparrow Z \implies 0 \leq EZ_n \uparrow EZ
+\end{equation}
+
+\corollary[dominated convergence theorem (DCT)]
+Assume $X_n, Y \in \mc{R}$,
+\begin{equation}
+	X_n \rightarrow X \, w.\, |X_n| \leq Y, EY < \infty \implies E|X_n - X| \implies 0
+\end{equation}
+
+\property[decomposition]
+$X \in \mc{R}$ can be decomposed into its positive and negative parts:
+$$X^+ = \max(X, 0)$$
+$$X^- = -\min(X, 0)$$
+$$X = X^+ - X^-$$
+\begin{equation}
+	EX = \begin{cases}
+		EX^+ - EX^-, &EX^+ < \infty or EX^- < \infty \\
+		undefined, &EX^+ = EX^-  = \infty
+	\end{cases}
+\end{equation}
+
+\subsection{Recovering the Physics - Kolmogorov Synthesis}
+\theorem[empirical law of large numbers (ELLN)]
+Suppose $X_i, i \in \{1, 2, ..., n\}$ i.i.d. and the sample mean $\overline{X_n} = \frac{X_1 + \hdots + X_n}{n}$
+\begin{equation}
+	EX = \lim_{n\rightarrow\infty} \overline{X_n}
+\end{equation}
+
+\theorem[strong law of large numbers (SLLN)]
+Suppose $X_i, i \in \{1, 2, ..., n\}$ i.i.d. and the sample mean $\overline{X_n} = \frac{X_1 + \hdots + X_n}{n}$
+\begin{equation}
+	P \left( \overline{X_n} \rightarrow EX\right) = 1
+\end{equation}
+
+\section{Geometry of Data}
+\subsection{The Natural Geometry of $\real^n$}
+On $\real^n$ we define three standard geometric devices
+\begin{enumerate}
+	\item \tb{inner product} $\vx \cdot \vy = \vx'\vy = \sum_{i=1}^nx_iy_i$
+	\item \tb{length (norm)} $|\vx| = \sqrt{\vx \cdot \vx}$
+	\item \tb{distance (metric)} $d(\vx, \vy) = |\vy - \vx|$
+\end{enumerate}
+
+\definition[orthogonality]
+For non-zero vectors $\vx$ and $\vy$,
+\begin{equation}
+	\vx \perp \vy \iff |\vy - \vx| = |\vy + \vx| \iff \vx \cdot \vy = 0
+\end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p1}
+\end{figure}
+
+\definition[orthogonal projection]
+The \ti{orthogonal projection} $\hat{\vy}$ of $\vy$ on any non-zero $\vx$ is a scalar multiple of $\vx$ and the \ti{residual vector} $\vy - \hat{\vy}$ is orthogonal to $\vx$:
+\begin{equation}
+	\begin{cases}
+		\hat{\vy} = t\vx \quad \text{for some $t \in \real$} \\
+		\vy - \hat{\vy} \perp \vx
+	\end{cases}
+\end{equation}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p2}
+\end{figure}
+\remark
+As follows.
+\begin{enumerate}
+	\item Then $\vx \cdot (\vy - t\vx) = 0$ and $t = \frac{\vx \cdot \vy}{|\vx|^2}$.
+	\item Let $\theta$ be the angle described by $\vx$ and $\vy$. Then $\cos \theta = sign(\vx \cdot \vy) \frac{|\hat{\vy}|}{|\vy|} = \frac{\vx \cdot \vy}{|\vx||\vy|}$ 
+\end{enumerate}
+
+\property[Pythagorean Theorem]
+\begin{equation}
+	|\vy|^2 = |\hat{\vy} + (\vy - \hat{\vy})|^2 = |\hat{\vy}|^2 + |\vy - \hat{\vy}|^2
+\end{equation}
+
+\property[Cauchy-Schwarz inequalities]
+As follows.
+\begin{enumerate}
+	\item $|\hat{\vy}| \leq |\vy|$ w.eq. iff $\vy = \hat{\vy}$
+	\item $|\vx \cdot \vy| \leq |\vx||\vy|$ w.eq. iff $\vy = t\vx$ for $t \in \real$
+	\item $|\cos \theta(\vx, \vy)| \leq 1$ w.eq. iff $\vy = t\vx$ for $t \in \real$
+\end{enumerate}
+
+\property[Triangle Inequality]
+\begin{equation}
+	|\vx + \vy| \leq |\vx| + |\vy| \quad \text{w.eq. iff $\vy = t\vx$ for $t > 0$}
+\end{equation}
+
+\subsection{The Natural Geometry of Random Variables}
+\definition[L2 space]
+By definition, $L$ is the vector space of real-valued random variables. We move to the particular \blue{sub-space of $L$} where the natural geometry of $\real^n$ has been reinvested in the random variables.
+\begin{equation}
+	L2 = \{X \in L |EX^2 < \infty\}
+\end{equation}
+In L2 we define 
+\begin{enumerate}
+	\item \tb{inner product} $\langle X, Y \rangle = EXY$
+	\item \tb{length (norm)} $\norm{X} = \sqrt{\langle X, X \rangle} = \sqrt{EX^2}$
+	\item \tb{distance (metric)} $d(X, Y) = \norm{Y - X} = \sqrt{E(Y - X)^2}$
+\end{enumerate}
+
+\subsubsection{Markov \& Chebyshev}
+
+\theorem[Markov's Inequality]
+For any $Z \geq 0, t \geq 0$ and non-decreasing $g: [0, \infty) \rightarrow [0, \infty)$, we have
+\begin{equation}
+	P(Z \geq t) \leq \frac{Eg(Z)}{g(t)} \quad \forall t \text{ s.t. } g(t) > 0
+\end{equation}
+\begin{proof}
+\begin{align}
+	g(t)I(Z\geq t) &\leq g(Z) \\
+	g(t)P(Z \geq t) &\leq Eg(Z) \tag{applying $E$ to both sides} \\
+	P(Z \geq t) &\leq \frac{Eg(Z)}{g(t)}
+\end{align}
+\end{proof}
+
+\noindent Consider an arbitrary random variable $X$ in $L2$ with $\mu = EX$ and $\sigma^2 = E(X - \mu)^2$ and let $Z = |X - \mu|$ and $g(t) = \epsilon^2$ to get
+\corollary[Chebyshev I] For any $X \in L_2, \epsilon > 0$, we have
+\begin{equation}
+	P(|X - \mu| \geq \epsilon) \leq \frac{\sigma^2}{\epsilon^2}
+\end{equation}
+Or take $Z = \frac{|X - \mu|}{\sigma}$ and $g(t) = k^2$ to find
+
+\corollary[Chebyshev II]
+For any $X \in L_2, k > 0$, we have
+\begin{equation}
+	P\left( \frac{|X - \mu|}{\sigma} > k \right) \leq \frac{1}{k^2}
+\end{equation}
+
+\corollary[Markov's Equality]
+\begin{equation}
+	E|X| = 0 \iff X \overset{wP1} = 0
+\end{equation}
+
+\subsubsection{The Geometry of $L_2$}
+\definition[orthogonality]
+\begin{equation}
+	X \perp Y \iff \norm{Y - X} = \norm{Y + X} \iff \langle X, Y \rangle = EXY = 0
+\end{equation}
+
+
+\definition[orthogonal projection]
+\begin{equation}
+	\begin{cases}
+		\hat{Y} = tX \quad \text{for some $t \in \real$} \\
+		Y - \hat{Y} \perp X
+	\end{cases}
+\end{equation}
+
+\remark
+\begin{enumerate}
+	\item Then $E(Y - tX) X = 0$ and $t = \frac{EXY}{EX^2}$ provided $EX^2 > 0$.
+	\item $\cos \theta(X,Y) = sign(EXY)\frac{\norm{\hat{Y}}}{\norm{Y}} = \frac{EXY}{\sqrt{EX^2EY^2}}$
+\end{enumerate}
+
+
+\property[Pythagorean Theorem]
+\begin{equation}
+	\norm{Y}^2 = \norm{\hat{Y} + ( Y - \hat{Y})}^2 = \norm{\hat{Y}}^2 + \norm{Y - \hat{Y}}^2
+\end{equation}
+
+\property[Cauchy-Schwarz inequalities]
+As follows.
+\begin{enumerate}
+	\item $\norm{\hat{Y}} \leq \norm{Y}$ w.eq. iff $Y \overset{wP1}{=} \hat{Y}$
+	\item $(EXY)^2 \leq EX^2Y^2$ w.eq. iff $Y \overset{wP1}{=} tX$ for $t \in \real$
+	\item $|\cos \theta(X, Y)| \leq 1$ w.eq. iff $Y = tX$ for $t \in \real$
+\end{enumerate}
+
+\property[Triangle Inequality]
+\begin{equation}
+	\norm{X + Y} \leq \norm{X} + \norm{Y} \quad \text{w.eq. iff $Y \overset{wP1}{=} tX$ for $t > 0$}
+\end{equation}
+
+\subsection{Covariance \& Correlation}
+\definition[centred random variables] We define \ti{centred} version of random variable $X$ as 
+$$\dot{X} = X - EX$$
+The expected value of any centred random variables is zero:
+$$E\dot{X} = 0$$
+\remark
+\begin{itemize}
+	\item Variance is a quadratic operation instead of a linear one
+	\item It is the inner product of the two centred variables:
+	\begin{equation}
+		cov(X, Y) := E\dot{X}\dot{Y} = E(X-EX)(Y-EY)
+	\end{equation}
+\end{itemize}
+
+\definition[correlation coefficient]
+We define the \ti{correlation coefficient} of $X$ and $Y$ to be the \ti{cosine of the angle} between the centred $X$ and $Y$
+\begin{equation}
+	\rho(X, Y):= \cos \theta(\dot{X}, \dot{Y}) = \frac{cov(X, Y)}{\sigma(X)\sigma(Y)}
+\end{equation} 
+
+
+\property[Cauchy-Schwarz inequalities]
+As follows.
+\begin{enumerate}
+	\item $|cov(X, Y)| \leq \sqrt{varXvarY}$ w.eq. iff $Y \overset{wP1}{=} \alpha + \beta X$
+	\item $|\rho(X,Y)| \leq 1$ w.eq. iff $Y \overset{wP1}{=} \alpha + \beta X$ 
+\end{enumerate}
+
+\subsection{Simple Linear Model}
+\proposition Given any two real-valued r.v.s $X$ and $Y$, in $L_2$ there exist unique scalars $\alpha$ and $\beta$ and a unique r.v. $Z$ s.t.
+\begin{equation}
+	Y = \alpha + \beta X + Z \quad \text{w. $EZ = 0 = \rho(Z, X)$}
+\end{equation}
+
+\remark
+We call $Z = Y - \alpha - \beta X$ a \ti{residual} variable.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p3}
+\end{figure}
+
+\corollary
+\begin{equation}
+\norm{Y - \alpha - \beta X} \leq \norm{Y - s - tX} \quad \text{w. eq. iff $s=\alpha, t = \beta$}
+\end{equation}
+
+\property[Pythagorean expression]
+\begin{align}
+	\norm{Y}^2 &= \norm{\alpha + \beta X}^2 + \norm{Z}^2 \\
+	\implies varY &= var(\alpha + \beta X) + varZ \\
+	&= \underbrace{\beta^2varX}_{cov(X,Y) = \beta varX} + varZ \\
+	&= \rho(X, Y)^2 varY + varZ \\
+	\implies \norm{Z}^2 &= varZ = (1 - \rho(X,Y)^2)varY \\
+	\implies \frac{\norm{Y - \alpha - \beta X}}{\norm{Y - EY}} &= \frac{\sigma(Z)}{\sigma(Y)} = \sqrt{1 - \rho(X, Y)^2} \leq 1 \label{important}
+\end{align}
+
+\remark
+(Equation \ref{important}) tells us the ratio of two physical distances: from $Y$ to $\hat{Y} = \alpha + \beta$ and from $Y$ to its own mean value. It will be strictly less than $1$ if $\rho(X, Y)$ is not trivial, which means $\hat{Y}$, a linear transformation of a random variable, can easily do better than a single real value.
+
+\subsection{General Linear Model}
+A \ti{$L_2$ prediction space} is any closed vector subspace $\mc{W} \subseteq L_2$, of r.v.s that contains the constants:
+$$1 \in \mc{W} \overset{closed}{\subseteq} L_2$$ The best predictor of $Y$ in $\mc{W}$ is the unique element $\hat{Y}$ that is closest to $Y$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{p4}
+\end{figure}
+\noindent The \ti{orthogonal complement} of $\mc{W}$ is the vector subspace $\mc{W}^\perp$, of all r.v.s that are orthogonal to everything in $\mc{W}$ itself:
+\begin{equation}
+	\mc{W}^\perp = \{V \in L_2 | EVW = 0 \quad \forall W \in \mc{W}
+\end{equation}
+It is clear that $\mc{W} \cap \mc{W}^\perp = \{0\}$.
+
+\definition[orthogonal projection]
+The \ti{orthogonal projection} of $Y$ on $\mc{W}$, denoted $\hat{Y} = op(Y|\mc{W})$, is the random variable $\hat{Y}$ s.t.
+$$\hat{Y} \in \mc{W} \quad \text{and} \quad Y - \hat{Y} \in \mc{W}^\perp$$
+
+\proposition[orthogonal projection and minimum distance]
+\begin{equation}
+	\hat{Y} = op(Y|\mc{W}) \iff \norm{Y - \hat{Y}} = \inf_{W \in \mc{W}} \norm{Y - W}
+\end{equation}
+
+\proposition[general linear model]
+For any $Y \in L_2$ and $1 \in \mc{W} \subseteq L_2$, there are unique $\hat{Y} \in \mc{W}$ and $Z$ s.t.
+$$Y = \hat{Y} + Z \quad w. \quad EZ = 0 = \rho(Z, W) \quad \forall W \in \mc{W}$$
+
+\proposition[maximum correlated estimator]
+$Y = \hat{Y} + Z$ with $\hat{Y} \in \mc{W}, Z \in \mc{W}^\perp$ iff 
+$$\rho(\hat{Y}, Y) = \sup_{W \in \mc{W}} \rho(W, Y) \quad w. \quad EZ = 0 = \rho(Z, \hat{Y})$$
 
 
 

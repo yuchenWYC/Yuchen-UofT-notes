@@ -1,30 +1,41 @@
 \babel@toc {english}{}
-\contentsline {section}{\numberline {1}Preface}{2}{section.1}% 
-\contentsline {subsection}{\numberline {1.1}Preliminary}{2}{subsection.1.1}% 
-\contentsline {section}{\numberline {2}Virtual Dice}{3}{section.2}% 
-\contentsline {subsection}{\numberline {2.1}The Law of Large Numbers}{3}{subsection.2.1}% 
-\contentsline {subsection}{\numberline {2.2}Some examples: ``virtual dice"}{4}{subsection.2.2}% 
-\contentsline {subsubsection}{\numberline {2.2.1}A higher level of virtuality: `continuous dice' and random `real' numbers}{4}{subsubsection.2.2.1}% 
-\contentsline {subsubsection}{\numberline {2.2.2}Equality-in-distribution}{5}{subsubsection.2.2.2}% 
-\contentsline {subsection}{\numberline {2.3}Nature makes them, so can you}{5}{subsection.2.3}% 
-\contentsline {subsubsection}{\numberline {2.3.1}Exponential distribution}{5}{subsubsection.2.3.1}% 
-\contentsline {subsubsection}{\numberline {2.3.2}Consider the generalization}{6}{subsubsection.2.3.2}% 
-\contentsline {subsection}{\numberline {2.4}Expected Value}{7}{subsection.2.4}% 
-\contentsline {subsubsection}{\numberline {2.4.1}Expected Value for an Arbitrary Finite Discrete Distribution}{8}{subsubsection.2.4.1}% 
-\contentsline {subsubsection}{\numberline {2.4.2}Full generality: lebesgue-stieltjes}{8}{subsubsection.2.4.2}% 
-\contentsline {subsubsection}{\numberline {2.4.3}Examples}{8}{subsubsection.2.4.3}% 
-\contentsline {subsubsection}{\numberline {2.4.4}Expected Value for Continuous Functions}{9}{subsubsection.2.4.4}% 
-\contentsline {subsubsection}{\numberline {2.4.5}Expected Value for $C^1$ functions}{9}{subsubsection.2.4.5}% 
-\contentsline {subsection}{\numberline {2.5}Exponential Distribution}{9}{subsection.2.5}% 
-\contentsline {subsection}{\numberline {2.6}Gamma Distribution}{9}{subsection.2.6}% 
-\contentsline {subsection}{\numberline {2.7}Continuity Revisited}{9}{subsection.2.7}% 
-\contentsline {subsubsection}{\numberline {2.7.1}Sequential Continuity of Probability}{9}{subsubsection.2.7.1}% 
-\contentsline {subsubsection}{\numberline {2.7.2}Right Continuity of Cumulative Distribution Function}{10}{subsubsection.2.7.2}% 
-\contentsline {subsection}{\numberline {2.8}Back to the Uniform}{11}{subsection.2.8}% 
-\contentsline {subsection}{\numberline {2.9}Back to the Uniform II}{12}{subsection.2.9}% 
-\contentsline {subsubsection}{\numberline {2.9.1}Percentiles}{12}{subsubsection.2.9.1}% 
-\contentsline {subsubsection}{\numberline {2.9.2}Medians}{14}{subsubsection.2.9.2}% 
-\contentsline {section}{\numberline {3}Reduction to an Axiomatic System}{14}{section.3}% 
-\contentsline {subsection}{\numberline {3.1}The Kolmogorov Axioms}{14}{subsection.3.1}% 
-\contentsline {subsubsection}{\numberline {3.1.1}Reducing the Reduction}{15}{subsubsection.3.1.1}% 
-\contentsline {subsubsection}{\numberline {3.1.2}Recovering the Expectation Operator}{16}{subsubsection.3.1.2}% 
+\contentsline {section}{\numberline {1}Preface}{3}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}Preliminary}{3}{subsection.1.1}% 
+\contentsline {section}{\numberline {2}Virtual Dice}{4}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}The Law of Large Numbers}{4}{subsection.2.1}% 
+\contentsline {subsection}{\numberline {2.2}Some examples: ``virtual dice"}{5}{subsection.2.2}% 
+\contentsline {subsubsection}{\numberline {2.2.1}A higher level of virtuality: `continuous dice' and random `real' numbers}{5}{subsubsection.2.2.1}% 
+\contentsline {subsubsection}{\numberline {2.2.2}Equality-in-distribution}{6}{subsubsection.2.2.2}% 
+\contentsline {subsection}{\numberline {2.3}Nature makes them, so can you}{6}{subsection.2.3}% 
+\contentsline {subsubsection}{\numberline {2.3.1}Exponential distribution}{6}{subsubsection.2.3.1}% 
+\contentsline {subsubsection}{\numberline {2.3.2}Consider the generalization}{7}{subsubsection.2.3.2}% 
+\contentsline {subsection}{\numberline {2.4}Expected Value}{8}{subsection.2.4}% 
+\contentsline {subsubsection}{\numberline {2.4.1}Expected Value for an Arbitrary Finite Discrete Distribution}{9}{subsubsection.2.4.1}% 
+\contentsline {subsubsection}{\numberline {2.4.2}Full generality: lebesgue-stieltjes}{9}{subsubsection.2.4.2}% 
+\contentsline {subsubsection}{\numberline {2.4.3}Examples}{10}{subsubsection.2.4.3}% 
+\contentsline {subsubsection}{\numberline {2.4.4}Expected Value for Continuous Functions}{10}{subsubsection.2.4.4}% 
+\contentsline {subsubsection}{\numberline {2.4.5}Expected Value for $C^1$ functions}{10}{subsubsection.2.4.5}% 
+\contentsline {subsection}{\numberline {2.5}Exponential Distribution}{10}{subsection.2.5}% 
+\contentsline {subsection}{\numberline {2.6}Gamma Distribution}{10}{subsection.2.6}% 
+\contentsline {subsection}{\numberline {2.7}Continuity Revisited}{11}{subsection.2.7}% 
+\contentsline {subsubsection}{\numberline {2.7.1}Sequential Continuity of Probability}{11}{subsubsection.2.7.1}% 
+\contentsline {subsubsection}{\numberline {2.7.2}Right Continuity of Cumulative Distribution Function}{12}{subsubsection.2.7.2}% 
+\contentsline {subsection}{\numberline {2.8}Back to the Uniform}{13}{subsection.2.8}% 
+\contentsline {subsection}{\numberline {2.9}Back to the Uniform II}{13}{subsection.2.9}% 
+\contentsline {subsubsection}{\numberline {2.9.1}Percentiles}{13}{subsubsection.2.9.1}% 
+\contentsline {subsubsection}{\numberline {2.9.2}Medians}{16}{subsubsection.2.9.2}% 
+\contentsline {section}{\numberline {3}Reduction to an Axiomatic System}{16}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}The Kolmogorov Axioms}{16}{subsection.3.1}% 
+\contentsline {subsubsection}{\numberline {3.1.1}Reducing the Reduction}{17}{subsubsection.3.1.1}% 
+\contentsline {subsubsection}{\numberline {3.1.2}Recovering the Expectation Operator}{18}{subsubsection.3.1.2}% 
+\contentsline {subsubsection}{\numberline {3.1.3}Classical Random Variables}{19}{subsubsection.3.1.3}% 
+\contentsline {subsubsection}{\numberline {3.1.4}Expectation Operator}{19}{subsubsection.3.1.4}% 
+\contentsline {subsection}{\numberline {3.2}Recovering the Physics - Kolmogorov Synthesis}{19}{subsection.3.2}% 
+\contentsline {section}{\numberline {4}Geometry of Data}{20}{section.4}% 
+\contentsline {subsection}{\numberline {4.1}The Natural Geometry of $\mathbb {R}^n$}{20}{subsection.4.1}% 
+\contentsline {subsection}{\numberline {4.2}The Natural Geometry of Random Variables}{21}{subsection.4.2}% 
+\contentsline {subsubsection}{\numberline {4.2.1}Markov \& Chebyshev}{21}{subsubsection.4.2.1}% 
+\contentsline {subsubsection}{\numberline {4.2.2}The Geometry of $L_2$}{22}{subsubsection.4.2.2}% 
+\contentsline {subsection}{\numberline {4.3}Covariance \& Correlation}{22}{subsection.4.3}% 
+\contentsline {subsection}{\numberline {4.4}Simple Linear Model}{23}{subsection.4.4}% 
+\contentsline {subsection}{\numberline {4.5}General Linear Model}{23}{subsection.4.5}% 
