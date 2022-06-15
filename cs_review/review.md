@@ -1,4 +1,222 @@
 # Backend Development Basics Review
+# Python functions
+### Ceiling Function 
+    Math.ceil(p / K) = ((p-1) // K) + 1
+### Sort key-value pairs first by values then keys
+    # my_list: a list of key-value pair tuples
+    for key, value in sorted(my_list, key=lambda x:(x[1], x[0])):
+        res.append(key + " " + value)
+
+### Dictionary functions
+<img style="width:100%; text-align: center;" src="python_dict.png"/>
+
+### bisect (binary search)
+    bisect.bisect_left(a, x, lo=0, hi=len(a))
+
+Locate the insertion point for x in a to maintain sorted order. The parameters lo and hi may be used to specify a subset of the list which should be considered; by default the entire list is used. If x is already present in a, the insertion point will be before (to the left of) any existing entries. The return value is suitable for use as the first parameter to list.insert() assuming that a is already sorted.
+
+The returned insertion point i partitions the array a into two halves so that all(val < x for val in a[lo:i]) for the left side and all(val >= x for val in a[i:hi]) for the right side.
+
+## Special Python functions and values
+### str.split()
+By default, split the str by any white spaces.
+
+### str.strip()
+Remove spaces at the beginning and at the end of the string.
+
+### list.sort()
+Sort the list in-place in ascending order.
+
+### float('-inf') / float('inf')
+
+### list(#a string)
+Split a string into arrays with elements separated as items.
+
+### collections.OrderedDict()
+
+### key in dict
+syntax to check if the dictionary dict contains the key.
+# Algorithms
+## Union-Find (Rank and Path Compression)
+    def find(parent, i):
+      if parent[i] != i:
+        parent[i] = find(parent, parent[i])
+      return parent[i]
+
+    def union(rank, x, y):
+      if rank[x] > rank[y]:
+        parent[y] = x
+      elif rank[y] > rank[x]:
+        parent[x] = y
+      else:
+        parent[y] = x
+        rank[x] += 1
+  
+    parent = [i for i in range(n)]
+    rank = [0] * n
+    for (i, j) in ...:
+        m = find(parent, i)
+        n = find(parent, j)
+        if m != n:
+          union(rank, m, n)
+
+## Binary Search
+    function binary_search(A, n, T) is
+        L := 0
+        R := n − 1
+        while L ≤ R do
+            m := floor((L + R) / 2)
+            if A[m] < T then
+                L := m + 1
+            else if A[m] > T then
+                R := m − 1
+            else:
+                return m
+        return unsuccessful
+## Binary Trees
+#### **In-order traversal**
+    Algorithm Inorder(tree)
+      1. Traverse the left subtree, i.e., call Inorder(left-subtree)
+      2. Visit the root.
+      3. Traverse the right subtree, i.e., call Inorder(right-subtree)
+#### **Pre-order traversal**
+    Algorithm Preorder(tree)
+      1. Visit the root.
+      2. Traverse the left subtree, i.e., call Preorder(left-subtree)
+      3. Traverse the right subtree, i.e., call Preorder(right-subtree) 
+#### **Post-order Traversal**
+    Algorithm Postorder(tree)
+      1. Traverse the left subtree, i.e., call Postorder(left-subtree)
+      2. Traverse the right subtree, i.e., call Postorder(right-subtree)
+      3. Visit the root.
+   
+## Minimum Spanning Trees
+#### **Prim Algorithm** O(ElogV)
+    # Prim's Algorithm in Python
+
+    INF = 9999999
+    # number of vertices in graph
+    N = 5
+    #creating graph by adjacency matrix method
+    G = [[0, 19, 5, 0, 0],
+        [19, 0, 5, 9, 2],
+        [5, 5, 0, 1, 6],
+        [0, 9, 1, 0, 1],
+        [0, 2, 6, 1, 0]]
+
+    selected_node = [0, 0, 0, 0, 0]
+
+    no_edge = 0
+
+    selected_node[0] = True
+
+    # printing for edge and weight
+    print("Edge : Weight\n")
+    while (no_edge < N - 1):
+        
+        minimum = INF
+        a = 0
+        b = 0
+        for m in range(N):
+            if selected_node[m]:
+                for n in range(N):
+                    if ((not selected_node[n]) and G[m][n]):  
+                        # not in selected and there is an edge
+                        if minimum > G[m][n]:
+                            minimum = G[m][n]
+                            a = m
+                            b = n
+        print(str(a) + "-" + str(b) + ":" + str(G[a][b]))
+        selected_node[b] = True
+        no_edge += 1
+
+#### **Kruskal Algorithm** O(V^2)
+Leverages Union-Find
+
+    KRUSKAL(G):
+    A = ∅
+    For each vertex v ∈ G.V:
+        MAKE-SET(v)
+    For each edge (u, v) ∈ G.E ordered by increasing order by weight(u, v):
+        if FIND-SET(u) ≠ FIND-SET(v):       
+        A = A ∪ {(u, v)}
+        UNION(u, v)
+    return A
+
+## Depth-First Search O(V)
+Implemented using a stack.
+class Graph:
+
+    def __init__(self,V): # Constructor
+        self.V = V        # No. of vertices
+        self.adj  = [[] for i in range(V)]  # adjacency lists
+ 
+    def addEdge(self,v, w):     # to add an edge to graph
+        self.adj[v].append(w)    # Add w to v’s list.
+ 
+ 
+    # prints all not yet visited vertices reachable from s
+    def DFS(self,s):            # prints all vertices in DFS manner from a given source.
+                                # Initially mark all verices as not visited
+        visited = [False for i in range(self.V)]
+ 
+        # Create a stack for DFS
+        stack = []
+ 
+        # Push the current source node.
+        stack.append(s)
+ 
+        while (len(stack)):
+            # Pop a vertex from stack and print it
+            s = stack[-1]
+            stack.pop()
+ 
+            # Stack may contain same vertex twice. So
+            # we need to print the popped item only
+            # if it is not visited.
+            if (not visited[s]):
+                print(s,end=' ')
+                visited[s] = True
+ 
+            # Get all adjacent vertices of the popped vertex s
+            # If a adjacent has not been visited, then push it
+            # to the stack.
+            for node in self.adj[s]:
+                if (not visited[node]):
+                    stack.append(node)
+
+### DFS for binary trees (Recursion)
+    def dfs(s: TreeNode, info):
+      if not s:
+        return # or return False
+      # Some operations with s.val
+      dfs(s.left, info)
+      dfs(s.right, info)
+### Notes
+1. Recursion is usually preferred because of cleaner code.
+2. If an algorithm (e.g. topological sort) requires to mark verticies as black (explored), gray (visited) or white (unvisited), then we must write recursion instead of the while loop.
+3. We can pass information from parents to children by leveraging parameters and return values.
+## Breadth-First Search O(V)
+Implemented using a queue.
+
+## Topological Sort O(V+E)
+1. Initialize a new array *arr*.
+2. For each of the unvisited nodes in our graph, we run **DFS**.
+3. Suppose we are visiting node *s*. After recursing on all of *s*'s children, we add *s* to *arr* because all jobs that need *s* as a prerequisite are already in *arr*.
+4. Once all the nodes have been processed, we simply return *arr* in the reversed order.  
+
+## Dynamic Programming
+### Outline
+- Breaking the problem down into simpler subproblems, solve each subproblem just once, and store their solutions.
+- The next time the same subproblem occurs, instead of recomputing its solution, simply look up its previously computed solution.
+- Hopefully, we save a lot of computation at the expense of modest increase in storage space.
+
+## Hash Table
+If let array elements be keys and array indices be values, we can reduce the lookup time from $O(n)$ to $O(1)$ by **trading space for speed**. 
+
+Example: Leetcode #1
+
+
 # Operating Systems
 **x86** iis a family of instruction set architecture initially developed by Intel. 
 ## Virtual Memory
@@ -322,78 +540,3 @@ When declared inside the class, the constructor can be defined ouside the class 
             return 0;
       }
 
-# Data Structures and Algorithms
-## Hash Table
-If let array elements be keys and array indices be values, we can reduce the lookup time from $O(n)$ to $O(1)$ by **trading space for speed**. 
-
-Example: Leetcode #1
-
-## Breath First Search
-- An algorithm for traversing or searching graph data structures.
-- First Discovered - First Explored
-- Time complexity: $O(|V| + |E|)$
-
-      1  BFS(G, root) 
-      2      let Q be a queue
-      3      label root as discovered
-      4      Q.enqueue(root)
-      5      while Q is not empty do
-      6          v := Q.dequeue()
-      7          if v is the goal then
-      8              return v
-      9          for all edges from v to w in G.adjacentEdges(v) do
-      10              if w is not labeled as discovered then
-      11                  label w as discovered
-      12                  Q.enqueue(w)
-
-## Depth First Search
-- An algorithm for traversing or searching graph data structures.
-- Last Discovered - First Explored
-- Time complexity: $O(|V| + |E|)$
-  
-A recursive implementation:
-
-    DFS(G, v)
-        label v as discovered
-        for all directed edges from v to w that are in adjacentEdges(v) do
-            if vertex w is not labeled as discovered then
-                recursively call DFS(G, w)
-
-A non-recursive implementation:
-
-    DFS_iterative(G, v)
-      let S be a stack
-      S.push(v)
-      while S is not empty do
-          v = S.pop()
-          if v is not labeled as discovered then
-              label v as discovered
-              for all edges from v to w in G.adjacentEdges(v) do 
-                  S.push(w)
-  
-## Dynamic Programming
-### Outline
-- Breaking the problem down into simpler subproblems, solve each subproblem just once, and store their solutions.
-- The next time the same subproblem occurs, instead of recomputing its solution, simply look up its previously computed solution.
-- Hopefully, we save a lot of computation at the expense of modest increase in storage space.
-
-
-## Special Python functions and values
-### str.split()
-By default, split the str by any white spaces.
-
-### str.strip()
-Remove spaces at the beginning and at the end of the string.
-
-### list.sort()
-Sort the list in-place in ascending order.
-
-### float('-inf') / float('inf')
-
-### list(#a string)
-Split a string into arrays with elements separated as items.
-
-### collections.OrderedDict()
-
-### key in dict
-syntax to check if the dictionary dict contains the key.
