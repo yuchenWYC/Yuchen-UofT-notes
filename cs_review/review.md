@@ -36,14 +36,18 @@ Split a string into arrays with elements separated as items.
 
 ### key in dict
 syntax to check if the dictionary dict contains the key.
+
+## Python set
+Python set is implemented as a **hash table** with just keys and no values. The key is passed into a hash function, which returns a block address or index. The average time complexity of lookup / insert / delete is O(1).
 # Algorithms
-## Union-Find (Rank and Path Compression)
+## Union-Find (Rank and Path Compression) O(logn)
     def find(parent, i):
       if parent[i] != i:
         parent[i] = find(parent, parent[i])
       return parent[i]
 
     def union(rank, x, y):
+    x, y = find(parent, x), find(parent, y)
       if rank[x] > rank[y]:
         parent[y] = x
       elif rank[y] > rank[x]:
@@ -59,6 +63,9 @@ syntax to check if the dictionary dict contains the key.
         n = find(parent, j)
         if m != n:
           union(rank, m, n)
+- The technique to always attach smaller depth tree under the root of the deeper tree is called **union by rank**. The term rank is preferred instead of height because if path compression technique is used, then rank is not always equal to height. *Also, size (in place of height) of trees can also be used as rank*. Using both metric as rank yields worst case time complexity **O(logn)**.
+
+- The second optimization to naive method is **Path Compression**. The idea is to make the found root as parent of x so that we don’t have to traverse all intermediate nodes again. If x is root of a subtree, then path (to root) from all nodes under x also compresses.
 
 ## Binary Search
     function binary_search(A, n, T) is
@@ -211,14 +218,65 @@ Implemented using a queue.
 - The next time the same subproblem occurs, instead of recomputing its solution, simply look up its previously computed solution.
 - Hopefully, we save a lot of computation at the expense of modest increase in storage space.
 
+### Essential components
+1. DP table (stores the answer to the problem for a given state
+2. Base cases (initialization values of the DP table)
+3. Recurrence relationship
+
 ## Hash Table
 If let array elements be keys and array indices be values, we can reduce the lookup time from $O(n)$ to $O(1)$ by **trading space for speed**. 
 
 Example: Leetcode #1
 
+## QuickSort: $O(nlogn)$ average
+
+
+## QuickSelect: $O(n)$ average
+Typically used to solve the problems "find *k*th something": *k*th smallest, *k*th largest, *k*th most frequent, *k*th less frequent, etc. 
+
+It has $O(N)$ average time complexity and $O(N^2)$ worst-case time complexity.
+
+Note: the *k*th largest element is the same as *N-k*th smallest element.
+
+    class Solution:
+        def findKthLargest(self, nums: List[int], k: int) -> int:
+            def partition(left, right, pivot_index):
+                pivot = nums[pivot_index]
+                # 1. move pivot to end
+                nums[pivot_index], nums[right] = nums[right], nums[pivot_index]
+                # 2. move all smaller elements to the left
+                store_index = left
+                for i in range(left, right):
+                    if nums[i] < nums[right]:
+                        nums[i], nums[store_index] = nums[store_index], nums[i]
+                        store_index += 1
+                    
+                # 3. move pivot to its final place
+                nums[right], nums[store_index] = nums[store_index], nums[right]
+                return store_index
+                
+            def select(left, right, k_smallest):
+                # If the list contains only one element, return that element
+                if left == right:
+                    return nums[left]
+                # select a random index between left and right
+                pivot_index = random.randint(left, right)
+                # find the pivot position in a sorted list
+                pivot_index = partition(left, right, pivot_index)
+                # compare pivot_index with k
+                if k_smallest == pivot_index:
+                    return nums[k_smallest]
+                # go left
+                elif k_smallest < pivot_index:
+                    return select(left, pivot_index - 1, k_smallest)
+                else:
+                    return select(pivot_index + 1, right, k_smallest)
+            # kth largest is (n-k)th smallest
+            return select(0, len(nums) - 1, len(nums) - k)
+
 
 # Operating Systems
-**x86** iis a family of instruction set architecture initially developed by Intel. 
+**x86** is a family of instruction set architecture initially developed by Intel. 
 ## Virtual Memory
 Each process in a multitaskiing OS runs in its own memory sandbox. This is the **virtual address space**, which in case of a 32-bit system is always a **4GB** block of memory addresses. 
 
@@ -270,7 +328,7 @@ The following picture shows a possible split between the OS kernel and the user 
 <img style="width:80%; text-align: center;" src="mem_hierarchy.png"/>
 
 ## Processes and System Calls
-- A process contains all of the state for a program in execution.
+- A process is a running program. A process contains all of the state for a program in execution.
   - An <span style="color:red"> address space </span>
   - The <span style="color:red"> code + data </span> for the executing program
   - An execution <span style="color:red"> stack </span> encapsulating the state of procedure calls
@@ -357,7 +415,7 @@ How do processes communicate?
 - message queues
 
 ### Thread
-A **thread** is a single control flow through a program. A program wth multiple control flows is **multithreaded**.
+A **thread** is a single control flow through a program (a segment of a process). A program wth multiple control flows is **multithreaded**.
 - **Kernel-level threads**: modern OSs have taken the execution aspect of a process and separated it out into a thread abstraction. All thread operations are implemented in the kernel and the OS schedules all of the threads in the system.
 - **User-level threads**: Managed entirely by the run-time system
   - Small and fast: A thread is simply represented by a PC, registers, stack, and small thread control block (TCB).
@@ -369,6 +427,12 @@ A **thread** is a single control flow through a program. A program wth multiple 
 - Processes are safer and more secure (each process has its own address space)
   - A thread crash takes down all other threads
   - A thread's buffer overrun creates security problem for all
+
+#### Multi-processing vs. multi-threading
+- Multi-processing needs more than one CPU; many threads are created of a single process for increasing computing power
+- Both executes simultaneously
+- Process creation is a time-consuming process
+- Every process owned a separate address space; address space shared by all the threads
 
 #### POSIX Threads (pthreads)
 Standardized C language threads programming API.
@@ -428,7 +492,7 @@ Sockets are built on the TCP protocol to communicate between processes on two di
 
 <tt> epoll()</tt> is meant to replace <tt>select()</tt> and <tt> poll()</tt> for a scalable I/O event notification mechanism. It monitors multiple file descriptors to see if I/O is possible on any of them.
 
-##### epoll() vs. select()
+#### epoll() vs. select()
 - We can add and remove file descriptor while waiting.
 - <tt> epoll_wait()</tt> returns only the objects with ready file descriptors.
 - epoll has better performance – O(1) instead of O(n).
