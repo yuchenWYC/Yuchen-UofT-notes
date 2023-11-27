@@ -4,7 +4,7 @@
 
 This collection of notes aimed to help myself learn Math & Stats efficiently. Since one course gives dozens of theorems and corollaries, sorting them into clean notes was usually a good way to include them in the knowledge network in my mind.
 
-**Update Nov 26 2023**: Two years after my graduation from UofT, I am still receiving appreciation towards these notes every month. Thanks everyone for your kind words! I'm glad these notes have been helping many of you through your own journey at UofT 😊. 
+**Update Nov 26 2023**: Two years after my graduation from UofT, I am still receiving appreciation towards these notes every month. Thanks everyone for your kind words! I'm glad these notes have been helping many of you through your own journeys at UofT 😊. 
 
 ### &#x1F58B; Complete Notes
 - &#x1F5DD; [**STA447**](https://yuchenwyc.github.io/Yuchen-UofT-notes/STA447/STA447.pdf) Stochastic Processes (Winter 2020)
