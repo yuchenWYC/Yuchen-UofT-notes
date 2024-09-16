@@ -27,14 +27,18 @@
 
 \newcommand{\expect}[1]{\mathbb{E}({#1})}
 % Attr.
-\title{STA261 Probability and Statistics II \\ Lecture Notes}
-\author{Yuchen Wang}
-\date{\today}
+\title{STA261 Probability and Statistics II Winter 2019\\ Lecture Notes (Archived)}
+\author{\textcolor{blue}{\href{https://www.yuchenwyc.com}{Yuchen Wang}}}
 
 \begin{document}
 	\maketitle
 	\tableofcontents
 	\newpage
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.21]{../ad.png}
+	\caption{Hi there, thanks for reading my notes! I also offer CS grad school admission consulting services. If you are interested, click \textcolor{blue}{\href{https://www.yuchenwyc.com/files/admission_consulting.pdf}{here}} to learn more :)}
+\end{figure}
 \section{Converge in distribution}
 \section{Normal Distribution Theory}
 \paragraph{Theorem: Sum of independent normal random variables}
@@ -42,7 +46,6 @@ Suppose $X_i \sim N(\mu_i, \sigma^2_i)$ for $i = 1, 2,...,n$ and that they are i
 $$Y \sim N((\Sigma_ia_i\mu_i)+b, \Sigma_ia^2_i\sigma^2_i)$$
 \paragraph{Corollary: The distribution of the sample mean of normal random variables} Suppose $X_i \sim N(\mu, \sigma^2)$ for $i=1,2,...,n$ and that they are independent random variables, If $\bar X = (X_1 + ... +X_n)/n$, then $\bar X \sim N(\mu,\sigma^2/n)$
 \paragraph{Theorem: The covariance of sums of normal random variables}Suppose $X_i \sim N(\mu_i, \sigma_i^2)$ for $i=1,2,...,n$ and also that the $\{X_i\} $are independent. Let $U=\Sigma^n_{i=1}a_iX_i$ and $V=\Sigma^n_{i=1}b_iX_i$ for some constants $\{a_1\}$ and $\{b_i\}$. Then $Cov(U,V) = \Sigma_ia_ib_i\sigma^2$. Furthermore, $Cov(U,V) = 0$ if and only if U and V are independent.
-
 \section{Expectation and Covariance}
 \subsection{Expectation -Discrete case}
 \paragraph{Definition of expectation} Let X be a discrete random variable, taking on distince values $x_1,x_2,...$, with $p_i = P(X = x_i)$. Then the \ti{expected value} (or \ti{mean} or \ti{mean value}) of X, written E(X) (or $\mu_x$), is defined by $$E(X) = \Sigma_i x_ip_i$$
