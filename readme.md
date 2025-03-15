@@ -4,8 +4,6 @@
 
 This collection of notes aimed to help myself learn Math & Stats efficiently. It also has helped many other UofT students since launched. Since one course gives dozens of theorems and corollaries, sorting them into organized notes is a great way to integrate knowledge into a network.
 
-**Update Sep 15 2024**: Thanks for reading my notes! I also offer CS grad school admissions consulting services as I succeeded on this path and got offers from top schools like Stanford and CMU myself. If you are interested, click [here](https://www.yuchenwyc.com/files/admission_consulting.pdf) to learn more :)
-
 **Update Nov 26 2023**: Two years after my graduation from UofT, I am still receiving appreciation towards these notes every month. Thanks everyone for your kind words! I'm glad these notes have been helping many of you through your own journeys at UofT 😊. 
 
 ### &#x1F58B; Complete Notes

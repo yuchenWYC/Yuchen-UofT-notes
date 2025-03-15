@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n}{Mesh}\PYG{p}{\PYGZob{}}
-	\PYG{n}{vector3} \PYG{n}{verts}\PYG{p}{[}\PYG{n}{nv}\PYG{p}{]} \PYG{c+c1}{// per\PYGZhy{}vertex data}
-	\PYG{k+kt}{int} \PYG{n}{tInd}\PYG{p}{[}\PYG{n}{nt}\PYG{p}{][}\PYG{l+m+mi}{3}\PYG{p}{];} \PYG{c+c1}{// vertex indices}
-	\PYG{k+kt}{int} \PYG{n}{tNbr}\PYG{p}{[}\PYG{n}{nt}\PYG{p}{][}\PYG{l+m+mi}{3}\PYG{p}{];} \PYG{c+c1}{// indices of neighbor triangles}
-	\PYG{k+kt}{int} \PYG{n}{vTri}\PYG{p}{[}\PYG{n}{nv}\PYG{p}{];} \PYG{c+c1}{// index of any adjacent triangle}
-\PYG{p}{\PYGZcb{}}
-\end{Verbatim}
